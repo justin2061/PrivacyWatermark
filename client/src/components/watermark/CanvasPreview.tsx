@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { Card } from "@/components/ui/card";
 import { Eye } from "lucide-react";
 
@@ -8,6 +9,21 @@ interface CanvasPreviewProps {
 }
 
 export function CanvasPreview({ canvasRef, selectedFile, processedImage }: CanvasPreviewProps) {
+  const [imageDimensions, setImageDimensions] = useState<{width: number, height: number} | null>(null);
+
+  useEffect(() => {
+    if (selectedFile) {
+      const img = new Image();
+      img.onload = () => {
+        setImageDimensions({ width: img.naturalWidth, height: img.naturalHeight });
+        URL.revokeObjectURL(img.src); // Clean up
+      };
+      img.src = URL.createObjectURL(selectedFile);
+    } else {
+      setImageDimensions(null);
+    }
+  }, [selectedFile]);
+
   return (
     <Card className="p-6">
       <div className="flex items-center justify-between mb-4">
@@ -39,6 +55,7 @@ export function CanvasPreview({ canvasRef, selectedFile, processedImage }: Canva
       {selectedFile && (
         <div className="mt-4 flex justify-between text-sm text-gray-500">
           <span>格式: {selectedFile.type.split('/')[1].toUpperCase()}</span>
+          <span>原始尺寸: {imageDimensions ? `${imageDimensions.width}×${imageDimensions.height}` : '載入中...'}</span>
         </div>
       )}
     </Card>
