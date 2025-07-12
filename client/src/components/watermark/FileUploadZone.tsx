@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import React, { useRef } from "react";
 import { Card } from "@/components/ui/card";
 import { Upload, CheckCircle } from "lucide-react";
 
