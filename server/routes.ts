@@ -1,15 +1,12 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
-import { storage } from "./storage";
 
+// Simplified routes file - no API routes needed for the watermark tool
+// Everything runs client-side for privacy and security
 export async function registerRoutes(app: Express): Promise<Server> {
-  // put application routes here
-  // prefix all routes with /api
-
-  // use storage to perform CRUD operations on the storage interface
-  // e.g. storage.insertUser(user) or storage.getUserByUsername(username)
-
+  // No routes needed - this is a client-side only application
+  // All watermark processing happens in the browser
+  
   const httpServer = createServer(app);
-
   return httpServer;
 }
