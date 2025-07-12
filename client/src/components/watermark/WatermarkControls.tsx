@@ -7,7 +7,7 @@ import { Slider } from "@/components/ui/slider";
 export interface WatermarkSettings {
   text: string;
   opacity: number;
-  position: 'center' | 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
+  position: 'top-left' | 'top-center' | 'top-right' | 'center-left' | 'center' | 'center-right' | 'bottom-left' | 'bottom-center' | 'bottom-right';
   fontSize: 'small' | 'medium' | 'large' | 'xlarge';
 }
 
@@ -19,11 +19,15 @@ interface WatermarkControlsProps {
 
 export function WatermarkControls({ settings, onSettingsChange, disabled }: WatermarkControlsProps) {
   const positions = [
-    { value: 'center', label: '中央', icon: '⊕' },
-    { value: 'top-right', label: '右上', icon: '↗' },
-    { value: 'bottom-right', label: '右下', icon: '↘' },
     { value: 'top-left', label: '左上', icon: '↖' },
+    { value: 'top-center', label: '中上', icon: '↑' },
+    { value: 'top-right', label: '右上', icon: '↗' },
+    { value: 'center-left', label: '左中', icon: '←' },
+    { value: 'center', label: '中央', icon: '⊕' },
+    { value: 'center-right', label: '右中', icon: '→' },
     { value: 'bottom-left', label: '左下', icon: '↙' },
+    { value: 'bottom-center', label: '中下', icon: '↓' },
+    { value: 'bottom-right', label: '右下', icon: '↘' },
   ];
 
   return (

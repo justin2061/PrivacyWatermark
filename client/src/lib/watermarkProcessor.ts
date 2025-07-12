@@ -65,7 +65,8 @@ export class WatermarkProcessor {
       settings.position, 
       img.naturalWidth, 
       img.naturalHeight,
-      fontSize
+      processingCtx,
+      settings.text
     );
 
     // Draw watermark text
@@ -113,7 +114,8 @@ export class WatermarkProcessor {
       settings.position, 
       canvas.width, 
       canvas.height,
-      fontSize
+      ctx,
+      settings.text
     );
 
     // Draw watermark text
@@ -142,23 +144,84 @@ export class WatermarkProcessor {
     position: WatermarkSettings['position'],
     width: number,
     height: number,
-    fontSize: number
+    ctx: CanvasRenderingContext2D,
+    text: string
   ): { x: number; y: number } {
-    const margin = fontSize;
-    
+    const textMetrics = ctx.measureText(text);
+    const textWidth = textMetrics.width;
+    const textHeight = textMetrics.actualBoundingBoxAscent + textMetrics.actualBoundingBoxDescent;
+    const margin = 10; // 10px margin for edges
+
+    let x = 0;
+    let y = 0;
+
+    // Horizontal alignment
     switch (position) {
-      case 'center':
-        return { x: width / 2, y: height / 2 };
       case 'top-left':
-        return { x: margin, y: margin };
-      case 'top-right':
-        return { x: width - margin, y: margin };
+      case 'center-left':
       case 'bottom-left':
-        return { x: margin, y: height - margin };
+        ctx.textAlign = 'left';
+        x = margin;
+        break;
+      case 'top-center':
+      case 'center':
+      case 'bottom-center':
+        ctx.textAlign = 'center';
+        x = width / 2;
+        break;
+      case 'top-right':
+      case 'center-right':
       case 'bottom-right':
-        return { x: width - margin, y: height - margin };
-      default:
-        return { x: width / 2, y: height / 2 };
+        ctx.textAlign = 'right';
+        x = width - margin;
+        break;
     }
+
+    // Vertical alignment
+    switch (position) {
+      case 'top-left':
+      case 'top-center':
+      case 'top-right':
+        ctx.textBaseline = 'top';
+        y = margin;
+        break;
+      case 'center-left':
+      case 'center':
+      case 'center-right':
+        ctx.textBaseline = 'middle';
+        y = height / 2;
+        break;
+      case 'bottom-left':
+      case 'bottom-center':
+      case 'bottom-right':
+        ctx.textBaseline = 'bottom';
+        y = height - margin;
+        break;
+    }
+
+    // Boundary checks to prevent text from going outside the canvas
+    if (ctx.textAlign === 'left' && x + textWidth > width) {
+      x = width - textWidth - margin;
+    }
+    if (ctx.textAlign === 'right' && x - textWidth < 0) {
+      x = textWidth + margin;
+    }
+    if (ctx.textAlign === 'center') {
+      if (x - textWidth / 2 < 0) x = textWidth / 2 + margin;
+      if (x + textWidth / 2 > width) x = width - textWidth / 2 - margin;
+    }
+
+    if (ctx.textBaseline === 'top' && y + textHeight > height) {
+      y = height - textHeight - margin;
+    }
+    if (ctx.textBaseline === 'bottom' && y - textHeight < 0) {
+      y = textHeight + margin;
+    }
+    if (ctx.textBaseline === 'middle') {
+      if (y - textHeight / 2 < 0) y = textHeight / 2 + margin;
+      if (y + textHeight / 2 > height) y = height - textHeight / 2 - margin;
+    }
+
+    return { x, y };
   }
 }
