@@ -2,7 +2,7 @@ User-agent: *
 Allow: /
 
 # Sitemap
-Sitemap: https://watermark-tool.replit.app/sitemap.xml
+Sitemap: https://imagemarker.app/sitemap.xml
 
 # SEO optimized for watermark tool
 Allow: /manifest.json
