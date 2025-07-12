@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Card } from "@/components/ui/card";
+import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
 import { FileUploadZone } from "@/components/watermark/FileUploadZone";
 import { WatermarkControls } from "@/components/watermark/WatermarkControls";
 import { CanvasPreview } from "@/components/watermark/CanvasPreview";
@@ -39,7 +40,19 @@ export default function WatermarkPage() {
             </div>
             <div className="flex items-center space-x-2">
               <Shield className="text-green-600 w-4 h-4" aria-hidden="true" />
-              <span className="text-sm text-gray-600">100% 本地處理</span>
+              <HoverCard>
+                <HoverCardTrigger asChild>
+                  <span className="text-sm text-gray-600 cursor-help">100% 本地處理</span>
+                </HoverCardTrigger>
+                <HoverCardContent className="w-80">
+                  <div className="space-y-2">
+                    <h4 className="text-sm font-semibold">本地端處理說明</h4>
+                    <p className="text-sm text-gray-600">
+                      所有圖片處理（如浮水印的應用）完全在用戶的瀏覽器中進行，不需要將圖片上傳到伺服器。這樣可以保護用戶的隱私，確保敏感文件不會外洩。
+                    </p>
+                  </div>
+                </HoverCardContent>
+              </HoverCard>
             </div>
           </div>
         </div>
