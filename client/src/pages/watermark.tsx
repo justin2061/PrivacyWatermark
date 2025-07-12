@@ -30,7 +30,7 @@ export default function WatermarkPage() {
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center space-x-3">
               <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-                <span className="text-white text-lg">📷</span>
+                <span className="text-white text-lg" role="img" aria-label="相機圖示">📷</span>
               </div>
               <div>
                 <h1 className="text-xl font-semibold text-gray-900">證件浮水印工具</h1>
@@ -38,7 +38,7 @@ export default function WatermarkPage() {
               </div>
             </div>
             <div className="flex items-center space-x-2">
-              <Shield className="text-green-600 w-4 h-4" />
+              <Shield className="text-green-600 w-4 h-4" aria-hidden="true" />
               <span className="text-sm text-gray-600">100% 本地處理</span>
             </div>
           </div>
@@ -124,41 +124,44 @@ export default function WatermarkPage() {
         </div>
 
         {/* Features Section */}
-        <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6">
-          <Card className="p-6 text-center">
-            <Lock className="text-primary text-3xl mb-3 mx-auto w-8 h-8" />
-            <h3 className="font-semibold text-gray-900 mb-2">隱私安全</h3>
-            <p className="text-sm text-gray-600">圖片完全在本地處理，不會上傳到伺服器</p>
-          </Card>
-          
-          <Card className="p-6 text-center">
-            <span className="text-primary text-3xl mb-3 block">⚡</span>
-            <h3 className="font-semibold text-gray-900 mb-2">離線可用</h3>
-            <p className="text-sm text-gray-600">支援 PWA，可安裝到桌面離線使用</p>
-          </Card>
-          
-          <Card className="p-6 text-center">
-            <Zap className="text-primary text-3xl mb-3 mx-auto w-8 h-8" />
-            <h3 className="font-semibold text-gray-900 mb-2">快速處理</h3>
-            <p className="text-sm text-gray-600">即時預覽，一鍵下載，流暢的使用體驗</p>
-          </Card>
-        </div>
+        <section className="mt-12" aria-labelledby="features-heading">
+          <h2 id="features-heading" className="sr-only">產品特色</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <Card className="p-6 text-center">
+              <Lock className="text-primary text-3xl mb-3 mx-auto w-8 h-8" aria-hidden="true" />
+              <h3 className="font-semibold text-gray-900 mb-2">隱私安全</h3>
+              <p className="text-sm text-gray-600">圖片完全在本地處理，不會上傳到伺服器，保護您的敏感資料</p>
+            </Card>
+            
+            <Card className="p-6 text-center">
+              <span className="text-primary text-3xl mb-3 block" role="img" aria-label="閃電圖示">⚡</span>
+              <h3 className="font-semibold text-gray-900 mb-2">離線可用</h3>
+              <p className="text-sm text-gray-600">支援 PWA 漸進式網頁應用，可安裝到桌面離線使用</p>
+            </Card>
+            
+            <Card className="p-6 text-center">
+              <Zap className="text-primary text-3xl mb-3 mx-auto w-8 h-8" aria-hidden="true" />
+              <h3 className="font-semibold text-gray-900 mb-2">快速處理</h3>
+              <p className="text-sm text-gray-600">即時預覽浮水印效果，一鍵下載，流暢的使用體驗</p>
+            </Card>
+          </div>
+        </section>
       </main>
 
       {/* Footer */}
-      <footer className="bg-white border-t border-gray-200 mt-16">
+      <footer className="bg-white border-t border-gray-200 mt-16" role="contentinfo">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="mb-4 md:mb-0">
-              <p className="text-sm text-gray-600">© 2024 證件浮水印工具 - 保護您的隱私安全</p>
+              <p className="text-sm text-gray-600">© 2025 證件浮水印工具 - 保護您的隱私安全</p>
             </div>
             <div className="flex items-center space-x-4">
               <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                <span className="mr-1">✅</span>
+                <span className="mr-1" role="img" aria-label="勾選">✅</span>
                 開源軟體
               </span>
               <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
-                <span className="mr-1">🌐</span>
+                <span className="mr-1" role="img" aria-label="地球">🌐</span>
                 PWA 支援
               </span>
             </div>

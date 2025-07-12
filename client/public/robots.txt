@@ -1,0 +1,20 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://watermark-tool.replit.app/sitemap.xml
+
+# SEO optimized for watermark tool
+Allow: /manifest.json
+Allow: /sw.js
+Allow: /*.css
+Allow: /*.js
+Allow: /*.png
+Allow: /*.jpg
+Allow: /*.svg
+
+# Disallow development files
+Disallow: /src/
+Disallow: /server/
+Disallow: /.git/
+Disallow: /node_modules/

@@ -1,7 +1,7 @@
 {
-  "name": "證件浮水印工具",
+  "name": "證件浮水印工具 - 免費線上圖片浮水印製作器",
   "short_name": "浮水印工具",
-  "description": "完全在瀏覽器端執行的圖片加浮水印工具，專為證件、機密文件設計。支援離線使用，保護您的隱私安全。",
+  "description": "完全免費的線上圖片浮水印工具，專為證件、身分證、護照等機密文件設計。100%本地端處理，不上傳檔案，支援離線使用PWA，保護您的隱私安全。",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",
@@ -19,5 +19,30 @@
       "type": "image/svg+xml"
     }
   ],
-  "categories": ["productivity", "utilities", "graphics"]
+  "categories": ["productivity", "utilities", "graphics"],
+  "screenshots": [
+    {
+      "src": "/screenshot-wide.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "證件浮水印工具主介面"
+    },
+    {
+      "src": "/screenshot-narrow.png", 
+      "sizes": "640x1136",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "手機版浮水印工具"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "新增浮水印",
+      "short_name": "新增",
+      "description": "直接開始新增浮水印到圖片",
+      "url": "/",
+      "icons": [{ "src": "/shortcut-icon.png", "sizes": "96x96" }]
+    }
+  ]
 }

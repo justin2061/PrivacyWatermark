@@ -46,8 +46,17 @@ export function FileUploadZone({ selectedFile, onFileSelect }: FileUploadZonePro
         onDragOver={handleDragOver}
         className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-primary hover:bg-blue-50 transition-colors cursor-pointer"
         onClick={() => fileInputRef.current?.click()}
+        role="button"
+        tabIndex={0}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            fileInputRef.current?.click();
+          }
+        }}
+        aria-label="上傳圖片區域，點擊或拖放檔案到此處"
       >
-        <Upload className="text-gray-400 text-4xl mb-4 mx-auto w-12 h-12" />
+        <Upload className="text-gray-400 text-4xl mb-4 mx-auto w-12 h-12" aria-hidden="true" />
         <p className="text-gray-600 mb-2">將圖片拖放到此處，或點擊選擇檔案</p>
         <p className="text-sm text-gray-500 mb-4">支援 JPG、PNG 格式，最大 10MB</p>
         <button className="bg-primary text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
@@ -61,6 +70,7 @@ export function FileUploadZone({ selectedFile, onFileSelect }: FileUploadZonePro
         accept="image/jpeg,image/png"
         onChange={handleFileChange}
         className="hidden"
+        aria-label="選擇圖片檔案"
       />
       
       {/* File Info */}
@@ -68,7 +78,7 @@ export function FileUploadZone({ selectedFile, onFileSelect }: FileUploadZonePro
         <div className="mt-4 p-3 bg-gray-50 rounded-lg">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2">
-              <CheckCircle className="text-green-600 w-5 h-5" />
+              <CheckCircle className="text-green-600 w-5 h-5" aria-hidden="true" />
               <span className="text-sm font-medium">{selectedFile.name}</span>
             </div>
             <span className="text-xs text-gray-500">{formatFileSize(selectedFile.size)}</span>

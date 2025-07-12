@@ -3,18 +3,89 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
-    <title>證件浮水印工具 - 安全的本地端圖片處理</title>
+    
+    <!-- Primary Meta Tags -->
+    <title>證件浮水印工具 - 免費線上圖片浮水印製作器，保護隱私安全</title>
+    <meta name="title" content="證件浮水印工具 - 免費線上圖片浮水印製作器，保護隱私安全">
+    <meta name="description" content="完全免費的線上圖片浮水印工具，專為證件、身分證、護照等機密文件設計。100%本地端處理，不上傳檔案，支援離線使用PWA，保護您的隱私安全。支援JPG、PNG格式，可調整透明度、位置、字體大小。">
+    <meta name="keywords" content="浮水印工具,圖片浮水印,證件浮水印,身分證浮水印,護照浮水印,線上浮水印,免費浮水印,隱私保護,本地處理,PWA,離線工具,圖片編輯,文件保護">
+    <meta name="author" content="證件浮水印工具">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://watermark-tool.replit.app/">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://watermark-tool.replit.app/">
+    <meta property="og:title" content="證件浮水印工具 - 免費線上圖片浮水印製作器">
+    <meta property="og:description" content="完全免費的線上圖片浮水印工具，專為證件、身分證、護照等機密文件設計。100%本地端處理，不上傳檔案，保護隱私安全。">
+    <meta property="og:image" content="https://watermark-tool.replit.app/og-image.png">
+    <meta property="og:site_name" content="證件浮水印工具">
+    <meta property="og:locale" content="zh_TW">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://watermark-tool.replit.app/">
+    <meta property="twitter:title" content="證件浮水印工具 - 免費線上圖片浮水印製作器">
+    <meta property="twitter:description" content="完全免費的線上圖片浮水印工具，專為證件、身分證、護照等機密文件設計。100%本地端處理，不上傳檔案，保護隱私安全。">
+    <meta property="twitter:image" content="https://watermark-tool.replit.app/og-image.png">
+    
+    <!-- Additional SEO Meta Tags -->
+    <meta name="application-name" content="證件浮水印工具">
+    <meta name="apple-mobile-web-app-title" content="浮水印工具">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="mobile-web-app-capable" content="yes">
     
     <!-- PWA Meta Tags -->
-    <meta name="description" content="完全在瀏覽器端執行的圖片加浮水印工具，專為證件、機密文件設計。支援離線使用，保護您的隱私安全。">
     <meta name="theme-color" content="#1976d2">
     <link rel="manifest" href="/manifest.json">
     
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iNCIgZmlsbD0iIzE5NzZkMiIvPgo8cGF0aCBkPSJNOCAxMmg0djhoLTR2LTh6bTYgMGg0djhoLTR2LTh6bTYgMGg0djhoLTR2LTh6IiBmaWxsPSJ3aGl0ZSIgZmlsbC1vcGFjaXR5PSIwLjciLz4KPC9zdmc+">
+    <link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgwIiBoZWlnaHQ9IjE4MCIgdmlld0JveD0iMCAwIDE4MCAxODAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxODAiIGhlaWdodD0iMTgwIiByeD0iMjAiIGZpbGw9IiMxOTc2ZDIiLz4KPHN2ZyB4PSI0NSIgeT0iNDUiIHdpZHRoPSI5MCIgaGVpZ2h0PSI5MCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIj4KPHN2ZyB3aWR0aD0iOTAiIGhlaWdodD0iOTAiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSI+CjxwYXRoIGQ9Ik04IDRoOHYxNkg4eiIgZmlsbD0id2hpdGUiIGZpbGwtb3BhY2l0eT0iMC4zIi8+CjxwYXRoIGQ9Ik00IDhoMTZ2OEg0eiIgZmlsbD0id2hpdGUiIGZpbGwtb3BhY2l0eT0iMC41Ii8+CjxwYXRoIGQ9Ik0yIDEyaDIwdjRoLTIweiIgZmlsbD0id2hpdGUiIGZpbGwtb3BhY2l0eT0iMC44Ii8+Cjwvc3ZnPgo8L3N2Zz4KPC9zdmc+">
+    
+    <!-- Preconnect for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "證件浮水印工具",
+      "alternateName": "浮水印工具",
+      "description": "完全免費的線上圖片浮水印工具，專為證件、身分證、護照等機密文件設計。100%本地端處理，不上傳檔案，保護隱私安全。",
+      "url": "https://watermark-tool.replit.app/",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "Web Browser",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "featureList": [
+        "本地端圖片處理",
+        "支援JPG、PNG格式",
+        "可調整浮水印透明度",
+        "多種位置選擇",
+        "離線PWA支援",
+        "隱私保護"
+      ],
+      "screenshot": "https://watermark-tool.replit.app/screenshot.png",
+      "author": {
+        "@type": "Organization",
+        "name": "證件浮水印工具"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "證件浮水印工具"
+      }
+    }
+    </script>
   </head>
   <body>
     <div id="root"></div>
