@@ -54,7 +54,7 @@ export default function WatermarkPage() {
             <div>
               <h2 className="font-medium text-blue-900 mb-1">隱私安全保護</h2>
               <p className="text-sm text-blue-800">
-                您的圖片完全在瀏覽器中處理，不會上傳到任何伺服器。適合處理證件、機密文件等敏感資料。
+                您的圖片完全在瀏覽器中處理，不會上傳到任何伺服器。適合處理身分證、護照、駕照、健保卡等各類證件影本及機密文件。無論是租屋、求職、辦理業務時需要提供證件影本，都建議先加上浮水印保護個資安全。
               </p>
             </div>
           </div>
@@ -133,7 +133,7 @@ export default function WatermarkPage() {
             <Card className="p-6 text-center">
               <Lock className="text-primary text-3xl mb-3 mx-auto w-8 h-8" aria-hidden="true" />
               <h3 className="font-semibold text-gray-900 mb-2">隱私安全</h3>
-              <p className="text-sm text-gray-600">圖片完全在本地處理，不會上傳到伺服器，保護您的敏感資料</p>
+              <p className="text-sm text-gray-600">圖片完全在本地處理，不會上傳到伺服器，保護身分證、護照、駕照等證件影本的個資安全</p>
             </Card>
             
             <Card className="p-6 text-center">
