@@ -5,11 +5,15 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import WatermarkPage from "@/pages/watermark";
 import NotFound from "@/pages/not-found";
+import BlogIndex from "@/pages/blog/index";
+import RentIdWatermark from "@/pages/blog/rent-id-watermark";
 
 function Router() {
   return (
     <Switch>
       <Route path="/" component={WatermarkPage} />
+      <Route path="/blog" component={BlogIndex} />
+      <Route path="/blog/rent-id-watermark" component={RentIdWatermark} />
       <Route component={NotFound} />
     </Switch>
   );
