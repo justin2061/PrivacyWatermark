@@ -34,7 +34,7 @@ export default function WatermarkPage() {
               </div>
               <div>
                 <h1 className="text-xl font-semibold text-gray-900">證件浮水印工具</h1>
-                <p className="text-xs text-gray-500">安全的本地端圖片處理</p>
+                <p className="text-xs text-gray-600">安全的本地端圖片處理</p>
               </div>
             </div>
             <div className="flex items-center space-x-2">
@@ -52,7 +52,7 @@ export default function WatermarkPage() {
           <div className="flex items-start space-x-3">
             <Shield className="text-primary mt-0.5 w-5 h-5" />
             <div>
-              <h3 className="font-medium text-blue-900 mb-1">隱私安全保護</h3>
+              <h2 className="font-medium text-blue-900 mb-1">隱私安全保護</h2>
               <p className="text-sm text-blue-800">
                 您的圖片完全在瀏覽器中處理，不會上傳到任何伺服器。適合處理證件、機密文件等敏感資料。
               </p>
@@ -80,27 +80,30 @@ export default function WatermarkPage() {
                 <button
                   onClick={applyWatermark}
                   disabled={!selectedFile || isProcessing}
+                  aria-label={isProcessing ? "處理中，請稍候" : "套用浮水印"}
                   className="w-full bg-primary text-white py-3 px-4 rounded-lg hover:bg-blue-700 transition-colors font-medium disabled:bg-gray-400 disabled:cursor-not-allowed flex items-center justify-center"
                 >
-                  <span className="mr-2">🖌️</span>
+                  <span className="mr-2" aria-hidden="true">🖌️</span>
                   {isProcessing ? "處理中..." : "套用浮水印"}
                 </button>
-                
+
                 <button
                   onClick={downloadImage}
                   disabled={!processedImage}
+                  aria-label="下載處理後的圖片"
                   className="w-full bg-green-600 text-white py-3 px-4 rounded-lg hover:bg-green-700 transition-colors font-medium disabled:bg-gray-400 disabled:cursor-not-allowed flex items-center justify-center"
                 >
-                  <span className="mr-2">📥</span>
+                  <span className="mr-2" aria-hidden="true">📥</span>
                   下載圖片
                 </button>
-                
+
                 <button
                   onClick={resetCanvas}
                   disabled={!selectedFile}
+                  aria-label="重新開始，清除目前的圖片"
                   className="w-full bg-gray-500 text-white py-2 px-4 rounded-lg hover:bg-gray-600 transition-colors disabled:bg-gray-300 disabled:cursor-not-allowed flex items-center justify-center"
                 >
-                  <span className="mr-2">🔄</span>
+                  <span className="mr-2" aria-hidden="true">🔄</span>
                   重新開始
                 </button>
               </div>

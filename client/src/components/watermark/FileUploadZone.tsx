@@ -58,8 +58,11 @@ export function FileUploadZone({ selectedFile, onFileSelect }: FileUploadZonePro
       >
         <Upload className="text-gray-400 text-4xl mb-4 mx-auto w-12 h-12" aria-hidden="true" />
         <p className="text-gray-600 mb-2">將圖片拖放到此處，或點擊選擇檔案</p>
-        <p className="text-sm text-gray-500 mb-4">支援 JPG、PNG 格式，最大 10MB</p>
-        <button className="bg-primary text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
+        <p className="text-sm text-gray-600 mb-4">支援 JPG、PNG 格式，最大 10MB</p>
+        <button
+          aria-label="選擇圖片檔案"
+          className="bg-primary text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+        >
           選擇檔案
         </button>
       </div>
@@ -81,7 +84,7 @@ export function FileUploadZone({ selectedFile, onFileSelect }: FileUploadZonePro
               <CheckCircle className="text-green-600 w-5 h-5" aria-hidden="true" />
               <span className="text-sm font-medium">{selectedFile.name}</span>
             </div>
-            <span className="text-xs text-gray-500">{formatFileSize(selectedFile.size)}</span>
+            <span className="text-xs text-gray-600">{formatFileSize(selectedFile.size)}</span>
           </div>
         </div>
       )}
