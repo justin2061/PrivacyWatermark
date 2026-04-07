@@ -1,11 +1,12 @@
 import { useState } from "react";
+import { Link } from "wouter";
 import { Card } from "@/components/ui/card";
 import { FileUploadZone } from "@/components/watermark/FileUploadZone";
 import { WatermarkControls } from "@/components/watermark/WatermarkControls";
 import { CanvasPreview } from "@/components/watermark/CanvasPreview";
 import { ProcessingStatus } from "@/components/watermark/ProcessingStatus";
 import { useWatermark } from "@/hooks/useWatermark";
-import { Shield, Lock, Zap } from "lucide-react";
+import { Shield, Lock, Zap, BookOpen } from "lucide-react";
 
 export default function WatermarkPage() {
   const {
@@ -37,9 +38,18 @@ export default function WatermarkPage() {
                 <p className="text-xs text-gray-500">安全的本地端圖片處理</p>
               </div>
             </div>
-            <div className="flex items-center space-x-2">
-              <Shield className="text-green-600 w-4 h-4" aria-hidden="true" />
-              <span className="text-sm text-gray-600">100% 本地處理</span>
+            <div className="flex items-center space-x-4">
+              <Link
+                href="/blog"
+                className="flex items-center space-x-1.5 text-sm text-gray-600 hover:text-primary transition-colors"
+              >
+                <BookOpen className="w-4 h-4" aria-hidden="true" />
+                <span>使用教學與文章</span>
+              </Link>
+              <div className="flex items-center space-x-2">
+                <Shield className="text-green-600 w-4 h-4" aria-hidden="true" />
+                <span className="text-sm text-gray-600">100% 本地處理</span>
+              </div>
             </div>
           </div>
         </div>
@@ -63,17 +73,17 @@ export default function WatermarkPage() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Left Panel - Controls */}
           <div className="space-y-6">
-            <FileUploadZone 
+            <FileUploadZone
               selectedFile={selectedFile}
               onFileSelect={handleFileSelect}
             />
-            
+
             <WatermarkControls
               settings={watermarkSettings}
               onSettingsChange={updateWatermarkSettings}
               disabled={!selectedFile}
             />
-            
+
             {/* Action Buttons */}
             <Card className="p-6">
               <div className="space-y-3">
@@ -85,7 +95,7 @@ export default function WatermarkPage() {
                   <span className="mr-2">🖌️</span>
                   {isProcessing ? "處理中..." : "套用浮水印"}
                 </button>
-                
+
                 <button
                   onClick={downloadImage}
                   disabled={!processedImage}
@@ -94,7 +104,7 @@ export default function WatermarkPage() {
                   <span className="mr-2">📥</span>
                   下載圖片
                 </button>
-                
+
                 <button
                   onClick={resetCanvas}
                   disabled={!selectedFile}
@@ -114,7 +124,7 @@ export default function WatermarkPage() {
               selectedFile={selectedFile}
               processedImage={processedImage}
             />
-            
+
             <ProcessingStatus
               selectedFile={selectedFile}
               processedImage={processedImage}
@@ -132,17 +142,53 @@ export default function WatermarkPage() {
               <h3 className="font-semibold text-gray-900 mb-2">隱私安全</h3>
               <p className="text-sm text-gray-600">圖片完全在本地處理，不會上傳到伺服器，保護您的敏感資料</p>
             </Card>
-            
+
             <Card className="p-6 text-center">
               <span className="text-primary text-3xl mb-3 block" role="img" aria-label="閃電圖示">⚡</span>
               <h3 className="font-semibold text-gray-900 mb-2">離線可用</h3>
               <p className="text-sm text-gray-600">支援 PWA 漸進式網頁應用，可安裝到桌面離線使用</p>
             </Card>
-            
+
             <Card className="p-6 text-center">
               <Zap className="text-primary text-3xl mb-3 mx-auto w-8 h-8" aria-hidden="true" />
               <h3 className="font-semibold text-gray-900 mb-2">快速處理</h3>
               <p className="text-sm text-gray-600">即時預覽浮水印效果，一鍵下載，流暢的使用體驗</p>
+            </Card>
+          </div>
+        </section>
+
+        {/* 延伸閱讀 */}
+        <section className="mt-12" aria-labelledby="further-reading-heading">
+          <h2 id="further-reading-heading" className="text-xl font-semibold text-gray-900 mb-6">延伸閱讀</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <Card className="p-5 hover:shadow-md transition-shadow">
+              <h3 className="font-semibold text-gray-900 mb-2">
+                租屋交證件影本前必做！3 步驟幫身分證加浮水印
+              </h3>
+              <p className="text-sm text-gray-600 mb-4">
+                教你如何用 ImageMarker 三步驟完成身分證浮水印，有效保護個資、防止證件影本被冒用。
+              </p>
+              <Link
+                href="/blog/rent-id-watermark"
+                className="inline-block text-sm text-primary font-medium hover:underline"
+              >
+                閱讀全文 →
+              </Link>
+            </Card>
+
+            <Card className="p-5 hover:shadow-md transition-shadow">
+              <h3 className="font-semibold text-gray-900 mb-2">
+                5 款免費線上浮水印產生器推薦｜2026 年最新比較
+              </h3>
+              <p className="text-sm text-gray-600 mb-4">
+                精選 5 款最好用的免費浮水印工具，比較本地處理 vs 雲端上傳、隱私安全與功能優缺點。
+              </p>
+              <Link
+                href="/blog/watermark-generators-recommendation"
+                className="inline-block text-sm text-primary font-medium hover:underline"
+              >
+                閱讀全文 →
+              </Link>
             </Card>
           </div>
         </section>
