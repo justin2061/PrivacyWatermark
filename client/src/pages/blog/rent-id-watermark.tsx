@@ -170,6 +170,26 @@ export default function RentIdWatermark() {
             </p>
           </div>
         </article>
+
+        {/* 相關文章 */}
+        <section className="mt-12 border-t pt-8">
+          <h2 className="text-xl font-semibold mb-4">相關文章</h2>
+          <div className="space-y-4">
+            <Link href="/blog/watermark-generators-recommendation">
+              <article className="block border rounded-xl p-5 hover:border-primary hover:shadow-sm transition-all cursor-pointer">
+                <h3 className="font-medium mb-1">
+                  5 款免費線上浮水印產生器推薦｜2026 年最新比較
+                </h3>
+                <p className="text-sm text-muted-foreground">
+                  精選 5 款最好用的免費浮水印工具，完整比較本地處理 vs 雲端上傳、隱私安全與功能優缺點。
+                </p>
+                <span className="inline-block mt-3 text-sm text-primary font-medium">
+                  閱讀全文 →
+                </span>
+              </article>
+            </Link>
+          </div>
+        </section>
       </main>
     </div>
   );

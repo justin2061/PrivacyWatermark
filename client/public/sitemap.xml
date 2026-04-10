@@ -10,7 +10,7 @@
   </url>
   <url>
     <loc>https://imagemarker.app/blog/</loc>
-    <lastmod>2026-04-06</lastmod>
+    <lastmod>2026-04-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="zh-tw" href="https://imagemarker.app/blog/" />
@@ -23,5 +23,13 @@
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="zh-tw" href="https://imagemarker.app/blog/rent-id-watermark" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://imagemarker.app/blog/rent-id-watermark" />
+  </url>
+  <url>
+    <loc>https://imagemarker.app/blog/watermark-generators-recommendation</loc>
+    <lastmod>2026-04-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="zh-tw" href="https://imagemarker.app/blog/watermark-generators-recommendation" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://imagemarker.app/blog/watermark-generators-recommendation" />
   </url>
 </urlset>

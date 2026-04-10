@@ -9,6 +9,13 @@ const articles = [
     summary:
       "每次提供身分證影本前，花不到一分鐘加上浮水印，大幅降低個資被冒用的風險。了解浮水印要寫什麼、怎麼寫，以及用 ImageMarker 三步驟完成。",
   },
+  {
+    slug: "watermark-generators-recommendation",
+    title: "5 款免費線上浮水印產生器推薦｜2026 年最新比較",
+    date: "2026-04-07",
+    summary:
+      "精選 5 款最好用的免費浮水印工具，完整比較本地端處理 vs 雲端上傳、隱私安全、功能優缺點，幫你找到最適合自己的工具。",
+  },
 ];
 
 export default function BlogIndex() {
