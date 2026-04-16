@@ -1,146 +1,192 @@
 import { useEffect } from "react";
 import { Link } from "wouter";
 
-export default function RentIdWatermarkPage() {
+export default function RentIdWatermark() {
   useEffect(() => {
-    document.title = "租屋交證件影本前必做！3 步驟幫身分證加浮水印 | ImageMarker";
-    const desc = document.querySelector('meta[name="description"]');
-    if (desc) desc.setAttribute("content", "房東要求提供身分證影本？先加浮水印再給！本文教你 3 個步驟，用免費工具快速在證件上加上租屋專用浮水印，防止個資被盜用。");
-    let canonical = document.querySelector('link[rel="canonical"]') as HTMLLinkElement | null;
-    if (!canonical) {
-      canonical = document.createElement("link");
-      canonical.rel = "canonical";
-      document.head.appendChild(canonical);
+    document.title =
+      "租屋交證件影本前必做！3 步驟幫身分證加浮水印 | ImageMarker";
+    const metaDesc = document.querySelector('meta[name="description"]');
+    if (metaDesc) {
+      metaDesc.setAttribute(
+        "content",
+        "租屋前必看！教你用 ImageMarker 三步驟幫身分證影本加上浮水印，防止個資被冒用。浮水印該寫什麼、怎麼寫，全部一次說清楚。"
+      );
     }
-    canonical.href = "https://imagemarker.app/blog/rent-id-watermark";
+    const canonical = document.querySelector('link[rel="canonical"]');
+    if (canonical) {
+      canonical.setAttribute(
+        "href",
+        "https://imagemarker.app/blog/rent-id-watermark"
+      );
+    }
   }, []);
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <header className="bg-white shadow-sm border-b border-gray-200">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center h-16 space-x-3">
-            <Link href="/">
-              <a className="flex items-center space-x-2 hover:opacity-80 transition-opacity">
-                <div className="w-7 h-7 bg-primary rounded-md flex items-center justify-center">
-                  <span className="text-white text-sm" role="img" aria-label="相機">📷</span>
-                </div>
-                <span className="font-semibold text-gray-900">ImageMarker</span>
-              </a>
-            </Link>
-          </div>
+    <div className="min-h-screen bg-background">
+      <header className="border-b">
+        <div className="max-w-3xl mx-auto px-4 py-4 flex items-center gap-3 text-sm text-muted-foreground">
+          <Link href="/" className="hover:text-foreground transition-colors">
+            首頁
+          </Link>
+          <span>/</span>
+          <Link
+            href="/blog"
+            className="hover:text-foreground transition-colors"
+          >
+            部落格
+          </Link>
         </div>
       </header>
 
-      <main className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Breadcrumbs */}
-        <nav className="flex items-center space-x-2 text-sm text-gray-500 mb-6" aria-label="breadcrumb">
-          <Link href="/"><a className="hover:text-primary">首頁</a></Link>
-          <span>›</span>
-          <Link href="/blog"><a className="hover:text-primary">部落格</a></Link>
-          <span>›</span>
-          <span className="text-gray-900">租屋交證件影本前必做</span>
-        </nav>
-
-        <article className="bg-white rounded-xl shadow-sm p-8">
+      <main className="max-w-3xl mx-auto px-4 py-10">
+        <article>
           <header className="mb-8">
-            <div className="flex items-center space-x-2 text-sm text-blue-600 font-medium mb-3">
-              <span>隱私保護</span>
-              <span>·</span>
-              <span>租屋</span>
-            </div>
-            <h1 className="text-3xl font-bold text-gray-900 mb-4 leading-tight">
+            <time
+              dateTime="2026-04-06"
+              className="text-sm text-muted-foreground"
+            >
+              2026-04-06
+            </time>
+            <h1 className="text-3xl font-bold mt-2 leading-snug">
               租屋交證件影本前必做！3 步驟幫身分證加浮水印
             </h1>
-            <div className="flex items-center space-x-4 text-sm text-gray-500">
-              <time dateTime="2026-01-15">2026 年 1 月 15 日</time>
-              <span>·</span>
-              <span>閱讀約 5 分鐘</span>
-            </div>
           </header>
 
-          <div className="prose prose-gray max-w-none">
-            <h2>為什麼租屋一定要加浮水印？</h2>
+          <div className="prose prose-neutral max-w-none">
             <p>
-              房東或仲介要求提供身分證影本是租屋過程中的常見流程，但這也是個資外洩的高風險時刻。
-              一旦影本流出，不肖人士可能拿去申辦門號、辦信用卡、甚至詐騙第三方。
+              租屋找房子，好不容易看到滿意的物件，房東或仲介接著就會要你提供身分證影本。但在交出去之前，你有沒有想過——這張影本會不會被拿去做其他用途？
             </p>
             <p>
-              加浮水印是最簡單、最有效的防護手段。浮水印明確標示「僅供租屋用途」，
-              即使影本外流，也很難被挪作他用。
+              其實，在台灣每年都有不少因為證件影本外洩而導致的身分冒用事件。被冒名辦手機門號、貸款、甚至開公司的案例時有所聞。最簡單的自保方式，就是在證件影本上加上浮水印。
             </p>
 
-            <h2>步驟 1：開啟 ImageMarker 工具</h2>
+            <h2>什麼是證件浮水印？</h2>
             <p>
-              前往 <a href="https://imagemarker.app" className="text-primary hover:underline">imagemarker.app</a>，
-              這是一款 100% 本地端處理的浮水印工具，圖片不會上傳到任何伺服器，可以放心使用。
+              證件浮水印就是在你的身分證、護照、駕照等證件影本上，加上半透明的文字標記。這些文字會說明這份影本的用途和日期，讓任何拿到這張影本的人都知道它只能用在特定目的。
             </p>
-            <ul>
-              <li>支援手機瀏覽器（iOS Safari / Android Chrome）</li>
-              <li>不需要安裝 App 或登入</li>
-              <li>完全免費</li>
-            </ul>
-
-            <h2>步驟 2：設定浮水印文字</h2>
-            <p>在浮水印文字欄位輸入：</p>
-            <blockquote>
-              <p>僅供 XX 房東租屋用途 2026/XX/XX</p>
-            </blockquote>
-            <p>將 <code>XX 房東</code> 換成實際的房東姓名或仲介公司名稱，日期填當天。</p>
-            <p><strong>建議設定：</strong></p>
-            <ul>
-              <li>透明度：40%（清晰可見但不遮蔽證件資訊）</li>
-              <li>位置：中央覆蓋（最難被移除）</li>
-              <li>字體：大或特大</li>
-            </ul>
-
-            <h2>步驟 3：預覽、套用並下載</h2>
             <p>
-              上傳身分證圖片後，即時預覽浮水印效果。確認文字清晰且覆蓋重要資訊（身分證字號）後，
-              點擊「套用浮水印」再下載。
+              即使影本不幸外流，有了浮水印的證件影本在被冒用時會大幅降低成功率，因為對方一看就知道這不是一份「乾淨」的影本。
+            </p>
+
+            <h2>浮水印要寫什麼？</h2>
+            <p>
+              很多人知道要加浮水印，但不確定該寫什麼。以下是幾個常見場景的建議：
+            </p>
+            <p>
+              <strong>租屋用途：</strong>
+              <br />
+              「僅供 OO 不動產租屋使用 2026/04/06」
+            </p>
+            <p>
+              <strong>求職用途：</strong>
+              <br />
+              「僅供 OO 公司人事部徵才使用 2026/04/06」
+            </p>
+            <p>
+              <strong>辦理業務用途：</strong>
+              <br />
+              「僅供 OO 銀行開戶使用 2026/04/06」
+            </p>
+            <p>
+              寫浮水印的重點：寫明「用途」+「對象」+「日期」。這三個資訊缺一不可，才能確保影本不會被挪作他用。
+            </p>
+
+            <h2>3 步驟幫證件加浮水印</h2>
+            <p>
+              用 ImageMarker 這個免費線上工具，只要三個步驟就能完成：
+            </p>
+
+            <h3>步驟一：上傳你的證件照片</h3>
+            <p>
+              打開{" "}
+              <a
+                href="https://imagemarker.app"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                imagemarker.app
+              </a>
+              ，你會看到一個簡單的上傳區域。直接把身分證、護照或駕照的照片拖進去，或點「選擇檔案」上傳。支援 JPG 和 PNG 格式，最大 10MB。
+            </p>
+            <p>
+              最重要的是——你的照片完全不會上傳到任何伺服器。所有處理都在你自己的瀏覽器裡完成，關掉網頁後什麼都不會留下。
+            </p>
+
+            <h3>步驟二：輸入浮水印文字</h3>
+            <p>
+              在浮水印設定區，輸入你想要的文字。可以調整字體大小、透明度，還能選擇浮水印顯示的位置（建議選擇覆蓋整張圖片，效果最好）。
+            </p>
+
+            <h3>步驟三：下載加好浮水印的圖片</h3>
+            <p>
+              預覽確認沒問題後，點「套用浮水印」再下載圖片就完成了。整個過程不到一分鐘。
             </p>
 
             <h2>常見問題</h2>
-            <h3>房東說不接受有浮水印的影本？</h3>
             <p>
-              根據內政部「個人資料保護法」精神，提供有用途標示的影本是正當行為。
-              正規房東和仲介都能接受。若對方堅持要乾淨影本，反而需要提高警覺。
+              <strong>Q：加了浮水印的證件影本，對方還會接受嗎？</strong>
+              <br />
+              A：會的。依照內政部的建議，提供證件影本時本來就應該加註用途。大多數房東和公司都能理解並接受，如果對方堅持不接受有浮水印的影本，反而要小心對方的意圖。
+            </p>
+            <p>
+              <strong>
+                Q：浮水印會不會太淡看不到，或太深蓋住資訊？
+              </strong>
+              <br />
+              A：ImageMarker 提供透明度調整功能，你可以即時預覽效果。建議設定在
+              30–50% 的透明度，既能清楚看到浮水印文字，又不會影響證件內容的辨識。
+            </p>
+            <p>
+              <strong>Q：手機可以用嗎？</strong>
+              <br />
+              A：可以。ImageMarker 支援所有現代瀏覽器，包括手機上的 Chrome 和
+              Safari。也支援 PWA 模式，加到手機桌面後可以像 App 一樣使用。
+            </p>
+            <p>
+              <strong>Q：我的證件照片真的不會被上傳嗎？</strong>
+              <br />
+              A：真的不會。ImageMarker 採用 100%
+              瀏覽器端處理技術，你的圖片從頭到尾都只存在於你自己的裝置上。你可以在斷網的情況下使用，功能完全不受影響。
+            </p>
+            <p>
+              <strong>Q：除了身分證，其他證件也可以用嗎？</strong>
+              <br />
+              A：當然可以。護照、駕照、健保卡、學生證，甚至是存摺封面等任何你需要提供影本的文件，都可以用這個工具加上浮水印。
             </p>
 
-            <h3>浮水印會不會被 PS 掉？</h3>
+            <h2>保護個資，從一個小動作開始</h2>
             <p>
-              覆蓋整張圖的浮水印比角落水印難移除許多。只要文字疊在身分證字號等關鍵資訊上，
-              移除後資訊也無法辨識，大幅降低冒用風險。
-            </p>
-
-            <h2>立即保護你的證件</h2>
-            <p>
-              租屋看房的過程中，請養成「先加浮水印再給影本」的習慣。
-              30 秒就能完成，省去日後個資被冒用的麻煩。
+              加浮水印只需要不到一分鐘，卻能大幅降低證件被冒用的風險。下次需要提供證件影本時，記得先到 ImageMarker 加上浮水印再交出去。
             </p>
             <p>
-              <a href="https://imagemarker.app" className="inline-block bg-primary text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors font-medium no-underline">
-                立即使用 ImageMarker →
+              立即試試：{" "}
+              <a
+                href="https://imagemarker.app"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                https://imagemarker.app
               </a>
             </p>
           </div>
         </article>
 
-        {/* Related Articles */}
-        <section className="mt-10">
-          <h2 className="text-lg font-semibold text-gray-900 mb-4">相關文章</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        {/* 相關文章 */}
+        <section className="mt-12 border-t pt-8">
+          <h2 className="text-xl font-semibold mb-4">相關文章</h2>
+          <div className="space-y-4">
             <Link href="/blog/watermark-generators-recommendation">
-              <a className="bg-white rounded-xl shadow-sm p-5 hover:shadow-md transition-shadow block">
-                <p className="text-xs text-blue-600 font-medium mb-2">工具推薦</p>
-                <h3 className="font-semibold text-gray-900 text-sm leading-snug">5 款免費線上浮水印產生器推薦</h3>
-              </a>
-            </Link>
-            <Link href="/blog/watermark-templates-guide">
-              <a className="bg-white rounded-xl shadow-sm p-5 hover:shadow-md transition-shadow block">
-                <p className="text-xs text-blue-600 font-medium mb-2">實用指南</p>
-                <h3 className="font-semibold text-gray-900 text-sm leading-snug">證件浮水印內容範本：10 種情境怎麼寫</h3>
-              </a>
+              <article className="block border rounded-xl p-5 hover:border-primary hover:shadow-sm transition-all cursor-pointer">
+                <h3 className="font-medium mb-1">
+                  5 款免費線上浮水印產生器推薦｜2026 年最新比較
+                </h3>
+                <p className="text-sm text-muted-foreground">
+                  精選 5 款最好用的免費浮水印工具，完整比較本地處理 vs 雲端上傳、隱私安全與功能優缺點。
+                </p>
+                <span className="inline-block mt-3 text-sm text-primary font-medium">
+                  閱讀全文 →
+                </span>
+              </article>
             </Link>
           </div>
         </section>

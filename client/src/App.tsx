@@ -9,15 +9,17 @@ import RentIdWatermarkPage from "@/pages/blog/rent-id-watermark";
 import WatermarkGeneratorsRecommendationPage from "@/pages/blog/watermark-generators-recommendation";
 import WatermarkTemplatesGuidePage from "@/pages/blog/watermark-templates-guide";
 import NotFound from "@/pages/not-found";
+import BlogIndex from "@/pages/blog/index";
+import RentIdWatermark from "@/pages/blog/rent-id-watermark";
+import WatermarkGeneratorsRecommendation from "@/pages/blog/watermark-generators-recommendation";
 
 function Router() {
   return (
     <Switch>
       <Route path="/" component={WatermarkPage} />
-      <Route path="/blog" component={BlogIndexPage} />
-      <Route path="/blog/rent-id-watermark" component={RentIdWatermarkPage} />
-      <Route path="/blog/watermark-generators-recommendation" component={WatermarkGeneratorsRecommendationPage} />
-      <Route path="/blog/watermark-templates-guide" component={WatermarkTemplatesGuidePage} />
+      <Route path="/blog" component={BlogIndex} />
+      <Route path="/blog/rent-id-watermark" component={RentIdWatermark} />
+      <Route path="/blog/watermark-generators-recommendation" component={WatermarkGeneratorsRecommendation} />
       <Route component={NotFound} />
     </Switch>
   );

@@ -94,10 +94,11 @@ export function WatermarkControls({ settings, onSettingsChange, disabled }: Wate
 
         {/* Opacity Slider */}
         <div>
-          <Label className="block text-sm font-medium text-gray-700 mb-2">
+          <Label htmlFor="opacitySlider" className="block text-sm font-medium text-gray-700 mb-2">
             透明度: {settings.opacity}%
           </Label>
           <Slider
+            id="opacitySlider"
             value={[settings.opacity]}
             onValueChange={(value) => onSettingsChange({ opacity: value[0] })}
             min={10}
@@ -105,6 +106,7 @@ export function WatermarkControls({ settings, onSettingsChange, disabled }: Wate
             step={5}
             disabled={disabled}
             className="w-full"
+            aria-label={`透明度: ${settings.opacity}%`}
           />
         </div>
 
@@ -117,9 +119,11 @@ export function WatermarkControls({ settings, onSettingsChange, disabled }: Wate
                 key={position.value}
                 onClick={() => onSettingsChange({ position: position.value as WatermarkSettings['position'] })}
                 disabled={disabled}
+                aria-label={`浮水印位置: ${position.label}`}
+                aria-pressed={settings.position === position.value}
                 className={`p-2 border rounded-lg hover:bg-gray-50 focus:ring-2 focus:ring-primary text-xs transition-colors ${
-                  settings.position === position.value 
-                    ? 'border-primary bg-blue-50' 
+                  settings.position === position.value
+                    ? 'border-primary bg-blue-50'
                     : 'border-gray-300'
                 } ${disabled ? 'opacity-50 cursor-not-allowed' : ''}`}
               >
@@ -133,12 +137,12 @@ export function WatermarkControls({ settings, onSettingsChange, disabled }: Wate
         {/* Font Size */}
         <div>
           <Label className="block text-sm font-medium text-gray-700 mb-2">字體大小</Label>
-          <Select 
-            value={settings.fontSize} 
+          <Select
+            value={settings.fontSize}
             onValueChange={(value) => onSettingsChange({ fontSize: value as WatermarkSettings['fontSize'] })}
             disabled={disabled}
           >
-            <SelectTrigger>
+            <SelectTrigger aria-label="字體大小">
               <SelectValue />
             </SelectTrigger>
             <SelectContent>

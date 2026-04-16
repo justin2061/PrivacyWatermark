@@ -17,7 +17,7 @@ export function ProcessingStatus({ selectedFile, processedImage, progress }: Pro
 
   return (
     <Card className="p-6">
-      <h3 className="text-lg font-semibold text-gray-900 mb-4">處理狀態</h3>
+      <h2 className="text-lg font-semibold text-gray-900 mb-4">處理狀態</h2>
       
       <div className="space-y-3">
         <div className="flex items-center justify-between">
@@ -36,7 +36,7 @@ export function ProcessingStatus({ selectedFile, processedImage, progress }: Pro
       
       {/* Progress Bar */}
       <div className="mt-4">
-        <Progress value={progress} className="w-full" />
+        <Progress value={progress} className="w-full" aria-label="浮水印處理進度" />
       </div>
     </Card>
   );
