@@ -96,13 +96,11 @@ export default function WatermarkTemplatesGuidePage() {
       <header className="bg-white shadow-sm border-b border-gray-200">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center h-16 space-x-3">
-            <Link href="/">
-              <a className="flex items-center space-x-2 hover:opacity-80 transition-opacity">
-                <div className="w-7 h-7 bg-primary rounded-md flex items-center justify-center">
-                  <span className="text-white text-sm" role="img" aria-label="相機">📷</span>
-                </div>
-                <span className="font-semibold text-gray-900">ImageMarker</span>
-              </a>
+            <Link href="/" className="flex items-center space-x-2 hover:opacity-80 transition-opacity">
+              <div className="w-7 h-7 bg-primary rounded-md flex items-center justify-center">
+                <span className="text-white text-sm" role="img" aria-label="相機">📷</span>
+              </div>
+              <span className="font-semibold text-gray-900">ImageMarker</span>
             </Link>
           </div>
         </div>
@@ -111,9 +109,9 @@ export default function WatermarkTemplatesGuidePage() {
       <main className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Breadcrumbs */}
         <nav className="flex items-center space-x-2 text-sm text-gray-500 mb-6" aria-label="breadcrumb">
-          <Link href="/"><a className="hover:text-primary">首頁</a></Link>
+          <Link href="/" className="hover:text-primary">首頁</Link>
           <span>›</span>
-          <Link href="/blog"><a className="hover:text-primary">部落格</a></Link>
+          <Link href="/blog" className="hover:text-primary">部落格</Link>
           <span>›</span>
           <span className="text-gray-900">浮水印內容範本</span>
         </nav>
@@ -263,17 +261,13 @@ export default function WatermarkTemplatesGuidePage() {
         <section className="mt-10">
           <h2 className="text-lg font-semibold text-gray-900 mb-4">相關文章</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <Link href="/blog/rent-id-watermark">
-              <a className="bg-white rounded-xl shadow-sm p-5 hover:shadow-md transition-shadow block">
-                <p className="text-xs text-blue-600 font-medium mb-2">隱私保護</p>
-                <h3 className="font-semibold text-gray-900 text-sm leading-snug">租屋交證件影本前必做！3 步驟幫身分證加浮水印</h3>
-              </a>
+            <Link href="/blog/rent-id-watermark" className="bg-white rounded-xl shadow-sm p-5 hover:shadow-md transition-shadow block">
+              <p className="text-xs text-blue-600 font-medium mb-2">隱私保護</p>
+              <h3 className="font-semibold text-gray-900 text-sm leading-snug">租屋交證件影本前必做！3 步驟幫身分證加浮水印</h3>
             </Link>
-            <Link href="/blog/watermark-generators-recommendation">
-              <a className="bg-white rounded-xl shadow-sm p-5 hover:shadow-md transition-shadow block">
-                <p className="text-xs text-blue-600 font-medium mb-2">工具推薦</p>
-                <h3 className="font-semibold text-gray-900 text-sm leading-snug">5 款免費線上浮水印產生器推薦</h3>
-              </a>
+            <Link href="/blog/watermark-generators-recommendation" className="bg-white rounded-xl shadow-sm p-5 hover:shadow-md transition-shadow block">
+              <p className="text-xs text-blue-600 font-medium mb-2">工具推薦</p>
+              <h3 className="font-semibold text-gray-900 text-sm leading-snug">5 款免費線上浮水印產生器推薦</h3>
             </Link>
           </div>
         </section>
