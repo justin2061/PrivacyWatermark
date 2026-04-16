@@ -16,6 +16,13 @@ const articles = [
     summary:
       "精選 5 款最好用的免費浮水印工具，完整比較本地端處理 vs 雲端上傳、隱私安全、功能優缺點，幫你找到最適合自己的工具。",
   },
+  {
+    slug: "watermark-templates-guide",
+    title: "證件浮水印內容範本：10 種常見情境怎麼寫（2026 最新）",
+    date: "2026-04-16",
+    summary:
+      "租屋、求職、開戶、保險……每種情境的證件浮水印該寫什麼？完整 10 種範本讓你直接套用。",
+  },
 ];
 
 export default function BlogIndex() {

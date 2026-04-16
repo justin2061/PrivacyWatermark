@@ -20,6 +20,7 @@ function Router() {
       <Route path="/blog" component={BlogIndex} />
       <Route path="/blog/rent-id-watermark" component={RentIdWatermark} />
       <Route path="/blog/watermark-generators-recommendation" component={WatermarkGeneratorsRecommendation} />
+      <Route path="/blog/watermark-templates-guide" component={WatermarkTemplatesGuidePage} />
       <Route component={NotFound} />
     </Switch>
   );

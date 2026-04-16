@@ -160,34 +160,10 @@ export default function WatermarkPage() {
           </div>
         </section>
 
-<<<<<<< claude/sharp-mendel
-        {/* Blog Articles Section */}
-        <section className="mt-12" aria-labelledby="blog-heading">
-          <h2 id="blog-heading" className="text-lg font-semibold text-gray-900 mb-4">延伸閱讀</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <Link href="/blog/rent-id-watermark">
-              <a className="bg-white rounded-xl shadow-sm p-5 hover:shadow-md transition-shadow block border border-gray-100">
-                <p className="text-xs text-blue-600 font-medium mb-2">隱私保護</p>
-                <h3 className="font-semibold text-gray-900 text-sm leading-snug">租屋交證件影本前必做！3 步驟幫身分證加浮水印</h3>
-              </a>
-            </Link>
-            <Link href="/blog/watermark-generators-recommendation">
-              <a className="bg-white rounded-xl shadow-sm p-5 hover:shadow-md transition-shadow block border border-gray-100">
-                <p className="text-xs text-blue-600 font-medium mb-2">工具推薦</p>
-                <h3 className="font-semibold text-gray-900 text-sm leading-snug">5 款免費線上浮水印產生器推薦</h3>
-              </a>
-            </Link>
-            <Link href="/blog/watermark-templates-guide">
-              <a className="bg-white rounded-xl shadow-sm p-5 hover:shadow-md transition-shadow block border border-gray-100">
-                <p className="text-xs text-blue-600 font-medium mb-2">實用指南</p>
-                <h3 className="font-semibold text-gray-900 text-sm leading-snug">證件浮水印內容範本：10 種情境怎麼寫</h3>
-              </a>
-            </Link>
-=======
         {/* 延伸閱讀 */}
         <section className="mt-12" aria-labelledby="further-reading-heading">
           <h2 id="further-reading-heading" className="text-xl font-semibold text-gray-900 mb-6">延伸閱讀</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <Card className="p-5 hover:shadow-md transition-shadow">
               <h3 className="font-semibold text-gray-900 mb-2">
                 租屋交證件影本前必做！3 步驟幫身分證加浮水印
@@ -217,7 +193,21 @@ export default function WatermarkPage() {
                 閱讀全文 →
               </Link>
             </Card>
->>>>>>> main
+
+            <Card className="p-5 hover:shadow-md transition-shadow">
+              <h3 className="font-semibold text-gray-900 mb-2">
+                證件浮水印內容範本：10 種常見情境怎麼寫（2026 最新）
+              </h3>
+              <p className="text-sm text-gray-600 mb-4">
+                租屋、求職、開戶、保險……每種情境的證件浮水印該寫什麼？完整 10 種範本讓你直接套用。
+              </p>
+              <Link
+                href="/blog/watermark-templates-guide"
+                className="inline-block text-sm text-primary font-medium hover:underline"
+              >
+                閱讀全文 →
+              </Link>
+            </Card>
           </div>
         </section>
       </main>
