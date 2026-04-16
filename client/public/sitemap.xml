@@ -2,10 +2,42 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://imagemarker.app/</loc>
-    <lastmod>2025-01-12</lastmod>
+    <lastmod>2026-04-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="zh-tw" href="https://imagemarker.app/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://imagemarker.app/" />
+  </url>
+  <url>
+    <loc>https://imagemarker.app/blog</loc>
+    <lastmod>2026-04-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="zh-tw" href="https://imagemarker.app/blog" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://imagemarker.app/blog" />
+  </url>
+  <url>
+    <loc>https://imagemarker.app/blog/rent-id-watermark</loc>
+    <lastmod>2026-01-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="zh-tw" href="https://imagemarker.app/blog/rent-id-watermark" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://imagemarker.app/blog/rent-id-watermark" />
+  </url>
+  <url>
+    <loc>https://imagemarker.app/blog/watermark-generators-recommendation</loc>
+    <lastmod>2026-02-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="zh-tw" href="https://imagemarker.app/blog/watermark-generators-recommendation" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://imagemarker.app/blog/watermark-generators-recommendation" />
+  </url>
+  <url>
+    <loc>https://imagemarker.app/blog/watermark-templates-guide</loc>
+    <lastmod>2026-04-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="zh-tw" href="https://imagemarker.app/blog/watermark-templates-guide" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://imagemarker.app/blog/watermark-templates-guide" />
   </url>
 </urlset>
