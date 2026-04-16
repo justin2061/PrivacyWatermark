@@ -17,6 +17,24 @@ interface WatermarkControlsProps {
   disabled?: boolean;
 }
 
+const QUICK_TEMPLATES = [
+  { label: "租屋", text: "僅供 {OO房東/仲介} 租屋用途 {DATE}" },
+  { label: "求職", text: "僅供 {OO公司} 徵才審核 {DATE}" },
+  { label: "銀行", text: "僅供 {OO銀行} 開戶使用 {DATE}" },
+  { label: "手機", text: "僅供 {電信業者} 申辦門號 {DATE}" },
+  { label: "保險", text: "僅供 {OO人壽} 投保使用 {DATE}" },
+  { label: "信用卡", text: "僅供 {OO銀行} 申辦信用卡 {DATE}" },
+  { label: "過戶", text: "僅供 OO 過戶使用 {DATE}" },
+  { label: "貸款", text: "僅供 {OO銀行} 貸款申請 {DATE}" },
+  { label: "政府", text: "僅供 {戶政/地政/監理站} 申辦使用 {DATE}" },
+  { label: "公司", text: "僅供 {OO公司} 人資備存 {DATE}" },
+];
+
+function getTodayString() {
+  const d = new Date();
+  return `${d.getFullYear()}/${String(d.getMonth() + 1).padStart(2, "0")}/${String(d.getDate()).padStart(2, "0")}`;
+}
+
 export function WatermarkControls({ settings, onSettingsChange, disabled }: WatermarkControlsProps) {
   const positions = [
     { value: 'top-left', label: '左上', icon: '↖' },
@@ -47,6 +65,31 @@ export function WatermarkControls({ settings, onSettingsChange, disabled }: Wate
             onChange={(e) => onSettingsChange({ text: e.target.value })}
             disabled={disabled}
           />
+        </div>
+
+        {/* Quick Templates */}
+        <div>
+          <p className="text-sm font-medium text-gray-700 mb-2">
+            💡 快速套用範本
+          </p>
+          <div className="flex flex-wrap gap-2">
+            {QUICK_TEMPLATES.map((tpl) => (
+              <button
+                key={tpl.label}
+                type="button"
+                onClick={() => onSettingsChange({ text: tpl.text.replace("{DATE}", getTodayString()) })}
+                disabled={disabled}
+                className={`px-3 py-1 rounded-full text-xs font-medium border transition-colors
+                  ${disabled
+                    ? "border-gray-200 text-gray-400 cursor-not-allowed"
+                    : "border-blue-200 text-blue-700 bg-blue-50 hover:bg-blue-100 hover:border-blue-300 cursor-pointer"
+                  }`}
+              >
+                {tpl.label}
+              </button>
+            ))}
+          </div>
+          <p className="text-xs text-gray-400 mt-1.5">點擊後可在上方欄位修改 &#123;對象名稱&#125;</p>
         </div>
 
         {/* Opacity Slider */}
