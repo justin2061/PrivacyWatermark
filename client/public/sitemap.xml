@@ -32,4 +32,10 @@
     <xhtml:link rel="alternate" hreflang="zh-tw" href="https://imagemarker.app/blog/watermark-generators-recommendation" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://imagemarker.app/blog/watermark-generators-recommendation" />
   </url>
+  <url>
+    <loc>https://imagemarker.app/blog/watermark-templates-guide</loc>
+    <lastmod>2026-04-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
 </urlset>
