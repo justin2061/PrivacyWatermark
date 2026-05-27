@@ -9,6 +9,14 @@
     <xhtml:link rel="alternate" hreflang="zh" href="https://imagemarker.app/" />
   </url>
   <url>
+    <loc>https://imagemarker.app/exif-clean</loc>
+    <lastmod>2026-04-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="zh-tw" href="https://imagemarker.app/exif-clean" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://imagemarker.app/exif-clean" />
+  </url>
+  <url>
     <loc>https://imagemarker.app/blog/</loc>
     <lastmod>2026-04-07</lastmod>
     <changefreq>weekly</changefreq>
@@ -39,5 +47,21 @@
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="zh-tw" href="https://imagemarker.app/blog/watermark-templates-guide" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://imagemarker.app/blog/watermark-templates-guide" />
+  </url>
+  <url>
+    <loc>https://imagemarker.app/blog/passport-watermark-guide</loc>
+    <lastmod>2026-05-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="zh-tw" href="https://imagemarker.app/blog/passport-watermark-guide" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://imagemarker.app/blog/passport-watermark-guide" />
+  </url>
+  <url>
+    <loc>https://imagemarker.app/blog/mobile-watermark-tutorial</loc>
+    <lastmod>2026-05-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="zh-tw" href="https://imagemarker.app/blog/mobile-watermark-tutorial" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://imagemarker.app/blog/mobile-watermark-tutorial" />
   </url>
 </urlset>

@@ -23,6 +23,20 @@ const articles = [
     summary:
       "租屋、求職、開戶、保險……每種情境的證件浮水印該寫什麼？完整 10 種範本讓你直接套用。",
   },
+  {
+    slug: "passport-watermark-guide",
+    title: "護照影本也要加浮水印！出國前必看的護照安全指南",
+    date: "2026-05-27",
+    summary:
+      "出國旅遊交護照影本給旅行社前，一定要先加浮水印！本篇教你護照浮水印怎麼寫、放哪個位置最安全，附 5 種常見範本。",
+  },
+  {
+    slug: "mobile-watermark-tutorial",
+    title: "手機怎麼幫身分證加浮水印？免安裝 App 的最快方法",
+    date: "2026-05-27",
+    summary:
+      "不用下載 App，用手機瀏覽器就能幫身分證加浮水印。本篇教你 3 分鐘完成，iPhone 和 Android 都適用。",
+  },
 ];
 
 export default function BlogIndex() {
