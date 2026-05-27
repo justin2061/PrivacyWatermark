@@ -37,6 +37,13 @@ const articles = [
     summary:
       "不用下載 App，用手機瀏覽器就能幫身分證加浮水印。本篇教你 3 分鐘完成，iPhone 和 Android 都適用。",
   },
+  {
+    slug: "other-documents-watermark",
+    title: "不只身分證！存摺、健保卡、駕照影本也要加浮水印",
+    date: "2026-05-27",
+    summary:
+      "除了身分證，存摺封面、健保卡、駕照等影本也是詐騙的高危目標。本篇教你 6 種常見證件的浮水印寫法，一次保護所有個資。",
+  },
 ];
 
 export default function BlogIndex() {

@@ -11,6 +11,7 @@ import WatermarkGeneratorsRecommendationPage from "@/pages/blog/watermark-genera
 import WatermarkTemplatesGuidePage from "@/pages/blog/watermark-templates-guide";
 import PassportWatermarkGuidePage from "@/pages/blog/passport-watermark-guide";
 import MobileWatermarkTutorialPage from "@/pages/blog/mobile-watermark-tutorial";
+import OtherDocumentsWatermarkPage from "@/pages/blog/other-documents-watermark";
 import NotFound from "@/pages/not-found";
 import BlogIndex from "@/pages/blog/index";
 import RentIdWatermark from "@/pages/blog/rent-id-watermark";
@@ -27,6 +28,7 @@ function Router() {
       <Route path="/blog/watermark-templates-guide" component={WatermarkTemplatesGuidePage} />
       <Route path="/blog/passport-watermark-guide" component={PassportWatermarkGuidePage} />
       <Route path="/blog/mobile-watermark-tutorial" component={MobileWatermarkTutorialPage} />
+      <Route path="/blog/other-documents-watermark" component={OtherDocumentsWatermarkPage} />
       <Route component={NotFound} />
     </Switch>
   );
