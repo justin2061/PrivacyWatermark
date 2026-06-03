@@ -44,6 +44,20 @@ const articles = [
     summary:
       "除了身分證，存摺封面、健保卡、駕照等影本也是詐騙的高危目標。本篇教你 6 種常見證件的浮水印寫法，一次保護所有個資。",
   },
+  {
+    slug: "is-id-watermark-useful",
+    title: "身分證浮水印有用嗎？3 個真實案例告訴你答案",
+    date: "2026-06-03",
+    summary:
+      "很多人問身分證加浮水印到底有沒有用？本篇用 3 個台灣真實案例說明浮水印如何擋下冒用、又為什麼有效。",
+  },
+  {
+    slug: "batch-watermark-methods",
+    title: "一次處理多張證件影本！批次加浮水印的 3 種方法",
+    date: "2026-06-03",
+    summary:
+      "需要一次幫多張證件影本加浮水印？本篇比較逐張處理、Photoshop 批次、線上工具 3 種方法的優缺點。",
+  },
 ];
 
 export default function BlogIndex() {

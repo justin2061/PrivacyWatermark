@@ -11,6 +11,9 @@ import WatermarkTemplatesGuidePage from "@/pages/blog/watermark-templates-guide"
 import PassportWatermarkGuidePage from "@/pages/blog/passport-watermark-guide";
 import MobileWatermarkTutorialPage from "@/pages/blog/mobile-watermark-tutorial";
 import OtherDocumentsWatermarkPage from "@/pages/blog/other-documents-watermark";
+import ExifCleanPage from "@/pages/exif-clean";
+import IsIdWatermarkUsefulPage from "@/pages/blog/is-id-watermark-useful";
+import BatchWatermarkMethodsPage from "@/pages/blog/batch-watermark-methods";
 import NotFound from "@/pages/not-found";
 import BlogIndex from "@/pages/blog/index";
 import RentIdWatermark from "@/pages/blog/rent-id-watermark";
@@ -27,6 +30,9 @@ function Router() {
       <Route path="/blog/passport-watermark-guide" component={PassportWatermarkGuidePage} />
       <Route path="/blog/mobile-watermark-tutorial" component={MobileWatermarkTutorialPage} />
       <Route path="/blog/other-documents-watermark" component={OtherDocumentsWatermarkPage} />
+      <Route path="/exif-clean" component={ExifCleanPage} />
+      <Route path="/blog/is-id-watermark-useful" component={IsIdWatermarkUsefulPage} />
+      <Route path="/blog/batch-watermark-methods" component={BatchWatermarkMethodsPage} />
       <Route component={NotFound} />
     </Switch>
   );

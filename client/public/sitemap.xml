@@ -70,4 +70,20 @@
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
+  <url>
+    <loc>https://imagemarker.app/blog/is-id-watermark-useful</loc>
+    <lastmod>2026-06-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="zh-tw" href="https://imagemarker.app/blog/is-id-watermark-useful" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://imagemarker.app/blog/is-id-watermark-useful" />
+  </url>
+  <url>
+    <loc>https://imagemarker.app/blog/batch-watermark-methods</loc>
+    <lastmod>2026-06-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="zh-tw" href="https://imagemarker.app/blog/batch-watermark-methods" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://imagemarker.app/blog/batch-watermark-methods" />
+  </url>
 </urlset>

@@ -167,6 +167,31 @@ export default function WatermarkPage() {
           </div>
         </section>
 
+        {/* EXIF 清除入口 */}
+        <section className="mt-12" aria-labelledby="exif-cta-heading">
+          <Card className="p-6 md:p-8 bg-blue-50 border-blue-200">
+            <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+              <div className="flex items-start space-x-3">
+                <Eraser className="text-primary mt-1 w-8 h-8 flex-shrink-0" aria-hidden="true" />
+                <div>
+                  <h2 id="exif-cta-heading" className="font-semibold text-gray-900 mb-1">
+                    照片暗藏 GPS 位置與拍攝資訊？用 EXIF 清除器一鍵移除
+                  </h2>
+                  <p className="text-sm text-gray-600">
+                    上傳照片前，先清除 EXIF 中的 GPS 定位、拍攝時間、相機型號等隱私資訊。同樣 100% 本地處理，不會上傳到伺服器。
+                  </p>
+                </div>
+              </div>
+              <Link
+                href="/exif-clean"
+                className="inline-flex items-center justify-center whitespace-nowrap bg-primary text-white py-2.5 px-5 rounded-lg hover:bg-blue-700 transition-colors font-medium text-sm"
+              >
+                前往 EXIF 清除器 →
+              </Link>
+            </div>
+          </Card>
+        </section>
+
         {/* 延伸閱讀 */}
         <section className="mt-12" aria-labelledby="further-reading-heading">
           <h2 id="further-reading-heading" className="text-xl font-semibold text-gray-900 mb-6">延伸閱讀</h2>
