@@ -4,7 +4,7 @@ import { Link } from "wouter";
 export default function RentIdWatermark() {
   useEffect(() => {
     document.title =
-      "租屋交證件影本前必做！3 步驟幫身分證加浮水印 | ImageMarker";
+      "租屋交身分證影本前必做！3 步驟加浮水印保護個資 | ImageMarker";
     const metaDesc = document.querySelector('meta[name="description"]');
     if (metaDesc) {
       metaDesc.setAttribute(
@@ -48,7 +48,7 @@ export default function RentIdWatermark() {
               2026-04-06
             </time>
             <h1 className="text-3xl font-bold mt-2 leading-snug">
-              租屋交證件影本前必做！3 步驟幫身分證加浮水印
+              租屋交身分證影本前必做！3 步驟加浮水印保護個資
             </h1>
           </header>
 
@@ -182,6 +182,19 @@ export default function RentIdWatermark() {
                 </h3>
                 <p className="text-sm text-muted-foreground">
                   精選 5 款最好用的免費浮水印工具，完整比較本地處理 vs 雲端上傳、隱私安全與功能優缺點。
+                </p>
+                <span className="inline-block mt-3 text-sm text-primary font-medium">
+                  閱讀全文 →
+                </span>
+              </article>
+            </Link>
+            <Link href="/blog/watermark-templates-guide">
+              <article className="block border rounded-xl p-5 hover:border-primary hover:shadow-sm transition-all cursor-pointer">
+                <h3 className="font-medium mb-1">
+                  證件浮水印範本怎麼寫？常用文字範例與注意事項
+                </h3>
+                <p className="text-sm text-muted-foreground">
+                  身分證、駕照影本浮水印該寫什麼？整理常用浮水印文字範本與用途寫法，照著填就不會錯。
                 </p>
                 <span className="inline-block mt-3 text-sm text-primary font-medium">
                   閱讀全文 →
