@@ -6,7 +6,7 @@ import { WatermarkControls } from "@/components/watermark/WatermarkControls";
 import { CanvasPreview } from "@/components/watermark/CanvasPreview";
 import { ProcessingStatus } from "@/components/watermark/ProcessingStatus";
 import { useWatermark } from "@/hooks/useWatermark";
-import { Shield, Lock, Zap, BookOpen, Eraser } from "lucide-react";
+import { Shield, Lock, Zap, BookOpen, Eraser, Layers } from "lucide-react";
 
 export default function WatermarkPage() {
   const {
@@ -39,6 +39,13 @@ export default function WatermarkPage() {
               </div>
             </div>
             <div className="flex items-center space-x-4">
+              <Link
+                href="/batch"
+                className="flex items-center space-x-1.5 text-sm text-gray-600 hover:text-primary transition-colors"
+              >
+                <Layers className="w-4 h-4" aria-hidden="true" />
+                <span>批次處理</span>
+              </Link>
               <Link
                 href="/exif-clean"
                 className="flex items-center space-x-1.5 text-sm text-gray-600 hover:text-primary transition-colors"

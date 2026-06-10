@@ -17,6 +17,14 @@
     <xhtml:link rel="alternate" hreflang="zh" href="https://imagemarker.app/exif-clean" />
   </url>
   <url>
+    <loc>https://imagemarker.app/batch</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="zh-tw" href="https://imagemarker.app/batch" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://imagemarker.app/batch" />
+  </url>
+  <url>
     <loc>https://imagemarker.app/blog/</loc>
     <lastmod>2026-04-07</lastmod>
     <changefreq>weekly</changefreq>
