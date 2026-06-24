@@ -168,6 +168,16 @@ export default function RentIdWatermark() {
                 https://imagemarker.app
               </a>
             </p>
+            <p className="mt-4 text-sm text-gray-500">
+              <a
+                href="https://ko-fi.com/justinlee2061"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-blue-500"
+              >
+                ☕ 如果這篇文章幫到你，請我喝杯咖啡
+              </a>
+            </p>
           </div>
         </article>
 
