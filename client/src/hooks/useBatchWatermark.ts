@@ -41,6 +41,7 @@ export function useBatchWatermark() {
     opacity: 50,
     position: "center",
     fontSize: "medium",
+    color: "#000000",
     logoSrc: null,
     logoSize: 25,
   });

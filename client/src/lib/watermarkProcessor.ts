@@ -151,12 +151,14 @@ export class WatermarkProcessor {
   ) {
     const fontSize = this.getFontSize(settings.fontSize, width);
     ctx.font = `bold ${fontSize}px Inter, sans-serif`;
-    ctx.fillStyle = `rgba(0, 0, 0, ${settings.opacity / 100})`;
+    const { r, g, b } = this.hexToRgb(settings.color);
+    ctx.fillStyle = `rgba(${r}, ${g}, ${b}, ${settings.opacity / 100})`;
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
 
-    // Add text shadow for better visibility
-    ctx.shadowColor = 'rgba(255, 255, 255, 0.8)';
+    // Add a contrasting shadow so the watermark stays legible (dark shadow for light text, light shadow otherwise)
+    const isLightColor = (r * 0.299 + g * 0.587 + b * 0.114) > 186;
+    ctx.shadowColor = isLightColor ? 'rgba(0, 0, 0, 0.8)' : 'rgba(255, 255, 255, 0.8)';
     ctx.shadowBlur = fullRes ? Math.max(2, Math.floor(width / 300)) : 2;
     ctx.shadowOffsetX = fullRes ? Math.max(1, Math.floor(width / 600)) : 1;
     ctx.shadowOffsetY = fullRes ? Math.max(1, Math.floor(width / 600)) : 1;
@@ -190,6 +192,22 @@ export class WatermarkProcessor {
       case 'xlarge': return baseSize * 1.8;
       default: return baseSize;
     }
+  }
+
+  // Parse a #RGB or #RRGGBB hex color into its r/g/b components (falls back to black)
+  private hexToRgb(hex: string): { r: number; g: number; b: number } {
+    let h = (hex || '').trim().replace(/^#/, '');
+    if (h.length === 3) {
+      h = h.split('').map((c) => c + c).join('');
+    }
+    if (!/^[0-9a-fA-F]{6}$/.test(h)) {
+      return { r: 0, g: 0, b: 0 };
+    }
+    return {
+      r: parseInt(h.slice(0, 2), 16),
+      g: parseInt(h.slice(2, 4), 16),
+      b: parseInt(h.slice(4, 6), 16),
+    };
   }
 
   // Top-left corner for a box of (boxWidth × boxHeight) at the given nine-grid position

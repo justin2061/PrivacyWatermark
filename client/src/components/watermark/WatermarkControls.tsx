@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -11,6 +11,7 @@ export interface WatermarkSettings {
   opacity: number;
   position: 'top-left' | 'top-center' | 'top-right' | 'center-left' | 'center' | 'center-right' | 'bottom-left' | 'bottom-center' | 'bottom-right';
   fontSize: 'small' | 'medium' | 'large' | 'xlarge';
+  color: string; // text watermark color as hex
   logoSrc: string | null; // logo image as a data URL (never uploaded — stays local)
   logoSize: number; // logo width as a percentage of the original image width (10-50)
 }
@@ -27,6 +28,7 @@ interface WatermarkControlsProps {
 
 export function WatermarkControls({ settings, onSettingsChange, disabled }: WatermarkControlsProps) {
   const logoInputRef = useRef<HTMLInputElement>(null);
+  const [showCustomColor, setShowCustomColor] = useState(false);
 
   const handleLogoSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -47,6 +49,19 @@ export function WatermarkControls({ settings, onSettingsChange, disabled }: Wate
     };
     reader.readAsDataURL(file);
   };
+
+  const colorPresets = [
+    { value: '#000000', label: '黑' },
+    { value: '#555555', label: '深灰' },
+    { value: '#CC0000', label: '紅' },
+    { value: '#003399', label: '深藍' },
+    { value: '#FFFFFF', label: '白' },
+    { value: '#006600', label: '深綠' },
+  ];
+
+  const isCustomColor = !colorPresets.some(
+    (p) => p.value.toLowerCase() === settings.color.toLowerCase()
+  );
 
   const positions = [
     { value: 'top-left', label: '左上', icon: '↖' },
@@ -234,6 +249,54 @@ export function WatermarkControls({ settings, onSettingsChange, disabled }: Wate
             className="w-full"
             aria-label={`透明度: ${settings.opacity}%`}
           />
+        </div>
+
+        {/* Color Selection */}
+        <div>
+          <Label className="block text-sm font-medium text-gray-700 mb-2">浮水印顏色</Label>
+          <div className="flex flex-wrap items-center gap-2">
+            {colorPresets.map((preset) => (
+              <button
+                key={preset.value}
+                type="button"
+                onClick={() => onSettingsChange({ color: preset.value })}
+                disabled={disabled}
+                title={preset.label}
+                aria-label={preset.label}
+                className={`w-9 h-9 rounded-md border transition-all ${
+                  settings.color.toLowerCase() === preset.value.toLowerCase()
+                    ? 'ring-2 ring-offset-2 ring-primary border-primary'
+                    : 'border-gray-300'
+                } ${disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
+                style={{ backgroundColor: preset.value }}
+              />
+            ))}
+            <button
+              type="button"
+              onClick={() => setShowCustomColor((v) => !v)}
+              disabled={disabled}
+              className={`px-3 h-9 rounded-md border text-sm transition-all ${
+                isCustomColor
+                  ? 'ring-2 ring-offset-2 ring-primary border-primary'
+                  : 'border-gray-300'
+              } ${disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
+            >
+              自訂...
+            </button>
+          </div>
+          {(showCustomColor || isCustomColor) && (
+            <div className="mt-3 flex items-center gap-2">
+              <input
+                type="color"
+                value={settings.color}
+                onChange={(e) => onSettingsChange({ color: e.target.value })}
+                disabled={disabled}
+                className="w-10 h-9 rounded border border-gray-300 cursor-pointer disabled:opacity-50"
+                aria-label="自訂浮水印顏色"
+              />
+              <span className="text-sm text-gray-600 uppercase">{settings.color}</span>
+            </div>
+          )}
         </div>
 
         {/* Position Selection */}
