@@ -10,10 +10,13 @@ export function useWatermark() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   
   const [watermarkSettings, setWatermarkSettings] = useState<WatermarkSettings>({
+    mode: "text",
     text: "僅供參考",
     opacity: 50,
     position: "center",
-    fontSize: "medium"
+    fontSize: "medium",
+    logoSrc: null,
+    logoSize: 25
   });
 
   const processor = useRef(new WatermarkProcessor());

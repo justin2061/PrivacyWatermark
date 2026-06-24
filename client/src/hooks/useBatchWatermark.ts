@@ -36,10 +36,13 @@ export function useBatchWatermark() {
   const processor = useRef(new WatermarkProcessor());
 
   const [watermarkSettings, setWatermarkSettings] = useState<WatermarkSettings>({
+    mode: "text",
     text: "僅供參考",
     opacity: 50,
     position: "center",
     fontSize: "medium",
+    logoSrc: null,
+    logoSize: 25,
   });
 
   const selectedImage = images.find((i) => i.id === selectedId) ?? null;
