@@ -255,6 +255,7 @@ export default function WatermarkTemplatesGuidePage() {
               </a>
             </p>
           </div>
+        <p className="mt-8 text-center text-sm text-gray-400"><a href="https://ko-fi.com/justinlee2061" target="_blank" rel="noopener noreferrer" className="hover:text-blue-500 transition-colors">☕ 如果這篇文章幫到你，請我喝杯咖啡</a></p>
         </article>
 
         {/* Related Articles */}
