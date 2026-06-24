@@ -71,6 +71,7 @@ export function WatermarkControls({ settings, onSettingsChange, disabled }: Wate
                 type="button"
                 disabled={disabled}
                 onClick={() => {
+                  if (typeof gtag !== 'undefined') gtag('event', 'use_template');
                   const today = new Date().toISOString().slice(0, 10).replace(/-/g, '/');
                   onSettingsChange({ text: t.text + ' ' + today });
                 }}

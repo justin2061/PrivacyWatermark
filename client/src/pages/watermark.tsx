@@ -89,7 +89,7 @@ export default function WatermarkPage() {
           <div className="space-y-6">
             <FileUploadZone
               selectedFile={selectedFile}
-              onFileSelect={handleFileSelect}
+              onFileSelect={(file) => { if (typeof gtag !== 'undefined') gtag('event', 'upload_image'); handleFileSelect(file); }}
             />
 
             <WatermarkControls
@@ -102,7 +102,7 @@ export default function WatermarkPage() {
             <Card className="p-6">
               <div className="space-y-3">
                 <button
-                  onClick={applyWatermark}
+                  onClick={() => { if (typeof gtag !== 'undefined') gtag('event', 'apply_watermark'); applyWatermark(); }}
                   disabled={!selectedFile || isProcessing}
                   aria-label={isProcessing ? "處理中，請稍候" : "套用浮水印"}
                   className="w-full bg-primary text-white py-3 px-4 rounded-lg hover:bg-blue-700 transition-colors font-medium disabled:bg-gray-400 disabled:cursor-not-allowed flex items-center justify-center"
@@ -112,7 +112,7 @@ export default function WatermarkPage() {
                 </button>
 
                 <button
-                  onClick={downloadImage}
+                  onClick={() => { if (typeof gtag !== 'undefined') gtag('event', 'download_image'); downloadImage(); }}
                   disabled={!processedImage}
                   aria-label="下載處理後的圖片"
                   className="w-full bg-green-600 text-white py-3 px-4 rounded-lg hover:bg-green-700 transition-colors font-medium disabled:bg-gray-400 disabled:cursor-not-allowed flex items-center justify-center"
