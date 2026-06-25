@@ -1,4 +1,5 @@
 import { Link } from "wouter";
+import { useEffect } from "react";
 import { Card } from "@/components/ui/card";
 import { FileUploadZone } from "@/components/watermark/FileUploadZone";
 import { WatermarkControls } from "@/components/watermark/WatermarkControls";
@@ -21,6 +22,22 @@ export default function WatermarkEnPage() {
     downloadImage,
     resetCanvas
   } = useWatermark();
+
+  useEffect(() => {
+    document.title =
+      "Free Online Watermark Tool | Add Watermark to Photos — ImageMarker";
+    const metaDesc = document.querySelector('meta[name="description"]');
+    if (metaDesc) {
+      metaDesc.setAttribute(
+        "content",
+        "Free online watermark tool for photos and documents. Add text or logo watermarks with full privacy — 100% browser-based, no uploads. Perfect for photographers, designers and creators."
+      );
+    }
+    const canonical = document.querySelector('link[rel="canonical"]');
+    if (canonical) {
+      canonical.setAttribute("href", "https://imagemarker.app/en/");
+    }
+  }, []);
 
   return (
     <div className="min-h-screen bg-gray-50">

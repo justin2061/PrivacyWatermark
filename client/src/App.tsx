@@ -5,6 +5,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import WatermarkPage from "@/pages/watermark";
 import WatermarkEnPage from "@/pages/en/watermark";
+import WatermarkPhotosOnlineEn from "@/pages/en/blog/watermark-photos-online";
 import BlogIndexPage from "@/pages/blog/index";
 import RentIdWatermarkPage from "@/pages/blog/rent-id-watermark";
 import WatermarkGeneratorsRecommendationPage from "@/pages/blog/watermark-generators-recommendation";
@@ -27,6 +28,7 @@ function Router() {
       <Route path="/" component={WatermarkPage} />
       <Route path="/en" component={WatermarkEnPage} />
       <Route path="/en/" component={WatermarkEnPage} />
+      <Route path="/en/blog/watermark-photos-online" component={WatermarkPhotosOnlineEn} />
       <Route path="/blog" component={BlogIndex} />
       <Route path="/blog/rent-id-watermark" component={RentIdWatermark} />
       <Route path="/blog/watermark-generators-recommendation" component={WatermarkGeneratorsRecommendation} />
