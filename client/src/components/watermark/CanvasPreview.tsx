@@ -6,10 +6,29 @@ interface CanvasPreviewProps {
   canvasRef: React.RefObject<HTMLCanvasElement>;
   selectedFile: File | null;
   processedImage: string | null;
+  lang?: 'zh' | 'en';
 }
 
-export function CanvasPreview({ canvasRef, selectedFile, processedImage }: CanvasPreviewProps) {
+export function CanvasPreview({ canvasRef, selectedFile, processedImage, lang = 'zh' }: CanvasPreviewProps) {
   const [imageDimensions, setImageDimensions] = useState<{width: number, height: number} | null>(null);
+
+  const t = lang === 'en' ? {
+    title: 'Preview',
+    live: 'Live preview',
+    emptyMain: 'Your preview will appear here after selecting an image',
+    emptySub: 'Watermark effects update in real time',
+    format: 'Format',
+    size: 'Original size',
+    loading: 'Loading...',
+  } : {
+    title: '預覽畫面',
+    live: '即時預覽',
+    emptyMain: '選擇圖片後會在此處顯示預覽',
+    emptySub: '支援即時預覽浮水印效果',
+    format: '格式',
+    size: '原始尺寸',
+    loading: '載入中...',
+  };
 
   useEffect(() => {
     if (selectedFile) {
@@ -27,20 +46,20 @@ export function CanvasPreview({ canvasRef, selectedFile, processedImage }: Canva
   return (
     <Card className="p-6">
       <div className="flex items-center justify-between mb-4">
-        <h2 className="text-lg font-semibold text-gray-900">預覽畫面</h2>
+        <h2 className="text-lg font-semibold text-gray-900">{t.title}</h2>
         <div className="flex items-center space-x-2 text-sm text-gray-500">
           <Eye className="w-4 h-4" />
-          <span>即時預覽</span>
+          <span>{t.live}</span>
         </div>
       </div>
-      
+
       {/* Canvas Container */}
       <div className="border border-gray-200 rounded-lg p-4 bg-gray-50 min-h-[400px] flex items-center justify-center">
         {!selectedFile ? (
           <div className="text-center">
             <span className="text-gray-400 text-6xl mb-4 block">📷</span>
-            <p className="text-gray-500 mb-2">選擇圖片後會在此處顯示預覽</p>
-            <p className="text-sm text-gray-400">支援即時預覽浮水印效果</p>
+            <p className="text-gray-500 mb-2">{t.emptyMain}</p>
+            <p className="text-sm text-gray-400">{t.emptySub}</p>
           </div>
         ) : (
           <canvas
@@ -50,12 +69,12 @@ export function CanvasPreview({ canvasRef, selectedFile, processedImage }: Canva
           />
         )}
       </div>
-      
+
       {/* Canvas Info */}
       {selectedFile && (
         <div className="mt-4 flex justify-between text-sm text-gray-500">
-          <span>格式: {selectedFile.type.split('/')[1].toUpperCase()}</span>
-          <span>原始尺寸: {imageDimensions ? `${imageDimensions.width}×${imageDimensions.height}` : '載入中...'}</span>
+          <span>{t.format}: {selectedFile.type.split('/')[1].toUpperCase()}</span>
+          <span>{t.size}: {imageDimensions ? `${imageDimensions.width}×${imageDimensions.height}` : t.loading}</span>
         </div>
       )}
     </Card>

@@ -5,10 +5,27 @@ import { Upload, CheckCircle } from "lucide-react";
 interface FileUploadZoneProps {
   selectedFile: File | null;
   onFileSelect: (file: File) => void;
+  lang?: 'zh' | 'en';
 }
 
-export function FileUploadZone({ selectedFile, onFileSelect }: FileUploadZoneProps) {
+export function FileUploadZone({ selectedFile, onFileSelect, lang = 'zh' }: FileUploadZoneProps) {
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const t = lang === 'en' ? {
+    title: 'Upload Image',
+    dropHint: 'Drag & drop image here, or click to select',
+    formats: 'Supports JPG, PNG. Max 10MB',
+    choose: 'Choose File',
+    chooseAria: 'Choose image file',
+    zoneAria: 'Upload area, click or drag a file here',
+  } : {
+    title: '上傳圖片',
+    dropHint: '將圖片拖放到此處，或點擊選擇檔案',
+    formats: '支援 JPG、PNG 格式，最大 10MB',
+    choose: '選擇檔案',
+    chooseAria: '選擇圖片檔案',
+    zoneAria: '上傳圖片區域，點擊或拖放檔案到此處',
+  };
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -39,8 +56,8 @@ export function FileUploadZone({ selectedFile, onFileSelect }: FileUploadZonePro
 
   return (
     <Card className="p-6">
-      <h2 className="text-lg font-semibold text-gray-900 mb-4">上傳圖片</h2>
-      
+      <h2 className="text-lg font-semibold text-gray-900 mb-4">{t.title}</h2>
+
       <div
         onDrop={handleDrop}
         onDragOver={handleDragOver}
@@ -54,28 +71,28 @@ export function FileUploadZone({ selectedFile, onFileSelect }: FileUploadZonePro
             fileInputRef.current?.click();
           }
         }}
-        aria-label="上傳圖片區域，點擊或拖放檔案到此處"
+        aria-label={t.zoneAria}
       >
         <Upload className="text-gray-400 text-4xl mb-4 mx-auto w-12 h-12" aria-hidden="true" />
-        <p className="text-gray-600 mb-2">將圖片拖放到此處，或點擊選擇檔案</p>
-        <p className="text-sm text-gray-600 mb-4">支援 JPG、PNG 格式，最大 10MB</p>
+        <p className="text-gray-600 mb-2">{t.dropHint}</p>
+        <p className="text-sm text-gray-600 mb-4">{t.formats}</p>
         <button
-          aria-label="選擇圖片檔案"
+          aria-label={t.chooseAria}
           className="bg-primary text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
         >
-          選擇檔案
+          {t.choose}
         </button>
       </div>
-      
+
       <input
         ref={fileInputRef}
         type="file"
         accept="image/jpeg,image/png"
         onChange={handleFileChange}
         className="hidden"
-        aria-label="選擇圖片檔案"
+        aria-label={t.chooseAria}
       />
-      
+
       {/* File Info */}
       {selectedFile && (
         <div className="mt-4 p-3 bg-gray-50 rounded-lg">

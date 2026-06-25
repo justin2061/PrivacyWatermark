@@ -4,6 +4,7 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import WatermarkPage from "@/pages/watermark";
+import WatermarkEnPage from "@/pages/en/watermark";
 import BlogIndexPage from "@/pages/blog/index";
 import RentIdWatermarkPage from "@/pages/blog/rent-id-watermark";
 import WatermarkGeneratorsRecommendationPage from "@/pages/blog/watermark-generators-recommendation";
@@ -24,6 +25,8 @@ function Router() {
   return (
     <Switch>
       <Route path="/" component={WatermarkPage} />
+      <Route path="/en" component={WatermarkEnPage} />
+      <Route path="/en/" component={WatermarkEnPage} />
       <Route path="/blog" component={BlogIndex} />
       <Route path="/blog/rent-id-watermark" component={RentIdWatermark} />
       <Route path="/blog/watermark-generators-recommendation" component={WatermarkGeneratorsRecommendation} />

@@ -125,6 +125,12 @@ export class WatermarkProcessor {
     const targetWidth = canvasWidth * (sizePercent / 100);
     const targetHeight = targetWidth * (naturalH / naturalW);
 
+    // Tiled / repeated pattern across the whole image
+    if (settings.position === 'repeat') {
+      this.drawLogoRepeat(ctx, canvasWidth, canvasHeight, logo, targetWidth, targetHeight, settings);
+      return;
+    }
+
     const margin = Math.max(10, Math.round(canvasWidth * 0.02));
     const { x, y } = this.calculateBoxPosition(
       settings.position,
@@ -138,6 +144,33 @@ export class WatermarkProcessor {
     ctx.save();
     ctx.globalAlpha = settings.opacity / 100;
     ctx.drawImage(logo, x, y, targetWidth, targetHeight);
+    ctx.restore();
+  }
+
+  // Tile the logo diagonally to cover the entire image
+  private drawLogoRepeat(
+    ctx: CanvasRenderingContext2D,
+    width: number,
+    height: number,
+    logo: HTMLImageElement,
+    targetWidth: number,
+    targetHeight: number,
+    settings: WatermarkSettings
+  ) {
+    const stepX = targetWidth * 1.6;
+    const stepY = targetHeight * 1.8;
+    const angle = (-30 * Math.PI) / 180;
+    const diag = Math.sqrt(width * width + height * height);
+
+    ctx.save();
+    ctx.globalAlpha = settings.opacity / 100;
+    ctx.translate(width / 2, height / 2);
+    ctx.rotate(angle);
+    for (let y = -diag; y < diag; y += stepY) {
+      for (let x = -diag; x < diag; x += stepX) {
+        ctx.drawImage(logo, x - targetWidth / 2, y - targetHeight / 2, targetWidth, targetHeight);
+      }
+    }
     ctx.restore();
   }
 
@@ -163,6 +196,13 @@ export class WatermarkProcessor {
     ctx.shadowOffsetX = fullRes ? Math.max(1, Math.floor(width / 600)) : 1;
     ctx.shadowOffsetY = fullRes ? Math.max(1, Math.floor(width / 600)) : 1;
 
+    // Tiled / repeated pattern across the whole image
+    if (settings.position === 'repeat') {
+      this.drawTextRepeat(ctx, width, height, settings, fontSize);
+      this.resetShadow(ctx);
+      return;
+    }
+
     // Calculate position
     const position = this.calculateTextPosition(
       settings.position,
@@ -176,6 +216,40 @@ export class WatermarkProcessor {
     ctx.fillText(settings.text, position.x, position.y);
 
     // Reset shadow
+    this.resetShadow(ctx);
+  }
+
+  // Tile the text watermark diagonally to cover the entire image
+  private drawTextRepeat(
+    ctx: CanvasRenderingContext2D,
+    width: number,
+    height: number,
+    settings: WatermarkSettings,
+    fontSize: number
+  ) {
+    const text = settings.text || '';
+    if (!text) return;
+
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    const textWidth = ctx.measureText(text).width;
+    const stepX = Math.max(textWidth + fontSize * 2, fontSize * 4);
+    const stepY = fontSize * 3;
+    const angle = (-30 * Math.PI) / 180;
+    const diag = Math.sqrt(width * width + height * height);
+
+    ctx.save();
+    ctx.translate(width / 2, height / 2);
+    ctx.rotate(angle);
+    for (let y = -diag; y < diag; y += stepY) {
+      for (let x = -diag; x < diag; x += stepX) {
+        ctx.fillText(text, x, y);
+      }
+    }
+    ctx.restore();
+  }
+
+  private resetShadow(ctx: CanvasRenderingContext2D) {
     ctx.shadowColor = 'transparent';
     ctx.shadowBlur = 0;
     ctx.shadowOffsetX = 0;

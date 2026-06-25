@@ -9,7 +9,7 @@ export interface WatermarkSettings {
   mode: 'text' | 'image';
   text: string;
   opacity: number;
-  position: 'top-left' | 'top-center' | 'top-right' | 'center-left' | 'center' | 'center-right' | 'bottom-left' | 'bottom-center' | 'bottom-right';
+  position: 'top-left' | 'top-center' | 'top-right' | 'center-left' | 'center' | 'center-right' | 'bottom-left' | 'bottom-center' | 'bottom-right' | 'repeat';
   fontSize: 'small' | 'medium' | 'large' | 'xlarge';
   color: string; // text watermark color as hex
   logoSrc: string | null; // logo image as a data URL (never uploaded — stays local)
@@ -19,27 +19,91 @@ export interface WatermarkSettings {
 const MAX_LOGO_SIZE = 5 * 1024 * 1024; // 5MB
 const ACCEPTED_LOGO_TYPES = ['image/png', 'image/jpeg', 'image/svg+xml'];
 
+type Lang = 'zh' | 'en';
+
 interface WatermarkControlsProps {
   settings: WatermarkSettings;
   onSettingsChange: (settings: Partial<WatermarkSettings>) => void;
   disabled?: boolean;
+  lang?: Lang;
 }
 
-
-export function WatermarkControls({ settings, onSettingsChange, disabled }: WatermarkControlsProps) {
+export function WatermarkControls({ settings, onSettingsChange, disabled, lang = 'zh' }: WatermarkControlsProps) {
   const logoInputRef = useRef<HTMLInputElement>(null);
   const [showCustomColor, setShowCustomColor] = useState(false);
+
+  const t = lang === 'en' ? {
+    settings: 'Watermark Settings',
+    typeLabel: 'Watermark type',
+    textMode: '📝 Text Watermark',
+    imageMode: '🖼️ Image Watermark',
+    watermarkText: 'Watermark Text',
+    textPlaceholder: 'Enter watermark text...',
+    quickTemplates: '💡 Quick Templates',
+    logoImage: 'Logo Image',
+    logoPreviewAlt: 'Logo preview',
+    replace: 'Replace',
+    remove: 'Remove',
+    uploadLogo: 'Click to upload logo',
+    logoFormats: 'PNG, JPG, SVG. Max 5MB',
+    logoLocalNote: 'Your logo is also processed 100% locally and never uploaded.',
+    logoUploadAria: 'Upload logo image',
+    logoSize: (n: number) => `Logo Size: ${n}% (of image width)`,
+    opacity: (n: number) => `Opacity: ${n}%`,
+    color: 'Color',
+    custom: 'Custom...',
+    customColorAria: 'Custom watermark color',
+    position: 'Position',
+    fontSize: 'Font Size',
+    fontSmall: 'Small (24px)',
+    fontMedium: 'Medium (36px)',
+    fontLarge: 'Large (48px)',
+    fontXlarge: 'XL (64px)',
+    alertType: 'Only PNG, JPG and SVG logos are supported',
+    alertSize: 'Logo must be smaller than 5MB',
+    positionAria: (l: string) => `Watermark position: ${l}`,
+  } : {
+    settings: '浮水印設定',
+    typeLabel: '浮水印類型',
+    textMode: '📝 文字浮水印',
+    imageMode: '🖼️ 圖片浮水印',
+    watermarkText: '浮水印文字',
+    textPlaceholder: '輸入浮水印文字...',
+    quickTemplates: '💡 快速套用',
+    logoImage: 'Logo 圖片',
+    logoPreviewAlt: 'Logo 預覽',
+    replace: '更換',
+    remove: '移除',
+    uploadLogo: '點擊上傳 Logo',
+    logoFormats: '支援 PNG、JPG、SVG，最大 5MB',
+    logoLocalNote: 'Logo 也 100% 在本地處理，不會上傳。',
+    logoUploadAria: '上傳 Logo 圖片',
+    logoSize: (n: number) => `Logo 大小: ${n}%（佔原圖寬度）`,
+    opacity: (n: number) => `透明度: ${n}%`,
+    color: '浮水印顏色',
+    custom: '自訂...',
+    customColorAria: '自訂浮水印顏色',
+    position: '浮水印位置',
+    fontSize: '字體大小',
+    fontSmall: '小 (24px)',
+    fontMedium: '中 (36px)',
+    fontLarge: '大 (48px)',
+    fontXlarge: '特大 (64px)',
+    alertType: '僅支援 PNG、JPG、SVG 格式的 Logo 圖片',
+    alertSize: 'Logo 圖片請小於 5MB',
+    positionAria: (l: string) => `浮水印位置: ${l}`,
+  };
 
   const handleLogoSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     event.target.value = ""; // allow re-selecting the same file
     if (!file) return;
     if (!ACCEPTED_LOGO_TYPES.includes(file.type)) {
-      alert("僅支援 PNG、JPG、SVG 格式的 Logo 圖片");
+      alert(t.alertType);
       return;
     }
     if (file.size > MAX_LOGO_SIZE) {
-      alert("Logo 圖片請小於 5MB");
+      alert(t.alertSize);
       return;
     }
     const reader = new FileReader();
@@ -50,7 +114,14 @@ export function WatermarkControls({ settings, onSettingsChange, disabled }: Wate
     reader.readAsDataURL(file);
   };
 
-  const colorPresets = [
+  const colorPresets = lang === 'en' ? [
+    { value: '#000000', label: 'Black' },
+    { value: '#555555', label: 'Dark Gray' },
+    { value: '#CC0000', label: 'Red' },
+    { value: '#003399', label: 'Dark Blue' },
+    { value: '#FFFFFF', label: 'White' },
+    { value: '#006600', label: 'Dark Green' },
+  ] : [
     { value: '#000000', label: '黑' },
     { value: '#555555', label: '深灰' },
     { value: '#CC0000', label: '紅' },
@@ -63,7 +134,38 @@ export function WatermarkControls({ settings, onSettingsChange, disabled }: Wate
     (p) => p.value.toLowerCase() === settings.color.toLowerCase()
   );
 
-  const positions = [
+  // Quick templates differ by language: photographer scenarios for English
+  const templates = lang === 'en' ? [
+    { label: 'Portfolio', text: '© Portfolio Use Only', withDate: false },
+    { label: 'Client Preview', text: 'PREVIEW - Not for Print', withDate: false },
+    { label: 'Stock Photo', text: 'Sample - Licensed Use Only', withDate: false },
+    { label: 'Draft', text: 'DRAFT - Do Not Distribute', withDate: false },
+    { label: 'Proof', text: 'PROOF - {Your Name}', withDate: false },
+    { label: 'Copyright', text: '© 2026 {Your Name}', withDate: false },
+  ] : [
+    { label: '租屋', text: '僅供 {OO房東} 租屋使用', withDate: true },
+    { label: '求職', text: '僅供 {OO公司} 徵才審核', withDate: true },
+    { label: '銀行', text: '僅供 {OO銀行} 開戶使用', withDate: true },
+    { label: '手機', text: '僅供 {電信公司} 申辦門號', withDate: true },
+    { label: '保險', text: '僅供 {OO人壽} 投保使用', withDate: true },
+    { label: '信用卡', text: '僅供 {OO銀行} 申辦信用卡', withDate: true },
+    { label: '過戶', text: '僅供 {OO} 過戶使用', withDate: true },
+    { label: '貸款', text: '僅供 {OO銀行} 貸款申請', withDate: true },
+    { label: '政府', text: '僅供 {機關名稱} 申辦使用', withDate: true },
+    { label: '公司', text: '僅供 {OO公司} 人資備存', withDate: true },
+  ];
+
+  const positions = lang === 'en' ? [
+    { value: 'top-left', label: 'Top Left', icon: '↖' },
+    { value: 'top-center', label: 'Top Center', icon: '↑' },
+    { value: 'top-right', label: 'Top Right', icon: '↗' },
+    { value: 'center-left', label: 'Center Left', icon: '←' },
+    { value: 'center', label: 'Center', icon: '⊕' },
+    { value: 'center-right', label: 'Center Right', icon: '→' },
+    { value: 'bottom-left', label: 'Bottom Left', icon: '↙' },
+    { value: 'bottom-center', label: 'Bottom Center', icon: '↓' },
+    { value: 'bottom-right', label: 'Bottom Right', icon: '↘' },
+  ] : [
     { value: 'top-left', label: '左上', icon: '↖' },
     { value: 'top-center', label: '中上', icon: '↑' },
     { value: 'top-right', label: '右上', icon: '↗' },
@@ -75,15 +177,17 @@ export function WatermarkControls({ settings, onSettingsChange, disabled }: Wate
     { value: 'bottom-right', label: '右下', icon: '↘' },
   ];
 
+  const repeatLabel = lang === 'en' ? 'Repeat' : '重複';
+
   return (
     <Card className="p-6">
-      <h2 className="text-lg font-semibold text-gray-900 mb-4">浮水印設定</h2>
+      <h2 className="text-lg font-semibold text-gray-900 mb-4">{t.settings}</h2>
 
       {/* Mode switch: text vs image */}
-      <div className="grid grid-cols-2 gap-1 p-1 mb-4 bg-gray-100 rounded-lg" role="tablist" aria-label="浮水印類型">
+      <div className="grid grid-cols-2 gap-1 p-1 mb-4 bg-gray-100 rounded-lg" role="tablist" aria-label={t.typeLabel}>
         {([
-          { value: 'text', label: '📝 文字浮水印' },
-          { value: 'image', label: '🖼️ 圖片浮水印' },
+          { value: 'text', label: t.textMode },
+          { value: 'image', label: t.imageMode },
         ] as const).map((m) => (
           <button
             key={m.value}
@@ -93,7 +197,7 @@ export function WatermarkControls({ settings, onSettingsChange, disabled }: Wate
             disabled={disabled}
             onClick={() => {
               if (typeof gtag !== 'undefined') gtag('event', 'switch_watermark_mode', { mode: m.value });
-              onSettingsChange({ mode: m.value });
+              onSettingsChange({ mode: m.value as WatermarkSettings['mode'] });
             }}
             className={`py-2 px-3 text-sm font-medium rounded-md transition-colors ${
               settings.mode === m.value
@@ -112,11 +216,11 @@ export function WatermarkControls({ settings, onSettingsChange, disabled }: Wate
         {/* Watermark Text */}
         <div>
           <Label htmlFor="watermarkText" className="block text-sm font-medium text-gray-700 mb-2">
-            浮水印文字
+            {t.watermarkText}
           </Label>
           <Input
             id="watermarkText"
-            placeholder="輸入浮水印文字..."
+            placeholder={t.textPlaceholder}
             value={settings.text}
             onChange={(e) => onSettingsChange({ text: e.target.value })}
             disabled={disabled}
@@ -125,32 +229,25 @@ export function WatermarkControls({ settings, onSettingsChange, disabled }: Wate
 
         {/* Quick Templates */}
         <div className="mt-2">
-          <p className="text-xs text-gray-500 mb-1">💡 快速套用</p>
+          <p className="text-xs text-gray-500 mb-1">{t.quickTemplates}</p>
           <div className="flex flex-wrap gap-1">
-            {[
-              { label: '租屋', text: '僅供 {OO房東} 租屋使用' },
-              { label: '求職', text: '僅供 {OO公司} 徵才審核' },
-              { label: '銀行', text: '僅供 {OO銀行} 開戶使用' },
-              { label: '手機', text: '僅供 {電信公司} 申辦門號' },
-              { label: '保險', text: '僅供 {OO人壽} 投保使用' },
-              { label: '信用卡', text: '僅供 {OO銀行} 申辦信用卡' },
-              { label: '過戶', text: '僅供 {OO} 過戶使用' },
-              { label: '貸款', text: '僅供 {OO銀行} 貸款申請' },
-              { label: '政府', text: '僅供 {機關名稱} 申辦使用' },
-              { label: '公司', text: '僅供 {OO公司} 人資備存' },
-            ].map(t => (
+            {templates.map(tpl => (
               <button
-                key={t.label}
+                key={tpl.label}
                 type="button"
                 disabled={disabled}
                 onClick={() => {
                   if (typeof gtag !== 'undefined') gtag('event', 'use_template');
-                  const today = new Date().toISOString().slice(0, 10).replace(/-/g, '/');
-                  onSettingsChange({ text: t.text + ' ' + today });
+                  if (tpl.withDate) {
+                    const today = new Date().toISOString().slice(0, 10).replace(/-/g, '/');
+                    onSettingsChange({ text: tpl.text + ' ' + today });
+                  } else {
+                    onSettingsChange({ text: tpl.text });
+                  }
                 }}
                 className="px-2 py-0.5 text-xs rounded-full border border-gray-300 hover:bg-blue-50 hover:border-blue-400 transition-colors"
               >
-                {t.label}
+                {tpl.label}
               </button>
             ))}
           </div>
@@ -160,20 +257,20 @@ export function WatermarkControls({ settings, onSettingsChange, disabled }: Wate
         <>
         {/* Logo Upload */}
         <div>
-          <Label className="block text-sm font-medium text-gray-700 mb-2">Logo 圖片</Label>
+          <Label className="block text-sm font-medium text-gray-700 mb-2">{t.logoImage}</Label>
           <input
             ref={logoInputRef}
             type="file"
             accept="image/png,image/jpeg,image/svg+xml"
             onChange={handleLogoSelect}
             className="hidden"
-            aria-label="上傳 Logo 圖片"
+            aria-label={t.logoUploadAria}
           />
           {settings.logoSrc ? (
             <div className="flex items-center gap-3 p-3 border border-gray-200 rounded-lg">
               <img
                 src={settings.logoSrc}
-                alt="Logo 預覽"
+                alt={t.logoPreviewAlt}
                 className="w-12 h-12 object-contain rounded bg-gray-50 flex-shrink-0"
               />
               <div className="flex-1 flex gap-2">
@@ -183,7 +280,7 @@ export function WatermarkControls({ settings, onSettingsChange, disabled }: Wate
                   onClick={() => logoInputRef.current?.click()}
                   className="text-sm text-primary hover:underline disabled:opacity-50"
                 >
-                  更換
+                  {t.replace}
                 </button>
                 <button
                   type="button"
@@ -191,7 +288,7 @@ export function WatermarkControls({ settings, onSettingsChange, disabled }: Wate
                   onClick={() => onSettingsChange({ logoSrc: null })}
                   className="text-sm text-gray-500 hover:text-red-500 disabled:opacity-50"
                 >
-                  移除
+                  {t.remove}
                 </button>
               </div>
             </div>
@@ -200,23 +297,23 @@ export function WatermarkControls({ settings, onSettingsChange, disabled }: Wate
               type="button"
               disabled={disabled}
               onClick={() => logoInputRef.current?.click()}
-              aria-label="上傳 Logo 圖片"
+              aria-label={t.logoUploadAria}
               className={`w-full border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-primary hover:bg-blue-50 transition-colors ${
                 disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'
               }`}
             >
               <span className="text-3xl block mb-2" aria-hidden="true">🖼️</span>
-              <p className="text-sm text-gray-600">點擊上傳 Logo</p>
-              <p className="text-xs text-gray-400 mt-1">支援 PNG、JPG、SVG，最大 5MB</p>
+              <p className="text-sm text-gray-600">{t.uploadLogo}</p>
+              <p className="text-xs text-gray-400 mt-1">{t.logoFormats}</p>
             </button>
           )}
-          <p className="text-xs text-gray-400 mt-1">Logo 也 100% 在本地處理，不會上傳。</p>
+          <p className="text-xs text-gray-400 mt-1">{t.logoLocalNote}</p>
         </div>
 
         {/* Logo Size Slider */}
         <div>
           <Label htmlFor="logoSizeSlider" className="block text-sm font-medium text-gray-700 mb-2">
-            Logo 大小: {settings.logoSize}%（佔原圖寬度）
+            {t.logoSize(settings.logoSize)}
           </Label>
           <Slider
             id="logoSizeSlider"
@@ -227,7 +324,7 @@ export function WatermarkControls({ settings, onSettingsChange, disabled }: Wate
             step={5}
             disabled={disabled || !settings.logoSrc}
             className="w-full"
-            aria-label={`Logo 大小: ${settings.logoSize}%`}
+            aria-label={t.logoSize(settings.logoSize)}
           />
         </div>
         </>
@@ -236,7 +333,7 @@ export function WatermarkControls({ settings, onSettingsChange, disabled }: Wate
         {/* Opacity Slider */}
         <div>
           <Label htmlFor="opacitySlider" className="block text-sm font-medium text-gray-700 mb-2">
-            透明度: {settings.opacity}%
+            {t.opacity(settings.opacity)}
           </Label>
           <Slider
             id="opacitySlider"
@@ -247,13 +344,13 @@ export function WatermarkControls({ settings, onSettingsChange, disabled }: Wate
             step={5}
             disabled={disabled}
             className="w-full"
-            aria-label={`透明度: ${settings.opacity}%`}
+            aria-label={t.opacity(settings.opacity)}
           />
         </div>
 
         {/* Color Selection */}
         <div>
-          <Label className="block text-sm font-medium text-gray-700 mb-2">浮水印顏色</Label>
+          <Label className="block text-sm font-medium text-gray-700 mb-2">{t.color}</Label>
           <div className="flex flex-wrap items-center gap-2">
             {colorPresets.map((preset) => (
               <button
@@ -281,7 +378,7 @@ export function WatermarkControls({ settings, onSettingsChange, disabled }: Wate
                   : 'border-gray-300'
               } ${disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
             >
-              自訂...
+              {t.custom}
             </button>
           </div>
           {(showCustomColor || isCustomColor) && (
@@ -292,7 +389,7 @@ export function WatermarkControls({ settings, onSettingsChange, disabled }: Wate
                 onChange={(e) => onSettingsChange({ color: e.target.value })}
                 disabled={disabled}
                 className="w-10 h-9 rounded border border-gray-300 cursor-pointer disabled:opacity-50"
-                aria-label="自訂浮水印顏色"
+                aria-label={t.customColorAria}
               />
               <span className="text-sm text-gray-600 uppercase">{settings.color}</span>
             </div>
@@ -301,14 +398,14 @@ export function WatermarkControls({ settings, onSettingsChange, disabled }: Wate
 
         {/* Position Selection */}
         <div>
-          <Label className="block text-sm font-medium text-gray-700 mb-2">浮水印位置</Label>
+          <Label className="block text-sm font-medium text-gray-700 mb-2">{t.position}</Label>
           <div className="grid grid-cols-3 gap-2">
             {positions.map((position) => (
               <button
                 key={position.value}
                 onClick={() => onSettingsChange({ position: position.value as WatermarkSettings['position'] })}
                 disabled={disabled}
-                aria-label={`浮水印位置: ${position.label}`}
+                aria-label={t.positionAria(position.label)}
                 aria-pressed={settings.position === position.value}
                 className={`p-2 border rounded-lg hover:bg-gray-50 focus:ring-2 focus:ring-primary text-xs transition-colors ${
                   settings.position === position.value
@@ -321,25 +418,40 @@ export function WatermarkControls({ settings, onSettingsChange, disabled }: Wate
               </button>
             ))}
           </div>
+          {/* Repeat / tiled pattern */}
+          <button
+            onClick={() => onSettingsChange({ position: 'repeat' })}
+            disabled={disabled}
+            aria-label={t.positionAria(repeatLabel)}
+            aria-pressed={settings.position === 'repeat'}
+            className={`mt-2 w-full p-2 border rounded-lg hover:bg-gray-50 focus:ring-2 focus:ring-primary text-xs transition-colors flex items-center justify-center gap-2 ${
+              settings.position === 'repeat'
+                ? 'border-primary bg-blue-50'
+                : 'border-gray-300'
+            } ${disabled ? 'opacity-50 cursor-not-allowed' : ''}`}
+          >
+            <span className="text-sm" aria-hidden="true">🔄</span>
+            <span>{repeatLabel}</span>
+          </button>
         </div>
 
         {/* Font Size (text mode only) */}
         {settings.mode === 'text' && (
         <div>
-          <Label className="block text-sm font-medium text-gray-700 mb-2">字體大小</Label>
+          <Label className="block text-sm font-medium text-gray-700 mb-2">{t.fontSize}</Label>
           <Select
             value={settings.fontSize}
             onValueChange={(value) => onSettingsChange({ fontSize: value as WatermarkSettings['fontSize'] })}
             disabled={disabled}
           >
-            <SelectTrigger aria-label="字體大小">
+            <SelectTrigger aria-label={t.fontSize}>
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="small">小 (24px)</SelectItem>
-              <SelectItem value="medium">中 (36px)</SelectItem>
-              <SelectItem value="large">大 (48px)</SelectItem>
-              <SelectItem value="xlarge">特大 (64px)</SelectItem>
+              <SelectItem value="small">{t.fontSmall}</SelectItem>
+              <SelectItem value="medium">{t.fontMedium}</SelectItem>
+              <SelectItem value="large">{t.fontLarge}</SelectItem>
+              <SelectItem value="xlarge">{t.fontXlarge}</SelectItem>
             </SelectContent>
           </Select>
         </div>

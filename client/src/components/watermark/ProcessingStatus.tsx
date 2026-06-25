@@ -6,9 +6,24 @@ interface ProcessingStatusProps {
   selectedFile: File | null;
   processedImage: string | null;
   progress: number;
+  lang?: 'zh' | 'en';
 }
 
-export function ProcessingStatus({ selectedFile, processedImage, progress }: ProcessingStatusProps) {
+export function ProcessingStatus({ selectedFile, processedImage, progress, lang = 'zh' }: ProcessingStatusProps) {
+  const t = lang === 'en' ? {
+    title: 'Processing Status',
+    loaded: 'Image loaded',
+    processed: 'Watermark applied',
+    ready: 'Ready to download',
+    progressAria: 'Watermark processing progress',
+  } : {
+    title: '處理狀態',
+    loaded: '圖片載入',
+    processed: '浮水印處理',
+    ready: '準備下載',
+    progressAria: '浮水印處理進度',
+  };
+
   const getStatusIcon = (completed: boolean, inProgress: boolean) => {
     if (completed) return <CheckCircle className="text-green-600 w-5 h-5" />;
     if (inProgress) return <Clock className="text-blue-600 w-5 h-5 animate-spin" />;
@@ -17,26 +32,26 @@ export function ProcessingStatus({ selectedFile, processedImage, progress }: Pro
 
   return (
     <Card className="p-6">
-      <h2 className="text-lg font-semibold text-gray-900 mb-4">處理狀態</h2>
-      
+      <h2 className="text-lg font-semibold text-gray-900 mb-4">{t.title}</h2>
+
       <div className="space-y-3">
         <div className="flex items-center justify-between">
-          <span className="text-sm text-gray-600">圖片載入</span>
+          <span className="text-sm text-gray-600">{t.loaded}</span>
           {getStatusIcon(!!selectedFile, false)}
         </div>
         <div className="flex items-center justify-between">
-          <span className="text-sm text-gray-600">浮水印處理</span>
+          <span className="text-sm text-gray-600">{t.processed}</span>
           {getStatusIcon(!!processedImage, progress > 0 && progress < 100)}
         </div>
         <div className="flex items-center justify-between">
-          <span className="text-sm text-gray-600">準備下載</span>
+          <span className="text-sm text-gray-600">{t.ready}</span>
           {getStatusIcon(!!processedImage, false)}
         </div>
       </div>
-      
+
       {/* Progress Bar */}
       <div className="mt-4">
-        <Progress value={progress} className="w-full" aria-label="浮水印處理進度" />
+        <Progress value={progress} className="w-full" aria-label={t.progressAria} />
       </div>
     </Card>
   );
