@@ -23,8 +23,10 @@ export default function WatermarkPage() {
     resetCanvas
   } = useWatermark();
 
+  const [menuOpen, setMenuOpen] = useState(false);
+
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 pb-20 md:pb-0">
       {/* Header */}
       <header className="bg-white shadow-sm border-b border-gray-200">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -38,7 +40,8 @@ export default function WatermarkPage() {
                 <p className="text-xs text-gray-600">安全的本地端圖片處理</p>
               </div>
             </div>
-            <div className="flex items-center space-x-4">
+            {/* 桌面版導航 */}
+            <div className="hidden md:flex items-center space-x-4">
               <Link
                 href="/batch"
                 className="flex items-center space-x-1.5 text-sm text-gray-600 hover:text-primary transition-colors"
@@ -73,7 +76,56 @@ export default function WatermarkPage() {
                 <span className="text-sm text-gray-600">100% 本地處理</span>
               </div>
             </div>
+
+            {/* 手機版漢堡按鈕 */}
+            <button
+              type="button"
+              className="md:hidden p-2 text-2xl leading-none text-gray-700"
+              onClick={() => setMenuOpen(!menuOpen)}
+              aria-label={menuOpen ? "關閉選單" : "開啟選單"}
+              aria-expanded={menuOpen}
+            >
+              {menuOpen ? '✕' : '☰'}
+            </button>
           </div>
+
+          {/* 手機版展開選單 */}
+          {menuOpen && (
+            <nav className="md:hidden border-t border-gray-200 py-2">
+              <Link
+                href="/batch"
+                className="flex items-center space-x-2 py-3 px-4 text-gray-600 hover:bg-gray-50 rounded-lg"
+                onClick={() => setMenuOpen(false)}
+              >
+                <Layers className="w-4 h-4" aria-hidden="true" />
+                <span>批次處理</span>
+              </Link>
+              <Link
+                href="/exif-clean"
+                className="flex items-center space-x-2 py-3 px-4 text-gray-600 hover:bg-gray-50 rounded-lg"
+                onClick={() => setMenuOpen(false)}
+              >
+                <Eraser className="w-4 h-4" aria-hidden="true" />
+                <span>EXIF 清除器</span>
+              </Link>
+              <Link
+                href="/blog"
+                className="flex items-center space-x-2 py-3 px-4 text-gray-600 hover:bg-gray-50 rounded-lg"
+                onClick={() => setMenuOpen(false)}
+              >
+                <BookOpen className="w-4 h-4" aria-hidden="true" />
+                <span>使用教學與文章</span>
+              </Link>
+              <a
+                href="/en/"
+                className="flex items-center space-x-2 py-3 px-4 text-gray-600 hover:bg-gray-50 rounded-lg"
+                aria-label="Switch to English"
+              >
+                <Languages className="w-4 h-4" aria-hidden="true" />
+                <span>EN</span>
+              </a>
+            </nav>
+          )}
         </div>
       </header>
 
@@ -115,7 +167,7 @@ export default function WatermarkPage() {
                   aria-label={isProcessing ? "處理中，請稍候" : "套用浮水印"}
                   className="w-full bg-primary text-white py-3 px-4 rounded-lg hover:bg-blue-700 transition-colors font-medium disabled:bg-gray-400 disabled:cursor-not-allowed flex items-center justify-center"
                 >
-                  <span className="mr-2" aria-hidden="true">🖌️</span>
+                  <span className="mr-2" aria-hidden="true">{isProcessing ? "⏳" : "🖌️"}</span>
                   {isProcessing ? "處理中..." : "套用浮水印"}
                 </button>
 
@@ -296,6 +348,28 @@ export default function WatermarkPage() {
           </div>
         </div>
       </footer>
+
+      {/* Mobile Sticky CTA - 只在手機上且有圖片時顯示 */}
+      {selectedFile && (
+        <div className="fixed bottom-0 left-0 right-0 z-50 md:hidden bg-white border-t border-gray-200 p-3 flex gap-2 shadow-lg">
+          <button
+            onClick={() => { if (typeof gtag !== 'undefined') gtag('event', 'apply_watermark'); applyWatermark(); }}
+            disabled={isProcessing}
+            aria-label={isProcessing ? "處理中，請稍候" : "套用浮水印"}
+            className="flex-1 bg-primary text-white py-3 rounded-lg font-medium disabled:bg-gray-400 disabled:cursor-not-allowed"
+          >
+            {isProcessing ? "⏳ 處理中..." : "🖌️ 套用浮水印"}
+          </button>
+          <button
+            onClick={() => { if (typeof gtag !== 'undefined') gtag('event', 'download_image'); downloadImage(); }}
+            disabled={!processedImage}
+            aria-label="下載處理後的圖片"
+            className="flex-1 bg-green-600 text-white py-3 rounded-lg font-medium disabled:bg-gray-400 disabled:cursor-not-allowed"
+          >
+            📥 下載
+          </button>
+        </div>
+      )}
     </div>
   );
 }

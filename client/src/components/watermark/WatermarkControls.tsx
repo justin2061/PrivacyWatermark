@@ -230,7 +230,7 @@ export function WatermarkControls({ settings, onSettingsChange, disabled, lang =
         {/* Quick Templates */}
         <div className="mt-2">
           <p className="text-xs text-gray-500 mb-1">{t.quickTemplates}</p>
-          <div className="flex flex-wrap gap-1">
+          <div className="flex flex-wrap gap-2">
             {templates.map(tpl => (
               <button
                 key={tpl.label}
@@ -245,7 +245,7 @@ export function WatermarkControls({ settings, onSettingsChange, disabled, lang =
                     onSettingsChange({ text: tpl.text });
                   }
                 }}
-                className="px-2 py-0.5 text-xs rounded-full border border-gray-300 hover:bg-blue-50 hover:border-blue-400 transition-colors"
+                className="px-3 py-2 text-sm rounded-full border border-gray-300 hover:bg-blue-50 hover:border-blue-400 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {tpl.label}
               </button>
