@@ -103,6 +103,12 @@
     <xhtml:link rel="alternate" hreflang="zh-tw" href="https://imagemarker.app/" />
   </url>
   <url>
+    <loc>https://imagemarker.app/en/blog</loc>
+    <lastmod>2026-06-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://imagemarker.app/en/blog/watermark-photos-online</loc>
     <lastmod>2026-06-25</lastmod>
     <changefreq>monthly</changefreq>

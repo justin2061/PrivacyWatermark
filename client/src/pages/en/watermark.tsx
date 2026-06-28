@@ -214,6 +214,56 @@ export default function WatermarkEnPage() {
             </div>
           </Card>
         </section>
+
+        {/* Latest Articles */}
+        <section className="mt-12" aria-labelledby="articles-heading">
+          <div className="flex items-center justify-between mb-4">
+            <h2 id="articles-heading" className="font-semibold text-gray-900">
+              Latest Articles
+            </h2>
+            <Link
+              href="/en/blog"
+              className="text-sm font-medium text-primary hover:underline"
+            >
+              View all →
+            </Link>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <Link
+              href="/en/blog/protect-photos-online"
+              className="block p-5 bg-white border border-gray-200 rounded-lg hover:border-primary transition-colors"
+            >
+              <h3 className="font-medium text-gray-900 mb-1">
+                How to Protect Your Photos Online
+              </h3>
+              <p className="text-sm text-gray-600">
+                A complete guide to watermarks, metadata and copyright for photographers.
+              </p>
+            </Link>
+            <Link
+              href="/en/blog/remove-exif-data"
+              className="block p-5 bg-white border border-gray-200 rounded-lg hover:border-primary transition-colors"
+            >
+              <h3 className="font-medium text-gray-900 mb-1">
+                Why You Should Remove EXIF Data
+              </h3>
+              <p className="text-sm text-gray-600">
+                Your photos hide GPS location and device data. Here&apos;s how to strip it.
+              </p>
+            </Link>
+            <Link
+              href="/en/blog/digital-identity-protection"
+              className="block p-5 bg-white border border-gray-200 rounded-lg hover:border-primary transition-colors"
+            >
+              <h3 className="font-medium text-gray-900 mb-1">
+                Digital Identity Protection
+              </h3>
+              <p className="text-sm text-gray-600">
+                7 practical steps to keep your documents and identity safe online.
+              </p>
+            </Link>
+          </div>
+        </section>
       </main>
 
       {/* Footer */}

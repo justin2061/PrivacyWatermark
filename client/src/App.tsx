@@ -14,6 +14,7 @@ import BatchWatermarkImagesEn from "@/pages/en/blog/batch-watermark-images";
 import RemoveExifDataEn from "@/pages/en/blog/remove-exif-data";
 import WatermarkBestPracticesEn from "@/pages/en/blog/watermark-best-practices";
 import DigitalIdentityProtectionEn from "@/pages/en/blog/digital-identity-protection";
+import EnBlogIndex from "@/pages/en/blog/index";
 import BlogIndexPage from "@/pages/blog/index";
 import RentIdWatermarkPage from "@/pages/blog/rent-id-watermark";
 import WatermarkGeneratorsRecommendationPage from "@/pages/blog/watermark-generators-recommendation";
@@ -36,6 +37,7 @@ function Router() {
       <Route path="/" component={WatermarkPage} />
       <Route path="/en" component={WatermarkEnPage} />
       <Route path="/en/" component={WatermarkEnPage} />
+      <Route path="/en/blog" component={EnBlogIndex} />
       <Route path="/en/blog/watermark-photos-online" component={WatermarkPhotosOnlineEn} />
       <Route path="/en/blog/watermark-id-documents" component={WatermarkIdDocumentsEn} />
       <Route path="/en/blog/watermark-photos-free" component={WatermarkPhotosFreeEn} />
