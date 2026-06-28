@@ -24,6 +24,8 @@ import MobileWatermarkTutorialPage from "@/pages/blog/mobile-watermark-tutorial"
 import OtherDocumentsWatermarkPage from "@/pages/blog/other-documents-watermark";
 import ExifCleanPage from "@/pages/exif-clean";
 import BatchPage from "@/pages/batch";
+import CompressPage from "@/pages/compress";
+import CompressEnPage from "@/pages/en/compress";
 import IsIdWatermarkUsefulPage from "@/pages/blog/is-id-watermark-useful";
 import BatchWatermarkMethodsPage from "@/pages/blog/batch-watermark-methods";
 import NotFound from "@/pages/not-found";
@@ -56,6 +58,8 @@ function Router() {
       <Route path="/blog/other-documents-watermark" component={OtherDocumentsWatermarkPage} />
       <Route path="/exif-clean" component={ExifCleanPage} />
       <Route path="/batch" component={BatchPage} />
+      <Route path="/compress" component={CompressPage} />
+      <Route path="/en/compress" component={CompressEnPage} />
       <Route path="/blog/is-id-watermark-useful" component={IsIdWatermarkUsefulPage} />
       <Route path="/blog/batch-watermark-methods" component={BatchWatermarkMethodsPage} />
       <Route component={NotFound} />
