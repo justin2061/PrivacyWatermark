@@ -76,6 +76,23 @@
     <xhtml:link rel="alternate" hreflang="zh-tw" href="https://imagemarker.app/resize" />
   </url>
   <url>
+    <loc>https://imagemarker.app/remove-bg</loc>
+    <lastmod>2026-06-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="zh-tw" href="https://imagemarker.app/remove-bg" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://imagemarker.app/remove-bg" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://imagemarker.app/en/remove-bg" />
+  </url>
+  <url>
+    <loc>https://imagemarker.app/en/remove-bg</loc>
+    <lastmod>2026-06-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://imagemarker.app/en/remove-bg" />
+    <xhtml:link rel="alternate" hreflang="zh-tw" href="https://imagemarker.app/remove-bg" />
+  </url>
+  <url>
     <loc>https://imagemarker.app/blog/</loc>
     <lastmod>2026-04-07</lastmod>
     <changefreq>weekly</changefreq>

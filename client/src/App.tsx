@@ -30,6 +30,8 @@ import ConvertPage from "@/pages/convert";
 import ConvertEnPage from "@/pages/en/convert";
 import ResizePage from "@/pages/resize";
 import ResizeEnPage from "@/pages/en/resize";
+import RemoveBgPage from "@/pages/remove-bg";
+import RemoveBgEnPage from "@/pages/en/remove-bg";
 import IsIdWatermarkUsefulPage from "@/pages/blog/is-id-watermark-useful";
 import BatchWatermarkMethodsPage from "@/pages/blog/batch-watermark-methods";
 import NotFound from "@/pages/not-found";
@@ -68,6 +70,8 @@ function Router() {
       <Route path="/en/convert" component={ConvertEnPage} />
       <Route path="/resize" component={ResizePage} />
       <Route path="/en/resize" component={ResizeEnPage} />
+      <Route path="/remove-bg" component={RemoveBgPage} />
+      <Route path="/en/remove-bg" component={RemoveBgEnPage} />
       <Route path="/blog/is-id-watermark-useful" component={IsIdWatermarkUsefulPage} />
       <Route path="/blog/batch-watermark-methods" component={BatchWatermarkMethodsPage} />
       <Route component={NotFound} />

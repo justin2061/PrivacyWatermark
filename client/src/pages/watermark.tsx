@@ -6,7 +6,7 @@ import { WatermarkControls } from "@/components/watermark/WatermarkControls";
 import { CanvasPreview } from "@/components/watermark/CanvasPreview";
 import { ProcessingStatus } from "@/components/watermark/ProcessingStatus";
 import { useWatermark } from "@/hooks/useWatermark";
-import { Shield, Lock, Zap, BookOpen, Eraser, Layers, Languages, Minimize2, Repeat, Scaling } from "lucide-react";
+import { Shield, Lock, Zap, BookOpen, Eraser, Layers, Languages, Minimize2, Repeat, Scaling, Scissors } from "lucide-react";
 
 export default function WatermarkPage() {
   const {
@@ -55,6 +55,13 @@ export default function WatermarkPage() {
               >
                 <Eraser className="w-4 h-4" aria-hidden="true" />
                 <span>EXIF 清除器</span>
+              </Link>
+              <Link
+                href="/remove-bg"
+                className="flex items-center space-x-1.5 text-sm text-gray-600 hover:text-primary transition-colors"
+              >
+                <Scissors className="w-4 h-4" aria-hidden="true" />
+                <span>AI 去背</span>
               </Link>
               <Link
                 href="/compress"
@@ -128,6 +135,14 @@ export default function WatermarkPage() {
               >
                 <Eraser className="w-4 h-4" aria-hidden="true" />
                 <span>EXIF 清除器</span>
+              </Link>
+              <Link
+                href="/remove-bg"
+                className="flex items-center space-x-2 py-3 px-4 text-gray-600 hover:bg-gray-50 rounded-lg"
+                onClick={() => setMenuOpen(false)}
+              >
+                <Scissors className="w-4 h-4" aria-hidden="true" />
+                <span>AI 去背</span>
               </Link>
               <Link
                 href="/compress"

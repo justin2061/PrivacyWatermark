@@ -1,0 +1,665 @@
+import { useEffect, useRef, useState } from "react";
+import { Link } from "wouter";
+import { Card } from "@/components/ui/card";
+import {
+  CheckCircle,
+  Download,
+  Image as ImageIcon,
+  Languages,
+  Lock,
+  RefreshCw,
+  Scissors,
+  Shield,
+  Sparkles,
+  Upload,
+} from "lucide-react";
+
+const ACCEPTED = "image/jpeg,image/png,image/webp";
+
+type Stage = "idle" | "loading-model" | "processing" | "done";
+type BgMode = "transparent" | "white" | "custom";
+
+function formatSize(bytes: number) {
+  if (bytes === 0) return "0 B";
+  const k = 1024;
+  const units = ["B", "KB", "MB", "GB"];
+  const i = Math.floor(Math.log(bytes) / Math.log(k));
+  return `${parseFloat((bytes / Math.pow(k, i)).toFixed(2))} ${units[i]}`;
+}
+
+const STAGE_LABEL: Record<Stage, string> = {
+  idle: "",
+  "loading-model": "載入 AI 模型中（首次使用需下載約 30MB，請稍候）…",
+  processing: "AI 分析並移除背景中…",
+  done: "完成！",
+};
+
+// 把透明去背結果合成到指定背景色上
+function compositeBackground(
+  transparentBlob: Blob,
+  color: string
+): Promise<Blob> {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    const url = URL.createObjectURL(transparentBlob);
+    img.onload = () => {
+      URL.revokeObjectURL(url);
+      const canvas = document.createElement("canvas");
+      canvas.width = img.naturalWidth;
+      canvas.height = img.naturalHeight;
+      const ctx = canvas.getContext("2d");
+      if (!ctx) {
+        reject(new Error("無法建立 Canvas"));
+        return;
+      }
+      ctx.fillStyle = color;
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.drawImage(img, 0, 0);
+      canvas.toBlob(
+        (blob) => {
+          if (!blob) {
+            reject(new Error("背景合成失敗"));
+            return;
+          }
+          resolve(blob);
+        },
+        "image/png"
+      );
+    };
+    img.onerror = () => {
+      URL.revokeObjectURL(url);
+      reject(new Error("圖片讀取失敗"));
+    };
+    img.src = url;
+  });
+}
+
+export default function RemoveBgPage() {
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  // 去背後的透明 PNG（原始結果，永遠保留以便切換背景）
+  const [cutoutBlob, setCutoutBlob] = useState<Blob | null>(null);
+  // 目前顯示／下載用的結果（可能已套用背景色）
+  const [result, setResult] = useState<{ url: string; size: number } | null>(
+    null
+  );
+  const [stage, setStage] = useState<Stage>("idle");
+  const [percent, setPercent] = useState(0);
+  const [error, setError] = useState<string | null>(null);
+  const [bgMode, setBgMode] = useState<BgMode>("transparent");
+  const [customColor, setCustomColor] = useState("#f3f4f6");
+
+  useEffect(() => {
+    document.title = "AI 智能去背工具 — 一鍵移除圖片背景，100% 本機處理";
+    const metaDesc = document.querySelector('meta[name="description"]');
+    if (metaDesc) {
+      metaDesc.setAttribute(
+        "content",
+        "免費 AI 智能去背工具，一鍵移除圖片背景並下載透明 PNG。AI 模型完全在你的瀏覽器中運作，圖片不會上傳到任何伺服器，適合製作商品圖、大頭照與去背素材。"
+      );
+    }
+    const canonical = document.querySelector('link[rel="canonical"]');
+    if (canonical) {
+      canonical.setAttribute("href", "https://imagemarker.app/remove-bg");
+    }
+  }, []);
+
+  const isProcessing = stage === "loading-model" || stage === "processing";
+
+  // 切換背景模式時，依透明結果重新合成
+  useEffect(() => {
+    if (!cutoutBlob) return;
+    let cancelled = false;
+    const apply = async () => {
+      try {
+        let outBlob: Blob = cutoutBlob;
+        if (bgMode === "white") {
+          outBlob = await compositeBackground(cutoutBlob, "#ffffff");
+        } else if (bgMode === "custom") {
+          outBlob = await compositeBackground(cutoutBlob, customColor);
+        }
+        if (cancelled) return;
+        setResult((prev) => {
+          if (prev) URL.revokeObjectURL(prev.url);
+          return { url: URL.createObjectURL(outBlob), size: outBlob.size };
+        });
+      } catch (e) {
+        if (!cancelled)
+          setError(e instanceof Error ? e.message : "背景處理失敗");
+      }
+    };
+    apply();
+    return () => {
+      cancelled = true;
+    };
+  }, [cutoutBlob, bgMode, customColor]);
+
+  const handleRemoveBg = async (file: File) => {
+    setError(null);
+    setStage("loading-model");
+    setPercent(0);
+    try {
+      const { removeBackground } = await import("@imgly/background-removal");
+      const blob = await removeBackground(file, {
+        progress: (key: string, current: number, total: number) => {
+          const [action] = key.split(":");
+          if (action === "fetch" || action === "download") {
+            setStage("loading-model");
+          } else {
+            setStage("processing");
+          }
+          if (total > 0) {
+            setPercent(Math.min(100, Math.round((current / total) * 100)));
+          }
+        },
+        output: { format: "image/png", quality: 1 },
+      });
+      setCutoutBlob(blob);
+      setStage("done");
+      setPercent(100);
+    } catch (e) {
+      console.error(e);
+      setError(
+        e instanceof Error
+          ? `去背失敗：${e.message}`
+          : "去背失敗，請確認網路連線後再試一次"
+      );
+      setStage("idle");
+    }
+  };
+
+  const onPickFile = (file?: File | null) => {
+    if (!file) return;
+    if (!ACCEPTED.split(",").includes(file.type)) {
+      alert("僅支援 JPG、PNG、WebP 格式");
+      return;
+    }
+    setResult((prev) => {
+      if (prev) URL.revokeObjectURL(prev.url);
+      return null;
+    });
+    setCutoutBlob(null);
+    setError(null);
+    setStage("idle");
+    setPercent(0);
+    setBgMode("transparent");
+    setSelectedFile(file);
+  };
+
+  const downloadResult = () => {
+    if (!result || !selectedFile) return;
+    const base = selectedFile.name.replace(/\.[^.]+$/, "");
+    const a = document.createElement("a");
+    a.href = result.url;
+    a.download = `${base}-no-bg.png`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  };
+
+  const reset = () => {
+    setResult((prev) => {
+      if (prev) URL.revokeObjectURL(prev.url);
+      return null;
+    });
+    setCutoutBlob(null);
+    setSelectedFile(null);
+    setStage("idle");
+    setPercent(0);
+    setError(null);
+    setBgMode("transparent");
+    if (fileInputRef.current) fileInputRef.current.value = "";
+  };
+
+  return (
+    <div className="min-h-screen bg-gray-50">
+      {/* Header */}
+      <header className="bg-white shadow-sm border-b border-gray-200">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-16">
+            <Link
+              href="/"
+              className="flex items-center space-x-3 hover-elevate rounded-lg px-2 py-1 -ml-2"
+            >
+              <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
+                <span className="text-white text-lg" role="img" aria-label="去背">
+                  ✂️
+                </span>
+              </div>
+              <div>
+                <h1 className="text-xl font-semibold text-gray-900">AI 智能去背</h1>
+                <p className="text-xs text-gray-600">一鍵移除背景，本地端處理</p>
+              </div>
+            </Link>
+            {/* 桌面版導航 */}
+            <div className="hidden md:flex items-center space-x-4">
+              <Link
+                href="/"
+                className="flex items-center space-x-1.5 text-sm text-gray-600 hover:text-primary transition-colors"
+              >
+                <ImageIcon className="w-4 h-4" aria-hidden="true" />
+                <span>浮水印工具</span>
+              </Link>
+              <a
+                href="/en/remove-bg"
+                className="flex items-center space-x-1.5 text-sm text-gray-600 hover:text-primary transition-colors"
+                aria-label="Switch to English"
+              >
+                <Languages className="w-4 h-4" aria-hidden="true" />
+                <span>EN</span>
+              </a>
+              <div className="flex items-center space-x-2">
+                <Shield className="text-green-600 w-4 h-4" aria-hidden="true" />
+                <span className="text-sm text-gray-600">100% 本地處理</span>
+              </div>
+            </div>
+            {/* 手機版漢堡按鈕 */}
+            <button
+              type="button"
+              className="md:hidden p-2 text-2xl leading-none text-gray-700"
+              onClick={() => setMenuOpen(!menuOpen)}
+              aria-label={menuOpen ? "關閉選單" : "開啟選單"}
+              aria-expanded={menuOpen}
+            >
+              {menuOpen ? "✕" : "☰"}
+            </button>
+          </div>
+          {menuOpen && (
+            <nav className="md:hidden border-t border-gray-200 py-2">
+              <Link
+                href="/"
+                className="flex items-center space-x-2 py-3 px-4 text-gray-600 hover:bg-gray-50 rounded-lg"
+                onClick={() => setMenuOpen(false)}
+              >
+                <ImageIcon className="w-4 h-4" aria-hidden="true" />
+                <span>浮水印工具</span>
+              </Link>
+              <a
+                href="/en/remove-bg"
+                className="flex items-center space-x-2 py-3 px-4 text-gray-600 hover:bg-gray-50 rounded-lg"
+                aria-label="Switch to English"
+              >
+                <Languages className="w-4 h-4" aria-hidden="true" />
+                <span>EN</span>
+              </a>
+            </nav>
+          )}
+        </div>
+      </header>
+
+      <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* 標題 */}
+        <div className="text-center mb-8">
+          <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">
+            AI 智能去背工具 — 一鍵移除圖片背景
+          </h2>
+          <p className="text-gray-600">
+            100% 本地處理，AI 驅動，無需上傳到伺服器
+          </p>
+        </div>
+
+        {/* 隱私提示 */}
+        <Card className="bg-blue-50 border-blue-200 p-4 mb-8">
+          <div className="flex items-start space-x-3">
+            <Shield className="text-primary mt-0.5 w-5 h-5" />
+            <div>
+              <h2 className="font-medium text-blue-900 mb-1">為什麼用這個去背工具？</h2>
+              <p className="text-sm text-blue-800">
+                這款工具使用 AI 模型（@imgly/background-removal）完全在你的瀏覽器中運作，圖片不會上傳到任何伺服器。
+                首次使用會下載約 30MB 的 AI 模型並快取在瀏覽器中，之後即可離線、即時去背，特別適合處理商品照、人像或含個資的圖片。
+              </p>
+            </div>
+          </div>
+        </Card>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          {/* 左側：上傳 + 操作 */}
+          <div className="space-y-6">
+            <Card className="p-6">
+              <h2 className="text-lg font-semibold text-gray-900 mb-4">上傳圖片</h2>
+              <div
+                onDrop={(e) => {
+                  e.preventDefault();
+                  onPickFile(e.dataTransfer.files[0]);
+                }}
+                onDragOver={(e) => e.preventDefault()}
+                onClick={() => fileInputRef.current?.click()}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    fileInputRef.current?.click();
+                  }
+                }}
+                role="button"
+                tabIndex={0}
+                aria-label="上傳圖片區域，點擊或拖放檔案"
+                className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-primary hover:bg-blue-50 transition-colors cursor-pointer"
+              >
+                <Upload
+                  className="text-gray-400 w-12 h-12 mb-4 mx-auto"
+                  aria-hidden="true"
+                />
+                <p className="text-gray-600 mb-2">將圖片拖放到此處，或點擊選擇檔案</p>
+                <p className="text-sm text-gray-600 mb-4">支援 JPG、PNG、WebP 格式</p>
+                <button
+                  type="button"
+                  className="bg-primary text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+                >
+                  選擇檔案
+                </button>
+              </div>
+              <input
+                ref={fileInputRef}
+                type="file"
+                accept={ACCEPTED}
+                className="hidden"
+                onChange={(e) => onPickFile(e.target.files?.[0])}
+                aria-label="選擇圖片檔案"
+              />
+
+              {selectedFile && (
+                <div className="mt-4 p-3 bg-gray-50 rounded-lg">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center space-x-2">
+                      <CheckCircle
+                        className="text-green-600 w-5 h-5"
+                        aria-hidden="true"
+                      />
+                      <span className="text-sm font-medium">{selectedFile.name}</span>
+                    </div>
+                    <span className="text-xs text-gray-600">
+                      {formatSize(selectedFile.size)}
+                    </span>
+                  </div>
+                </div>
+              )}
+
+              {selectedFile && (
+                <button
+                  onClick={() => handleRemoveBg(selectedFile)}
+                  disabled={isProcessing}
+                  className="w-full mt-4 bg-primary text-white py-3 px-4 rounded-lg hover:bg-blue-700 transition-colors font-medium disabled:bg-gray-400 disabled:cursor-not-allowed flex items-center justify-center"
+                >
+                  <Sparkles className="w-4 h-4 mr-2" aria-hidden="true" />
+                  {isProcessing ? "處理中…" : cutoutBlob ? "重新去背" : "一鍵去背"}
+                </button>
+              )}
+            </Card>
+
+            {/* 進度條 */}
+            {(isProcessing || stage === "done") && (
+              <Card className="p-6">
+                <h2 className="text-lg font-semibold text-gray-900 mb-4">處理進度</h2>
+                <div className="space-y-3">
+                  <ol className="space-y-2 text-sm">
+                    <li
+                      className={`flex items-center ${
+                        stage === "loading-model"
+                          ? "text-primary font-medium"
+                          : "text-gray-400"
+                      }`}
+                    >
+                      <span className="mr-2">
+                        {stage === "loading-model" ? "⏳" : "✅"}
+                      </span>
+                      載入 AI 模型
+                    </li>
+                    <li
+                      className={`flex items-center ${
+                        stage === "processing"
+                          ? "text-primary font-medium"
+                          : stage === "done"
+                          ? "text-gray-400"
+                          : "text-gray-300"
+                      }`}
+                    >
+                      <span className="mr-2">
+                        {stage === "processing"
+                          ? "⏳"
+                          : stage === "done"
+                          ? "✅"
+                          : "○"}
+                      </span>
+                      分析圖片並移除背景
+                    </li>
+                    <li
+                      className={`flex items-center ${
+                        stage === "done"
+                          ? "text-green-600 font-medium"
+                          : "text-gray-300"
+                      }`}
+                    >
+                      <span className="mr-2">{stage === "done" ? "✅" : "○"}</span>
+                      完成
+                    </li>
+                  </ol>
+                  {isProcessing && (
+                    <>
+                      <div className="w-full bg-gray-200 rounded-full h-2 overflow-hidden">
+                        <div
+                          className="bg-primary h-2 transition-all"
+                          style={{ width: `${percent}%` }}
+                        />
+                      </div>
+                      <p className="text-xs text-gray-500">{STAGE_LABEL[stage]}</p>
+                    </>
+                  )}
+                </div>
+              </Card>
+            )}
+
+            {/* 背景選項 */}
+            {cutoutBlob && (
+              <Card className="p-6">
+                <h2 className="text-lg font-semibold text-gray-900 mb-4">背景設定</h2>
+                <div className="grid grid-cols-3 gap-2 mb-3">
+                  {(
+                    [
+                      { value: "transparent", label: "透明背景" },
+                      { value: "white", label: "純白背景" },
+                      { value: "custom", label: "自訂顏色" },
+                    ] as { value: BgMode; label: string }[]
+                  ).map((opt) => (
+                    <button
+                      key={opt.value}
+                      type="button"
+                      onClick={() => setBgMode(opt.value)}
+                      className={`py-2 px-3 rounded-lg text-sm border transition-colors ${
+                        bgMode === opt.value
+                          ? "bg-primary text-white border-primary"
+                          : "bg-white text-gray-600 border-gray-300 hover:border-primary"
+                      }`}
+                    >
+                      {opt.label}
+                    </button>
+                  ))}
+                </div>
+                {bgMode === "custom" && (
+                  <div className="flex items-center space-x-3">
+                    <label
+                      htmlFor="bg-color"
+                      className="text-sm text-gray-700"
+                    >
+                      選擇背景顏色
+                    </label>
+                    <input
+                      id="bg-color"
+                      type="color"
+                      value={customColor}
+                      onChange={(e) => setCustomColor(e.target.value)}
+                      className="w-10 h-8 rounded cursor-pointer border border-gray-300"
+                    />
+                    <span className="text-xs text-gray-500">{customColor}</span>
+                  </div>
+                )}
+              </Card>
+            )}
+          </div>
+
+          {/* 右側：結果預覽 */}
+          <div className="space-y-6">
+            <Card className="p-6">
+              <h2 className="text-lg font-semibold text-gray-900 mb-4">去背結果</h2>
+              {!selectedFile && (
+                <p className="text-sm text-gray-500">
+                  請先上傳圖片，按下「一鍵去背」後，這裡會以棋盤格背景顯示去背結果。
+                </p>
+              )}
+              {selectedFile && !result && !isProcessing && (
+                <p className="text-sm text-gray-500">
+                  點擊左側「一鍵去背」開始處理。
+                </p>
+              )}
+              {error && (
+                <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg">
+                  <p className="text-sm text-red-800">{error}</p>
+                </div>
+              )}
+              {result && (
+                <div
+                  className="rounded-lg border border-gray-200 overflow-hidden flex items-center justify-center"
+                  style={{
+                    backgroundColor: "#ffffff",
+                    backgroundImage:
+                      "linear-gradient(45deg, #e5e7eb 25%, transparent 25%), linear-gradient(-45deg, #e5e7eb 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #e5e7eb 75%), linear-gradient(-45deg, transparent 75%, #e5e7eb 75%)",
+                    backgroundSize: "20px 20px",
+                    backgroundPosition: "0 0, 0 10px, 10px -10px, -10px 0px",
+                  }}
+                >
+                  <img
+                    src={result.url}
+                    alt="去背後的預覽"
+                    className="max-w-full"
+                  />
+                </div>
+              )}
+              {result && (
+                <p className="text-xs text-gray-500 mt-2">
+                  輸出檔案大小：{formatSize(result.size)}（PNG）
+                </p>
+              )}
+            </Card>
+
+            <Card className="p-6">
+              <div className="space-y-3">
+                <button
+                  onClick={downloadResult}
+                  disabled={!result || isProcessing}
+                  className="w-full bg-green-600 text-white py-3 px-4 rounded-lg hover:bg-green-700 transition-colors font-medium disabled:bg-gray-400 disabled:cursor-not-allowed flex items-center justify-center"
+                >
+                  <Download className="w-4 h-4 mr-2" aria-hidden="true" />
+                  下載去背 PNG
+                </button>
+                <button
+                  onClick={reset}
+                  disabled={!selectedFile}
+                  className="w-full bg-gray-500 text-white py-2 px-4 rounded-lg hover:bg-gray-600 transition-colors disabled:bg-gray-300 disabled:cursor-not-allowed flex items-center justify-center"
+                >
+                  <RefreshCw className="w-4 h-4 mr-2" aria-hidden="true" />
+                  重新開始
+                </button>
+                <a
+                  href="https://ko-fi.com/justinlee2061"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm text-gray-400 hover:text-blue-500 transition-colors mt-2 inline-block"
+                >
+                  ☕ 覺得好用？請我喝杯咖啡
+                </a>
+              </div>
+            </Card>
+          </div>
+        </div>
+
+        {/* 特色 */}
+        <section className="mt-12">
+          <h2 className="sr-only">特色</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <Card className="p-6 text-center">
+              <Lock className="text-primary w-8 h-8 mb-3 mx-auto" aria-hidden="true" />
+              <h3 className="font-semibold text-gray-900 mb-2">純本地 AI 去背</h3>
+              <p className="text-sm text-gray-600">
+                AI 模型在瀏覽器中執行，圖片不會離開你的裝置，沒有伺服器、沒有上傳。
+              </p>
+            </Card>
+            <Card className="p-6 text-center">
+              <Scissors
+                className="text-primary w-8 h-8 mb-3 mx-auto"
+                aria-hidden="true"
+              />
+              <h3 className="font-semibold text-gray-900 mb-2">一鍵自動去背</h3>
+              <p className="text-sm text-gray-600">
+                不需手動描邊或選取，AI 自動辨識主體並移除背景，輸出透明 PNG。
+              </p>
+            </Card>
+            <Card className="p-6 text-center">
+              <Sparkles
+                className="text-primary w-8 h-8 mb-3 mx-auto"
+                aria-hidden="true"
+              />
+              <h3 className="font-semibold text-gray-900 mb-2">背景替換</h3>
+              <p className="text-sm text-gray-600">
+                去背後可一鍵換成透明、純白或自訂顏色背景，方便製作商品圖與證件照。
+              </p>
+            </Card>
+          </div>
+        </section>
+
+        {/* SEO 內容 */}
+        <section className="mt-12 prose prose-sm max-w-none text-gray-600">
+          <h2 className="text-xl font-semibold text-gray-900 mb-3">
+            什麼是 AI 去背？
+          </h2>
+          <p>
+            AI 去背是利用機器學習模型自動辨識圖片中的主體（人物、商品、物件），並將背景移除成透明的技術。
+            相較於傳統用 Photoshop 手動描邊或魔術棒選取，AI 去背只要一個按鈕就能完成，對髮絲、邊緣等細節的處理也更自然。
+          </p>
+          <h2 className="text-xl font-semibold text-gray-900 mb-3 mt-6">
+            100% 本機處理，隱私安全
+          </h2>
+          <p>
+            和許多需要把圖片上傳到雲端的去背服務不同，本工具使用開源的 @imgly/background-removal 模型，
+            完全在你的瀏覽器中以 WebAssembly／ONNX 運算。你的圖片不會被上傳、儲存或傳送給任何第三方，
+            特別適合處理含個資的人像、證件或機密商品照。
+          </p>
+          <h2 className="text-xl font-semibold text-gray-900 mb-3 mt-6">
+            首次使用會比較慢，之後就很快
+          </h2>
+          <p>
+            首次使用時，瀏覽器需要下載約 30MB 的 AI 模型，依網速可能需要數十秒。
+            模型會快取在瀏覽器的 IndexedDB 中，之後再次使用就不必重新下載，可以快速、甚至離線去背。
+          </p>
+          <h2 className="text-xl font-semibold text-gray-900 mb-3 mt-6">
+            常見用途
+          </h2>
+          <p>
+            去背工具常用於製作電商商品白底圖、社群媒體貼圖、個人大頭照、簡報素材，
+            或是為照片更換背景顏色。搭配本站的浮水印、壓縮與格式轉換工具，可以一站完成圖片處理。
+          </p>
+        </section>
+      </main>
+
+      <footer className="bg-white border-t border-gray-200 mt-16">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <div className="flex flex-col md:flex-row justify-between items-center">
+            <p className="text-sm text-gray-600 mb-4 md:mb-0">
+              © 2025 隱私工具集 - 保護您的隱私安全
+            </p>
+            <div className="flex items-center space-x-4">
+              <Link href="/" className="text-sm text-primary hover:underline">
+                浮水印工具
+              </Link>
+              <Link href="/compress" className="text-sm text-primary hover:underline">
+                圖片壓縮
+              </Link>
+              <Link href="/blog" className="text-sm text-primary hover:underline">
+                教學文章
+              </Link>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+  );
+}
