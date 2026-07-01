@@ -2,9 +2,18 @@
   command = "pnpm run build"
   publish = "dist"
 
+[build.environment]
+  # Install and build phases must share the same Puppeteer cache dir so the
+  # prerender step (scripts/prerender.mjs) can find the Chromium downloaded at
+  # install time. If Chromium is unavailable the prerender safely no-ops.
+  PUPPETEER_CACHE_DIR = "/opt/build/repo/.cache/puppeteer"
+
 [context.production.environment]
   NODE_VERSION = "20"
 
+# Static prerendered files (dist/**/index.html) are served automatically and
+# take precedence over this SPA fallback, so crawlers get full HTML. This
+# redirect only handles routes that were not prerendered.
 [[redirects]]
   from = "/*"
   to = "/index.html"

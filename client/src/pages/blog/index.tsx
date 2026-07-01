@@ -3,6 +3,13 @@ import { Link } from "wouter";
 
 const articles = [
   {
+    slug: "passport-travel-agency-watermark",
+    title: "護照影本交給旅行社安全嗎？報名旅行團前必做的自保 3 件事",
+    date: "2026-07-01",
+    summary:
+      "報名旅行團、辦簽證要交護照影本給旅行社，安全嗎？從五福旅行社個資外洩事件，教你交件前的自保 3 件事，以及旅行社護照浮水印怎麼寫最安全。",
+  },
+  {
     slug: "rent-id-watermark",
     title: "租屋交證件影本前必做！3 步驟幫身分證加浮水印",
     date: "2026-04-06",

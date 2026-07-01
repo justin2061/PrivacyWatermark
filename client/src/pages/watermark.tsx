@@ -376,6 +376,36 @@ export default function WatermarkPage() {
                 閱讀全文 →
               </Link>
             </Card>
+
+            <Card className="p-5 hover:shadow-md transition-shadow">
+              <h3 className="font-semibold text-gray-900 mb-2">
+                手機怎麼幫身分證加浮水印？免安裝 App 的最快方法
+              </h3>
+              <p className="text-sm text-gray-600 mb-4">
+                不用下載 App，用手機瀏覽器 3 分鐘完成證件浮水印，iPhone 和 Android 都適用。
+              </p>
+              <Link
+                href="/blog/mobile-watermark-tutorial"
+                className="inline-block text-sm text-primary font-medium hover:underline"
+              >
+                閱讀全文 →
+              </Link>
+            </Card>
+
+            <Card className="p-5 hover:shadow-md transition-shadow">
+              <h3 className="font-semibold text-gray-900 mb-2">
+                不只身分證！存摺、健保卡、駕照影本也要加浮水印
+              </h3>
+              <p className="text-sm text-gray-600 mb-4">
+                存摺、健保卡、駕照等影本也是詐騙高危目標，教你 6 種常見證件的浮水印寫法。
+              </p>
+              <Link
+                href="/blog/other-documents-watermark"
+                className="inline-block text-sm text-primary font-medium hover:underline"
+              >
+                閱讀全文 →
+              </Link>
+            </Card>
           </div>
         </section>
       </main>

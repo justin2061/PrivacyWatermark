@@ -211,6 +211,32 @@ export default function RentIdWatermark() {
                 </span>
               </article>
             </Link>
+            <Link href="/blog/mobile-watermark-tutorial">
+              <article className="block border rounded-xl p-5 hover:border-primary hover:shadow-sm transition-all cursor-pointer">
+                <h3 className="font-medium mb-1">
+                  手機怎麼幫身分證加浮水印？免安裝 App 的最快方法
+                </h3>
+                <p className="text-sm text-muted-foreground">
+                  不用下載 App，用手機瀏覽器 3 分鐘完成證件浮水印，iPhone 和 Android 都適用。
+                </p>
+                <span className="inline-block mt-3 text-sm text-primary font-medium">
+                  閱讀全文 →
+                </span>
+              </article>
+            </Link>
+            <Link href="/blog/other-documents-watermark">
+              <article className="block border rounded-xl p-5 hover:border-primary hover:shadow-sm transition-all cursor-pointer">
+                <h3 className="font-medium mb-1">
+                  不只身分證！存摺、健保卡、駕照影本也要加浮水印
+                </h3>
+                <p className="text-sm text-muted-foreground">
+                  存摺、健保卡、駕照等影本也是詐騙高危目標，教你 6 種常見證件的浮水印寫法。
+                </p>
+                <span className="inline-block mt-3 text-sm text-primary font-medium">
+                  閱讀全文 →
+                </span>
+              </article>
+            </Link>
           </div>
         </section>
       </main>

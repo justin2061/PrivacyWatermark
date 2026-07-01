@@ -1,0 +1,125 @@
+// Lightweight client-side SEO helper for the blog pages.
+//
+// The site is a client-rendered SPA, so per-page <title>, meta description,
+// canonical, Open Graph tags and JSON-LD structured data are applied at runtime.
+// Googlebot renders JS for pages it crawls, so these still contribute to how
+// each URL is understood once crawled. Call from a page's useEffect and use the
+// returned cleanup to remove injected JSON-LD on unmount.
+
+type JsonLd = Record<string, unknown>;
+
+interface PageSeoOptions {
+  title: string;
+  description: string;
+  canonical: string;
+  /** One or more JSON-LD objects (Article, FAQPage, BreadcrumbList, ItemList…). */
+  jsonLd?: JsonLd | JsonLd[];
+}
+
+function setMeta(selector: string, attr: "content" | "href", value: string) {
+  const el = document.querySelector(selector);
+  if (el) el.setAttribute(attr, value);
+}
+
+export function setPageSeo({
+  title,
+  description,
+  canonical,
+  jsonLd,
+}: PageSeoOptions): () => void {
+  document.title = title;
+
+  setMeta('meta[name="description"]', "content", description);
+  setMeta('meta[name="title"]', "content", title);
+  setMeta('link[rel="canonical"]', "href", canonical);
+
+  // Open Graph / Twitter — keep social previews in sync with the page.
+  setMeta('meta[property="og:title"]', "content", title);
+  setMeta('meta[property="og:description"]', "content", description);
+  setMeta('meta[property="og:url"]', "content", canonical);
+  setMeta('meta[property="twitter:title"]', "content", title);
+  setMeta('meta[property="twitter:description"]', "content", description);
+  setMeta('meta[property="twitter:url"]', "content", canonical);
+
+  const nodes: HTMLScriptElement[] = [];
+  if (jsonLd) {
+    const blocks = Array.isArray(jsonLd) ? jsonLd : [jsonLd];
+    for (const block of blocks) {
+      const script = document.createElement("script");
+      script.type = "application/ld+json";
+      script.setAttribute("data-page-seo", "true");
+      script.textContent = JSON.stringify(block);
+      document.head.appendChild(script);
+      nodes.push(script);
+    }
+  }
+
+  return () => {
+    for (const node of nodes) node.remove();
+  };
+}
+
+/** Standard breadcrumb: 首頁 › 部落格 › <title> */
+export function blogBreadcrumb(title: string, url: string): JsonLd {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "首頁",
+        item: "https://imagemarker.app/",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "部落格",
+        item: "https://imagemarker.app/blog",
+      },
+      { "@type": "ListItem", position: 3, name: title, item: url },
+    ],
+  };
+}
+
+/** Article schema for a blog post. */
+export function articleSchema(opts: {
+  headline: string;
+  description: string;
+  url: string;
+  datePublished: string;
+  dateModified?: string;
+}): JsonLd {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: opts.headline,
+    description: opts.description,
+    mainEntityOfPage: { "@type": "WebPage", "@id": opts.url },
+    datePublished: opts.datePublished,
+    dateModified: opts.dateModified ?? opts.datePublished,
+    author: { "@type": "Organization", name: "ImageMarker" },
+    publisher: {
+      "@type": "Organization",
+      name: "ImageMarker",
+      logo: {
+        "@type": "ImageObject",
+        url: "https://imagemarker.app/icon.svg",
+      },
+    },
+    image: "https://imagemarker.app/og-image.png",
+  };
+}
+
+/** FAQPage schema from question/answer pairs. */
+export function faqSchema(qa: { q: string; a: string }[]): JsonLd {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: qa.map(({ q, a }) => ({
+      "@type": "Question",
+      name: q,
+      acceptedAnswer: { "@type": "Answer", text: a },
+    })),
+  };
+}

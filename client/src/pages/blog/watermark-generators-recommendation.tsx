@@ -1,24 +1,73 @@
 import { useEffect } from "react";
 import { Link } from "wouter";
+import {
+  setPageSeo,
+  articleSchema,
+  faqSchema,
+  blogBreadcrumb,
+} from "@/lib/seo";
+
+const URL = "https://imagemarker.app/blog/watermark-generators-recommendation";
 
 export default function WatermarkGeneratorsRecommendation() {
   useEffect(() => {
-    document.title =
-      "5 款免費線上浮水印產生器推薦｜2026 年最新比較 | ImageMarker";
-    const metaDesc = document.querySelector('meta[name="description"]');
-    if (metaDesc) {
-      metaDesc.setAttribute(
-        "content",
-        "精選 5 款 2026 年最好用的免費浮水印產生器，包含證件、圖片、PDF 加浮水印工具完整比較。本地端處理 vs 雲端上傳、隱私安全、功能優缺點一次看懂。"
-      );
-    }
-    const canonical = document.querySelector('link[rel="canonical"]');
-    if (canonical) {
-      canonical.setAttribute(
-        "href",
-        "https://imagemarker.app/blog/watermark-generators-recommendation"
-      );
-    }
+    const cleanup = setPageSeo({
+      title:
+        "浮水印產生器推薦：5 款免費線上工具比較（2026 最新）| ImageMarker",
+      description:
+        "浮水印產生器怎麼選？精選 5 款 2026 年最好用的免費線上浮水印工具，比較證件、圖片、防盜圖、PDF 加浮水印功能，本地端處理 vs 雲端上傳、隱私安全一次看懂。",
+      canonical: URL,
+      jsonLd: [
+        articleSchema({
+          headline:
+            "浮水印產生器推薦：5 款免費線上工具比較（2026 最新）",
+          description:
+            "精選 5 款 2026 年最好用的免費線上浮水印產生器，比較證件、圖片、防盜圖、PDF 加浮水印功能與隱私安全。",
+          url: URL,
+          datePublished: "2026-04-07",
+          dateModified: "2026-07-01",
+        }),
+        {
+          "@context": "https://schema.org",
+          "@type": "ItemList",
+          name: "免費線上浮水印產生器推薦",
+          itemListElement: [
+            "ImageMarker",
+            "Watermarkly",
+            "Smallpdf",
+            "Watermark.ws",
+            "Canva",
+          ].map((name, i) => ({
+            "@type": "ListItem",
+            position: i + 1,
+            name,
+          })),
+        },
+        faqSchema([
+          {
+            q: "浮水印會不會影響圖片品質？",
+            a: "不會。大多數工具都是在原圖上疊加文字圖層，不會壓縮或降低原圖品質，輸出時也能選擇 PNG 無損格式。",
+          },
+          {
+            q: "免費的線上浮水印工具安全嗎？",
+            a: "要看處理方式。本地端處理（如 ImageMarker）完全安全，檔案不會離開你的裝置；上傳到伺服器的工具則要看該公司的隱私政策，處理敏感證件時要特別小心。",
+          },
+          {
+            q: "哪個浮水印產生器最適合加身分證浮水印？",
+            a: "ImageMarker。它 100% 在瀏覽器本地處理，不會上傳到任何伺服器，處理完關閉網頁就什麼都不留下，最適合身分證這類極敏感文件。",
+          },
+          {
+            q: "防盜圖浮水印要怎麼加最有效？",
+            a: "建議把浮水印做大、半透明疊加並覆蓋整張圖片的重要區域，而不是只放在角落，這樣即使被裁切或修圖也難以完全移除。",
+          },
+        ]),
+        blogBreadcrumb(
+          "浮水印產生器推薦：5 款免費線上工具比較",
+          URL
+        ),
+      ],
+    });
+    return cleanup;
   }, []);
 
   return (
@@ -47,15 +96,21 @@ export default function WatermarkGeneratorsRecommendation() {
             >
               2026-04-07
             </time>
+            <span className="text-sm text-muted-foreground">
+              {" "}·　最後更新 2026-07-01
+            </span>
             <h1 className="text-3xl font-bold mt-2 leading-snug">
-              5 款免費線上浮水印產生器推薦｜2026 年最新比較
+              浮水印產生器推薦：5 款免費線上工具比較（2026 最新）
             </h1>
           </header>
 
           <div className="prose prose-neutral max-w-none">
-            <h2>前言</h2>
+            <h2>前言：浮水印產生器怎麼選？</h2>
             <p>
-              為什麼需要浮水印？現代人每天都在傳送圖片和文件，無論是租屋交證件影本、網路購物提供身分證、或是將作品發布到社群平台，浮水印都是保護自己的關鍵工具。它可以防止證件被冒用、保護攝影作品版權、甚至作為品牌宣傳的工具。
+              想找一款好用的<strong>浮水印產生器</strong>，卻被搜尋結果一堆工具看得眼花撩亂？現代人每天都在傳送圖片和文件，無論是租屋交證件影本、網路購物提供身分證、把攝影作品發到社群平台做<strong>防盜圖浮水印</strong>，或是幫 PDF 加上浮水印，選對工具都是保護自己的關鍵。
+            </p>
+            <p>
+              這篇 2026 年最新比較，實測 5 款免費線上浮水印工具，從隱私安全、是否需註冊、支援格式到防盜效果，幫你一次找到最適合自己情境的浮水印產生器。
             </p>
 
             <h2>挑選浮水印工具的 5 個重點</h2>
@@ -288,6 +343,32 @@ export default function WatermarkGeneratorsRecommendation() {
                 </h3>
                 <p className="text-sm text-muted-foreground">
                   教你用 ImageMarker 三步驟幫身分證影本加上浮水印，防止個資被冒用。
+                </p>
+                <span className="inline-block mt-3 text-sm text-primary font-medium">
+                  閱讀全文 →
+                </span>
+              </article>
+            </Link>
+            <Link href="/blog/mobile-watermark-tutorial">
+              <article className="block border rounded-xl p-5 hover:border-primary hover:shadow-sm transition-all cursor-pointer">
+                <h3 className="font-medium mb-1">
+                  手機怎麼幫身分證加浮水印？免安裝 App 的最快方法
+                </h3>
+                <p className="text-sm text-muted-foreground">
+                  不用下載 App，用手機瀏覽器 3 分鐘完成證件浮水印，iPhone 和 Android 都適用。
+                </p>
+                <span className="inline-block mt-3 text-sm text-primary font-medium">
+                  閱讀全文 →
+                </span>
+              </article>
+            </Link>
+            <Link href="/blog/other-documents-watermark">
+              <article className="block border rounded-xl p-5 hover:border-primary hover:shadow-sm transition-all cursor-pointer">
+                <h3 className="font-medium mb-1">
+                  不只身分證！存摺、健保卡、駕照影本也要加浮水印
+                </h3>
+                <p className="text-sm text-muted-foreground">
+                  存摺、健保卡、駕照等影本也是詐騙高危目標，本篇教你 6 種證件的浮水印寫法。
                 </p>
                 <span className="inline-block mt-3 text-sm text-primary font-medium">
                   閱讀全文 →

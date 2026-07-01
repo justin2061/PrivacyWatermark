@@ -1,24 +1,53 @@
 import { useEffect } from "react";
 import { Link } from "wouter";
+import {
+  setPageSeo,
+  articleSchema,
+  faqSchema,
+  blogBreadcrumb,
+} from "@/lib/seo";
+
+const URL = "https://imagemarker.app/blog/mobile-watermark-tutorial";
+const TITLE = "手機怎麼幫身分證加浮水印？免安裝 App 的最快方法";
 
 export default function MobileWatermarkTutorial() {
   useEffect(() => {
-    document.title =
-      "手機怎麼幫身分證加浮水印？免安裝 App 的最快方法 | ImageMarker";
-    const metaDesc = document.querySelector('meta[name="description"]');
-    if (metaDesc) {
-      metaDesc.setAttribute(
-        "content",
-        "不用下載 App，用手機瀏覽器就能幫身分證加浮水印。本篇教你 3 分鐘完成，iPhone 和 Android 都適用。"
-      );
-    }
-    const canonical = document.querySelector('link[rel="canonical"]');
-    if (canonical) {
-      canonical.setAttribute(
-        "href",
-        "https://imagemarker.app/blog/mobile-watermark-tutorial"
-      );
-    }
+    const cleanup = setPageSeo({
+      title: `${TITLE} | ImageMarker`,
+      description:
+        "不用下載 App，用手機瀏覽器就能幫身分證加浮水印。本篇教你 3 分鐘完成，iPhone 和 Android 都適用。",
+      canonical: URL,
+      jsonLd: [
+        articleSchema({
+          headline: TITLE,
+          description:
+            "免安裝 App，用手機瀏覽器 3 分鐘幫身分證加浮水印的教學，iPhone 和 Android 都適用。",
+          url: URL,
+          datePublished: "2026-05-27",
+          dateModified: "2026-07-01",
+        }),
+        faqSchema([
+          {
+            q: "手機網路不好可以用嗎？",
+            a: "可以。ImageMarker 是在瀏覽器本地端處理，載入網頁後即使網路不穩也能完成加浮水印，檔案不會上傳。",
+          },
+          {
+            q: "手機效能差會跑不動嗎？",
+            a: "不會。加文字浮水印運算量很小，一般智慧型手機都能順暢處理。",
+          },
+          {
+            q: "可以直接從 LINE 收到的照片加浮水印嗎？",
+            a: "可以。先將 LINE 內的照片儲存到手機相簿，再到 imagemarker.app 上傳該照片即可。",
+          },
+          {
+            q: "在手機上做的浮水印，傳到電腦會走樣嗎？",
+            a: "不會。浮水印會直接合成在輸出的圖片檔上，跨裝置開啟都一致。",
+          },
+        ]),
+        blogBreadcrumb(TITLE, URL),
+      ],
+    });
+    return cleanup;
   }, []);
 
   return (

@@ -1,18 +1,58 @@
 import { useEffect } from "react";
 import { Link } from "wouter";
+import {
+  setPageSeo,
+  articleSchema,
+  faqSchema,
+  blogBreadcrumb,
+} from "@/lib/seo";
+
+const URL = "https://imagemarker.app/blog/watermark-templates-guide";
+const TITLE =
+  "身分證影本簽註寫法＋證件浮水印範本：10 種情境怎麼寫（2026 最新）";
 
 export default function WatermarkTemplatesGuidePage() {
   useEffect(() => {
-    document.title = "證件浮水印內容範本：10 種常見情境怎麼寫（2026 最新）| ImageMarker";
-    const desc = document.querySelector('meta[name="description"]');
-    if (desc) desc.setAttribute("content", "租屋、求職、開戶、保險……每種情境的證件浮水印該寫什麼？完整 10 種範本讓你直接套用，保護個資免於冒用。");
-    let canonical = document.querySelector('link[rel="canonical"]') as HTMLLinkElement | null;
-    if (!canonical) {
-      canonical = document.createElement("link");
-      canonical.rel = "canonical";
-      document.head.appendChild(canonical);
-    }
-    canonical.href = "https://imagemarker.app/blog/watermark-templates-guide";
+    const cleanup = setPageSeo({
+      title: `${TITLE} | ImageMarker`,
+      description:
+        "身分證影本簽註寫法怎麼寫才對？手寫三行簽註正確寫法＋10 種情境的證件浮水印文字範本，2026 最新整理，直接套用保護個資。",
+      canonical: URL,
+      jsonLd: [
+        articleSchema({
+          headline: TITLE,
+          description:
+            "身分證影本簽註寫法與證件浮水印範本完整教學：手寫三行簽註正確寫法＋10 種常見情境文字範本。",
+          url: URL,
+          datePublished: "2026-04-10",
+          dateModified: "2026-07-01",
+        }),
+        faqSchema([
+          {
+            q: "身分證影本簽註寫法要怎麼寫才對？",
+            a: "手寫簽註要分三行、用藍色原子筆、每行文字後劃一條橫線防止被補寫，部分筆畫與證件文字交叉或接觸，且不可遮蔽姓名與身分證字號等重要欄位。內容用「用途＋對象＋日期」，例如「僅供 OO 銀行申辦信用卡使用 2026/07/01」。",
+          },
+          {
+            q: "對方不接受有浮水印或簽註的影本怎麼辦？",
+            a: "內政部即建議在影本上加註用途，正當的公司與機構都會接受。堅持要乾淨影本的反而要提高警覺，這不符合個資保護慣例。",
+          },
+          {
+            q: "簽註一定要加日期嗎？",
+            a: "非常必要。日期限定影本的有效時間，事後被挪作他用時法律上站不住腳，也讓濫用更容易被追溯。",
+          },
+          {
+            q: "公司報到要交身分證影本，註記怎麼寫？",
+            a: "寫「僅供 OO 公司到職報到／人資備存使用 2026/07/01」，明確限定公司與用途即可。",
+          },
+          {
+            q: "手機拍的身分證影本也能加簽註或浮水印嗎？",
+            a: "可以。用 ImageMarker 在手機瀏覽器就能加數位浮水印，免安裝 App；不方便手寫時，數位浮水印可調透明度、覆蓋範圍更好控制。",
+          },
+        ]),
+        blogBreadcrumb("身分證影本簽註寫法＋證件浮水印範本", URL),
+      ],
+    });
+    return cleanup;
   }, []);
 
   const templates = [
@@ -124,10 +164,12 @@ export default function WatermarkTemplatesGuidePage() {
               <span>範本</span>
             </div>
             <h1 className="text-3xl font-bold text-gray-900 mb-4 leading-tight">
-              證件浮水印內容範本：10 種常見情境怎麼寫（2026 最新）
+              身分證影本簽註寫法＋證件浮水印範本：10 種情境怎麼寫（2026 最新）
             </h1>
             <div className="flex items-center space-x-4 text-sm text-gray-500">
               <time dateTime="2026-04-10">2026 年 4 月 10 日</time>
+              <span>·</span>
+              <span>最後更新 2026/07/01</span>
               <span>·</span>
               <span>閱讀約 8 分鐘</span>
             </div>
@@ -139,6 +181,28 @@ export default function WatermarkTemplatesGuidePage() {
               證件影本交出去後的命運你無法控制。加浮水印最簡單有效，但很多人卡在
               「浮水印到底要寫什麼才夠？」這篇整理 10 種台灣常見情境的實用範本，直接套用就好。
             </p>
+
+            <h2>身分證影本簽註寫法：手寫三行的正確做法</h2>
+            <p>
+              最傳統、也最多人問的「簽註寫法」是<strong>手寫在影本上</strong>。正確寫法其實有固定規則，照著做才有防護效果：
+            </p>
+            <ol>
+              <li><strong>用藍色原子筆</strong>：正反兩面都要簽註，藍筆較能辨識是後加、不易被塗改。</li>
+              <li><strong>分三行書寫</strong>：例如「1. 僅提供 OO 銀行　2. 申辦 OO 信用卡　3. 他用無效」。</li>
+              <li><strong>每行文字後劃一條橫線</strong>：把該行填滿、封住空白，避免被人補寫其他用途。</li>
+              <li><strong>部分筆畫與證件文字交叉或接觸</strong>：讓簽註和證件本體交疊，難以整段挖除或變造。</li>
+              <li><strong>不可遮蔽姓名、身分證字號、照片</strong>：簽註是限定用途，不是塗黑，重要欄位仍須清楚可辨。</li>
+            </ol>
+            <p>
+              <strong>加註位置</strong>建議寫在證件影像的空白處並跨到影像上，而不是只寫在頁面邊緣，這樣才能和證件內容綁在一起。
+            </p>
+            <div className="bg-amber-50 border border-amber-200 rounded-lg p-4 my-4 not-prose">
+              <p className="text-amber-900 text-sm">
+                <strong>手寫簽註 vs 數位浮水印：</strong>手寫快速但容易歪斜、可能遮到字，且每張都要重寫；
+                數位浮水印可調透明度、精準覆蓋、一次套用多張，處理身分證這類敏感證件也更安全。
+                兩者都用「用途＋對象＋日期」原則，下面的範本手寫、數位皆適用。
+              </p>
+            </div>
 
             <h2>證件浮水印萬能公式</h2>
             <p>
@@ -269,6 +333,14 @@ export default function WatermarkTemplatesGuidePage() {
             <Link href="/blog/watermark-generators-recommendation" className="bg-white rounded-xl shadow-sm p-5 hover:shadow-md transition-shadow block">
               <p className="text-xs text-blue-600 font-medium mb-2">工具推薦</p>
               <h3 className="font-semibold text-gray-900 text-sm leading-snug">5 款免費線上浮水印產生器推薦</h3>
+            </Link>
+            <Link href="/blog/mobile-watermark-tutorial" className="bg-white rounded-xl shadow-sm p-5 hover:shadow-md transition-shadow block">
+              <p className="text-xs text-blue-600 font-medium mb-2">手機教學</p>
+              <h3 className="font-semibold text-gray-900 text-sm leading-snug">手機怎麼幫身分證加浮水印？免安裝 App 的最快方法</h3>
+            </Link>
+            <Link href="/blog/other-documents-watermark" className="bg-white rounded-xl shadow-sm p-5 hover:shadow-md transition-shadow block">
+              <p className="text-xs text-blue-600 font-medium mb-2">證件保護</p>
+              <h3 className="font-semibold text-gray-900 text-sm leading-snug">不只身分證！存摺、健保卡、駕照影本也要加浮水印</h3>
             </Link>
           </div>
         </section>

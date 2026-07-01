@@ -1,24 +1,54 @@
 import { useEffect } from "react";
 import { Link } from "wouter";
+import {
+  setPageSeo,
+  articleSchema,
+  faqSchema,
+  blogBreadcrumb,
+} from "@/lib/seo";
+
+const URL = "https://imagemarker.app/blog/other-documents-watermark";
+const TITLE =
+  "不只身分證！存摺、健保卡、駕照影本也要加浮水印";
 
 export default function OtherDocumentsWatermark() {
   useEffect(() => {
-    document.title =
-      "不只身分證！存摺、健保卡、駕照影本也要加浮水印 | ImageMarker";
-    const metaDesc = document.querySelector('meta[name="description"]');
-    if (metaDesc) {
-      metaDesc.setAttribute(
-        "content",
-        "除了身分證，存摺封面、健保卡、駕照等影本也是詐騙的高危目標。本篇教你 6 種常見證件的浮水印寫法，一次保護所有個資。"
-      );
-    }
-    const canonical = document.querySelector('link[rel="canonical"]');
-    if (canonical) {
-      canonical.setAttribute(
-        "href",
-        "https://imagemarker.app/blog/other-documents-watermark"
-      );
-    }
+    const cleanup = setPageSeo({
+      title: `${TITLE} | ImageMarker`,
+      description:
+        "除了身分證，存摺封面、健保卡、駕照等影本也是詐騙的高危目標。本篇教你 6 種常見證件的浮水印寫法，一次保護所有個資。",
+      canonical: URL,
+      jsonLd: [
+        articleSchema({
+          headline: TITLE,
+          description:
+            "存摺、健保卡、駕照等證件影本的浮水印寫法完整教學，一次保護所有個資。",
+          url: URL,
+          datePublished: "2026-05-27",
+          dateModified: "2026-07-01",
+        }),
+        faqSchema([
+          {
+            q: "銀行說存摺影本不能有任何標記，否則無法受理？",
+            a: "正規銀行受理薪轉帳戶登錄、退費驗證等用途時，加註用途的浮水印完全合理。若是首次開戶或網銀申辦需要乾淨影本，這類情境通常臨櫃辦理，不會要求你傳影本。",
+          },
+          {
+            q: "健保卡背面有照片，浮水印會不會蓋住影響辨識？",
+            a: "浮水印透明度設定在 30-40% 即可兼顧辨識度與防護效果。若對方堅持要無浮水印照片，建議改用其他證件。",
+          },
+          {
+            q: "駕照效期很長，浮水印日期會不會讓對方覺得過期？",
+            a: "浮水印的日期代表這次提供影本的日期，不是駕照效期。可在範本明確寫「2026/05/27 租車登錄使用」，對方一看就懂。",
+          },
+          {
+            q: "證件影本已經傳出去了才想到要加浮水印，還來得及嗎？",
+            a: "建議立即聯繫對方刪除原檔並補傳加浮水印的版本，另可到聯徵中心申請註記服務，避免被冒名申辦貸款或信用卡。",
+          },
+        ]),
+        blogBreadcrumb(TITLE, URL),
+      ],
+    });
+    return cleanup;
   }, []);
 
   return (

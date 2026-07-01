@@ -110,9 +110,9 @@
   </url>
   <url>
     <loc>https://imagemarker.app/blog/watermark-generators-recommendation</loc>
-    <lastmod>2026-04-07</lastmod>
+    <lastmod>2026-07-01</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="zh-tw" href="https://imagemarker.app/blog/watermark-generators-recommendation" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://imagemarker.app/blog/watermark-generators-recommendation" />
   </url>
@@ -134,17 +134,27 @@
   </url>
   <url>
     <loc>https://imagemarker.app/blog/mobile-watermark-tutorial</loc>
-    <lastmod>2026-05-27</lastmod>
+    <lastmod>2026-07-01</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="zh-tw" href="https://imagemarker.app/blog/mobile-watermark-tutorial" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://imagemarker.app/blog/mobile-watermark-tutorial" />
   </url>
   <url>
     <loc>https://imagemarker.app/blog/other-documents-watermark</loc>
-    <lastmod>2026-05-27</lastmod>
+    <lastmod>2026-07-01</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="zh-tw" href="https://imagemarker.app/blog/other-documents-watermark" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://imagemarker.app/blog/other-documents-watermark" />
+  </url>
+  <url>
+    <loc>https://imagemarker.app/blog/passport-travel-agency-watermark</loc>
+    <lastmod>2026-07-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="zh-tw" href="https://imagemarker.app/blog/passport-travel-agency-watermark" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://imagemarker.app/blog/passport-travel-agency-watermark" />
   </url>
   <url>
     <loc>https://imagemarker.app/blog/is-id-watermark-useful</loc>
