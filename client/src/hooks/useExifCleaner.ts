@@ -3,6 +3,7 @@ import {
   buildCleanedFilename,
   readMetadata,
   stripMetadata,
+  type Lang,
   type MetadataReport,
 } from "@/lib/exifProcessor";
 
@@ -13,7 +14,7 @@ interface CleanedResult {
   filename: string;
 }
 
-export function useExifCleaner() {
+export function useExifCleaner(lang: Lang = "zh") {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [report, setReport] = useState<MetadataReport | null>(null);
   const [cleaned, setCleaned] = useState<CleanedResult | null>(null);
@@ -36,15 +37,21 @@ export function useExifCleaner() {
       setSelectedFile(file);
       setIsReading(true);
       try {
-        const result = await readMetadata(file);
+        const result = await readMetadata(file, lang);
         setReport(result);
       } catch (err) {
-        setError(err instanceof Error ? err.message : "讀取 metadata 失敗");
+        setError(
+          err instanceof Error
+            ? err.message
+            : lang === "en"
+              ? "Failed to read metadata"
+              : "讀取 metadata 失敗",
+        );
       } finally {
         setIsReading(false);
       }
     },
-    [releaseCleaned],
+    [releaseCleaned, lang],
   );
 
   const cleanFile = useCallback(async () => {

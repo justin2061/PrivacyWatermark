@@ -85,6 +85,19 @@ export default function RemoveBgEnPage() {
   const [error, setError] = useState<string | null>(null);
   const [bgMode, setBgMode] = useState<BgMode>("transparent");
   const [customColor, setCustomColor] = useState("#f3f4f6");
+  // Preview URL of the uploaded source image, so users can see which image is being processed
+  const [sourceUrl, setSourceUrl] = useState<string | null>(null);
+
+  // Create / revoke the source preview URL based on the selected file
+  useEffect(() => {
+    if (!selectedFile) {
+      setSourceUrl(null);
+      return;
+    }
+    const url = URL.createObjectURL(selectedFile);
+    setSourceUrl(url);
+    return () => URL.revokeObjectURL(url);
+  }, [selectedFile]);
 
   useEffect(() => {
     document.title =
@@ -535,14 +548,26 @@ export default function RemoveBgEnPage() {
                   appear here on a checkerboard background.
                 </p>
               )}
-              {selectedFile && !result && !isProcessing && (
-                <p className="text-sm text-gray-500">
-                  Click “Remove Background” on the left to start.
-                </p>
-              )}
               {error && (
                 <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg">
                   <p className="text-sm text-red-800">{error}</p>
+                </div>
+              )}
+              {/* Show the uploaded source image before a result is produced */}
+              {selectedFile && !result && sourceUrl && (
+                <div>
+                  <div className="rounded-lg border border-gray-200 overflow-hidden flex items-center justify-center bg-gray-100">
+                    <img
+                      src={sourceUrl}
+                      alt="Uploaded source image preview"
+                      className="max-w-full"
+                    />
+                  </div>
+                  <p className="text-xs text-gray-500 mt-2">
+                    {isProcessing
+                      ? "Processing… this is the image being cut out."
+                      : "Your selected image. Click “Remove Background” on the left to start."}
+                  </p>
                 </div>
               )}
               {result && (

@@ -24,7 +24,9 @@ import MobileWatermarkTutorialPage from "@/pages/blog/mobile-watermark-tutorial"
 import OtherDocumentsWatermarkPage from "@/pages/blog/other-documents-watermark";
 import PassportTravelAgencyWatermarkPage from "@/pages/blog/passport-travel-agency-watermark";
 import ExifCleanPage from "@/pages/exif-clean";
+import ExifCleanEnPage from "@/pages/en/exif-clean";
 import BatchPage from "@/pages/batch";
+import BatchEnPage from "@/pages/en/batch";
 import CompressPage from "@/pages/compress";
 import CompressEnPage from "@/pages/en/compress";
 import ConvertPage from "@/pages/convert";
@@ -65,7 +67,9 @@ function Router() {
       <Route path="/blog/other-documents-watermark" component={OtherDocumentsWatermarkPage} />
       <Route path="/blog/passport-travel-agency-watermark" component={PassportTravelAgencyWatermarkPage} />
       <Route path="/exif-clean" component={ExifCleanPage} />
+      <Route path="/en/exif-clean" component={ExifCleanEnPage} />
       <Route path="/batch" component={BatchPage} />
+      <Route path="/en/batch" component={BatchEnPage} />
       <Route path="/compress" component={CompressPage} />
       <Route path="/en/compress" component={CompressEnPage} />
       <Route path="/convert" component={ConvertPage} />

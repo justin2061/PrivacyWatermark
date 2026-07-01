@@ -196,6 +196,17 @@ export default function WatermarkTemplatesGuidePage() {
             <p>
               <strong>加註位置</strong>建議寫在證件影像的空白處並跨到影像上，而不是只寫在頁面邊緣，這樣才能和證件內容綁在一起。
             </p>
+            <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 my-4 not-prose">
+              <p className="font-semibold text-gray-900 mb-2">身分證影本簽註寫法範例（可直接照抄）</p>
+              <ul className="text-sm text-gray-700 space-y-1 list-disc pl-5">
+                <li>第一行：僅提供 OO 銀行 ——————</li>
+                <li>第二行：申辦 OO 信用卡使用 ——————</li>
+                <li>第三行：2026/07/01，他用無效 ——————</li>
+              </ul>
+              <p className="text-sm text-gray-600 mt-2">
+                三行寫完後，每行結尾用橫線把剩餘空白補滿，避免被人補寫其他用途；文字跨到證件影像上，但不要遮住姓名與身分證字號。這就是最標準的身分證影本簽註寫法範例。
+              </p>
+            </div>
             <div className="bg-amber-50 border border-amber-200 rounded-lg p-4 my-4 not-prose">
               <p className="text-amber-900 text-sm">
                 <strong>手寫簽註 vs 數位浮水印：</strong>手寫快速但容易歪斜、可能遮到字，且每張都要重寫；

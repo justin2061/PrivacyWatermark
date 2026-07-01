@@ -334,7 +334,9 @@ export default function WatermarkPage() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <Card className="p-5 hover:shadow-md transition-shadow">
               <h3 className="font-semibold text-gray-900 mb-2">
-                租屋交證件影本前必做！3 步驟幫身分證加浮水印
+                <Link href="/blog/rent-id-watermark" className="hover:text-primary transition-colors">
+                  租屋交證件影本前必做！3 步驟幫身分證加浮水印
+                </Link>
               </h3>
               <p className="text-sm text-gray-600 mb-4">
                 教你如何用 ImageMarker 三步驟完成身分證浮水印，有效保護個資、防止證件影本被冒用。
@@ -349,7 +351,9 @@ export default function WatermarkPage() {
 
             <Card className="p-5 hover:shadow-md transition-shadow">
               <h3 className="font-semibold text-gray-900 mb-2">
-                5 款免費線上浮水印產生器推薦｜2026 年最新比較
+                <Link href="/blog/watermark-generators-recommendation" className="hover:text-primary transition-colors">
+                  5 款免費線上浮水印產生器推薦｜2026 年最新比較
+                </Link>
               </h3>
               <p className="text-sm text-gray-600 mb-4">
                 精選 5 款最好用的免費浮水印工具，比較本地處理 vs 雲端上傳、隱私安全與功能優缺點。
@@ -364,7 +368,9 @@ export default function WatermarkPage() {
 
             <Card className="p-5 hover:shadow-md transition-shadow">
               <h3 className="font-semibold text-gray-900 mb-2">
-                證件浮水印內容範本：10 種常見情境怎麼寫（2026 最新）
+                <Link href="/blog/watermark-templates-guide" className="hover:text-primary transition-colors">
+                  身分證影本簽註寫法＋證件浮水印範本：10 種情境怎麼寫（2026 最新）
+                </Link>
               </h3>
               <p className="text-sm text-gray-600 mb-4">
                 租屋、求職、開戶、保險……每種情境的證件浮水印該寫什麼？完整 10 種範本讓你直接套用。
@@ -379,7 +385,9 @@ export default function WatermarkPage() {
 
             <Card className="p-5 hover:shadow-md transition-shadow">
               <h3 className="font-semibold text-gray-900 mb-2">
-                手機怎麼幫身分證加浮水印？免安裝 App 的最快方法
+                <Link href="/blog/mobile-watermark-tutorial" className="hover:text-primary transition-colors">
+                  手機怎麼幫身分證加浮水印？免安裝 App 的最快方法
+                </Link>
               </h3>
               <p className="text-sm text-gray-600 mb-4">
                 不用下載 App，用手機瀏覽器 3 分鐘完成證件浮水印，iPhone 和 Android 都適用。
@@ -394,7 +402,9 @@ export default function WatermarkPage() {
 
             <Card className="p-5 hover:shadow-md transition-shadow">
               <h3 className="font-semibold text-gray-900 mb-2">
-                不只身分證！存摺、健保卡、駕照影本也要加浮水印
+                <Link href="/blog/other-documents-watermark" className="hover:text-primary transition-colors">
+                  不只身分證！存摺、健保卡、駕照影本也要加浮水印
+                </Link>
               </h3>
               <p className="text-sm text-gray-600 mb-4">
                 存摺、健保卡、駕照等影本也是詐騙高危目標，教你 6 種常見證件的浮水印寫法。

@@ -1,12 +1,24 @@
 import { Link } from "wouter";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Card } from "@/components/ui/card";
 import { FileUploadZone } from "@/components/watermark/FileUploadZone";
 import { WatermarkControls } from "@/components/watermark/WatermarkControls";
 import { CanvasPreview } from "@/components/watermark/CanvasPreview";
 import { ProcessingStatus } from "@/components/watermark/ProcessingStatus";
 import { useWatermark } from "@/hooks/useWatermark";
-import { Shield, Lock, Zap, Eraser, Languages } from "lucide-react";
+import {
+  Shield,
+  Lock,
+  Zap,
+  Eraser,
+  Languages,
+  Layers,
+  Scissors,
+  Minimize2,
+  Repeat,
+  Scaling,
+  BookOpen,
+} from "lucide-react";
 
 export default function WatermarkEnPage() {
   const {
@@ -22,6 +34,8 @@ export default function WatermarkEnPage() {
     downloadImage,
     resetCanvas
   } = useWatermark();
+
+  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
     document.title =
@@ -54,7 +68,57 @@ export default function WatermarkEnPage() {
                 <p className="text-xs text-gray-600">Secure Local Image Processing</p>
               </div>
             </div>
-            <div className="flex items-center space-x-4">
+            {/* Desktop nav */}
+            <div className="hidden md:flex items-center space-x-4">
+              <Link
+                href="/en/batch"
+                className="flex items-center space-x-1.5 text-sm text-gray-600 hover:text-primary transition-colors"
+              >
+                <Layers className="w-4 h-4" aria-hidden="true" />
+                <span>Batch</span>
+              </Link>
+              <Link
+                href="/en/exif-clean"
+                className="flex items-center space-x-1.5 text-sm text-gray-600 hover:text-primary transition-colors"
+              >
+                <Eraser className="w-4 h-4" aria-hidden="true" />
+                <span>EXIF Cleaner</span>
+              </Link>
+              <Link
+                href="/en/remove-bg"
+                className="flex items-center space-x-1.5 text-sm text-gray-600 hover:text-primary transition-colors"
+              >
+                <Scissors className="w-4 h-4" aria-hidden="true" />
+                <span>Remove BG</span>
+              </Link>
+              <Link
+                href="/en/compress"
+                className="flex items-center space-x-1.5 text-sm text-gray-600 hover:text-primary transition-colors"
+              >
+                <Minimize2 className="w-4 h-4" aria-hidden="true" />
+                <span>Compress</span>
+              </Link>
+              <Link
+                href="/en/convert"
+                className="flex items-center space-x-1.5 text-sm text-gray-600 hover:text-primary transition-colors"
+              >
+                <Repeat className="w-4 h-4" aria-hidden="true" />
+                <span>Convert</span>
+              </Link>
+              <Link
+                href="/en/resize"
+                className="flex items-center space-x-1.5 text-sm text-gray-600 hover:text-primary transition-colors"
+              >
+                <Scaling className="w-4 h-4" aria-hidden="true" />
+                <span>Resize</span>
+              </Link>
+              <Link
+                href="/en/blog"
+                className="flex items-center space-x-1.5 text-sm text-gray-600 hover:text-primary transition-colors"
+              >
+                <BookOpen className="w-4 h-4" aria-hidden="true" />
+                <span>Blog</span>
+              </Link>
               <a
                 href="/"
                 className="flex items-center space-x-1.5 text-sm text-gray-600 hover:text-primary transition-colors"
@@ -68,7 +132,88 @@ export default function WatermarkEnPage() {
                 <span className="text-sm text-gray-600">100% Local</span>
               </div>
             </div>
+
+            {/* Mobile hamburger */}
+            <button
+              type="button"
+              className="md:hidden p-2 text-2xl leading-none text-gray-700"
+              onClick={() => setMenuOpen(!menuOpen)}
+              aria-label={menuOpen ? "Close menu" : "Open menu"}
+              aria-expanded={menuOpen}
+            >
+              {menuOpen ? "✕" : "☰"}
+            </button>
           </div>
+
+          {/* Mobile menu */}
+          {menuOpen && (
+            <nav className="md:hidden border-t border-gray-200 py-2">
+              <Link
+                href="/en/batch"
+                className="flex items-center space-x-2 py-3 px-4 text-gray-600 hover:bg-gray-50 rounded-lg"
+                onClick={() => setMenuOpen(false)}
+              >
+                <Layers className="w-4 h-4" aria-hidden="true" />
+                <span>Batch</span>
+              </Link>
+              <Link
+                href="/en/exif-clean"
+                className="flex items-center space-x-2 py-3 px-4 text-gray-600 hover:bg-gray-50 rounded-lg"
+                onClick={() => setMenuOpen(false)}
+              >
+                <Eraser className="w-4 h-4" aria-hidden="true" />
+                <span>EXIF Cleaner</span>
+              </Link>
+              <Link
+                href="/en/remove-bg"
+                className="flex items-center space-x-2 py-3 px-4 text-gray-600 hover:bg-gray-50 rounded-lg"
+                onClick={() => setMenuOpen(false)}
+              >
+                <Scissors className="w-4 h-4" aria-hidden="true" />
+                <span>Remove BG</span>
+              </Link>
+              <Link
+                href="/en/compress"
+                className="flex items-center space-x-2 py-3 px-4 text-gray-600 hover:bg-gray-50 rounded-lg"
+                onClick={() => setMenuOpen(false)}
+              >
+                <Minimize2 className="w-4 h-4" aria-hidden="true" />
+                <span>Compress</span>
+              </Link>
+              <Link
+                href="/en/convert"
+                className="flex items-center space-x-2 py-3 px-4 text-gray-600 hover:bg-gray-50 rounded-lg"
+                onClick={() => setMenuOpen(false)}
+              >
+                <Repeat className="w-4 h-4" aria-hidden="true" />
+                <span>Convert</span>
+              </Link>
+              <Link
+                href="/en/resize"
+                className="flex items-center space-x-2 py-3 px-4 text-gray-600 hover:bg-gray-50 rounded-lg"
+                onClick={() => setMenuOpen(false)}
+              >
+                <Scaling className="w-4 h-4" aria-hidden="true" />
+                <span>Resize</span>
+              </Link>
+              <Link
+                href="/en/blog"
+                className="flex items-center space-x-2 py-3 px-4 text-gray-600 hover:bg-gray-50 rounded-lg"
+                onClick={() => setMenuOpen(false)}
+              >
+                <BookOpen className="w-4 h-4" aria-hidden="true" />
+                <span>Blog</span>
+              </Link>
+              <a
+                href="/"
+                className="flex items-center space-x-2 py-3 px-4 text-gray-600 hover:bg-gray-50 rounded-lg"
+                aria-label="切換到中文版"
+              >
+                <Languages className="w-4 h-4" aria-hidden="true" />
+                <span>中文</span>
+              </a>
+            </nav>
+          )}
         </div>
       </header>
 
@@ -206,7 +351,7 @@ export default function WatermarkEnPage() {
                 </div>
               </div>
               <Link
-                href="/exif-clean"
+                href="/en/exif-clean"
                 className="inline-flex items-center justify-center whitespace-nowrap bg-primary text-white py-2.5 px-5 rounded-lg hover:bg-blue-700 transition-colors font-medium text-sm"
               >
                 Open EXIF Cleaner →

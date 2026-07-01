@@ -16,6 +16,29 @@ export const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
 
 const ACCEPTED_TYPES = ["image/jpeg", "image/png"];
 
+type Lang = "zh" | "en";
+
+const COPY = {
+  zh: {
+    defaultText: "僅供參考",
+    typeError: (name: string) => `${name}：僅支援 JPG / PNG`,
+    sizeError: (name: string) => `${name}：超過 10MB 上限`,
+    maxError: `最多只能上傳 ${MAX_FILES} 張圖片`,
+    readError: (name: string) => `${name}：無法讀取圖片`,
+    joiner: "；",
+    fileSuffix: "浮水印",
+  },
+  en: {
+    defaultText: "For reference only",
+    typeError: (name: string) => `${name}: only JPG / PNG supported`,
+    sizeError: (name: string) => `${name}: exceeds the 10MB limit`,
+    maxError: `You can upload at most ${MAX_FILES} images`,
+    readError: (name: string) => `${name}: failed to read image`,
+    joiner: "; ",
+    fileSuffix: "watermark",
+  },
+} as const;
+
 function loadImage(url: string): Promise<HTMLImageElement> {
   return new Promise((resolve, reject) => {
     const img = new Image();
@@ -25,7 +48,8 @@ function loadImage(url: string): Promise<HTMLImageElement> {
   });
 }
 
-export function useBatchWatermark() {
+export function useBatchWatermark(lang: Lang = "zh") {
+  const t = COPY[lang];
   const [images, setImages] = useState<BatchImage[]>([]);
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [isProcessing, setIsProcessing] = useState(false);
@@ -37,7 +61,7 @@ export function useBatchWatermark() {
 
   const [watermarkSettings, setWatermarkSettings] = useState<WatermarkSettings>({
     mode: "text",
-    text: "僅供參考",
+    text: COPY[lang].defaultText,
     opacity: 50,
     position: "center",
     fontSize: "medium",
@@ -61,15 +85,15 @@ export function useBatchWatermark() {
         let remaining = MAX_FILES - prev.length;
         for (const file of incoming) {
           if (!ACCEPTED_TYPES.includes(file.type)) {
-            errors.push(`${file.name}：僅支援 JPG / PNG`);
+            errors.push(t.typeError(file.name));
             continue;
           }
           if (file.size > MAX_FILE_SIZE) {
-            errors.push(`${file.name}：超過 10MB 上限`);
+            errors.push(t.sizeError(file.name));
             continue;
           }
           if (remaining <= 0) {
-            errors.push(`最多只能上傳 ${MAX_FILES} 張圖片`);
+            errors.push(t.maxError);
             break;
           }
           accepted.push(file);
@@ -80,7 +104,7 @@ export function useBatchWatermark() {
 
       if (errors.length > 0) {
         // de-duplicate the "max files" message
-        setError(Array.from(new Set(errors)).join("；"));
+        setError(Array.from(new Set(errors)).join(t.joiner));
       }
 
       const loaded: BatchImage[] = [];
@@ -97,7 +121,7 @@ export function useBatchWatermark() {
           });
         } catch {
           URL.revokeObjectURL(url);
-          errors.push(`${file.name}：無法讀取圖片`);
+          errors.push(t.readError(file.name));
         }
       }
 
@@ -106,7 +130,7 @@ export function useBatchWatermark() {
         setSelectedId((prev) => prev ?? loaded[0].id);
       }
     },
-    []
+    [t]
   );
 
   const removeFile = useCallback((id: string) => {
@@ -188,7 +212,7 @@ export function useBatchWatermark() {
       const base = item.file.name.replace(/\.[^.]+$/, "");
       const ext = blob.type === "image/png" ? "png" : "jpg";
       // index prefix guarantees unique names and preserves upload order
-      const name = `${String(i + 1).padStart(2, "0")}_${base}_浮水印.${ext}`;
+      const name = `${String(i + 1).padStart(2, "0")}_${base}_${t.fileSuffix}.${ext}`;
       zip.file(name, blob);
     }
 
@@ -201,7 +225,7 @@ export function useBatchWatermark() {
     link.click();
     document.body.removeChild(link);
     URL.revokeObjectURL(url);
-  }, [images]);
+  }, [images, t]);
 
   const reset = useCallback(() => {
     setImages((prev) => {

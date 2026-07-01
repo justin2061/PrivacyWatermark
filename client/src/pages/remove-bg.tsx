@@ -89,6 +89,19 @@ export default function RemoveBgPage() {
   const [error, setError] = useState<string | null>(null);
   const [bgMode, setBgMode] = useState<BgMode>("transparent");
   const [customColor, setCustomColor] = useState("#f3f4f6");
+  // 上傳後的原圖預覽網址，讓使用者確認正在處理哪張圖
+  const [sourceUrl, setSourceUrl] = useState<string | null>(null);
+
+  // 依選擇的檔案建立／釋放原圖預覽網址
+  useEffect(() => {
+    if (!selectedFile) {
+      setSourceUrl(null);
+      return;
+    }
+    const url = URL.createObjectURL(selectedFile);
+    setSourceUrl(url);
+    return () => URL.revokeObjectURL(url);
+  }, [selectedFile]);
 
   useEffect(() => {
     document.title = "AI 智能去背工具 — 一鍵移除圖片背景，100% 本機處理";
@@ -506,14 +519,26 @@ export default function RemoveBgPage() {
                   請先上傳圖片，按下「一鍵去背」後，這裡會以棋盤格背景顯示去背結果。
                 </p>
               )}
-              {selectedFile && !result && !isProcessing && (
-                <p className="text-sm text-gray-500">
-                  點擊左側「一鍵去背」開始處理。
-                </p>
-              )}
               {error && (
                 <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg">
                   <p className="text-sm text-red-800">{error}</p>
+                </div>
+              )}
+              {/* 尚未產生結果前，先顯示上傳的原圖 */}
+              {selectedFile && !result && sourceUrl && (
+                <div>
+                  <div className="rounded-lg border border-gray-200 overflow-hidden flex items-center justify-center bg-gray-100">
+                    <img
+                      src={sourceUrl}
+                      alt="上傳的原始圖片預覽"
+                      className="max-w-full"
+                    />
+                  </div>
+                  <p className="text-xs text-gray-500 mt-2">
+                    {isProcessing
+                      ? "AI 處理中，這是目前正在去背的圖片…"
+                      : "目前選擇的圖片，點擊左側「一鍵去背」開始處理。"}
+                  </p>
                 </div>
               )}
               {result && (

@@ -76,15 +76,59 @@ const FIELD_LABELS: Record<string, string> = {
   WhiteBalance: "白平衡",
 };
 
-function formatValue(value: unknown): string {
+const FIELD_LABELS_EN: Record<string, string> = {
+  Make: "Camera Make",
+  Model: "Camera Model",
+  LensMake: "Lens Make",
+  LensModel: "Lens Model",
+  Software: "Software",
+  DateTimeOriginal: "Date Taken",
+  CreateDate: "Create Date",
+  ModifyDate: "Modify Date",
+  GPSLatitude: "GPS Latitude",
+  GPSLongitude: "GPS Longitude",
+  GPSAltitude: "GPS Altitude",
+  GPSPosition: "GPS Position",
+  latitude: "Latitude",
+  longitude: "Longitude",
+  SerialNumber: "Camera Serial Number",
+  BodySerialNumber: "Body Serial Number",
+  InternalSerialNumber: "Internal Serial Number",
+  OwnerName: "Owner Name",
+  Artist: "Artist",
+  Copyright: "Copyright",
+  HostComputer: "Host Computer",
+  ImageWidth: "Image Width",
+  ImageHeight: "Image Height",
+  Orientation: "Orientation",
+  XResolution: "Horizontal Resolution",
+  YResolution: "Vertical Resolution",
+  ResolutionUnit: "Resolution Unit",
+  ColorSpace: "Color Space",
+  ExposureTime: "Exposure Time",
+  FNumber: "Aperture",
+  ISO: "ISO",
+  FocalLength: "Focal Length",
+  Flash: "Flash",
+  WhiteBalance: "White Balance",
+};
+
+export type Lang = "zh" | "en";
+
+function formatValue(value: unknown, lang: Lang = "zh"): string {
   if (value === null || value === undefined) return "";
-  if (value instanceof Date) return value.toLocaleString("zh-TW");
-  if (Array.isArray(value)) return value.map(formatValue).join(", ");
+  if (value instanceof Date)
+    return value.toLocaleString(lang === "en" ? "en-US" : "zh-TW");
+  if (Array.isArray(value))
+    return value.map((v) => formatValue(v, lang)).join(", ");
   if (typeof value === "object") return JSON.stringify(value);
   return String(value);
 }
 
-export async function readMetadata(file: File): Promise<MetadataReport> {
+export async function readMetadata(
+  file: File,
+  lang: Lang = "zh",
+): Promise<MetadataReport> {
   let raw: Record<string, unknown> | undefined;
   try {
     raw = (await exifr.parse(file, {
@@ -108,23 +152,26 @@ export async function readMetadata(file: File): Promise<MetadataReport> {
     return { hasMetadata: false, entries: [], sensitiveCount: 0 };
   }
 
+  const labels = lang === "en" ? FIELD_LABELS_EN : FIELD_LABELS;
+  const collatorLocale = lang === "en" ? "en" : "zh-TW";
   const entries: MetadataEntry[] = [];
   let sensitiveCount = 0;
 
   for (const [key, value] of Object.entries(raw)) {
-    const formatted = formatValue(value);
+    const formatted = formatValue(value, lang);
     if (!formatted) continue;
     const sensitive = SENSITIVE_FIELDS.has(key);
     if (sensitive) sensitiveCount++;
     entries.push({
-      label: FIELD_LABELS[key] ?? key,
+      label: labels[key] ?? key,
       value: formatted,
       sensitive,
     });
   }
 
   entries.sort((a, b) => {
-    if (a.sensitive === b.sensitive) return a.label.localeCompare(b.label, "zh-TW");
+    if (a.sensitive === b.sensitive)
+      return a.label.localeCompare(b.label, collatorLocale);
     return a.sensitive ? -1 : 1;
   });
 
