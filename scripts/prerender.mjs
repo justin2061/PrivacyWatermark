@@ -9,6 +9,15 @@
 // Netlify then serves these static files (static files take precedence over the
 // SPA fallback redirect), so Googlebot gets complete HTML without executing JS.
 //
+// IMPORTANT design choices (learned the hard way):
+//   1. Wait with `domcontentloaded` + an explicit "React mounted" check — NOT
+//      `networkidle0`. The app lazily loads a ~23MB onnxruntime WASM bundle, so
+//      the network may never go idle and every route would time out.
+//   2. Buffer every route's HTML in memory and only write files AFTER the crawl
+//      finishes. If we wrote into dist/ mid-crawl, the vite preview SPA fallback
+//      would start serving the freshly-written homepage index.html for routes
+//      that hadn't been rendered yet, poisoning their captured content.
+//
 // Safety: if Puppeteer can't be imported or Chromium can't launch, the script
 // logs a warning and exits 0 so the site still deploys as a normal SPA.
 
@@ -41,7 +50,6 @@ function getRoutes() {
       }
     })
     .filter(Boolean);
-  // De-dupe, keep "/" first.
   return Array.from(new Set(routes));
 }
 
@@ -50,6 +58,10 @@ function outPathFor(route) {
   const clean = route.replace(/^\//, "").replace(/\/$/, "");
   return join(distDir, clean, "index.html");
 }
+
+// Homepage default title from the shell — used to detect routes that failed to
+// swap in their own <title> (i.e. React/route didn't render properly).
+const DEFAULT_TITLE_HINT = "證件浮水印製作工具";
 
 async function main() {
   if (!existsSync(distDir)) {
@@ -94,23 +106,40 @@ async function main() {
     process.exit(0);
   }
 
-  let ok = 0;
+  // Phase 1 — crawl into memory. Never write to dist here.
+  const rendered = []; // { route, html }
   for (const route of routes) {
     const page = await browser.newPage();
     try {
       await page.goto(base + route, {
-        waitUntil: "networkidle0",
+        waitUntil: "domcontentloaded",
         timeout: 30000,
       });
-      // Wait for the app to mount and effects (meta/JSON-LD) to run.
-      await page.waitForSelector("#root *", { timeout: 10000 }).catch(() => {});
-      await new Promise((r) => setTimeout(r, 300));
+      // Wait until React has actually mounted content into #root.
+      await page.waitForFunction(
+        () => {
+          const root = document.querySelector("#root");
+          return !!root && root.children.length > 0;
+        },
+        { timeout: 15000 }
+      );
+      // Settle so useEffect-set <title>/canonical/JSON-LD are in the DOM before
+      // we capture (effects run just after mount).
+      await new Promise((r) => setTimeout(r, 600));
+
       const html = await page.content();
-      const outPath = outPathFor(route);
-      mkdirSync(dirname(outPath), { recursive: true });
-      writeFileSync(outPath, html, "utf-8");
-      ok += 1;
-      console.log(`[prerender] ✓ ${route}`);
+      const title = await page.title();
+
+      if (route !== "/" && title.includes(DEFAULT_TITLE_HINT)) {
+        // Route rendered the homepage shell instead of its own page — skip it so
+        // we don't bake wrong content. (Should not happen with buffered writes.)
+        console.warn(
+          `[prerender] ✗ ${route}: captured homepage title, skipping to avoid wrong content`
+        );
+      } else {
+        rendered.push({ route, html });
+        console.log(`[prerender] ✓ ${route} — ${title.slice(0, 40)}`);
+      }
     } catch (e) {
       console.warn(`[prerender] ✗ ${route}: ${e.message}`);
     } finally {
@@ -120,7 +149,23 @@ async function main() {
 
   await browser.close();
   await server.close();
-  console.log(`[prerender] done — ${ok}/${routes.length} routes written.`);
+
+  // Phase 2 — write all captured pages now that the server is down.
+  let written = 0;
+  for (const { route, html } of rendered) {
+    try {
+      const outPath = outPathFor(route);
+      mkdirSync(dirname(outPath), { recursive: true });
+      writeFileSync(outPath, html, "utf-8");
+      written += 1;
+    } catch (e) {
+      console.warn(`[prerender] write failed for ${route}: ${e.message}`);
+    }
+  }
+
+  console.log(
+    `[prerender] done — ${written}/${routes.length} routes written.`
+  );
 }
 
 main().catch((e) => {
