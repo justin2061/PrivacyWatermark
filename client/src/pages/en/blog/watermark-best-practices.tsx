@@ -1,24 +1,15 @@
 import { useEffect } from "react";
 import { Link } from "wouter";
+import { setPageSeo } from "@/lib/seo";
 
 export default function WatermarkBestPractices() {
   useEffect(() => {
-    document.title =
-      "Watermark Best Practices: Placement, Opacity & Design Tips";
-    const metaDesc = document.querySelector('meta[name="description"]');
-    if (metaDesc) {
-      metaDesc.setAttribute(
-        "content",
-        "Where should a watermark go? What opacity works best? Learn watermark placement, opacity, color, and design tips to protect your images without ruining them."
-      );
-    }
-    const canonical = document.querySelector('link[rel="canonical"]');
-    if (canonical) {
-      canonical.setAttribute(
-        "href",
-        "https://imagemarker.app/en/blog/watermark-best-practices"
-      );
-    }
+    return setPageSeo({
+      title: "Watermark Best Practices: Placement, Opacity & Design Tips",
+      description: "Where should a watermark go? What opacity works best? Learn watermark placement, opacity, color, and design tips to protect your images without ruining them.",
+      canonical: "https://imagemarker.app/en/blog/watermark-best-practices",
+      locale: "en_US",
+    });
   }, []);
 
   return (

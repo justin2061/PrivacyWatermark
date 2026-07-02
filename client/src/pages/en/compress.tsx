@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "wouter";
 import { Card } from "@/components/ui/card";
+import { setPageSeo } from "@/lib/seo";
 import {
   CheckCircle,
   Download,
@@ -90,19 +91,13 @@ export default function CompressEnPage() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    document.title =
-      "Image Compressor — Free Online Tool, 100% Local Processing";
-    const metaDesc = document.querySelector('meta[name="description"]');
-    if (metaDesc) {
-      metaDesc.setAttribute(
-        "content",
-        "Free online image compressor for JPG, PNG and WebP. Reduce image file size right in your browser with Canvas — 100% local processing, no uploads, no size limits."
-      );
-    }
-    const canonical = document.querySelector('link[rel="canonical"]');
-    if (canonical) {
-      canonical.setAttribute("href", "https://imagemarker.app/en/compress");
-    }
+    return setPageSeo({
+      title: "Image Compressor — Free Online Tool, 100% Local Processing",
+      description:
+        "Free online image compressor for JPG, PNG and WebP. Reduce image file size right in your browser with Canvas — 100% local processing, no uploads, no size limits.",
+      canonical: "https://imagemarker.app/en/compress",
+      locale: "en_US",
+    });
   }, []);
 
   useEffect(() => {

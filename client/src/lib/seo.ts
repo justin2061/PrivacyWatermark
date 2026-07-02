@@ -12,6 +12,12 @@ interface PageSeoOptions {
   title: string;
   description: string;
   canonical: string;
+  /**
+   * BCP-47 / Open Graph locale, e.g. "en_US" or "zh_TW". When set, updates
+   * og:locale and the <html lang> attribute so English pages don't inherit the
+   * shell's Chinese defaults. Accepts either "en" or "en_US" style values.
+   */
+  locale?: string;
   /** One or more JSON-LD objects (Article, FAQPage, BreadcrumbList, ItemList…). */
   jsonLd?: JsonLd | JsonLd[];
 }
@@ -25,6 +31,7 @@ export function setPageSeo({
   title,
   description,
   canonical,
+  locale,
   jsonLd,
 }: PageSeoOptions): () => void {
   document.title = title;
@@ -40,6 +47,12 @@ export function setPageSeo({
   setMeta('meta[property="twitter:title"]', "content", title);
   setMeta('meta[property="twitter:description"]', "content", description);
   setMeta('meta[property="twitter:url"]', "content", canonical);
+
+  // Language signals: og:locale for social crawlers, <html lang> for a11y/SEO.
+  if (locale) {
+    setMeta('meta[property="og:locale"]', "content", locale);
+    document.documentElement.lang = locale.split(/[_-]/)[0];
+  }
 
   const nodes: HTMLScriptElement[] = [];
   if (jsonLd) {

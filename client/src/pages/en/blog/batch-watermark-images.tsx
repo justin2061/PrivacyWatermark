@@ -1,24 +1,15 @@
 import { useEffect } from "react";
 import { Link } from "wouter";
+import { setPageSeo } from "@/lib/seo";
 
 export default function BatchWatermarkImages() {
   useEffect(() => {
-    document.title =
-      "How to Batch Watermark Multiple Images at Once — Free Tool";
-    const metaDesc = document.querySelector('meta[name="description"]');
-    if (metaDesc) {
-      metaDesc.setAttribute(
-        "content",
-        "Need to watermark dozens of photos at once? Learn how to batch watermark multiple images for free in your browser — faster than Photoshop or Lightroom, no upload required."
-      );
-    }
-    const canonical = document.querySelector('link[rel="canonical"]');
-    if (canonical) {
-      canonical.setAttribute(
-        "href",
-        "https://imagemarker.app/en/blog/batch-watermark-images"
-      );
-    }
+    return setPageSeo({
+      title: "How to Batch Watermark Multiple Images at Once — Free Tool",
+      description: "Need to watermark dozens of photos at once? Learn how to batch watermark multiple images for free in your browser — faster than Photoshop or Lightroom, no upload required.",
+      canonical: "https://imagemarker.app/en/blog/batch-watermark-images",
+      locale: "en_US",
+    });
   }, []);
 
   return (

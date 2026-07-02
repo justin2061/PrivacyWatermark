@@ -1,24 +1,15 @@
 import { useEffect } from "react";
 import { Link } from "wouter";
+import { setPageSeo } from "@/lib/seo";
 
 export default function ProtectPhotosOnline() {
   useEffect(() => {
-    document.title =
-      "How to Protect Your Photos Online — Complete Guide for Photographers";
-    const metaDesc = document.querySelector('meta[name="description"]');
-    if (metaDesc) {
-      metaDesc.setAttribute(
-        "content",
-        "A complete guide to protecting your photos online: watermarks vs metadata vs DRM, copyright basics, and a practical workflow for photographers and stock contributors."
-      );
-    }
-    const canonical = document.querySelector('link[rel="canonical"]');
-    if (canonical) {
-      canonical.setAttribute(
-        "href",
-        "https://imagemarker.app/en/blog/protect-photos-online"
-      );
-    }
+    return setPageSeo({
+      title: "How to Protect Your Photos Online — Complete Guide for Photographers",
+      description: "A complete guide to protecting your photos online: watermarks vs metadata vs DRM, copyright basics, and a practical workflow for photographers and stock contributors.",
+      canonical: "https://imagemarker.app/en/blog/protect-photos-online",
+      locale: "en_US",
+    });
   }, []);
 
   return (

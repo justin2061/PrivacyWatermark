@@ -1,24 +1,15 @@
 import { useEffect } from "react";
 import { Link } from "wouter";
+import { setPageSeo } from "@/lib/seo";
 
 export default function RemoveExifData() {
   useEffect(() => {
-    document.title =
-      "Why You Should Remove EXIF Data Before Sharing Photos";
-    const metaDesc = document.querySelector('meta[name="description"]');
-    if (metaDesc) {
-      metaDesc.setAttribute(
-        "content",
-        "Your photos carry hidden EXIF metadata — GPS location, device, and timestamps. Learn the privacy risks and how to remove EXIF data for free, right in your browser."
-      );
-    }
-    const canonical = document.querySelector('link[rel="canonical"]');
-    if (canonical) {
-      canonical.setAttribute(
-        "href",
-        "https://imagemarker.app/en/blog/remove-exif-data"
-      );
-    }
+    return setPageSeo({
+      title: "Why You Should Remove EXIF Data Before Sharing Photos",
+      description: "Your photos carry hidden EXIF metadata — GPS location, device, and timestamps. Learn the privacy risks and how to remove EXIF data for free, right in your browser.",
+      canonical: "https://imagemarker.app/en/blog/remove-exif-data",
+      locale: "en_US",
+    });
   }, []);
 
   return (

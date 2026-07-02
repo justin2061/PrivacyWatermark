@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "wouter";
 import { Card } from "@/components/ui/card";
+import { setPageSeo } from "@/lib/seo";
 import {
   CheckCircle,
   Download,
@@ -124,18 +125,13 @@ export default function ResizeEnPage() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    document.title = "Image Resizer — Free Online Tool to Resize Images";
-    const metaDesc = document.querySelector('meta[name="description"]');
-    if (metaDesc) {
-      metaDesc.setAttribute(
-        "content",
-        "Free online image resizer. Enter a width and height to resize images, with built-in presets for social media and ID photos. Runs in your browser with Canvas — 100% local processing, no uploads."
-      );
-    }
-    const canonical = document.querySelector('link[rel="canonical"]');
-    if (canonical) {
-      canonical.setAttribute("href", "https://imagemarker.app/en/resize");
-    }
+    return setPageSeo({
+      title: "Image Resizer — Free Online Tool to Resize Images",
+      description:
+        "Free online image resizer. Enter a width and height to resize images, with built-in presets for social media and ID photos. Runs in your browser with Canvas — 100% local processing, no uploads.",
+      canonical: "https://imagemarker.app/en/resize",
+      locale: "en_US",
+    });
   }, []);
 
   useEffect(() => {

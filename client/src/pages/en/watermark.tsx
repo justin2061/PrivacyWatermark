@@ -6,6 +6,7 @@ import { WatermarkControls } from "@/components/watermark/WatermarkControls";
 import { CanvasPreview } from "@/components/watermark/CanvasPreview";
 import { ProcessingStatus } from "@/components/watermark/ProcessingStatus";
 import { useWatermark } from "@/hooks/useWatermark";
+import { setPageSeo } from "@/lib/seo";
 import {
   Shield,
   Lock,
@@ -38,19 +39,14 @@ export default function WatermarkEnPage() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
-    document.title =
-      "Free Online Watermark Tool | Add Watermark to Photos — ImageMarker";
-    const metaDesc = document.querySelector('meta[name="description"]');
-    if (metaDesc) {
-      metaDesc.setAttribute(
-        "content",
-        "Free online watermark tool for photos and documents. Add text or logo watermarks with full privacy — 100% browser-based, no uploads. Perfect for photographers, designers and creators."
-      );
-    }
-    const canonical = document.querySelector('link[rel="canonical"]');
-    if (canonical) {
-      canonical.setAttribute("href", "https://imagemarker.app/en/");
-    }
+    return setPageSeo({
+      title:
+        "Free Online Watermark Tool | Add Watermark to Photos — ImageMarker",
+      description:
+        "Free online watermark tool for photos and documents. Add text or logo watermarks with full privacy — 100% browser-based, no uploads. Perfect for photographers, designers and creators.",
+      canonical: "https://imagemarker.app/en/",
+      locale: "en_US",
+    });
   }, []);
 
   return (

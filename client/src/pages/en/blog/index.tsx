@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { Link } from "wouter";
+import { setPageSeo } from "@/lib/seo";
 
 type Category = "Security" | "Photography" | "Tutorial" | "Privacy";
 
@@ -95,18 +96,12 @@ const categoryStyles: Record<Category, string> = {
 
 export default function BlogIndexEn() {
   useEffect(() => {
-    document.title = "ImageMarker Blog — Photo Security & Watermark Guides";
-    const metaDesc = document.querySelector('meta[name="description"]');
-    if (metaDesc) {
-      metaDesc.setAttribute(
-        "content",
-        "Guides on watermarking photos and documents, removing EXIF data, and protecting your privacy online — all from ImageMarker, the free 100% browser-based tool."
-      );
-    }
-    const canonical = document.querySelector('link[rel="canonical"]');
-    if (canonical) {
-      canonical.setAttribute("href", "https://imagemarker.app/en/blog");
-    }
+    return setPageSeo({
+      title: "ImageMarker Blog — Photo Security & Watermark Guides",
+      description: "Guides on watermarking photos and documents, removing EXIF data, and protecting your privacy online — all from ImageMarker, the free 100% browser-based tool.",
+      canonical: "https://imagemarker.app/en/blog",
+      locale: "en_US",
+    });
   }, []);
 
   return (

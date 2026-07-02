@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "wouter";
 import { Card } from "@/components/ui/card";
+import { setPageSeo } from "@/lib/seo";
 import {
   CheckCircle,
   Download,
@@ -87,19 +88,13 @@ export default function ConvertEnPage() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    document.title =
-      "Image Format Converter — Free Online JPG/PNG/WebP Converter";
-    const metaDesc = document.querySelector('meta[name="description"]');
-    if (metaDesc) {
-      metaDesc.setAttribute(
-        "content",
-        "Free online image format converter. Convert PNG to JPG, JPG to PNG and WebP right in your browser with Canvas — 100% local processing, no uploads, no size limits."
-      );
-    }
-    const canonical = document.querySelector('link[rel="canonical"]');
-    if (canonical) {
-      canonical.setAttribute("href", "https://imagemarker.app/en/convert");
-    }
+    return setPageSeo({
+      title: "Image Format Converter — Free Online JPG/PNG/WebP Converter",
+      description:
+        "Free online image format converter. Convert PNG to JPG, JPG to PNG and WebP right in your browser with Canvas — 100% local processing, no uploads, no size limits.",
+      canonical: "https://imagemarker.app/en/convert",
+      locale: "en_US",
+    });
   }, []);
 
   useEffect(() => {

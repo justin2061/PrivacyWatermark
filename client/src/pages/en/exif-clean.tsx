@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react";
 import { Link } from "wouter";
 import { Card } from "@/components/ui/card";
 import { useExifCleaner } from "@/hooks/useExifCleaner";
+import { setPageSeo } from "@/lib/seo";
 import {
   AlertTriangle,
   CheckCircle,
@@ -42,19 +43,14 @@ export default function ExifCleanEnPage() {
   } = useExifCleaner("en");
 
   useEffect(() => {
-    document.title =
-      "Free EXIF Remover — Strip GPS & Metadata From Photos, 100% Local";
-    const metaDesc = document.querySelector('meta[name="description"]');
-    if (metaDesc) {
-      metaDesc.setAttribute(
-        "content",
+    return setPageSeo({
+      title:
+        "Free EXIF Remover — Strip GPS & Metadata From Photos, 100% Local",
+      description:
         "Free online EXIF remover. Strip GPS location, camera model, serial number and other hidden metadata from your photos before sharing. 100% browser-based — nothing is uploaded.",
-      );
-    }
-    const canonical = document.querySelector('link[rel="canonical"]');
-    if (canonical) {
-      canonical.setAttribute("href", "https://imagemarker.app/en/exif-clean");
-    }
+      canonical: "https://imagemarker.app/en/exif-clean",
+      locale: "en_US",
+    });
   }, []);
 
   const onPickFile = (file?: File | null) => {

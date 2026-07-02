@@ -1,24 +1,15 @@
 import { useEffect } from "react";
 import { Link } from "wouter";
+import { setPageSeo } from "@/lib/seo";
 
 export default function WatermarkIdDocuments() {
   useEffect(() => {
-    document.title =
-      "How to Add Watermark to ID Documents — Protect Your Identity Online";
-    const metaDesc = document.querySelector('meta[name="description"]');
-    if (metaDesc) {
-      metaDesc.setAttribute(
-        "content",
-        "Sharing a photo of your passport or ID? Add a watermark first. Learn why unprotected ID documents are risky and how to watermark them for free, 100% in your browser."
-      );
-    }
-    const canonical = document.querySelector('link[rel="canonical"]');
-    if (canonical) {
-      canonical.setAttribute(
-        "href",
-        "https://imagemarker.app/en/blog/watermark-id-documents"
-      );
-    }
+    return setPageSeo({
+      title: "How to Add Watermark to ID Documents — Protect Your Identity Online",
+      description: "Sharing a photo of your passport or ID? Add a watermark first. Learn why unprotected ID documents are risky and how to watermark them for free, 100% in your browser.",
+      canonical: "https://imagemarker.app/en/blog/watermark-id-documents",
+      locale: "en_US",
+    });
   }, []);
 
   return (

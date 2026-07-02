@@ -1,24 +1,15 @@
 import { useEffect } from "react";
 import { Link } from "wouter";
+import { setPageSeo } from "@/lib/seo";
 
 export default function WatermarkPhotosFree() {
   useEffect(() => {
-    document.title =
-      "Best Free Online Watermark Tool 2026 — No Upload Required";
-    const metaDesc = document.querySelector('meta[name="description"]');
-    if (metaDesc) {
-      metaDesc.setAttribute(
-        "content",
-        "Looking for a free watermark tool that doesn't upload your photos? Compare the best client-side watermark tools of 2026 and learn why local processing protects your privacy."
-      );
-    }
-    const canonical = document.querySelector('link[rel="canonical"]');
-    if (canonical) {
-      canonical.setAttribute(
-        "href",
-        "https://imagemarker.app/en/blog/watermark-photos-free"
-      );
-    }
+    return setPageSeo({
+      title: "Best Free Online Watermark Tool 2026 — No Upload Required",
+      description: "Looking for a free watermark tool that doesn't upload your photos? Compare the best client-side watermark tools of 2026 and learn why local processing protects your privacy.",
+      canonical: "https://imagemarker.app/en/blog/watermark-photos-free",
+      locale: "en_US",
+    });
   }, []);
 
   return (

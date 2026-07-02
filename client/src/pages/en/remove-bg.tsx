@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "wouter";
 import { Card } from "@/components/ui/card";
+import { setPageSeo } from "@/lib/seo";
 import {
   CheckCircle,
   Download,
@@ -100,19 +101,13 @@ export default function RemoveBgEnPage() {
   }, [selectedFile]);
 
   useEffect(() => {
-    document.title =
-      "AI Background Remover — Free Online, 100% Local Processing";
-    const metaDesc = document.querySelector('meta[name="description"]');
-    if (metaDesc) {
-      metaDesc.setAttribute(
-        "content",
-        "Free AI background remover. Remove image backgrounds in one click and download a transparent PNG. The AI model runs entirely in your browser — your images are never uploaded to any server."
-      );
-    }
-    const canonical = document.querySelector('link[rel="canonical"]');
-    if (canonical) {
-      canonical.setAttribute("href", "https://imagemarker.app/en/remove-bg");
-    }
+    return setPageSeo({
+      title: "AI Background Remover — Free Online, 100% Local Processing",
+      description:
+        "Free AI background remover. Remove image backgrounds in one click and download a transparent PNG. The AI model runs entirely in your browser — your images are never uploaded to any server.",
+      canonical: "https://imagemarker.app/en/remove-bg",
+      locale: "en_US",
+    });
   }, []);
 
   const isProcessing = stage === "loading-model" || stage === "processing";

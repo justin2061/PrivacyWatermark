@@ -1,24 +1,15 @@
 import { useEffect } from "react";
 import { Link } from "wouter";
+import { setPageSeo } from "@/lib/seo";
 
 export default function DigitalIdentityProtection() {
   useEffect(() => {
-    document.title =
-      "Digital Identity Protection: 7 Steps to Keep Your Documents Safe";
-    const metaDesc = document.querySelector('meta[name="description"]');
-    if (metaDesc) {
-      metaDesc.setAttribute(
-        "content",
-        "A practical 7-step guide to digital identity protection: watermark documents, strip EXIF data, share securely, use passwords and 2FA, and prevent online identity theft."
-      );
-    }
-    const canonical = document.querySelector('link[rel="canonical"]');
-    if (canonical) {
-      canonical.setAttribute(
-        "href",
-        "https://imagemarker.app/en/blog/digital-identity-protection"
-      );
-    }
+    return setPageSeo({
+      title: "Digital Identity Protection: 7 Steps to Keep Your Documents Safe",
+      description: "A practical 7-step guide to digital identity protection: watermark documents, strip EXIF data, share securely, use passwords and 2FA, and prevent online identity theft.",
+      canonical: "https://imagemarker.app/en/blog/digital-identity-protection",
+      locale: "en_US",
+    });
   }, []);
 
   return (

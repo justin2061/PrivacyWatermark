@@ -3,6 +3,7 @@ import { Link } from "wouter";
 import { Card } from "@/components/ui/card";
 import { WatermarkControls } from "@/components/watermark/WatermarkControls";
 import { useBatchWatermark, MAX_FILES } from "@/hooks/useBatchWatermark";
+import { setPageSeo } from "@/lib/seo";
 import {
   Shield,
   Upload,
@@ -45,19 +46,14 @@ export default function BatchEnPage() {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    document.title =
-      "Batch Watermark Tool | Add Watermarks to Multiple Photos at Once";
-    const metaDesc = document.querySelector('meta[name="description"]');
-    if (metaDesc) {
-      metaDesc.setAttribute(
-        "content",
+    return setPageSeo({
+      title:
+        "Batch Watermark Tool | Add Watermarks to Multiple Photos at Once",
+      description:
         "Free batch watermark tool. Add the same text or logo watermark to up to 20 images at once and download them as a ZIP. 100% browser-based — nothing is uploaded.",
-      );
-    }
-    const canonical = document.querySelector('link[rel="canonical"]');
-    if (canonical) {
-      canonical.setAttribute("href", "https://imagemarker.app/en/batch");
-    }
+      canonical: "https://imagemarker.app/en/batch",
+      locale: "en_US",
+    });
   }, []);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {

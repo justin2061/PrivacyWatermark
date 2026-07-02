@@ -1,24 +1,15 @@
 import { useEffect } from "react";
 import { Link } from "wouter";
+import { setPageSeo } from "@/lib/seo";
 
 export default function WatermarkPhotosOnline() {
   useEffect(() => {
-    document.title =
-      "How to Add Watermark to Photos Online — Free Tool (2026)";
-    const metaDesc = document.querySelector('meta[name="description"]');
-    if (metaDesc) {
-      metaDesc.setAttribute(
-        "content",
-        "Learn how to add watermarks to your photos for free. Protect your photography with text or logo watermarks — no software needed, 100% private browser processing."
-      );
-    }
-    const canonical = document.querySelector('link[rel="canonical"]');
-    if (canonical) {
-      canonical.setAttribute(
-        "href",
-        "https://imagemarker.app/en/blog/watermark-photos-online"
-      );
-    }
+    return setPageSeo({
+      title: "How to Add Watermark to Photos Online — Free Tool (2026)",
+      description: "Learn how to add watermarks to your photos for free. Protect your photography with text or logo watermarks — no software needed, 100% private browser processing.",
+      canonical: "https://imagemarker.app/en/blog/watermark-photos-online",
+      locale: "en_US",
+    });
   }, []);
 
   return (
