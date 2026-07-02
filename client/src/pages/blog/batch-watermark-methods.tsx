@@ -1,24 +1,53 @@
 import { useEffect } from "react";
 import { Link } from "wouter";
+import {
+  setPageSeo,
+  articleSchema,
+  faqSchema,
+  blogBreadcrumb,
+} from "@/lib/seo";
+
+const URL = "https://imagemarker.app/blog/batch-watermark-methods";
 
 export default function BatchWatermarkMethods() {
   useEffect(() => {
-    document.title =
-      "一次處理多張證件影本！批次加浮水印的 3 種方法 | ImageMarker";
-    const metaDesc = document.querySelector('meta[name="description"]');
-    if (metaDesc) {
-      metaDesc.setAttribute(
-        "content",
-        "需要一次幫多張證件影本加浮水印？本篇比較 3 種方法的優缺點。"
-      );
-    }
-    const canonical = document.querySelector('link[rel="canonical"]');
-    if (canonical) {
-      canonical.setAttribute(
-        "href",
-        "https://imagemarker.app/blog/batch-watermark-methods"
-      );
-    }
+    const cleanup = setPageSeo({
+      title:
+        "一次處理多張證件影本！批次加浮水印的 3 種方法 | ImageMarker",
+      description:
+        "需要一次幫多張證件影本加浮水印？本篇比較 3 種方法的優缺點。",
+      canonical: URL,
+      jsonLd: [
+        articleSchema({
+          headline: "一次處理多張證件影本！批次加浮水印的 3 種方法",
+          description:
+            "需要一次幫多張證件影本加浮水印？本篇比較 3 種方法的優缺點。",
+          url: URL,
+          datePublished: "2026-06-03",
+          dateModified: "2026-06-03",
+        }),
+        blogBreadcrumb("一次處理多張證件影本！批次加浮水印的 3 種方法", URL),
+        faqSchema([
+          {
+            q: "批次加的浮水印可以每張寫不同文字嗎？",
+            a: "真正的批次處理通常套用「相同」浮水印。若每張用途不同，建議逐張手動處理，才能寫上各自的用途與對象。",
+          },
+          {
+            q: "線上批次工具會不會偷存我的證件？",
+            a: "只要圖片上傳到對方伺服器，就有被儲存、外洩的可能。處理證件影本請優先選擇本地端處理（不上傳）的工具。",
+          },
+          {
+            q: "手機可以批次加浮水印嗎？",
+            a: "可以用手機瀏覽器逐張處理，或用前述「合併成一張」的技巧。多數手機 App 的批次功能同樣有上傳隱私疑慮，需留意。",
+          },
+          {
+            q: "批次處理會不會降低畫質？",
+            a: "取決於工具的輸出設定。ImageMarker 在本地端處理並保留原始解析度，加浮水印後畫質不會明顯下降。",
+          },
+        ]),
+      ],
+    });
+    return cleanup;
   }, []);
 
   return (

@@ -1,24 +1,61 @@
 import { useEffect } from "react";
 import { Link } from "wouter";
+import {
+  setPageSeo,
+  articleSchema,
+  faqSchema,
+  blogBreadcrumb,
+} from "@/lib/seo";
+
+const URL = "https://imagemarker.app/blog/rent-id-watermark";
 
 export default function RentIdWatermark() {
   useEffect(() => {
-    document.title =
-      "租屋交身分證影本前必做！3 步驟加浮水印保護個資 | ImageMarker";
-    const metaDesc = document.querySelector('meta[name="description"]');
-    if (metaDesc) {
-      metaDesc.setAttribute(
-        "content",
-        "租屋前必看！教你用 ImageMarker 三步驟幫身分證影本加上浮水印，防止個資被冒用。浮水印該寫什麼、怎麼寫，全部一次說清楚。"
-      );
-    }
-    const canonical = document.querySelector('link[rel="canonical"]');
-    if (canonical) {
-      canonical.setAttribute(
-        "href",
-        "https://imagemarker.app/blog/rent-id-watermark"
-      );
-    }
+    const cleanup = setPageSeo({
+      title:
+        "租屋交身分證影本前必做！3 步驟加浮水印保護個資 | ImageMarker",
+      description:
+        "租屋前必看！教你用 ImageMarker 三步驟幫身分證影本加上浮水印，防止個資被冒用。浮水印該寫什麼、怎麼寫，全部一次說清楚。",
+      canonical: URL,
+      jsonLd: [
+        articleSchema({
+          headline: "租屋交身分證影本前必做！3 步驟加浮水印保護個資",
+          description:
+            "租屋前必看！教你用 ImageMarker 三步驟幫身分證影本加上浮水印，防止個資被冒用。浮水印該寫什麼、怎麼寫，全部一次說清楚。",
+          url: URL,
+          datePublished: "2026-04-06",
+          dateModified: "2026-04-06",
+        }),
+        blogBreadcrumb("租屋交身分證影本前必做！3 步驟加浮水印保護個資", URL),
+        faqSchema([
+          {
+            q: "加了浮水印的證件影本，對方還會接受嗎？",
+            a: "會的。依照內政部的建議，提供證件影本時本來就應該加註用途。大多數房東和公司都能理解並接受，如果對方堅持不接受有浮水印的影本，反而要小心對方的意圖。",
+          },
+          {
+            q: "浮水印會不會太淡看不到，或太深蓋住資訊？",
+            a: "ImageMarker 提供透明度調整功能，你可以即時預覽效果。建議設定在 30–50% 的透明度，既能清楚看到浮水印文字，又不會影響證件內容的辨識。",
+          },
+          {
+            q: "手機可以用嗎？",
+            a: "可以。ImageMarker 支援所有現代瀏覽器，包括手機上的 Chrome 和 Safari。也支援 PWA 模式，加到手機桌面後可以像 App 一樣使用。",
+          },
+          {
+            q: "租屋可以用手機拍身分證代替影印嗎？",
+            a: "可以。多數房東和仲介都接受清晰的身分證照片檔，重點是四角完整、無反光、文字清楚可辨。傳送前務必先加上「僅供租屋使用」的浮水印，傳出去之後也記得提醒對方妥善保管、用畢刪除。",
+          },
+          {
+            q: "我的證件照片真的不會被上傳嗎？",
+            a: "真的不會。ImageMarker 採用 100% 瀏覽器端處理技術，你的圖片從頭到尾都只存在於你自己的裝置上。你可以在斷網的情況下使用，功能完全不受影響。",
+          },
+          {
+            q: "除了身分證，其他證件也可以用嗎？",
+            a: "當然可以。護照、駕照、健保卡、學生證，甚至是存摺封面等任何你需要提供影本的文件，都可以用這個工具加上浮水印。",
+          },
+        ]),
+      ],
+    });
+    return cleanup;
   }, []);
 
   return (
@@ -141,6 +178,11 @@ export default function RentIdWatermark() {
               <br />
               A：可以。ImageMarker 支援所有現代瀏覽器，包括手機上的 Chrome 和
               Safari。也支援 PWA 模式，加到手機桌面後可以像 App 一樣使用。
+            </p>
+            <p>
+              <strong>Q：租屋可以用手機拍身分證代替影印嗎？</strong>
+              <br />
+              A：可以。多數房東和仲介都接受清晰的身分證照片檔，重點是四角完整、無反光、文字清楚可辨。傳送前務必先加上「僅供租屋使用」的浮水印，傳出去之後也記得提醒對方妥善保管、用畢刪除。
             </p>
             <p>
               <strong>Q：我的證件照片真的不會被上傳嗎？</strong>

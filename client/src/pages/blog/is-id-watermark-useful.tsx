@@ -1,24 +1,53 @@
 import { useEffect } from "react";
 import { Link } from "wouter";
+import {
+  setPageSeo,
+  articleSchema,
+  faqSchema,
+  blogBreadcrumb,
+} from "@/lib/seo";
+
+const URL = "https://imagemarker.app/blog/is-id-watermark-useful";
 
 export default function IsIdWatermarkUseful() {
   useEffect(() => {
-    document.title =
-      "身分證浮水印有用嗎？3 個真實案例告訴你答案 | ImageMarker";
-    const metaDesc = document.querySelector('meta[name="description"]');
-    if (metaDesc) {
-      metaDesc.setAttribute(
-        "content",
-        "很多人問身分證加浮水印到底有沒有用？本篇用 3 個台灣真實案例說明。"
-      );
-    }
-    const canonical = document.querySelector('link[rel="canonical"]');
-    if (canonical) {
-      canonical.setAttribute(
-        "href",
-        "https://imagemarker.app/blog/is-id-watermark-useful"
-      );
-    }
+    const cleanup = setPageSeo({
+      title:
+        "身分證浮水印有用嗎？3 個真實案例告訴你答案 | ImageMarker",
+      description:
+        "很多人問身分證加浮水印到底有沒有用？本篇用 3 個台灣真實案例說明。",
+      canonical: URL,
+      jsonLd: [
+        articleSchema({
+          headline: "身分證浮水印有用嗎？3 個真實案例告訴你答案",
+          description:
+            "很多人問身分證加浮水印到底有沒有用？本篇用 3 個台灣真實案例說明。",
+          url: URL,
+          datePublished: "2026-06-03",
+          dateModified: "2026-06-03",
+        }),
+        blogBreadcrumb("身分證浮水印有用嗎？3 個真實案例告訴你答案", URL),
+        faqSchema([
+          {
+            q: "浮水印會不會讓影本失效、對方不收？",
+            a: "正規單位都能接受加註用途的浮水印，這是常見的自保做法。若對方堅持要「乾淨」影本，反而要提高警覺。",
+          },
+          {
+            q: "浮水印可以被 P 圖去掉嗎？",
+            a: "覆蓋在關鍵欄位上的浮水印若要去除，會連帶破壞身分證字號、照片等資訊，去除後的影本本身就會顯得可疑，難以使用。",
+          },
+          {
+            q: "已經交出去的影本沒加浮水印，現在補加有用嗎？",
+            a: "已交出的無法回收，但你可以保留「之後所有影本都加浮水印」的習慣，並留意自己的聯徵與門號申辦紀錄。",
+          },
+          {
+            q: "浮水印和遮住部分號碼，哪個比較好？",
+            a: "兩者可以併用。能遮的非必要欄位就遮，必須露出的欄位則用浮水印限定用途，雙重保險最安全。",
+          },
+        ]),
+      ],
+    });
+    return cleanup;
   }, []);
 
   return (

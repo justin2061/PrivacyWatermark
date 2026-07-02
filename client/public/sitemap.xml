@@ -303,6 +303,14 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://imagemarker.app/en/blog/tinypng-iloveimg-squoosh-alternatives" />
   </url>
   <url>
+    <loc>https://imagemarker.app/blog/anti-theft-photo-watermark</loc>
+    <lastmod>2026-07-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="zh-tw" href="https://imagemarker.app/blog/anti-theft-photo-watermark" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://imagemarker.app/blog/anti-theft-photo-watermark" />
+  </url>
+  <url>
     <loc>https://imagemarker.app/en/blog/tinypng-iloveimg-squoosh-alternatives</loc>
     <lastmod>2026-07-03</lastmod>
     <changefreq>monthly</changefreq>

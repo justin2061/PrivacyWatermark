@@ -3,6 +3,13 @@ import { Link } from "wouter";
 
 const articles = [
   {
+    slug: "anti-theft-photo-watermark",
+    title: "防盜圖浮水印怎麼加最有效？攝影師、賣家必學的 5 個技巧（2026）",
+    date: "2026-07-03",
+    summary:
+      "角落的小浮水印裁切、AI 修復幾秒就能移除。本篇教你真正有效的防盜圖浮水印：滿版斜向重複、半透明疊主體等 5 個技巧，附攝影、電商、插畫、社群四種情境建議。",
+  },
+  {
     slug: "tinypng-iloveimg-squoosh-alternatives",
     title: "TinyPNG、iLoveIMG、Squoosh 替代方案：不上傳的免費圖片工具比較（2026）",
     date: "2026-07-03",

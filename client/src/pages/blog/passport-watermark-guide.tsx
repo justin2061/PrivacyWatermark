@@ -1,24 +1,61 @@
 import { useEffect } from "react";
 import { Link } from "wouter";
+import {
+  setPageSeo,
+  articleSchema,
+  faqSchema,
+  blogBreadcrumb,
+} from "@/lib/seo";
+
+const URL = "https://imagemarker.app/blog/passport-watermark-guide";
 
 export default function PassportWatermarkGuide() {
   useEffect(() => {
-    document.title =
-      "護照影本也要加浮水印！出國前必看的護照安全指南 | ImageMarker";
-    const metaDesc = document.querySelector('meta[name="description"]');
-    if (metaDesc) {
-      metaDesc.setAttribute(
-        "content",
-        "出國旅遊交護照影本給旅行社前，一定要先加浮水印！本篇教你護照浮水印怎麼寫、放哪個位置最安全，附 5 種常見範本。"
-      );
-    }
-    const canonical = document.querySelector('link[rel="canonical"]');
-    if (canonical) {
-      canonical.setAttribute(
-        "href",
-        "https://imagemarker.app/blog/passport-watermark-guide"
-      );
-    }
+    const cleanup = setPageSeo({
+      title:
+        "護照影本也要加浮水印！出國前必看的護照安全指南 | ImageMarker",
+      description:
+        "出國旅遊交護照影本給旅行社前，一定要先加浮水印！本篇教你護照浮水印怎麼寫、放哪個位置最安全，附 5 種常見範本。",
+      canonical: URL,
+      jsonLd: [
+        articleSchema({
+          headline: "護照影本也要加浮水印！出國前必看的護照安全指南",
+          description:
+            "出國旅遊交護照影本給旅行社前，一定要先加浮水印！本篇教你護照浮水印怎麼寫、放哪個位置最安全，附 5 種常見範本。",
+          url: URL,
+          datePublished: "2026-05-27",
+          dateModified: "2026-05-27",
+        }),
+        blogBreadcrumb("護照影本也要加浮水印！出國前必看的護照安全指南", URL),
+        faqSchema([
+          {
+            q: "旅行社說護照影本加浮水印他們系統無法辨識怎麼辦？",
+            a: "正規旅行社一定能接受加註用途的浮水印，這是國際慣例。如果對方堅持要「乾淨」的影本，建議改換其他業者，這可能是個警訊。",
+          },
+          {
+            q: "護照影本需要寄出實體版本，浮水印有用嗎？",
+            a: "實體影本一樣可以印出帶浮水印的版本，效果相同。事實上實體影本更容易被多次複印流通，加浮水印更重要。",
+          },
+          {
+            q: "簽證代辦說要看「無浮水印正本」，這正常嗎？",
+            a: "申請簽證的「正本」是指護照本人，不是影本。代辦只需要影本用來填寫資料表，加浮水印完全合理。如果對方堅持要無浮水印影本，建議直接拒絕。",
+          },
+          {
+            q: "護照效期欄位被浮水印蓋住了怎麼辦？",
+            a: "調整浮水印位置避開效期欄位，或降低該區域的透明度。ImageMarker 支援即時預覽，可以反覆調整到滿意為止。",
+          },
+          {
+            q: "護照照片頁很多資訊密集，浮水印會不會反而看不清楚？",
+            a: "透明度設定在 30-40% 時，浮水印與資料都能清晰辨識。如果你發現浮水印太淡，可以加粗字體或加深顏色。",
+          },
+          {
+            q: "護照影本可以用手機拍照代替嗎？",
+            a: "可以。多數旅行社與簽證中心接受清晰的拍照檔或掃描檔，重點是護照四角完整入鏡、無反光、文字清楚可辨。交出前記得先加上浮水印，防止照片檔被挪作他用。",
+          },
+        ]),
+      ],
+    });
+    return cleanup;
   }, []);
 
   return (
@@ -66,6 +103,42 @@ export default function PassportWatermarkGuide() {
             </p>
             <p>
               更關鍵的是，護照號碼一旦外洩，補辦程序遠比身分證複雜，還需要重新申辦各國簽證。事前花一分鐘加浮水印，比事後處理輕鬆太多。
+            </p>
+
+            <h2>護照影本怎麼印？</h2>
+            <p>
+              很多人出國前才發現家裡沒有印表機，其實要印護照影本有三種簡單做法：
+            </p>
+            <p>
+              <strong>1. 影印店：</strong>
+              <br />
+              帶護照到影印店，請店家影印「基本資料頁」（有照片那一頁）即可。彩色或黑白都可以，多數用途不要求彩色，黑白影本便宜又夠用。
+            </p>
+            <p>
+              <strong>2. 超商多功能事務機：</strong>
+              <br />
+              7-11、全家等超商的多功能事務機都能影印。把護照攤平放在掃描玻璃上，選擇影印功能即可。建議用 A4 紙、縮放比例維持 100% 原尺寸，資料清楚可辨最重要，不需要刻意放大。
+            </p>
+            <p>
+              <strong>3. 手機拍照後轉印：</strong>
+              <br />
+              用手機把護照基本資料頁拍清楚（四角完整、避免反光），再透過超商的雲端列印服務（ibon、FamiPort）上傳檔案印出。這個做法最大的好處是——印出前可以先幫電子檔加上浮水印。
+            </p>
+            <p>
+              無論用哪種方式，最安全的做法都是<strong>先在電子檔上加好浮水印再列印</strong>。紙本影本一旦交出去，就可能被再次複印流通；而印出來就帶有浮水印的影本，每一份複製品都會保留「僅供 OO 用途」的標記。列印前先到{" "}
+              <a
+                href="https://imagemarker.app"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                imagemarker.app
+              </a>{" "}
+              處理，只要一分鐘。
+            </p>
+
+            <h3>護照影本的常見用途</h3>
+            <p>
+              最常需要護照影本的場合包括：<strong>辦簽證</strong>（簽證中心或代辦通常要求 A4 影本或掃描檔）、<strong>旅行社報名</strong>（訂機票、訂房、團體旅遊報名）、<strong>飯店入住</strong>（部分國外飯店會留存護照影本）。不論交給誰，都建議依照下面的範本加上對應用途的浮水印。
             </p>
 
             <h2>5 種常見情境的護照浮水印範本</h2>
@@ -171,6 +244,11 @@ export default function PassportWatermarkGuide() {
               <strong>Q：護照照片頁很多資訊密集，浮水印會不會反而看不清楚？</strong>
               <br />
               A：透明度設定在 30-40% 時，浮水印與資料都能清晰辨識。如果你發現浮水印太淡，可以加粗字體或加深顏色。
+            </p>
+            <p>
+              <strong>Q：護照影本可以用手機拍照代替嗎？</strong>
+              <br />
+              A：可以。多數旅行社與簽證中心接受清晰的拍照檔或掃描檔，重點是護照四角完整入鏡、無反光、文字清楚可辨。交出前記得先加上浮水印，防止照片檔被挪作他用。
             </p>
 
             <h2>出國前的最後一道防線</h2>

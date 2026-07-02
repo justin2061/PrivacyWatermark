@@ -39,6 +39,7 @@ import IsIdWatermarkUsefulPage from "@/pages/blog/is-id-watermark-useful";
 import TinypngIloveimgSquooshAlternatives from "@/pages/blog/tinypng-iloveimg-squoosh-alternatives";
 import TinypngIloveimgSquooshAlternativesEn from "@/pages/en/blog/tinypng-iloveimg-squoosh-alternatives";
 import BatchWatermarkMethodsPage from "@/pages/blog/batch-watermark-methods";
+import AntiTheftPhotoWatermark from "@/pages/blog/anti-theft-photo-watermark";
 import NotFound from "@/pages/not-found";
 import BlogIndex from "@/pages/blog/index";
 import RentIdWatermark from "@/pages/blog/rent-id-watermark";
@@ -94,6 +95,7 @@ function Router() {
       <Route path="/blog/is-id-watermark-useful" component={IsIdWatermarkUsefulPage} />
       <Route path="/blog/batch-watermark-methods" component={BatchWatermarkMethodsPage} />
       <Route path="/blog/tinypng-iloveimg-squoosh-alternatives" component={TinypngIloveimgSquooshAlternatives} />
+      <Route path="/blog/anti-theft-photo-watermark" component={AntiTheftPhotoWatermark} />
       <Route path="/en/blog/tinypng-iloveimg-squoosh-alternatives" component={TinypngIloveimgSquooshAlternativesEn} />
       <Route component={NotFound} />
     </Switch>
