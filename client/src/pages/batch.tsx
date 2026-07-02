@@ -1,7 +1,8 @@
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { Link } from "wouter";
 import { Card } from "@/components/ui/card";
 import { WatermarkControls } from "@/components/watermark/WatermarkControls";
+import { setPageSeo, webAppSchema } from "@/lib/seo";
 import {
   useBatchWatermark,
   MAX_FILES,
@@ -45,6 +46,28 @@ export default function BatchPage() {
   } = useBatchWatermark();
 
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    return setPageSeo({
+      title: "批次浮水印工具 — 一次處理多張證件影本，100% 本機處理",
+      description:
+        "免費線上批次浮水印工具，一次上傳最多 20 張圖片，套用相同的浮水印設定，再打包成 ZIP 一鍵下載。所有圖片 100% 在你的瀏覽器處理，不會上傳到任何伺服器。",
+      canonical: "https://imagemarker.app/batch",
+      jsonLd: webAppSchema({
+        name: "批次浮水印工具 — ImageMarker",
+        description:
+          "免費線上批次浮水印工具，一次上傳最多 20 張圖片，套用相同的浮水印設定，再打包成 ZIP 一鍵下載。所有圖片 100% 在你的瀏覽器處理，不會上傳到任何伺服器。",
+        url: "https://imagemarker.app/batch",
+        featureList: [
+          "100% 瀏覽器本機處理，圖片不上傳",
+          "一次最多批次處理 20 張圖片",
+          "同一組浮水印設定套用到所有圖片",
+          "處理完成後打包 ZIP 一鍵下載",
+          "支援 JPG、PNG 格式，每張最大 10MB",
+        ],
+      }),
+    });
+  }, []);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files.length > 0) {

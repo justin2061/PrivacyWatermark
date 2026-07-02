@@ -3,7 +3,7 @@ import { Link } from "wouter";
 import { Card } from "@/components/ui/card";
 import { WatermarkControls } from "@/components/watermark/WatermarkControls";
 import { useBatchWatermark, MAX_FILES } from "@/hooks/useBatchWatermark";
-import { setPageSeo } from "@/lib/seo";
+import { setPageSeo, webAppSchema } from "@/lib/seo";
 import {
   Shield,
   Upload,
@@ -53,6 +53,20 @@ export default function BatchEnPage() {
         "Free batch watermark tool. Add the same text or logo watermark to up to 20 images at once and download them as a ZIP. 100% browser-based — nothing is uploaded.",
       canonical: "https://imagemarker.app/en/batch",
       locale: "en_US",
+      jsonLd: webAppSchema({
+        name: "Batch Watermark Tool — ImageMarker",
+        description:
+          "Free batch watermark tool. Add the same text or logo watermark to up to 20 images at once and download them as a ZIP. 100% browser-based — nothing is uploaded.",
+        url: "https://imagemarker.app/en/batch",
+        inLanguage: "en",
+        featureList: [
+          "100% local in-browser processing — no uploads",
+          "Watermark up to 20 images at once",
+          "Apply the same watermark settings to every image",
+          "Download all processed images as a ZIP",
+          "Live per-image preview with thumbnails",
+        ],
+      }),
     });
   }, []);
 

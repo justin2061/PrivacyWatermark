@@ -14,6 +14,15 @@ interface Article {
 
 const articles: Article[] = [
   {
+    slug: "tinypng-iloveimg-squoosh-alternatives",
+    title:
+      "TinyPNG, iLoveIMG & Squoosh Alternatives That Never Upload Your Images (2026)",
+    excerpt:
+      "TinyPNG and iLoveIMG process your images on their servers. An honest comparison of 4 free image tools by privacy: which ones truly run in your browser, plus batch, watermark and EXIF features.",
+    date: "2026-07-03",
+    category: "Privacy",
+  },
+  {
     slug: "digital-identity-protection",
     title: "Digital Identity Protection: 7 Steps to Keep Your Documents Safe",
     excerpt:

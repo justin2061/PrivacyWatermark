@@ -1,6 +1,11 @@
 import { useEffect } from "react";
 import { Link } from "wouter";
-import { setPageSeo } from "@/lib/seo";
+import {
+  setPageSeo,
+  articleSchema,
+  blogBreadcrumb,
+  faqSchema,
+} from "@/lib/seo";
 
 export default function WatermarkPhotosOnline() {
   useEffect(() => {
@@ -9,6 +14,38 @@ export default function WatermarkPhotosOnline() {
       description: "Learn how to add watermarks to your photos for free. Protect your photography with text or logo watermarks — no software needed, 100% private browser processing.",
       canonical: "https://imagemarker.app/en/blog/watermark-photos-online",
       locale: "en_US",
+      jsonLd: [
+        articleSchema({
+          headline: "How to Add Watermark to Photos Online — Free Tool (2026)",
+          description: "Learn how to add watermarks to your photos for free. Protect your photography with text or logo watermarks — no software needed, 100% private browser processing.",
+          url: "https://imagemarker.app/en/blog/watermark-photos-online",
+          datePublished: "2026-06-25",
+          dateModified: "2026-06-25",
+        }),
+        blogBreadcrumb(
+          "How to Add Watermark to Photos Online",
+          "https://imagemarker.app/en/blog/watermark-photos-online",
+          "en"
+        ),
+        faqSchema([
+          {
+            q: "Does watermarking reduce image quality?",
+            a: "No. ImageMarker draws the watermark onto your image and exports at full resolution. The only change is the watermark itself — the underlying photo quality is untouched.",
+          },
+          {
+            q: "Can watermarks be removed?",
+            a: "A small corner watermark can be cropped or cloned out fairly easily. A semi-transparent watermark placed over the subject — or a tiled, repeated pattern — is much harder to remove without visibly damaging the image, which is exactly the point.",
+          },
+          {
+            q: "Is ImageMarker really free?",
+            a: "Yes. It's completely free, with no forced app-branding on your images and no account required. If it saves you time, you can optionally support the project with a coffee.",
+          },
+          {
+            q: "Does it work on mobile?",
+            a: "Yes. It runs in your phone's browser and can be added to your home screen as a PWA, so you can watermark photos on the go — still 100% on-device.",
+          },
+        ]),
+      ],
     });
   }, []);
 

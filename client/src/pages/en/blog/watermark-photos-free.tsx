@@ -1,6 +1,11 @@
 import { useEffect } from "react";
 import { Link } from "wouter";
-import { setPageSeo } from "@/lib/seo";
+import {
+  setPageSeo,
+  articleSchema,
+  blogBreadcrumb,
+  faqSchema,
+} from "@/lib/seo";
 
 export default function WatermarkPhotosFree() {
   useEffect(() => {
@@ -9,6 +14,34 @@ export default function WatermarkPhotosFree() {
       description: "Looking for a free watermark tool that doesn't upload your photos? Compare the best client-side watermark tools of 2026 and learn why local processing protects your privacy.",
       canonical: "https://imagemarker.app/en/blog/watermark-photos-free",
       locale: "en_US",
+      jsonLd: [
+        articleSchema({
+          headline: "Best Free Online Watermark Tool 2026 — No Upload Required",
+          description: "Looking for a free watermark tool that doesn't upload your photos? Compare the best client-side watermark tools of 2026 and learn why local processing protects your privacy.",
+          url: "https://imagemarker.app/en/blog/watermark-photos-free",
+          datePublished: "2026-06-28",
+          dateModified: "2026-06-28",
+        }),
+        blogBreadcrumb(
+          "Best Free Online Watermark Tool 2026",
+          "https://imagemarker.app/en/blog/watermark-photos-free",
+          "en"
+        ),
+        faqSchema([
+          {
+            q: "Is a free browser tool really safe for private photos?",
+            a: "Yes — if it processes locally. With ImageMarker the image is handled entirely in your browser and never transmitted, so there is no server copy to worry about.",
+          },
+          {
+            q: "Will the output quality drop?",
+            a: "No. The watermark is drawn onto your image and exported at full resolution. Only the watermark is added; the photo itself is untouched.",
+          },
+          {
+            q: "Do I need to create an account?",
+            a: "No account, no sign-up, no email required. Open the page and start.",
+          },
+        ]),
+      ],
     });
   }, []);
 

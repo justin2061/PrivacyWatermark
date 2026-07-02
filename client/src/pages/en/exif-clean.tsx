@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import { Link } from "wouter";
 import { Card } from "@/components/ui/card";
 import { useExifCleaner } from "@/hooks/useExifCleaner";
-import { setPageSeo } from "@/lib/seo";
+import { setPageSeo, webAppSchema } from "@/lib/seo";
 import {
   AlertTriangle,
   CheckCircle,
@@ -50,6 +50,20 @@ export default function ExifCleanEnPage() {
         "Free online EXIF remover. Strip GPS location, camera model, serial number and other hidden metadata from your photos before sharing. 100% browser-based — nothing is uploaded.",
       canonical: "https://imagemarker.app/en/exif-clean",
       locale: "en_US",
+      jsonLd: webAppSchema({
+        name: "EXIF Cleaner — ImageMarker",
+        description:
+          "Free online EXIF remover. Strip GPS location, camera model, serial number and other hidden metadata from your photos before sharing. 100% browser-based — nothing is uploaded.",
+        url: "https://imagemarker.app/en/exif-clean",
+        inLanguage: "en",
+        featureList: [
+          "100% local in-browser processing — no uploads",
+          "Strip GPS location, camera model and serial number",
+          "Automatic red flags for sensitive metadata fields",
+          "Lossless JPEG cleaning — metadata removed without re-encoding",
+          "Supports JPG, PNG and WebP",
+        ],
+      }),
     });
   }, []);
 

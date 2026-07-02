@@ -1,6 +1,11 @@
 import { useEffect } from "react";
 import { Link } from "wouter";
-import { setPageSeo } from "@/lib/seo";
+import {
+  setPageSeo,
+  articleSchema,
+  blogBreadcrumb,
+  faqSchema,
+} from "@/lib/seo";
 
 export default function RemoveExifData() {
   useEffect(() => {
@@ -9,6 +14,34 @@ export default function RemoveExifData() {
       description: "Your photos carry hidden EXIF metadata — GPS location, device, and timestamps. Learn the privacy risks and how to remove EXIF data for free, right in your browser.",
       canonical: "https://imagemarker.app/en/blog/remove-exif-data",
       locale: "en_US",
+      jsonLd: [
+        articleSchema({
+          headline: "Why You Should Remove EXIF Data Before Sharing Photos",
+          description: "Your photos carry hidden EXIF metadata — GPS location, device, and timestamps. Learn the privacy risks and how to remove EXIF data for free, right in your browser.",
+          url: "https://imagemarker.app/en/blog/remove-exif-data",
+          datePublished: "2026-06-28",
+          dateModified: "2026-06-28",
+        }),
+        blogBreadcrumb(
+          "Why You Should Remove EXIF Data",
+          "https://imagemarker.app/en/blog/remove-exif-data",
+          "en"
+        ),
+        faqSchema([
+          {
+            q: "Does removing EXIF reduce image quality?",
+            a: "No. Metadata is separate from the pixels. Stripping it leaves the visible image untouched.",
+          },
+          {
+            q: "Don't social networks already remove it?",
+            a: "Some do for the displayed image, but behavior varies and direct file transfers (email, chat, cloud links) usually keep the metadata intact. Removing it yourself is the only reliable guarantee.",
+          },
+          {
+            q: "Is the EXIF cleaner really private?",
+            a: "Yes. It processes everything locally in your browser; no photo is ever sent to a server.",
+          },
+        ]),
+      ],
     });
   }, []);
 

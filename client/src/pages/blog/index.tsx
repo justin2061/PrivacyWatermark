@@ -3,6 +3,13 @@ import { Link } from "wouter";
 
 const articles = [
   {
+    slug: "tinypng-iloveimg-squoosh-alternatives",
+    title: "TinyPNG、iLoveIMG、Squoosh 替代方案：不上傳的免費圖片工具比較（2026）",
+    date: "2026-07-03",
+    summary:
+      "TinyPNG 和 iLoveIMG 都會把圖片上傳到雲端伺服器。這篇誠實比較 4 款免費圖片工具的隱私差異：哪些真正在瀏覽器本機處理，批次、浮水印、EXIF 清除功能一次看懂。",
+  },
+  {
     slug: "passport-travel-agency-watermark",
     title: "護照影本交給旅行社安全嗎？報名旅行團前必做的自保 3 件事",
     date: "2026-07-01",

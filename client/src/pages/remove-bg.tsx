@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "wouter";
 import { Card } from "@/components/ui/card";
+import { setPageSeo, webAppSchema } from "@/lib/seo";
 import {
   CheckCircle,
   Download,
@@ -104,18 +105,24 @@ export default function RemoveBgPage() {
   }, [selectedFile]);
 
   useEffect(() => {
-    document.title = "AI 智能去背工具 — 一鍵移除圖片背景，100% 本機處理";
-    const metaDesc = document.querySelector('meta[name="description"]');
-    if (metaDesc) {
-      metaDesc.setAttribute(
-        "content",
-        "免費 AI 智能去背工具，一鍵移除圖片背景並下載透明 PNG。AI 模型完全在你的瀏覽器中運作，圖片不會上傳到任何伺服器，適合製作商品圖、大頭照與去背素材。"
-      );
-    }
-    const canonical = document.querySelector('link[rel="canonical"]');
-    if (canonical) {
-      canonical.setAttribute("href", "https://imagemarker.app/remove-bg");
-    }
+    return setPageSeo({
+      title: "AI 智能去背工具 — 一鍵移除圖片背景，100% 本機處理",
+      description:
+        "免費 AI 智能去背工具，一鍵移除圖片背景並下載透明 PNG。AI 模型完全在你的瀏覽器中運作，圖片不會上傳到任何伺服器，適合製作商品圖、大頭照與去背素材。",
+      canonical: "https://imagemarker.app/remove-bg",
+      jsonLd: webAppSchema({
+        name: "AI 智能去背工具 — ImageMarker",
+        description:
+          "免費 AI 智能去背工具，一鍵移除圖片背景並下載透明 PNG。AI 模型完全在你的瀏覽器中運作，圖片不會上傳到任何伺服器，適合製作商品圖、大頭照與去背素材。",
+        url: "https://imagemarker.app/remove-bg",
+        featureList: [
+          "AI 模型完全在瀏覽器本機執行，圖片不上傳",
+          "一鍵自動移除背景，下載透明 PNG",
+          "可替換為純色或自訂顏色背景",
+          "適合製作商品圖、大頭照與去背素材",
+        ],
+      }),
+    });
   }, []);
 
   const isProcessing = stage === "loading-model" || stage === "processing";

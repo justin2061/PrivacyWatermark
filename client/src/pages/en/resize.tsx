@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "wouter";
 import { Card } from "@/components/ui/card";
-import { setPageSeo } from "@/lib/seo";
+import { setPageSeo, webAppSchema } from "@/lib/seo";
 import {
   CheckCircle,
   Download,
@@ -131,6 +131,20 @@ export default function ResizeEnPage() {
         "Free online image resizer. Enter a width and height to resize images, with built-in presets for social media and ID photos. Runs in your browser with Canvas — 100% local processing, no uploads.",
       canonical: "https://imagemarker.app/en/resize",
       locale: "en_US",
+      jsonLd: webAppSchema({
+        name: "Image Resizer — ImageMarker",
+        description:
+          "Free online image resizer. Enter a width and height to resize images, with built-in presets for social media and ID photos. Runs in your browser with Canvas — 100% local processing, no uploads.",
+        url: "https://imagemarker.app/en/resize",
+        inLanguage: "en",
+        featureList: [
+          "100% local in-browser processing — no uploads",
+          "Resize to any width and height in pixels",
+          "Built-in presets for social media, HD/4K and ID photos",
+          "Aspect ratio lock to prevent distortion",
+          "Instant preview with output file size",
+        ],
+      }),
     });
   }, []);
 

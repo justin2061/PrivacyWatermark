@@ -1,7 +1,8 @@
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { Link } from "wouter";
 import { Card } from "@/components/ui/card";
 import { useExifCleaner } from "@/hooks/useExifCleaner";
+import { setPageSeo, webAppSchema } from "@/lib/seo";
 import {
   AlertTriangle,
   CheckCircle,
@@ -39,6 +40,28 @@ export default function ExifCleanPage() {
     downloadCleaned,
     reset,
   } = useExifCleaner();
+
+  useEffect(() => {
+    return setPageSeo({
+      title: "EXIF 清除器 — 移除照片 GPS 與隱私資訊，100% 本機處理",
+      description:
+        "免費線上 EXIF 清除工具，移除照片中的 GPS 定位、相機型號、序號、拍攝時間等隱藏資訊，分享前保護隱私。100% 瀏覽器本機處理，圖片不會上傳到任何伺服器。",
+      canonical: "https://imagemarker.app/exif-clean",
+      jsonLd: webAppSchema({
+        name: "EXIF 清除器 — ImageMarker",
+        description:
+          "免費線上 EXIF 清除工具，移除照片中的 GPS 定位、相機型號、序號、拍攝時間等隱藏資訊，分享前保護隱私。100% 瀏覽器本機處理，圖片不會上傳到任何伺服器。",
+        url: "https://imagemarker.app/exif-clean",
+        featureList: [
+          "100% 瀏覽器本機處理，照片不上傳",
+          "移除 GPS 定位、相機型號、序號等隱藏資訊",
+          "自動標紅 GPS、序號、拍攝時間等敏感欄位",
+          "JPEG 無損清除，不重新編碼畫質不變",
+          "支援 JPG、PNG、WebP 格式",
+        ],
+      }),
+    });
+  }, []);
 
   const onPickFile = (file?: File | null) => {
     if (!file) return;

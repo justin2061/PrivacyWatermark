@@ -1,6 +1,11 @@
 import { useEffect } from "react";
 import { Link } from "wouter";
-import { setPageSeo } from "@/lib/seo";
+import {
+  setPageSeo,
+  articleSchema,
+  blogBreadcrumb,
+  faqSchema,
+} from "@/lib/seo";
 
 export default function WatermarkBestPractices() {
   useEffect(() => {
@@ -9,6 +14,34 @@ export default function WatermarkBestPractices() {
       description: "Where should a watermark go? What opacity works best? Learn watermark placement, opacity, color, and design tips to protect your images without ruining them.",
       canonical: "https://imagemarker.app/en/blog/watermark-best-practices",
       locale: "en_US",
+      jsonLd: [
+        articleSchema({
+          headline: "Watermark Best Practices: Placement, Opacity & Design Tips",
+          description: "Where should a watermark go? What opacity works best? Learn watermark placement, opacity, color, and design tips to protect your images without ruining them.",
+          url: "https://imagemarker.app/en/blog/watermark-best-practices",
+          datePublished: "2026-06-28",
+          dateModified: "2026-06-28",
+        }),
+        blogBreadcrumb(
+          "Watermark Best Practices",
+          "https://imagemarker.app/en/blog/watermark-best-practices",
+          "en"
+        ),
+        faqSchema([
+          {
+            q: "What is the most removal-resistant watermark?",
+            a: "A tiled / repeated semi-transparent mark across the entire image. It cannot be cropped or cloned out without visibly destroying the photo.",
+          },
+          {
+            q: "What opacity should I start with?",
+            a: "Start at 40% and adjust against your specific image — raise it for darker or more valuable shots.",
+          },
+          {
+            q: "Text or logo — which is more professional?",
+            a: "A clean logo generally looks more professional, but a well-set text mark is perfectly fine and far faster for large batches.",
+          },
+        ]),
+      ],
     });
   }, []);
 

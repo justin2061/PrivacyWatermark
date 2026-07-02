@@ -1,6 +1,11 @@
 import { useEffect } from "react";
 import { Link } from "wouter";
-import { setPageSeo } from "@/lib/seo";
+import {
+  setPageSeo,
+  articleSchema,
+  blogBreadcrumb,
+  faqSchema,
+} from "@/lib/seo";
 
 export default function BatchWatermarkImages() {
   useEffect(() => {
@@ -9,6 +14,34 @@ export default function BatchWatermarkImages() {
       description: "Need to watermark dozens of photos at once? Learn how to batch watermark multiple images for free in your browser — faster than Photoshop or Lightroom, no upload required.",
       canonical: "https://imagemarker.app/en/blog/batch-watermark-images",
       locale: "en_US",
+      jsonLd: [
+        articleSchema({
+          headline: "How to Batch Watermark Multiple Images at Once — Free Tool",
+          description: "Need to watermark dozens of photos at once? Learn how to batch watermark multiple images for free in your browser — faster than Photoshop or Lightroom, no upload required.",
+          url: "https://imagemarker.app/en/blog/batch-watermark-images",
+          datePublished: "2026-06-28",
+          dateModified: "2026-06-28",
+        }),
+        blogBreadcrumb(
+          "How to Batch Watermark Multiple Images",
+          "https://imagemarker.app/en/blog/batch-watermark-images",
+          "en"
+        ),
+        faqSchema([
+          {
+            q: "How many images can I batch at once?",
+            a: "Because processing is local, you are limited by your own device rather than an upload quota. Most modern phones and laptops handle large batches comfortably.",
+          },
+          {
+            q: "Are my photos uploaded anywhere?",
+            a: "No. The entire batch is processed in your browser and never sent to a server.",
+          },
+          {
+            q: "Can I use a logo for the batch?",
+            a: "Yes — both text and image/logo watermarks can be applied across the whole set.",
+          },
+        ]),
+      ],
     });
   }, []);
 

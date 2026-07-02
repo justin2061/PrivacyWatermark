@@ -15,9 +15,6 @@ import RemoveExifDataEn from "@/pages/en/blog/remove-exif-data";
 import WatermarkBestPracticesEn from "@/pages/en/blog/watermark-best-practices";
 import DigitalIdentityProtectionEn from "@/pages/en/blog/digital-identity-protection";
 import EnBlogIndex from "@/pages/en/blog/index";
-import BlogIndexPage from "@/pages/blog/index";
-import RentIdWatermarkPage from "@/pages/blog/rent-id-watermark";
-import WatermarkGeneratorsRecommendationPage from "@/pages/blog/watermark-generators-recommendation";
 import WatermarkTemplatesGuidePage from "@/pages/blog/watermark-templates-guide";
 import PassportWatermarkGuidePage from "@/pages/blog/passport-watermark-guide";
 import MobileWatermarkTutorialPage from "@/pages/blog/mobile-watermark-tutorial";
@@ -31,11 +28,16 @@ import CompressPage from "@/pages/compress";
 import CompressEnPage from "@/pages/en/compress";
 import ConvertPage from "@/pages/convert";
 import ConvertEnPage from "@/pages/en/convert";
+import ConvertPairPage from "@/pages/convert-pair";
+import ConvertPairEnPage from "@/pages/en/convert-pair";
+import { PAIRS } from "@/lib/convertPairs";
 import ResizePage from "@/pages/resize";
 import ResizeEnPage from "@/pages/en/resize";
 import RemoveBgPage from "@/pages/remove-bg";
 import RemoveBgEnPage from "@/pages/en/remove-bg";
 import IsIdWatermarkUsefulPage from "@/pages/blog/is-id-watermark-useful";
+import TinypngIloveimgSquooshAlternatives from "@/pages/blog/tinypng-iloveimg-squoosh-alternatives";
+import TinypngIloveimgSquooshAlternativesEn from "@/pages/en/blog/tinypng-iloveimg-squoosh-alternatives";
 import BatchWatermarkMethodsPage from "@/pages/blog/batch-watermark-methods";
 import NotFound from "@/pages/not-found";
 import BlogIndex from "@/pages/blog/index";
@@ -74,12 +76,25 @@ function Router() {
       <Route path="/en/compress" component={CompressEnPage} />
       <Route path="/convert" component={ConvertPage} />
       <Route path="/en/convert" component={ConvertEnPage} />
+      {/* 格式對長尾頁：/convert/<slug> 與 /en/convert/<slug>（不影響上方精確路由） */}
+      {PAIRS.map((pair) => (
+        <Route key={`convert-${pair.slug}`} path={`/convert/${pair.slug}`}>
+          <ConvertPairPage pair={pair} />
+        </Route>
+      ))}
+      {PAIRS.map((pair) => (
+        <Route key={`en-convert-${pair.slug}`} path={`/en/convert/${pair.slug}`}>
+          <ConvertPairEnPage pair={pair} />
+        </Route>
+      ))}
       <Route path="/resize" component={ResizePage} />
       <Route path="/en/resize" component={ResizeEnPage} />
       <Route path="/remove-bg" component={RemoveBgPage} />
       <Route path="/en/remove-bg" component={RemoveBgEnPage} />
       <Route path="/blog/is-id-watermark-useful" component={IsIdWatermarkUsefulPage} />
       <Route path="/blog/batch-watermark-methods" component={BatchWatermarkMethodsPage} />
+      <Route path="/blog/tinypng-iloveimg-squoosh-alternatives" component={TinypngIloveimgSquooshAlternatives} />
+      <Route path="/en/blog/tinypng-iloveimg-squoosh-alternatives" component={TinypngIloveimgSquooshAlternativesEn} />
       <Route component={NotFound} />
     </Switch>
   );

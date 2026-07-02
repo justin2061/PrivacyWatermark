@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "wouter";
 import { Card } from "@/components/ui/card";
+import { setPageSeo, webAppSchema } from "@/lib/seo";
+import { PAIRS } from "@/lib/convertPairs";
 import {
   CheckCircle,
   Download,
@@ -91,18 +93,24 @@ export default function ConvertPage() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    document.title = "圖片格式轉換工具 — 免費線上轉換 JPG/PNG/WebP";
-    const metaDesc = document.querySelector('meta[name="description"]');
-    if (metaDesc) {
-      metaDesc.setAttribute(
-        "content",
-        "免費線上圖片格式轉換工具，支援 PNG轉JPG、JPG轉PNG、WebP轉換。在瀏覽器中以 Canvas 技術即時轉換圖片格式，100% 本機處理，圖片不會上傳到任何伺服器。"
-      );
-    }
-    const canonical = document.querySelector('link[rel="canonical"]');
-    if (canonical) {
-      canonical.setAttribute("href", "https://imagemarker.app/convert");
-    }
+    return setPageSeo({
+      title: "圖片格式轉換工具 — 免費線上轉換 JPG/PNG/WebP",
+      description:
+        "免費線上圖片格式轉換工具，支援 PNG轉JPG、JPG轉PNG、WebP轉換。在瀏覽器中以 Canvas 技術即時轉換圖片格式，100% 本機處理，圖片不會上傳到任何伺服器。",
+      canonical: "https://imagemarker.app/convert",
+      jsonLd: webAppSchema({
+        name: "圖片格式轉換工具 — ImageMarker",
+        description:
+          "免費線上圖片格式轉換工具，支援 PNG轉JPG、JPG轉PNG、WebP轉換。在瀏覽器中以 Canvas 技術即時轉換圖片格式，100% 本機處理，圖片不會上傳到任何伺服器。",
+        url: "https://imagemarker.app/convert",
+        featureList: [
+          "100% 瀏覽器本機處理，圖片不上傳",
+          "支援 PNG 轉 JPG、JPG 轉 PNG、WebP 互轉",
+          "可上傳 JPG、PNG、WebP、BMP、GIF 格式",
+          "轉 JPG 時自動填入白色背景，避免透明區域變黑",
+        ],
+      }),
+    });
   }, []);
 
   // 格式變動時自動重新轉換
@@ -511,6 +519,22 @@ export default function ConvertPage() {
             能轉成無損格式，但檔案通常會變大；<strong>WebP 轉 JPG</strong> 可解決舊版軟體或平台無法開啟 WebP 的相容性問題。
             若以縮小檔案、加速網頁為目標，轉成 WebP 通常是最佳選擇。
           </p>
+        </section>
+
+        {/* 熱門轉換：格式對長尾頁內部連結 */}
+        <section className="mt-12">
+          <h2 className="text-xl font-semibold text-gray-900 mb-4">熱門轉換</h2>
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+            {PAIRS.map((pair) => (
+              <Link
+                key={pair.slug}
+                href={`/convert/${pair.slug}`}
+                className="flex items-center justify-center bg-white border border-gray-200 rounded-lg px-4 py-3 text-sm text-gray-700 hover:border-primary hover:text-primary transition-colors"
+              >
+                {pair.fromLabel} 轉 {pair.toLabel}
+              </Link>
+            ))}
+          </div>
         </section>
       </main>
 

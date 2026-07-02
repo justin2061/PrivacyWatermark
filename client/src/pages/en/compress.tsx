@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "wouter";
 import { Card } from "@/components/ui/card";
-import { setPageSeo } from "@/lib/seo";
+import { setPageSeo, webAppSchema } from "@/lib/seo";
 import {
   CheckCircle,
   Download,
@@ -97,6 +97,20 @@ export default function CompressEnPage() {
         "Free online image compressor for JPG, PNG and WebP. Reduce image file size right in your browser with Canvas — 100% local processing, no uploads, no size limits.",
       canonical: "https://imagemarker.app/en/compress",
       locale: "en_US",
+      jsonLd: webAppSchema({
+        name: "Image Compressor — ImageMarker",
+        description:
+          "Free online image compressor for JPG, PNG and WebP. Reduce image file size right in your browser with Canvas — 100% local processing, no uploads, no size limits.",
+        url: "https://imagemarker.app/en/compress",
+        inLanguage: "en",
+        featureList: [
+          "100% local in-browser processing — no uploads",
+          "Adjustable quality slider with live size preview",
+          "Compress JPG, PNG and WebP images",
+          "Optional conversion to JPG or WebP output",
+          "No file size limits",
+        ],
+      }),
     });
   }, []);
 

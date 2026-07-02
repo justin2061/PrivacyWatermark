@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "wouter";
 import { Card } from "@/components/ui/card";
 import { FileUploadZone } from "@/components/watermark/FileUploadZone";
@@ -6,6 +6,7 @@ import { WatermarkControls } from "@/components/watermark/WatermarkControls";
 import { CanvasPreview } from "@/components/watermark/CanvasPreview";
 import { ProcessingStatus } from "@/components/watermark/ProcessingStatus";
 import { useWatermark } from "@/hooks/useWatermark";
+import { setPageSeo, webAppSchema, faqSchema } from "@/lib/seo";
 import { Shield, Lock, Zap, BookOpen, Eraser, Layers, Languages, Minimize2, Repeat, Scaling, Scissors } from "lucide-react";
 
 export default function WatermarkPage() {
@@ -24,6 +25,76 @@ export default function WatermarkPage() {
   } = useWatermark();
 
   const [menuOpen, setMenuOpen] = useState(false);
+
+  useEffect(() => {
+    return setPageSeo({
+      title: "證件浮水印製作工具｜線上免費、100% 本機處理 — ImageMarker",
+      description:
+        "免費線上證件浮水印製作工具，專為身分證、護照、駕照等機密文件設計。100% 本地端瀏覽器處理，不上傳任何檔案。支援自訂浮水印文字、透明度調整，適用租屋、求職等場景。",
+      canonical: "https://imagemarker.app/",
+      jsonLd: [
+        webAppSchema({
+          name: "證件浮水印工具 — ImageMarker",
+          description:
+            "免費線上證件浮水印製作工具，專為身分證、護照、駕照等機密文件設計。100% 本地端瀏覽器處理，不上傳任何檔案。支援自訂浮水印文字、透明度調整，適用租屋、求職等場景。",
+          url: "https://imagemarker.app/",
+          featureList: [
+            "100% 瀏覽器本機處理，證件圖片不上傳",
+            "自訂浮水印文字、透明度、大小與位置",
+            "內建租屋、求職等常用浮水印範本，一鍵套用",
+            "支援 JPG、PNG 格式，PWA 可離線使用",
+          ],
+        }),
+        faqSchema([
+          {
+            q: "證件浮水印要寫什麼？",
+            a: "建議寫明用途和日期，例如「僅供 XX 公司租屋使用 2026/04/05」。明確標註用途可以有效防止證件被挪作他用。",
+          },
+          {
+            q: "使用這個工具圖片會被上傳嗎？",
+            a: "不會。ImageMarker 100% 在您的瀏覽器本地端處理，所有圖片都不會上傳到任何伺服器，確保您的個資安全。",
+          },
+          {
+            q: "支援哪些圖片格式？",
+            a: "目前支援 JPG 和 PNG 格式，檔案大小上限為 10MB。",
+          },
+          {
+            q: "手機可以使用嗎？",
+            a: "可以。ImageMarker 支援所有現代瀏覽器，包括手機和平板上的 Chrome、Safari 等瀏覽器，也支援 PWA 離線使用。",
+          },
+        ]),
+        {
+          "@context": "https://schema.org",
+          "@type": "HowTo",
+          name: "如何幫證件加浮水印",
+          description:
+            "使用 ImageMarker 免費線上工具，3 步驟幫身分證、護照、駕照等證件影本加上浮水印，保護個資安全。",
+          totalTime: "PT1M",
+          tool: { "@type": "HowToTool", name: "ImageMarker 證件浮水印工具" },
+          step: [
+            {
+              "@type": "HowToStep",
+              name: "上傳證件照片",
+              text: "打開 imagemarker.app，將身分證、護照或駕照的照片拖放到上傳區域，或點擊「選擇檔案」按鈕上傳。支援 JPG 和 PNG 格式。",
+              url: "https://imagemarker.app/",
+            },
+            {
+              "@type": "HowToStep",
+              name: "輸入浮水印文字",
+              text: "在浮水印設定區輸入文字，例如「僅供 OO 租屋使用 2026/05/27」。可調整字體大小、透明度和位置。也可以點擊「快速套用」按鈕直接使用租屋、求職等常用範本。",
+              url: "https://imagemarker.app/",
+            },
+            {
+              "@type": "HowToStep",
+              name: "下載加好浮水印的圖片",
+              text: "預覽確認效果後，點擊「套用浮水印」再點「下載圖片」即可。整個過程不到一分鐘，且圖片完全在瀏覽器本地處理，不會上傳到任何伺服器。",
+              url: "https://imagemarker.app/",
+            },
+          ],
+        },
+      ],
+    });
+  }, []);
 
   return (
     <div className="min-h-screen bg-gray-50 pb-20 md:pb-0">

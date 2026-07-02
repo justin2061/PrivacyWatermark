@@ -6,7 +6,7 @@ import { WatermarkControls } from "@/components/watermark/WatermarkControls";
 import { CanvasPreview } from "@/components/watermark/CanvasPreview";
 import { ProcessingStatus } from "@/components/watermark/ProcessingStatus";
 import { useWatermark } from "@/hooks/useWatermark";
-import { setPageSeo } from "@/lib/seo";
+import { setPageSeo, webAppSchema } from "@/lib/seo";
 import {
   Shield,
   Lock,
@@ -46,6 +46,19 @@ export default function WatermarkEnPage() {
         "Free online watermark tool for photos and documents. Add text or logo watermarks with full privacy — 100% browser-based, no uploads. Perfect for photographers, designers and creators.",
       canonical: "https://imagemarker.app/en/",
       locale: "en_US",
+      jsonLd: webAppSchema({
+        name: "Image Watermark Tool — ImageMarker",
+        description:
+          "Free online watermark tool for photos and documents. Add text or logo watermarks with full privacy — 100% browser-based, no uploads. Perfect for photographers, designers and creators.",
+        url: "https://imagemarker.app/en/",
+        inLanguage: "en",
+        featureList: [
+          "100% local in-browser processing — no uploads",
+          "Add text or logo watermarks to photos and documents",
+          "Live preview with one-click download",
+          "Works offline as an installable PWA",
+        ],
+      }),
     });
   }, []);
 

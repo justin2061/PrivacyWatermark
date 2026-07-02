@@ -72,8 +72,13 @@ export function setPageSeo({
   };
 }
 
-/** Standard breadcrumb: 首頁 › 部落格 › <title> */
-export function blogBreadcrumb(title: string, url: string): JsonLd {
+/** Standard breadcrumb: 首頁 › 部落格 › <title> (or Home › Blog › <title>) */
+export function blogBreadcrumb(
+  title: string,
+  url: string,
+  lang: "zh" | "en" = "zh"
+): JsonLd {
+  const en = lang === "en";
   return {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -81,17 +86,52 @@ export function blogBreadcrumb(title: string, url: string): JsonLd {
       {
         "@type": "ListItem",
         position: 1,
-        name: "首頁",
-        item: "https://imagemarker.app/",
+        name: en ? "Home" : "首頁",
+        item: en ? "https://imagemarker.app/en/" : "https://imagemarker.app/",
       },
       {
         "@type": "ListItem",
         position: 2,
-        name: "部落格",
-        item: "https://imagemarker.app/blog",
+        name: en ? "Blog" : "部落格",
+        item: en
+          ? "https://imagemarker.app/en/blog"
+          : "https://imagemarker.app/blog",
       },
       { "@type": "ListItem", position: 3, name: title, item: url },
     ],
+  };
+}
+
+/** WebApplication schema for a browser-based tool page. */
+export function webAppSchema(opts: {
+  name: string;
+  description: string;
+  url: string;
+  /** e.g. "zh-TW" (default) or "en" */
+  inLanguage?: string;
+  featureList?: string[];
+}): JsonLd {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    name: opts.name,
+    description: opts.description,
+    url: opts.url,
+    applicationCategory: "MultimediaApplication",
+    operatingSystem: "Any",
+    browserRequirements: "Requires JavaScript",
+    inLanguage: opts.inLanguage ?? "zh-TW",
+    isAccessibleForFree: true,
+    offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+    ...(opts.featureList ? { featureList: opts.featureList } : {}),
+    publisher: {
+      "@type": "Organization",
+      name: "ImageMarker",
+      logo: {
+        "@type": "ImageObject",
+        url: "https://imagemarker.app/icon.svg",
+      },
+    },
   };
 }
 

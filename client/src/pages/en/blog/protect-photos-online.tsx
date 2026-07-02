@@ -1,6 +1,11 @@
 import { useEffect } from "react";
 import { Link } from "wouter";
-import { setPageSeo } from "@/lib/seo";
+import {
+  setPageSeo,
+  articleSchema,
+  blogBreadcrumb,
+  faqSchema,
+} from "@/lib/seo";
 
 export default function ProtectPhotosOnline() {
   useEffect(() => {
@@ -9,6 +14,34 @@ export default function ProtectPhotosOnline() {
       description: "A complete guide to protecting your photos online: watermarks vs metadata vs DRM, copyright basics, and a practical workflow for photographers and stock contributors.",
       canonical: "https://imagemarker.app/en/blog/protect-photos-online",
       locale: "en_US",
+      jsonLd: [
+        articleSchema({
+          headline: "How to Protect Your Photos Online — Complete Guide for Photographers",
+          description: "A complete guide to protecting your photos online: watermarks vs metadata vs DRM, copyright basics, and a practical workflow for photographers and stock contributors.",
+          url: "https://imagemarker.app/en/blog/protect-photos-online",
+          datePublished: "2026-06-28",
+          dateModified: "2026-06-28",
+        }),
+        blogBreadcrumb(
+          "How to Protect Your Photos Online",
+          "https://imagemarker.app/en/blog/protect-photos-online",
+          "en"
+        ),
+        faqSchema([
+          {
+            q: "Do I need to register my copyright?",
+            a: "In most countries you own copyright automatically the moment you press the shutter. Formal registration is optional but strengthens your position if you ever need to sue — check your local law.",
+          },
+          {
+            q: "Will a watermark hurt engagement?",
+            a: "A tasteful, semi-transparent watermark rarely does. The lost reach is small next to the credit and brand recognition you gain on every repost.",
+          },
+          {
+            q: "What is the single most important step?",
+            a: "Stop publishing full-resolution, unmarked files. A watermarked, web-sized export blocks the most common forms of theft on its own.",
+          },
+        ]),
+      ],
     });
   }, []);
 

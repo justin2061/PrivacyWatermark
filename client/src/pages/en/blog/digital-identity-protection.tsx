@@ -1,6 +1,11 @@
 import { useEffect } from "react";
 import { Link } from "wouter";
-import { setPageSeo } from "@/lib/seo";
+import {
+  setPageSeo,
+  articleSchema,
+  blogBreadcrumb,
+  faqSchema,
+} from "@/lib/seo";
 
 export default function DigitalIdentityProtection() {
   useEffect(() => {
@@ -9,6 +14,34 @@ export default function DigitalIdentityProtection() {
       description: "A practical 7-step guide to digital identity protection: watermark documents, strip EXIF data, share securely, use passwords and 2FA, and prevent online identity theft.",
       canonical: "https://imagemarker.app/en/blog/digital-identity-protection",
       locale: "en_US",
+      jsonLd: [
+        articleSchema({
+          headline: "Digital Identity Protection: 7 Steps to Keep Your Documents Safe",
+          description: "A practical 7-step guide to digital identity protection: watermark documents, strip EXIF data, share securely, use passwords and 2FA, and prevent online identity theft.",
+          url: "https://imagemarker.app/en/blog/digital-identity-protection",
+          datePublished: "2026-06-28",
+          dateModified: "2026-06-28",
+        }),
+        blogBreadcrumb(
+          "Digital Identity Protection",
+          "https://imagemarker.app/en/blog/digital-identity-protection",
+          "en"
+        ),
+        faqSchema([
+          {
+            q: "What is the highest-impact first step?",
+            a: "Stop sending clean, unmarked copies of your ID. Watermarking with a specific purpose and date is fast and removes most of the resale value of a leaked copy.",
+          },
+          {
+            q: "Are browser-based privacy tools safe?",
+            a: "When they process locally, yes — the file never leaves your device. Both ImageMarker's watermark and EXIF tools work this way, which is exactly what you want for sensitive documents.",
+          },
+          {
+            q: "Can I really prevent all identity theft?",
+            a: "No single measure makes you immune, but layering these steps dramatically lowers your risk and limits the damage if one copy does leak.",
+          },
+        ]),
+      ],
     });
   }, []);
 

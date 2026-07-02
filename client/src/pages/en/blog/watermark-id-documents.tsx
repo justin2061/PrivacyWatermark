@@ -1,6 +1,11 @@
 import { useEffect } from "react";
 import { Link } from "wouter";
-import { setPageSeo } from "@/lib/seo";
+import {
+  setPageSeo,
+  articleSchema,
+  blogBreadcrumb,
+  faqSchema,
+} from "@/lib/seo";
 
 export default function WatermarkIdDocuments() {
   useEffect(() => {
@@ -9,6 +14,34 @@ export default function WatermarkIdDocuments() {
       description: "Sharing a photo of your passport or ID? Add a watermark first. Learn why unprotected ID documents are risky and how to watermark them for free, 100% in your browser.",
       canonical: "https://imagemarker.app/en/blog/watermark-id-documents",
       locale: "en_US",
+      jsonLd: [
+        articleSchema({
+          headline: "How to Add Watermark to ID Documents — Protect Your Identity Online",
+          description: "Sharing a photo of your passport or ID? Add a watermark first. Learn why unprotected ID documents are risky and how to watermark them for free, 100% in your browser.",
+          url: "https://imagemarker.app/en/blog/watermark-id-documents",
+          datePublished: "2026-06-28",
+          dateModified: "2026-06-28",
+        }),
+        blogBreadcrumb(
+          "How to Add Watermark to ID Documents",
+          "https://imagemarker.app/en/blog/watermark-id-documents",
+          "en"
+        ),
+        faqSchema([
+          {
+            q: "Is it legal to watermark my own ID?",
+            a: "Yes. Adding a clear, purpose-limiting watermark to a copy of your own document is widely recommended by fraud-prevention organizations. Always keep the underlying details legible for the legitimate verifier.",
+          },
+          {
+            q: "Will the company reject a watermarked ID?",
+            a: "Most accept a clearly watermarked copy as long as the name, number, and photo remain readable. If they insist on a clean scan, that is itself a reason to be cautious about who you are dealing with.",
+          },
+          {
+            q: "Does ImageMarker store my document?",
+            a: "No. All processing happens in your browser. The file is never sent anywhere — that is the whole point of a client-side tool for something this sensitive.",
+          },
+        ]),
+      ],
     });
   }, []);
 

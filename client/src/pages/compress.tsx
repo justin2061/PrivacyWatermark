@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "wouter";
 import { Card } from "@/components/ui/card";
+import { setPageSeo, webAppSchema } from "@/lib/seo";
 import {
   CheckCircle,
   Download,
@@ -94,18 +95,24 @@ export default function CompressPage() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    document.title = "圖片壓縮工具 — 免費線上壓縮，100% 本機處理";
-    const metaDesc = document.querySelector('meta[name="description"]');
-    if (metaDesc) {
-      metaDesc.setAttribute(
-        "content",
-        "免費線上圖片壓縮工具，支援 JPG、PNG、WebP。在瀏覽器中以 Canvas 技術壓縮圖片、縮小檔案大小，100% 本機處理，圖片不會上傳到任何伺服器。"
-      );
-    }
-    const canonical = document.querySelector('link[rel="canonical"]');
-    if (canonical) {
-      canonical.setAttribute("href", "https://imagemarker.app/compress");
-    }
+    return setPageSeo({
+      title: "圖片壓縮工具 — 免費線上壓縮，100% 本機處理",
+      description:
+        "免費線上圖片壓縮工具，支援 JPG、PNG、WebP。在瀏覽器中以 Canvas 技術壓縮圖片、縮小檔案大小，100% 本機處理，圖片不會上傳到任何伺服器。",
+      canonical: "https://imagemarker.app/compress",
+      jsonLd: webAppSchema({
+        name: "圖片壓縮工具 — ImageMarker",
+        description:
+          "免費線上圖片壓縮工具，支援 JPG、PNG、WebP。在瀏覽器中以 Canvas 技術壓縮圖片、縮小檔案大小，100% 本機處理，圖片不會上傳到任何伺服器。",
+        url: "https://imagemarker.app/compress",
+        featureList: [
+          "100% 瀏覽器本機處理，圖片不上傳",
+          "支援 JPG、PNG、WebP 格式",
+          "可調整壓縮品質並即時預覽壓縮後檔案大小",
+          "可選擇維持原格式或輸出為 JPEG、WebP",
+        ],
+      }),
+    });
   }, []);
 
   // 品質或格式變動時自動重新壓縮

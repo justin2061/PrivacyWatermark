@@ -1,6 +1,11 @@
 import { useEffect } from "react";
 import { Link } from "wouter";
-import { setPageSeo } from "@/lib/seo";
+import {
+  setPageSeo,
+  articleSchema,
+  blogBreadcrumb,
+  faqSchema,
+} from "@/lib/seo";
 
 export default function RentalScamPrevention() {
   useEffect(() => {
@@ -9,6 +14,30 @@ export default function RentalScamPrevention() {
       description: "Renting a place means handing over your ID and pay stubs. Learn how rental scammers exploit your documents and how watermarking protects you from identity theft.",
       canonical: "https://imagemarker.app/en/blog/rental-scam-prevention",
       locale: "en_US",
+      jsonLd: [
+        articleSchema({
+          headline: "Rental Application Safety: How to Watermark Documents Before Sharing",
+          description: "Renting a place means handing over your ID and pay stubs. Learn how rental scammers exploit your documents and how watermarking protects you from identity theft.",
+          url: "https://imagemarker.app/en/blog/rental-scam-prevention",
+          datePublished: "2026-06-28",
+          dateModified: "2026-06-28",
+        }),
+        blogBreadcrumb(
+          "Rental Application Safety",
+          "https://imagemarker.app/en/blog/rental-scam-prevention",
+          "en"
+        ),
+        faqSchema([
+          {
+            q: "Won't a watermark annoy the landlord?",
+            a: "A reasonable landlord understands document safety. As long as your name, income, and photo stay readable, a watermark should not be an issue — and resistance to it is a small red flag.",
+          },
+          {
+            q: "Is watermarking enough on its own?",
+            a: "It is one strong layer. Combine it with redacting unnecessary fields and verifying who you are dealing with for the best protection.",
+          },
+        ]),
+      ],
     });
   }, []);
 

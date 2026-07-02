@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "wouter";
 import { Card } from "@/components/ui/card";
-import { setPageSeo } from "@/lib/seo";
+import { setPageSeo, webAppSchema } from "@/lib/seo";
+import { PAIRS } from "@/lib/convertPairs";
 import {
   CheckCircle,
   Download,
@@ -94,6 +95,20 @@ export default function ConvertEnPage() {
         "Free online image format converter. Convert PNG to JPG, JPG to PNG and WebP right in your browser with Canvas — 100% local processing, no uploads, no size limits.",
       canonical: "https://imagemarker.app/en/convert",
       locale: "en_US",
+      jsonLd: webAppSchema({
+        name: "Image Format Converter — ImageMarker",
+        description:
+          "Free online image format converter. Convert PNG to JPG, JPG to PNG and WebP right in your browser with Canvas — 100% local processing, no uploads, no size limits.",
+        url: "https://imagemarker.app/en/convert",
+        inLanguage: "en",
+        featureList: [
+          "100% local in-browser processing — no uploads",
+          "Convert between JPG, PNG and WebP",
+          "Reads JPG, PNG, WebP, BMP and GIF input",
+          "Instant preview with before/after size comparison",
+          "No file size limits",
+        ],
+      }),
     });
   }, []);
 
@@ -473,6 +488,22 @@ export default function ConvertEnPage() {
             open WebP. If your goal is smaller files and faster pages, converting to WebP is usually the
             best choice.
           </p>
+        </section>
+
+        {/* Popular conversions: internal links to format-pair pages */}
+        <section className="mt-12">
+          <h2 className="text-xl font-semibold text-gray-900 mb-4">Popular conversions</h2>
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+            {PAIRS.map((pair) => (
+              <Link
+                key={pair.slug}
+                href={`/en/convert/${pair.slug}`}
+                className="flex items-center justify-center bg-white border border-gray-200 rounded-lg px-4 py-3 text-sm text-gray-700 hover:border-primary hover:text-primary transition-colors"
+              >
+                {pair.fromLabel} to {pair.toLabel}
+              </Link>
+            ))}
+          </div>
         </section>
       </main>
 

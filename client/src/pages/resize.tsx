@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "wouter";
 import { Card } from "@/components/ui/card";
+import { setPageSeo, webAppSchema } from "@/lib/seo";
 import {
   CheckCircle,
   Download,
@@ -127,18 +128,24 @@ export default function ResizePage() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    document.title = "圖片縮放工具 — 免費調整圖片大小";
-    const metaDesc = document.querySelector('meta[name="description"]');
-    if (metaDesc) {
-      metaDesc.setAttribute(
-        "content",
-        "免費線上圖片縮放工具，輸入寬高即可調整圖片大小，內建社群媒體與大頭照常用尺寸。在瀏覽器中以 Canvas 技術即時縮放，100% 本機處理，圖片不會上傳到任何伺服器。"
-      );
-    }
-    const canonical = document.querySelector('link[rel="canonical"]');
-    if (canonical) {
-      canonical.setAttribute("href", "https://imagemarker.app/resize");
-    }
+    return setPageSeo({
+      title: "圖片縮放工具 — 免費調整圖片大小",
+      description:
+        "免費線上圖片縮放工具，輸入寬高即可調整圖片大小，內建社群媒體與大頭照常用尺寸。在瀏覽器中以 Canvas 技術即時縮放，100% 本機處理，圖片不會上傳到任何伺服器。",
+      canonical: "https://imagemarker.app/resize",
+      jsonLd: webAppSchema({
+        name: "圖片縮放工具 — ImageMarker",
+        description:
+          "免費線上圖片縮放工具，輸入寬高即可調整圖片大小，內建社群媒體與大頭照常用尺寸。在瀏覽器中以 Canvas 技術即時縮放，100% 本機處理，圖片不會上傳到任何伺服器。",
+        url: "https://imagemarker.app/resize",
+        featureList: [
+          "100% 瀏覽器本機處理，圖片不上傳",
+          "自訂寬高調整圖片大小，可鎖定長寬比避免變形",
+          "內建社群媒體、HD/4K 與大頭照常用尺寸，一鍵套用",
+          "即時預覽縮放前後的尺寸與檔案大小",
+        ],
+      }),
+    });
   }, []);
 
   // 寬高變動時自動重新縮放

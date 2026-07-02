@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "wouter";
 import { Card } from "@/components/ui/card";
-import { setPageSeo } from "@/lib/seo";
+import { setPageSeo, webAppSchema } from "@/lib/seo";
 import {
   CheckCircle,
   Download,
@@ -107,6 +107,20 @@ export default function RemoveBgEnPage() {
         "Free AI background remover. Remove image backgrounds in one click and download a transparent PNG. The AI model runs entirely in your browser — your images are never uploaded to any server.",
       canonical: "https://imagemarker.app/en/remove-bg",
       locale: "en_US",
+      jsonLd: webAppSchema({
+        name: "AI Background Remover — ImageMarker",
+        description:
+          "Free AI background remover. Remove image backgrounds in one click and download a transparent PNG. The AI model runs entirely in your browser — your images are never uploaded to any server.",
+        url: "https://imagemarker.app/en/remove-bg",
+        inLanguage: "en",
+        featureList: [
+          "AI model runs 100% locally in your browser — no uploads",
+          "One-click background removal with transparent PNG output",
+          "Replace the background with white or a custom color",
+          "Model cached after first use — works offline",
+          "Supports JPG, PNG and WebP",
+        ],
+      }),
     });
   }, []);
 
