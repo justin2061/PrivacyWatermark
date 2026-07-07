@@ -335,6 +335,30 @@
     <xhtml:link rel="alternate" hreflang="zh" href="https://imagemarker.app/blog/landlord-asks-for-id" />
   </url>
   <url>
+    <loc>https://imagemarker.app/blog/batch-watermark-guide</loc>
+    <lastmod>2026-07-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="zh-tw" href="https://imagemarker.app/blog/batch-watermark-guide" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://imagemarker.app/blog/batch-watermark-guide" />
+  </url>
+  <url>
+    <loc>https://imagemarker.app/blog/what-is-exif-data</loc>
+    <lastmod>2026-07-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="zh-tw" href="https://imagemarker.app/blog/what-is-exif-data" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://imagemarker.app/blog/what-is-exif-data" />
+  </url>
+  <url>
+    <loc>https://imagemarker.app/blog/image-compression-guide</loc>
+    <lastmod>2026-07-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="zh-tw" href="https://imagemarker.app/blog/image-compression-guide" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://imagemarker.app/blog/image-compression-guide" />
+  </url>
+  <url>
     <loc>https://imagemarker.app/en/blog/tinypng-iloveimg-squoosh-alternatives</loc>
     <lastmod>2026-07-03</lastmod>
     <changefreq>monthly</changefreq>

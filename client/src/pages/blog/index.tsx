@@ -3,6 +3,27 @@ import { Link } from "wouter";
 
 const articles = [
   {
+    slug: "batch-watermark-guide",
+    title: "一次幫幾十張照片加浮水印！3 種批次浮水印方法比較",
+    date: "2026-07-07",
+    summary:
+      "幾十張照片一張張加浮水印太累。本篇比較手機 App、Photoshop 批次、線上工具 3 種批次浮水印方法的速度、學習成本與隱私差異，教你一次上傳、統一套用、打包下載。",
+  },
+  {
+    slug: "what-is-exif-data",
+    title: "你的照片藏了什麼秘密？EXIF 資訊一鍵清除教學",
+    date: "2026-07-07",
+    summary:
+      "每張手機照片都偷偷記錄了 GPS 座標、拍攝時間、手機型號。本篇解釋 EXIF 是什麼、藏了哪些個資、有什麼風險，並教你用免費本機工具一鍵清除，交出照片前先清乾淨。",
+  },
+  {
+    slug: "image-compression-guide",
+    title: "圖片太大怎麼辦？5 種免費線上圖片壓縮工具推薦",
+    date: "2026-07-07",
+    summary:
+      "照片太大無法上傳、附件被擋、網站載入慢？本篇比較 TinyPNG、Squoosh、iLoveIMG、Compressor.io、ImageMarker 5 款免費壓縮工具的壓縮率、隱私與適用情境。",
+  },
+  {
     slug: "rent-required-documents",
     title: "租屋簽約要交哪些文件？身分證影本安全交付指南",
     date: "2026-07-07",

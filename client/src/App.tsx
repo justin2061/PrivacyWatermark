@@ -43,6 +43,9 @@ import AntiTheftPhotoWatermark from "@/pages/blog/anti-theft-photo-watermark";
 import RentRequiredDocuments from "@/pages/blog/rent-required-documents";
 import RentScamIdFraud from "@/pages/blog/rent-scam-id-fraud";
 import LandlordAsksForId from "@/pages/blog/landlord-asks-for-id";
+import BatchWatermarkGuide from "@/pages/blog/batch-watermark-guide";
+import WhatIsExifData from "@/pages/blog/what-is-exif-data";
+import ImageCompressionGuide from "@/pages/blog/image-compression-guide";
 import NotFound from "@/pages/not-found";
 import BlogIndex from "@/pages/blog/index";
 import RentIdWatermark from "@/pages/blog/rent-id-watermark";
@@ -102,6 +105,9 @@ function Router() {
       <Route path="/blog/rent-required-documents" component={RentRequiredDocuments} />
       <Route path="/blog/rent-scam-id-fraud" component={RentScamIdFraud} />
       <Route path="/blog/landlord-asks-for-id" component={LandlordAsksForId} />
+      <Route path="/blog/batch-watermark-guide" component={BatchWatermarkGuide} />
+      <Route path="/blog/what-is-exif-data" component={WhatIsExifData} />
+      <Route path="/blog/image-compression-guide" component={ImageCompressionGuide} />
       <Route path="/en/blog/tinypng-iloveimg-squoosh-alternatives" component={TinypngIloveimgSquooshAlternativesEn} />
       <Route component={NotFound} />
     </Switch>
