@@ -40,6 +40,9 @@ import TinypngIloveimgSquooshAlternatives from "@/pages/blog/tinypng-iloveimg-sq
 import TinypngIloveimgSquooshAlternativesEn from "@/pages/en/blog/tinypng-iloveimg-squoosh-alternatives";
 import BatchWatermarkMethodsPage from "@/pages/blog/batch-watermark-methods";
 import AntiTheftPhotoWatermark from "@/pages/blog/anti-theft-photo-watermark";
+import RentRequiredDocuments from "@/pages/blog/rent-required-documents";
+import RentScamIdFraud from "@/pages/blog/rent-scam-id-fraud";
+import LandlordAsksForId from "@/pages/blog/landlord-asks-for-id";
 import NotFound from "@/pages/not-found";
 import BlogIndex from "@/pages/blog/index";
 import RentIdWatermark from "@/pages/blog/rent-id-watermark";
@@ -96,6 +99,9 @@ function Router() {
       <Route path="/blog/batch-watermark-methods" component={BatchWatermarkMethodsPage} />
       <Route path="/blog/tinypng-iloveimg-squoosh-alternatives" component={TinypngIloveimgSquooshAlternatives} />
       <Route path="/blog/anti-theft-photo-watermark" component={AntiTheftPhotoWatermark} />
+      <Route path="/blog/rent-required-documents" component={RentRequiredDocuments} />
+      <Route path="/blog/rent-scam-id-fraud" component={RentScamIdFraud} />
+      <Route path="/blog/landlord-asks-for-id" component={LandlordAsksForId} />
       <Route path="/en/blog/tinypng-iloveimg-squoosh-alternatives" component={TinypngIloveimgSquooshAlternativesEn} />
       <Route component={NotFound} />
     </Switch>

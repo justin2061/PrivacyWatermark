@@ -279,7 +279,7 @@
   </url>
   <url>
     <loc>https://imagemarker.app/blog/is-id-watermark-useful</loc>
-    <lastmod>2026-06-03</lastmod>
+    <lastmod>2026-07-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="zh-tw" href="https://imagemarker.app/blog/is-id-watermark-useful" />
@@ -309,6 +309,30 @@
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="zh-tw" href="https://imagemarker.app/blog/anti-theft-photo-watermark" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://imagemarker.app/blog/anti-theft-photo-watermark" />
+  </url>
+  <url>
+    <loc>https://imagemarker.app/blog/rent-required-documents</loc>
+    <lastmod>2026-07-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="zh-tw" href="https://imagemarker.app/blog/rent-required-documents" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://imagemarker.app/blog/rent-required-documents" />
+  </url>
+  <url>
+    <loc>https://imagemarker.app/blog/rent-scam-id-fraud</loc>
+    <lastmod>2026-07-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="zh-tw" href="https://imagemarker.app/blog/rent-scam-id-fraud" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://imagemarker.app/blog/rent-scam-id-fraud" />
+  </url>
+  <url>
+    <loc>https://imagemarker.app/blog/landlord-asks-for-id</loc>
+    <lastmod>2026-07-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="zh-tw" href="https://imagemarker.app/blog/landlord-asks-for-id" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://imagemarker.app/blog/landlord-asks-for-id" />
   </url>
   <url>
     <loc>https://imagemarker.app/en/blog/tinypng-iloveimg-squoosh-alternatives</loc>
