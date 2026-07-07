@@ -18,6 +18,11 @@ interface PageSeoOptions {
    * shell's Chinese defaults. Accepts either "en" or "en_US" style values.
    */
   locale?: string;
+  /**
+   * Absolute URL of the social preview image (1200×630). When set, overrides the
+   * shell's default og:image/twitter:image so each article gets its own card.
+   */
+  ogImage?: string;
   /** One or more JSON-LD objects (Article, FAQPage, BreadcrumbList, ItemList…). */
   jsonLd?: JsonLd | JsonLd[];
 }
@@ -32,6 +37,7 @@ export function setPageSeo({
   description,
   canonical,
   locale,
+  ogImage,
   jsonLd,
 }: PageSeoOptions): () => void {
   document.title = title;
@@ -47,6 +53,12 @@ export function setPageSeo({
   setMeta('meta[property="twitter:title"]', "content", title);
   setMeta('meta[property="twitter:description"]', "content", description);
   setMeta('meta[property="twitter:url"]', "content", canonical);
+
+  // Per-page social image, when provided (falls back to the shell default).
+  if (ogImage) {
+    setMeta('meta[property="og:image"]', "content", ogImage);
+    setMeta('meta[property="twitter:image"]', "content", ogImage);
+  }
 
   // Language signals: og:locale for social crawlers, <html lang> for a11y/SEO.
   if (locale) {
@@ -142,6 +154,8 @@ export function articleSchema(opts: {
   url: string;
   datePublished: string;
   dateModified?: string;
+  /** Absolute URL of the article's hero/social image. Defaults to the site card. */
+  image?: string;
 }): JsonLd {
   return {
     "@context": "https://schema.org",
@@ -160,7 +174,7 @@ export function articleSchema(opts: {
         url: "https://imagemarker.app/icon.svg",
       },
     },
-    image: "https://imagemarker.app/og-image.png",
+    image: opts.image ?? "https://imagemarker.app/og-image.png",
   };
 }
 

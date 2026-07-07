@@ -14,6 +14,46 @@ interface Article {
 
 const articles: Article[] = [
   {
+    slug: "renting-protect-id-documents",
+    title: "Renting an Apartment? How to Protect Your ID Documents from Fraud",
+    excerpt:
+      "Renting almost anywhere means handing over your ID, payslips and bank statements. Here's what landlords in different countries ask for — and how to share it without handing fraudsters an identity kit.",
+    date: "2026-07-08",
+    category: "Security",
+  },
+  {
+    slug: "batch-watermark-photos",
+    title: "Batch Watermark: How to Add Watermarks to 100+ Photos in Seconds",
+    excerpt:
+      "Watermarking photos one by one doesn't scale. Compare the manual way with a free batch tool that stamps 100+ images at once, right in your browser — no uploads, no subscription.",
+    date: "2026-07-08",
+    category: "Tutorial",
+  },
+  {
+    slug: "image-compression-guide",
+    title: "Image Compression: How to Reduce File Size Without Losing Quality",
+    excerpt:
+      "How lossy and lossless compression really work, when to use JPEG vs PNG vs WebP, and how to shrink files in your browser without visible quality loss.",
+    date: "2026-07-08",
+    category: "Tutorial",
+  },
+  {
+    slug: "what-is-digital-watermark",
+    title: "What Is a Digital Watermark and Why Does It Matter in 2026?",
+    excerpt:
+      "A plain-English guide to digital watermarks: visible vs invisible marks, how they protect images and identity, their limits, and how to add one free in your browser.",
+    date: "2026-07-08",
+    category: "Privacy",
+  },
+  {
+    slug: "social-media-image-sizes",
+    title: "How to Resize Images for Social Media: The Complete 2026 Size Guide",
+    excerpt:
+      "Every image size you need for Instagram, Facebook, LinkedIn and X in 2026 — posts, stories, profile and cover photos — plus how to resize free in your browser.",
+    date: "2026-07-08",
+    category: "Tutorial",
+  },
+  {
     slug: "watermark-id-before-sharing",
     title: "How to Watermark Your ID Before Sharing It Online",
     excerpt:
