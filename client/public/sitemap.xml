@@ -434,4 +434,22 @@
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
+  <url>
+    <loc>https://imagemarker.app/en/blog/watermark-id-before-sharing</loc>
+    <lastmod>2026-07-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://imagemarker.app/en/blog/best-watermark-generators</loc>
+    <lastmod>2026-07-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://imagemarker.app/en/blog/remove-exif-data-guide</loc>
+    <lastmod>2026-07-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
 </urlset>

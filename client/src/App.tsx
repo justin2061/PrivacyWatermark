@@ -14,6 +14,9 @@ import BatchWatermarkImagesEn from "@/pages/en/blog/batch-watermark-images";
 import RemoveExifDataEn from "@/pages/en/blog/remove-exif-data";
 import WatermarkBestPracticesEn from "@/pages/en/blog/watermark-best-practices";
 import DigitalIdentityProtectionEn from "@/pages/en/blog/digital-identity-protection";
+import WatermarkIdBeforeSharingEn from "@/pages/en/blog/watermark-id-before-sharing";
+import BestWatermarkGeneratorsEn from "@/pages/en/blog/best-watermark-generators";
+import RemoveExifDataGuideEn from "@/pages/en/blog/remove-exif-data-guide";
 import EnBlogIndex from "@/pages/en/blog/index";
 import WatermarkTemplatesGuidePage from "@/pages/blog/watermark-templates-guide";
 import PassportWatermarkGuidePage from "@/pages/blog/passport-watermark-guide";
@@ -67,6 +70,9 @@ function Router() {
       <Route path="/en/blog/remove-exif-data" component={RemoveExifDataEn} />
       <Route path="/en/blog/watermark-best-practices" component={WatermarkBestPracticesEn} />
       <Route path="/en/blog/digital-identity-protection" component={DigitalIdentityProtectionEn} />
+      <Route path="/en/blog/watermark-id-before-sharing" component={WatermarkIdBeforeSharingEn} />
+      <Route path="/en/blog/best-watermark-generators" component={BestWatermarkGeneratorsEn} />
+      <Route path="/en/blog/remove-exif-data-guide" component={RemoveExifDataGuideEn} />
       <Route path="/blog" component={BlogIndex} />
       <Route path="/blog/rent-id-watermark" component={RentIdWatermark} />
       <Route path="/blog/watermark-generators-recommendation" component={WatermarkGeneratorsRecommendation} />

@@ -14,6 +14,30 @@ interface Article {
 
 const articles: Article[] = [
   {
+    slug: "watermark-id-before-sharing",
+    title: "How to Watermark Your ID Before Sharing It Online",
+    excerpt:
+      "Renting, a new job, or opening an account often means sending a photo of your ID. Learn why to watermark it first — and how to do it free, 100% in your browser.",
+    date: "2026-07-07",
+    category: "Security",
+  },
+  {
+    slug: "best-watermark-generators",
+    title: "5 Best Free Watermark Generators in 2026",
+    excerpt:
+      "A side-by-side comparison of 5 top watermark tools — ImageMarker, Watermarkly, Canva, Visual Watermark and iLoveIMG — by features, price and privacy.",
+    date: "2026-07-07",
+    category: "Tutorial",
+  },
+  {
+    slug: "remove-exif-data-guide",
+    title: "Why You Should Remove EXIF Data Before Uploading Photos",
+    excerpt:
+      "Every photo can carry hidden EXIF metadata — including the exact GPS location where it was taken. Learn the risks and how to strip EXIF data free in your browser.",
+    date: "2026-07-07",
+    category: "Privacy",
+  },
+  {
     slug: "tinypng-iloveimg-squoosh-alternatives",
     title:
       "TinyPNG, iLoveIMG & Squoosh Alternatives That Never Upload Your Images (2026)",
