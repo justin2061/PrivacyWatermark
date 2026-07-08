@@ -11,6 +11,26 @@
 [context.production.environment]
   NODE_VERSION = "20"
 
+# Canonicalize blog article URLs: strip the trailing slash so Google indexes a
+# single URL per article. Our canonical tags and sitemap use the no-slash form
+# for articles (e.g. /blog/rent-id-watermark), but a prerendered index.html also
+# exists at that path, so Netlify would otherwise serve the /blog/rent-id-watermark/
+# variant too — splitting ranking signals across two URLs. The :slug placeholder
+# matches a single non-empty segment, so the /blog/ and /en/blog indexes (which
+# legitimately keep/lack their own slash) are left untouched. force = true is
+# required for the 301 to win over the existing static file.
+[[redirects]]
+  from = "/blog/:slug/"
+  to = "/blog/:slug"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/en/blog/:slug/"
+  to = "/en/blog/:slug"
+  status = 301
+  force = true
+
 # Static prerendered files (dist/**/index.html) are served automatically and
 # take precedence over this SPA fallback, so crawlers get full HTML. This
 # redirect only handles routes that were not prerendered.
