@@ -61,13 +61,17 @@ export function useBatchWatermark(lang: Lang = "zh") {
 
   const [watermarkSettings, setWatermarkSettings] = useState<WatermarkSettings>({
     mode: "text",
+    textEnabled: true,
+    logoEnabled: false,
     text: COPY[lang].defaultText,
-    opacity: 50,
-    position: "center",
+    textOpacity: 50,
+    textPosition: "center",
     fontSize: "medium",
     color: "#000000",
     logoSrc: null,
     logoSize: 25,
+    logoOpacity: 50,
+    logoPosition: "bottom-right",
   });
 
   const selectedImage = images.find((i) => i.id === selectedId) ?? null;

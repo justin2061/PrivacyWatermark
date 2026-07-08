@@ -11,13 +11,17 @@ export function useWatermark() {
   
   const [watermarkSettings, setWatermarkSettings] = useState<WatermarkSettings>({
     mode: "text",
+    textEnabled: true,
+    logoEnabled: false,
     text: "僅供參考",
-    opacity: 50,
-    position: "center",
+    textOpacity: 50,
+    textPosition: "center",
     fontSize: "medium",
     color: "#000000",
     logoSrc: null,
-    logoSize: 25
+    logoSize: 25,
+    logoOpacity: 50,
+    logoPosition: "bottom-right",
   });
 
   const processor = useRef(new WatermarkProcessor());

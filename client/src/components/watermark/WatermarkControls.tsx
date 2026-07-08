@@ -5,15 +5,30 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Slider } from "@/components/ui/slider";
 
+export type WatermarkPosition =
+  | 'top-left' | 'top-center' | 'top-right'
+  | 'center-left' | 'center' | 'center-right'
+  | 'bottom-left' | 'bottom-center' | 'bottom-right'
+  | 'repeat';
+
 export interface WatermarkSettings {
-  mode: 'text' | 'image';
+  mode: 'text' | 'image'; // which settings tab is currently being edited (UI state)
+  // Text and logo watermarks can be enabled independently and used together
+  textEnabled: boolean;
+  logoEnabled: boolean;
+
+  // --- Text watermark ---
   text: string;
-  opacity: number;
-  position: 'top-left' | 'top-center' | 'top-right' | 'center-left' | 'center' | 'center-right' | 'bottom-left' | 'bottom-center' | 'bottom-right' | 'repeat';
+  textOpacity: number; // 0-100
+  textPosition: WatermarkPosition;
   fontSize: 'small' | 'medium' | 'large' | 'xlarge';
   color: string; // text watermark color as hex
+
+  // --- Logo watermark ---
   logoSrc: string | null; // logo image as a data URL (never uploaded — stays local)
   logoSize: number; // logo width as a percentage of the original image width (10-50)
+  logoOpacity: number; // 0-100
+  logoPosition: WatermarkPosition;
 }
 
 const MAX_LOGO_SIZE = 5 * 1024 * 1024; // 5MB
@@ -37,6 +52,10 @@ export function WatermarkControls({ settings, onSettingsChange, disabled, lang =
     typeLabel: 'Watermark type',
     textMode: '📝 Text Watermark',
     imageMode: '🖼️ Image Watermark',
+    enableText: 'Enable text watermark',
+    enableLogo: 'Enable logo watermark',
+    bothHint: '✨ Both text and logo watermarks can be used together.',
+    noneHint: '⚠️ No watermark enabled — turn on text and/or logo above.',
     watermarkText: 'Watermark Text',
     textPlaceholder: 'Enter watermark text...',
     quickTemplates: '💡 Quick Templates',
@@ -67,6 +86,10 @@ export function WatermarkControls({ settings, onSettingsChange, disabled, lang =
     typeLabel: '浮水印類型',
     textMode: '📝 文字浮水印',
     imageMode: '🖼️ 圖片浮水印',
+    enableText: '啟用文字浮水印',
+    enableLogo: '啟用圖片浮水印',
+    bothHint: '✨ 文字與 Logo 浮水印可以同時使用。',
+    noneHint: '⚠️ 尚未啟用任何浮水印，請在上方開啟文字或圖片浮水印。',
     watermarkText: '浮水印文字',
     textPlaceholder: '輸入浮水印文字...',
     quickTemplates: '💡 快速套用',
@@ -109,7 +132,8 @@ export function WatermarkControls({ settings, onSettingsChange, disabled, lang =
     const reader = new FileReader();
     reader.onload = (e) => {
       if (typeof gtag !== 'undefined') gtag('event', 'upload_logo');
-      onSettingsChange({ logoSrc: e.target?.result as string });
+      // Uploading a logo automatically enables the logo watermark
+      onSettingsChange({ logoSrc: e.target?.result as string, logoEnabled: true });
     };
     reader.readAsDataURL(file);
   };
@@ -179,16 +203,68 @@ export function WatermarkControls({ settings, onSettingsChange, disabled, lang =
 
   const repeatLabel = lang === 'en' ? 'Repeat' : '重複';
 
+  // Shared 9-grid + repeat position picker (used by both text and logo panels)
+  const renderPositionGrid = (
+    current: WatermarkPosition,
+    onChange: (p: WatermarkPosition) => void,
+    controlDisabled: boolean,
+  ) => (
+    <div>
+      <Label className="block text-sm font-medium text-gray-700 mb-2">{t.position}</Label>
+      <div className="grid grid-cols-3 gap-2">
+        {positions.map((position) => (
+          <button
+            key={position.value}
+            type="button"
+            onClick={() => onChange(position.value as WatermarkPosition)}
+            disabled={controlDisabled}
+            aria-label={t.positionAria(position.label)}
+            aria-pressed={current === position.value}
+            className={`p-2 border rounded-lg hover:bg-gray-50 focus:ring-2 focus:ring-primary text-xs transition-colors ${
+              current === position.value
+                ? 'border-primary bg-blue-50'
+                : 'border-gray-300'
+            } ${controlDisabled ? 'opacity-50 cursor-not-allowed' : ''}`}
+          >
+            <span className="text-sm block mb-1">{position.icon}</span>
+            <div>{position.label}</div>
+          </button>
+        ))}
+      </div>
+      {/* Repeat / tiled pattern */}
+      <button
+        type="button"
+        onClick={() => onChange('repeat')}
+        disabled={controlDisabled}
+        aria-label={t.positionAria(repeatLabel)}
+        aria-pressed={current === 'repeat'}
+        className={`mt-2 w-full p-2 border rounded-lg hover:bg-gray-50 focus:ring-2 focus:ring-primary text-xs transition-colors flex items-center justify-center gap-2 ${
+          current === 'repeat'
+            ? 'border-primary bg-blue-50'
+            : 'border-gray-300'
+        } ${controlDisabled ? 'opacity-50 cursor-not-allowed' : ''}`}
+      >
+        <span className="text-sm" aria-hidden="true">🔄</span>
+        <span>{repeatLabel}</span>
+      </button>
+    </div>
+  );
+
+  const tabs = [
+    { value: 'text', label: t.textMode, enabled: settings.textEnabled },
+    { value: 'image', label: t.imageMode, enabled: settings.logoEnabled },
+  ] as const;
+
+  const textControlsDisabled = disabled || !settings.textEnabled;
+  const logoControlsDisabled = disabled || !settings.logoEnabled;
+
   return (
     <Card className="p-6">
       <h2 className="text-lg font-semibold text-gray-900 mb-4">{t.settings}</h2>
 
-      {/* Mode switch: text vs image */}
+      {/* Tab switch: text vs logo (both can be enabled together) */}
       <div className="grid grid-cols-2 gap-1 p-1 mb-4 bg-gray-100 rounded-lg" role="tablist" aria-label={t.typeLabel}>
-        {([
-          { value: 'text', label: t.textMode },
-          { value: 'image', label: t.imageMode },
-        ] as const).map((m) => (
+        {tabs.map((m) => (
           <button
             key={m.value}
             type="button"
@@ -199,13 +275,20 @@ export function WatermarkControls({ settings, onSettingsChange, disabled, lang =
               if (typeof gtag !== 'undefined') gtag('event', 'switch_watermark_mode', { mode: m.value });
               onSettingsChange({ mode: m.value as WatermarkSettings['mode'] });
             }}
-            className={`py-2 px-3 text-sm font-medium rounded-md transition-colors ${
+            className={`relative py-2 px-3 text-sm font-medium rounded-md transition-colors ${
               settings.mode === m.value
                 ? 'bg-white text-primary shadow-sm'
                 : 'text-gray-600 hover:text-gray-900'
             } ${disabled ? 'opacity-50 cursor-not-allowed' : ''}`}
           >
             {m.label}
+            {/* Green dot indicates this watermark is currently enabled */}
+            {m.enabled && (
+              <span
+                className="absolute top-1 right-1 w-2 h-2 rounded-full bg-green-500"
+                aria-hidden="true"
+              />
+            )}
           </button>
         ))}
       </div>
@@ -213,6 +296,18 @@ export function WatermarkControls({ settings, onSettingsChange, disabled, lang =
       <div className="space-y-4">
         {settings.mode === 'text' ? (
         <>
+        {/* Enable text watermark toggle */}
+        <label className="flex items-center gap-2 cursor-pointer select-none">
+          <input
+            type="checkbox"
+            checked={settings.textEnabled}
+            disabled={disabled}
+            onChange={(e) => onSettingsChange({ textEnabled: e.target.checked })}
+            className="w-4 h-4 rounded border-gray-300 text-primary focus:ring-primary disabled:opacity-50"
+          />
+          <span className="text-sm font-medium text-gray-700">{t.enableText}</span>
+        </label>
+
         {/* Watermark Text */}
         <div>
           <Label htmlFor="watermarkText" className="block text-sm font-medium text-gray-700 mb-2">
@@ -223,7 +318,7 @@ export function WatermarkControls({ settings, onSettingsChange, disabled, lang =
             placeholder={t.textPlaceholder}
             value={settings.text}
             onChange={(e) => onSettingsChange({ text: e.target.value })}
-            disabled={disabled}
+            disabled={textControlsDisabled}
           />
         </div>
 
@@ -235,7 +330,7 @@ export function WatermarkControls({ settings, onSettingsChange, disabled, lang =
               <button
                 key={tpl.label}
                 type="button"
-                disabled={disabled}
+                disabled={textControlsDisabled}
                 onClick={() => {
                   if (typeof gtag !== 'undefined') gtag('event', 'use_template');
                   if (tpl.withDate) {
@@ -252,9 +347,114 @@ export function WatermarkControls({ settings, onSettingsChange, disabled, lang =
             ))}
           </div>
         </div>
+
+        {/* Text Opacity Slider */}
+        <div>
+          <Label htmlFor="textOpacitySlider" className="block text-sm font-medium text-gray-700 mb-2">
+            {t.opacity(settings.textOpacity)}
+          </Label>
+          <Slider
+            id="textOpacitySlider"
+            value={[settings.textOpacity]}
+            onValueChange={(value) => onSettingsChange({ textOpacity: value[0] })}
+            min={0}
+            max={100}
+            step={5}
+            disabled={textControlsDisabled}
+            className="w-full"
+            aria-label={t.opacity(settings.textOpacity)}
+          />
+        </div>
+
+        {/* Color Selection */}
+        <div>
+          <Label className="block text-sm font-medium text-gray-700 mb-2">{t.color}</Label>
+          <div className="flex flex-wrap items-center gap-2">
+            {colorPresets.map((preset) => (
+              <button
+                key={preset.value}
+                type="button"
+                onClick={() => onSettingsChange({ color: preset.value })}
+                disabled={textControlsDisabled}
+                title={preset.label}
+                aria-label={preset.label}
+                className={`w-9 h-9 rounded-md border transition-all ${
+                  settings.color.toLowerCase() === preset.value.toLowerCase()
+                    ? 'ring-2 ring-offset-2 ring-primary border-primary'
+                    : 'border-gray-300'
+                } ${textControlsDisabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
+                style={{ backgroundColor: preset.value }}
+              />
+            ))}
+            <button
+              type="button"
+              onClick={() => setShowCustomColor((v) => !v)}
+              disabled={textControlsDisabled}
+              className={`px-3 h-9 rounded-md border text-sm transition-all ${
+                isCustomColor
+                  ? 'ring-2 ring-offset-2 ring-primary border-primary'
+                  : 'border-gray-300'
+              } ${textControlsDisabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
+            >
+              {t.custom}
+            </button>
+          </div>
+          {(showCustomColor || isCustomColor) && (
+            <div className="mt-3 flex items-center gap-2">
+              <input
+                type="color"
+                value={settings.color}
+                onChange={(e) => onSettingsChange({ color: e.target.value })}
+                disabled={textControlsDisabled}
+                className="w-10 h-9 rounded border border-gray-300 cursor-pointer disabled:opacity-50"
+                aria-label={t.customColorAria}
+              />
+              <span className="text-sm text-gray-600 uppercase">{settings.color}</span>
+            </div>
+          )}
+        </div>
+
+        {/* Text Position */}
+        {renderPositionGrid(
+          settings.textPosition,
+          (p) => onSettingsChange({ textPosition: p }),
+          textControlsDisabled,
+        )}
+
+        {/* Font Size */}
+        <div>
+          <Label className="block text-sm font-medium text-gray-700 mb-2">{t.fontSize}</Label>
+          <Select
+            value={settings.fontSize}
+            onValueChange={(value) => onSettingsChange({ fontSize: value as WatermarkSettings['fontSize'] })}
+            disabled={textControlsDisabled}
+          >
+            <SelectTrigger aria-label={t.fontSize}>
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="small">{t.fontSmall}</SelectItem>
+              <SelectItem value="medium">{t.fontMedium}</SelectItem>
+              <SelectItem value="large">{t.fontLarge}</SelectItem>
+              <SelectItem value="xlarge">{t.fontXlarge}</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
         </>
         ) : (
         <>
+        {/* Enable logo watermark toggle */}
+        <label className="flex items-center gap-2 cursor-pointer select-none">
+          <input
+            type="checkbox"
+            checked={settings.logoEnabled}
+            disabled={disabled}
+            onChange={(e) => onSettingsChange({ logoEnabled: e.target.checked })}
+            className="w-4 h-4 rounded border-gray-300 text-primary focus:ring-primary disabled:opacity-50"
+          />
+          <span className="text-sm font-medium text-gray-700">{t.enableLogo}</span>
+        </label>
+
         {/* Logo Upload */}
         <div>
           <Label className="block text-sm font-medium text-gray-700 mb-2">{t.logoImage}</Label>
@@ -322,140 +522,45 @@ export function WatermarkControls({ settings, onSettingsChange, disabled, lang =
             min={10}
             max={50}
             step={5}
-            disabled={disabled || !settings.logoSrc}
+            disabled={logoControlsDisabled || !settings.logoSrc}
             className="w-full"
             aria-label={t.logoSize(settings.logoSize)}
           />
         </div>
-        </>
-        )}
 
-        {/* Opacity Slider */}
+        {/* Logo Opacity Slider */}
         <div>
-          <Label htmlFor="opacitySlider" className="block text-sm font-medium text-gray-700 mb-2">
-            {t.opacity(settings.opacity)}
+          <Label htmlFor="logoOpacitySlider" className="block text-sm font-medium text-gray-700 mb-2">
+            {t.opacity(settings.logoOpacity)}
           </Label>
           <Slider
-            id="opacitySlider"
-            value={[settings.opacity]}
-            onValueChange={(value) => onSettingsChange({ opacity: value[0] })}
-            min={10}
-            max={90}
+            id="logoOpacitySlider"
+            value={[settings.logoOpacity]}
+            onValueChange={(value) => onSettingsChange({ logoOpacity: value[0] })}
+            min={0}
+            max={100}
             step={5}
-            disabled={disabled}
+            disabled={logoControlsDisabled || !settings.logoSrc}
             className="w-full"
-            aria-label={t.opacity(settings.opacity)}
+            aria-label={t.opacity(settings.logoOpacity)}
           />
         </div>
 
-        {/* Color Selection */}
-        <div>
-          <Label className="block text-sm font-medium text-gray-700 mb-2">{t.color}</Label>
-          <div className="flex flex-wrap items-center gap-2">
-            {colorPresets.map((preset) => (
-              <button
-                key={preset.value}
-                type="button"
-                onClick={() => onSettingsChange({ color: preset.value })}
-                disabled={disabled}
-                title={preset.label}
-                aria-label={preset.label}
-                className={`w-9 h-9 rounded-md border transition-all ${
-                  settings.color.toLowerCase() === preset.value.toLowerCase()
-                    ? 'ring-2 ring-offset-2 ring-primary border-primary'
-                    : 'border-gray-300'
-                } ${disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
-                style={{ backgroundColor: preset.value }}
-              />
-            ))}
-            <button
-              type="button"
-              onClick={() => setShowCustomColor((v) => !v)}
-              disabled={disabled}
-              className={`px-3 h-9 rounded-md border text-sm transition-all ${
-                isCustomColor
-                  ? 'ring-2 ring-offset-2 ring-primary border-primary'
-                  : 'border-gray-300'
-              } ${disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
-            >
-              {t.custom}
-            </button>
-          </div>
-          {(showCustomColor || isCustomColor) && (
-            <div className="mt-3 flex items-center gap-2">
-              <input
-                type="color"
-                value={settings.color}
-                onChange={(e) => onSettingsChange({ color: e.target.value })}
-                disabled={disabled}
-                className="w-10 h-9 rounded border border-gray-300 cursor-pointer disabled:opacity-50"
-                aria-label={t.customColorAria}
-              />
-              <span className="text-sm text-gray-600 uppercase">{settings.color}</span>
-            </div>
-          )}
-        </div>
-
-        {/* Position Selection */}
-        <div>
-          <Label className="block text-sm font-medium text-gray-700 mb-2">{t.position}</Label>
-          <div className="grid grid-cols-3 gap-2">
-            {positions.map((position) => (
-              <button
-                key={position.value}
-                onClick={() => onSettingsChange({ position: position.value as WatermarkSettings['position'] })}
-                disabled={disabled}
-                aria-label={t.positionAria(position.label)}
-                aria-pressed={settings.position === position.value}
-                className={`p-2 border rounded-lg hover:bg-gray-50 focus:ring-2 focus:ring-primary text-xs transition-colors ${
-                  settings.position === position.value
-                    ? 'border-primary bg-blue-50'
-                    : 'border-gray-300'
-                } ${disabled ? 'opacity-50 cursor-not-allowed' : ''}`}
-              >
-                <span className="text-sm block mb-1">{position.icon}</span>
-                <div>{position.label}</div>
-              </button>
-            ))}
-          </div>
-          {/* Repeat / tiled pattern */}
-          <button
-            onClick={() => onSettingsChange({ position: 'repeat' })}
-            disabled={disabled}
-            aria-label={t.positionAria(repeatLabel)}
-            aria-pressed={settings.position === 'repeat'}
-            className={`mt-2 w-full p-2 border rounded-lg hover:bg-gray-50 focus:ring-2 focus:ring-primary text-xs transition-colors flex items-center justify-center gap-2 ${
-              settings.position === 'repeat'
-                ? 'border-primary bg-blue-50'
-                : 'border-gray-300'
-            } ${disabled ? 'opacity-50 cursor-not-allowed' : ''}`}
-          >
-            <span className="text-sm" aria-hidden="true">🔄</span>
-            <span>{repeatLabel}</span>
-          </button>
-        </div>
-
-        {/* Font Size (text mode only) */}
-        {settings.mode === 'text' && (
-        <div>
-          <Label className="block text-sm font-medium text-gray-700 mb-2">{t.fontSize}</Label>
-          <Select
-            value={settings.fontSize}
-            onValueChange={(value) => onSettingsChange({ fontSize: value as WatermarkSettings['fontSize'] })}
-            disabled={disabled}
-          >
-            <SelectTrigger aria-label={t.fontSize}>
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="small">{t.fontSmall}</SelectItem>
-              <SelectItem value="medium">{t.fontMedium}</SelectItem>
-              <SelectItem value="large">{t.fontLarge}</SelectItem>
-              <SelectItem value="xlarge">{t.fontXlarge}</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
+        {/* Logo Position */}
+        {renderPositionGrid(
+          settings.logoPosition,
+          (p) => onSettingsChange({ logoPosition: p }),
+          logoControlsDisabled || !settings.logoSrc,
         )}
+        </>
+        )}
+
+        {/* Status hint */}
+        {settings.textEnabled && settings.logoEnabled ? (
+          <p className="text-xs text-green-600">{t.bothHint}</p>
+        ) : (!settings.textEnabled && !settings.logoEnabled) ? (
+          <p className="text-xs text-amber-600">{t.noneHint}</p>
+        ) : null}
       </div>
     </Card>
   );

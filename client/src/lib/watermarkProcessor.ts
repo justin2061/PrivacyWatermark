@@ -1,4 +1,4 @@
-import { WatermarkSettings } from "@/components/watermark/WatermarkControls";
+import { WatermarkSettings, WatermarkPosition } from "@/components/watermark/WatermarkControls";
 
 export class WatermarkProcessor {
   // Cache the most recently loaded logo so we don't decode it on every render
@@ -50,13 +50,13 @@ export class WatermarkProcessor {
     // Draw original image at full resolution
     processingCtx.drawImage(img, 0, 0, img.naturalWidth, img.naturalHeight);
 
-    // Draw watermark (text or logo image) at full resolution
-    if (settings.mode === 'image') {
-      if (settings.logoSrc) {
-        const logo = await this.loadLogo(settings.logoSrc);
-        this.drawLogo(processingCtx, processingCanvas.width, processingCanvas.height, logo, settings);
-      }
-    } else {
+    // Draw enabled watermarks at full resolution. Logo first, text on top so
+    // the text stays legible when both are placed in the same area.
+    if (settings.logoEnabled && settings.logoSrc) {
+      const logo = await this.loadLogo(settings.logoSrc);
+      this.drawLogo(processingCtx, processingCanvas.width, processingCanvas.height, logo, settings);
+    }
+    if (settings.textEnabled && settings.text) {
       this.drawText(processingCtx, processingCanvas.width, processingCanvas.height, settings, true);
     }
 
@@ -78,12 +78,12 @@ export class WatermarkProcessor {
     // First, draw the image at preview size
     this.loadImageToCanvas(img, canvas);
 
-    if (settings.mode === 'image') {
-      if (settings.logoSrc) {
-        const logo = await this.loadLogo(settings.logoSrc);
-        this.drawLogo(ctx, canvas.width, canvas.height, logo, settings);
-      }
-    } else {
+    // Draw enabled watermarks (logo first, text on top)
+    if (settings.logoEnabled && settings.logoSrc) {
+      const logo = await this.loadLogo(settings.logoSrc);
+      this.drawLogo(ctx, canvas.width, canvas.height, logo, settings);
+    }
+    if (settings.textEnabled && settings.text) {
       this.drawText(ctx, canvas.width, canvas.height, settings, false);
     }
   }
@@ -126,14 +126,14 @@ export class WatermarkProcessor {
     const targetHeight = targetWidth * (naturalH / naturalW);
 
     // Tiled / repeated pattern across the whole image
-    if (settings.position === 'repeat') {
+    if (settings.logoPosition === 'repeat') {
       this.drawLogoRepeat(ctx, canvasWidth, canvasHeight, logo, targetWidth, targetHeight, settings);
       return;
     }
 
     const margin = Math.max(10, Math.round(canvasWidth * 0.02));
     const { x, y } = this.calculateBoxPosition(
-      settings.position,
+      settings.logoPosition,
       canvasWidth,
       canvasHeight,
       targetWidth,
@@ -142,7 +142,7 @@ export class WatermarkProcessor {
     );
 
     ctx.save();
-    ctx.globalAlpha = settings.opacity / 100;
+    ctx.globalAlpha = settings.logoOpacity / 100;
     ctx.drawImage(logo, x, y, targetWidth, targetHeight);
     ctx.restore();
   }
@@ -163,7 +163,7 @@ export class WatermarkProcessor {
     const diag = Math.sqrt(width * width + height * height);
 
     ctx.save();
-    ctx.globalAlpha = settings.opacity / 100;
+    ctx.globalAlpha = settings.logoOpacity / 100;
     ctx.translate(width / 2, height / 2);
     ctx.rotate(angle);
     for (let y = -diag; y < diag; y += stepY) {
@@ -185,7 +185,7 @@ export class WatermarkProcessor {
     const fontSize = this.getFontSize(settings.fontSize, width);
     ctx.font = `bold ${fontSize}px Inter, sans-serif`;
     const { r, g, b } = this.hexToRgb(settings.color);
-    ctx.fillStyle = `rgba(${r}, ${g}, ${b}, ${settings.opacity / 100})`;
+    ctx.fillStyle = `rgba(${r}, ${g}, ${b}, ${settings.textOpacity / 100})`;
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
 
@@ -197,7 +197,7 @@ export class WatermarkProcessor {
     ctx.shadowOffsetY = fullRes ? Math.max(1, Math.floor(width / 600)) : 1;
 
     // Tiled / repeated pattern across the whole image
-    if (settings.position === 'repeat') {
+    if (settings.textPosition === 'repeat') {
       this.drawTextRepeat(ctx, width, height, settings, fontSize);
       this.resetShadow(ctx);
       return;
@@ -205,7 +205,7 @@ export class WatermarkProcessor {
 
     // Calculate position
     const position = this.calculateTextPosition(
-      settings.position,
+      settings.textPosition,
       width,
       height,
       ctx,
@@ -286,7 +286,7 @@ export class WatermarkProcessor {
 
   // Top-left corner for a box of (boxWidth × boxHeight) at the given nine-grid position
   private calculateBoxPosition(
-    position: WatermarkSettings['position'],
+    position: WatermarkPosition,
     width: number,
     height: number,
     boxWidth: number,
@@ -342,7 +342,7 @@ export class WatermarkProcessor {
   }
 
   private calculateTextPosition(
-    position: WatermarkSettings['position'],
+    position: WatermarkPosition,
     width: number,
     height: number,
     ctx: CanvasRenderingContext2D,
