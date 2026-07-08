@@ -7,7 +7,7 @@ import { CanvasPreview } from "@/components/watermark/CanvasPreview";
 import { ProcessingStatus } from "@/components/watermark/ProcessingStatus";
 import { useWatermark } from "@/hooks/useWatermark";
 import { setPageSeo, webAppSchema, faqSchema } from "@/lib/seo";
-import { Shield, Lock, Zap, BookOpen, Eraser, Layers, Languages, Minimize2, Repeat, Scaling, Scissors } from "lucide-react";
+import { Shield, Lock, Zap, BookOpen, Eraser, Layers, Languages, Minimize2, Repeat, Scaling, Scissors, FileText } from "lucide-react";
 
 export default function WatermarkPage() {
   const {
@@ -158,6 +158,13 @@ export default function WatermarkPage() {
                 <span>圖片縮放</span>
               </Link>
               <Link
+                href="/pdf-watermark"
+                className="flex items-center space-x-1.5 text-sm text-gray-600 hover:text-primary transition-colors"
+              >
+                <FileText className="w-4 h-4" aria-hidden="true" />
+                <span>PDF 浮水印</span>
+              </Link>
+              <Link
                 href="/blog"
                 className="flex items-center space-x-1.5 text-sm text-gray-600 hover:text-primary transition-colors"
               >
@@ -240,6 +247,14 @@ export default function WatermarkPage() {
               >
                 <Scaling className="w-4 h-4" aria-hidden="true" />
                 <span>圖片縮放</span>
+              </Link>
+              <Link
+                href="/pdf-watermark"
+                className="flex items-center space-x-2 py-3 px-4 text-gray-600 hover:bg-gray-50 rounded-lg"
+                onClick={() => setMenuOpen(false)}
+              >
+                <FileText className="w-4 h-4" aria-hidden="true" />
+                <span>PDF 浮水印</span>
               </Link>
               <Link
                 href="/blog"

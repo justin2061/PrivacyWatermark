@@ -43,6 +43,8 @@ import ResizePage from "@/pages/resize";
 import ResizeEnPage from "@/pages/en/resize";
 import RemoveBgPage from "@/pages/remove-bg";
 import RemoveBgEnPage from "@/pages/en/remove-bg";
+import PdfWatermarkPage from "@/pages/pdf-watermark";
+import PdfWatermarkEnPage from "@/pages/en/pdf-watermark";
 import IsIdWatermarkUsefulPage from "@/pages/blog/is-id-watermark-useful";
 import TinypngIloveimgSquooshAlternatives from "@/pages/blog/tinypng-iloveimg-squoosh-alternatives";
 import TinypngIloveimgSquooshAlternativesEn from "@/pages/en/blog/tinypng-iloveimg-squoosh-alternatives";
@@ -114,6 +116,8 @@ function Router() {
       <Route path="/en/resize" component={ResizeEnPage} />
       <Route path="/remove-bg" component={RemoveBgPage} />
       <Route path="/en/remove-bg" component={RemoveBgEnPage} />
+      <Route path="/pdf-watermark" component={PdfWatermarkPage} />
+      <Route path="/en/pdf-watermark" component={PdfWatermarkEnPage} />
       <Route path="/blog/is-id-watermark-useful" component={IsIdWatermarkUsefulPage} />
       <Route path="/blog/batch-watermark-methods" component={BatchWatermarkMethodsPage} />
       <Route path="/blog/tinypng-iloveimg-squoosh-alternatives" component={TinypngIloveimgSquooshAlternatives} />

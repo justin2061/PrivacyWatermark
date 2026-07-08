@@ -19,6 +19,7 @@ import {
   Repeat,
   Scaling,
   BookOpen,
+  FileText,
 } from "lucide-react";
 
 export default function WatermarkEnPage() {
@@ -122,6 +123,13 @@ export default function WatermarkEnPage() {
                 <span>Resize</span>
               </Link>
               <Link
+                href="/en/pdf-watermark"
+                className="flex items-center space-x-1.5 text-sm text-gray-600 hover:text-primary transition-colors"
+              >
+                <FileText className="w-4 h-4" aria-hidden="true" />
+                <span>PDF Watermark</span>
+              </Link>
+              <Link
                 href="/en/blog"
                 className="flex items-center space-x-1.5 text-sm text-gray-600 hover:text-primary transition-colors"
               >
@@ -204,6 +212,14 @@ export default function WatermarkEnPage() {
               >
                 <Scaling className="w-4 h-4" aria-hidden="true" />
                 <span>Resize</span>
+              </Link>
+              <Link
+                href="/en/pdf-watermark"
+                className="flex items-center space-x-2 py-3 px-4 text-gray-600 hover:bg-gray-50 rounded-lg"
+                onClick={() => setMenuOpen(false)}
+              >
+                <FileText className="w-4 h-4" aria-hidden="true" />
+                <span>PDF Watermark</span>
               </Link>
               <Link
                 href="/en/blog"

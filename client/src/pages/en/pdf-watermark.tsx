@@ -1,0 +1,810 @@
+import { useEffect, useMemo, useRef, useState } from "react";
+import { Link } from "wouter";
+import { Card } from "@/components/ui/card";
+import { setPageSeo, webAppSchema, faqSchema } from "@/lib/seo";
+import {
+  applyPdfWatermark,
+  renderTextToPng,
+  type PdfWatermarkSettings,
+  type WatermarkPosition,
+  type FontSize,
+} from "@/lib/pdfWatermarkProcessor";
+import {
+  CheckCircle,
+  Download,
+  FileText,
+  Image as ImageIcon,
+  Languages,
+  Lock,
+  RefreshCw,
+  Shield,
+  Upload,
+} from "lucide-react";
+
+const POSITIONS: { value: WatermarkPosition; label: string }[] = [
+  { value: "top-left", label: "Top left" },
+  { value: "top-center", label: "Top center" },
+  { value: "top-right", label: "Top right" },
+  { value: "center-left", label: "Center left" },
+  { value: "center", label: "Center" },
+  { value: "center-right", label: "Center right" },
+  { value: "bottom-left", label: "Bottom left" },
+  { value: "bottom-center", label: "Bottom center" },
+  { value: "bottom-right", label: "Bottom right" },
+  { value: "repeat", label: "Tile (repeat)" },
+];
+
+const FONT_SIZES: { value: FontSize; label: string }[] = [
+  { value: "small", label: "Small" },
+  { value: "medium", label: "Medium" },
+  { value: "large", label: "Large" },
+  { value: "xlarge", label: "X-Large" },
+];
+
+const TEXT_SIZE_RATIO: Record<FontSize, number> = {
+  small: 0.18,
+  medium: 0.28,
+  large: 0.42,
+  xlarge: 0.6,
+};
+
+const DEFAULT_SETTINGS: PdfWatermarkSettings = {
+  textEnabled: true,
+  logoEnabled: false,
+  text: "CONFIDENTIAL",
+  textColor: "#ff0000",
+  textOpacity: 40,
+  textPosition: "repeat",
+  fontSize: "medium",
+  logoSrc: null,
+  logoOpacity: 40,
+  logoSize: 25,
+  logoPosition: "center",
+};
+
+const MAX_LOGO_SIZE = 5 * 1024 * 1024;
+const ACCEPTED_LOGO = ["image/png", "image/jpeg", "image/svg+xml"];
+
+function formatSize(bytes: number) {
+  if (bytes === 0) return "0 B";
+  const k = 1024;
+  const units = ["B", "KB", "MB", "GB"];
+  const i = Math.floor(Math.log(bytes) / Math.log(k));
+  return `${parseFloat((bytes / Math.pow(k, i)).toFixed(2))} ${units[i]}`;
+}
+
+function drawPreviewImage(
+  ctx: CanvasRenderingContext2D,
+  img: HTMLImageElement,
+  position: WatermarkPosition,
+  canvasW: number,
+  canvasH: number,
+  targetW: number,
+  opacity: number
+) {
+  const scale = targetW / img.naturalWidth;
+  const w = targetW;
+  const h = img.naturalHeight * scale;
+  ctx.globalAlpha = opacity;
+
+  if (position === "repeat") {
+    const gapX = w * 1.6;
+    const gapY = h * 3;
+    for (let y = 0; y < canvasH; y += gapY) {
+      const rowOffset = (Math.floor(y / gapY) % 2) * (gapX / 2);
+      for (let x = -gapX; x < canvasW + gapX; x += gapX) {
+        ctx.drawImage(img, x + rowOffset, y, w, h);
+      }
+    }
+    ctx.globalAlpha = 1;
+    return;
+  }
+
+  const margin = Math.min(canvasW, canvasH) * 0.04;
+  let x = (canvasW - w) / 2;
+  let y = (canvasH - h) / 2;
+  if (position.includes("left")) x = margin;
+  if (position.includes("right")) x = canvasW - w - margin;
+  if (position.includes("top")) y = margin;
+  if (position.includes("bottom")) y = canvasH - h - margin;
+  ctx.drawImage(img, x, y, w, h);
+  ctx.globalAlpha = 1;
+}
+
+export default function PdfWatermarkEnPage() {
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const logoInputRef = useRef<HTMLInputElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [settings, setSettings] = useState<PdfWatermarkSettings>(DEFAULT_SETTINGS);
+  const [isProcessing, setIsProcessing] = useState(false);
+  const [result, setResult] = useState<{ url: string; size: number; pageCount: number } | null>(null);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    return setPageSeo({
+      title: "PDF Watermark Tool — Add Watermarks to PDF Online Free",
+      description:
+        "Free online PDF watermark tool. Add text or logo watermarks to every page of a PDF, with opacity, position and tiled repeat. 100% in-browser — your PDF never leaves your device. Perfect for IDs, contracts and confidential documents.",
+      canonical: "https://imagemarker.app/en/pdf-watermark",
+      locale: "en_US",
+      jsonLd: [
+        webAppSchema({
+          name: "PDF Watermark Tool — ImageMarker",
+          description:
+            "Free online PDF watermark tool. Add text or logo watermarks to every page of a PDF, with opacity, position and tiled repeat. 100% in-browser — your PDF never leaves your device.",
+          url: "https://imagemarker.app/en/pdf-watermark",
+          inLanguage: "en",
+          featureList: [
+            "100% in-browser processing — your PDF is never uploaded",
+            "Text and logo watermarks together, each with independent opacity",
+            "Custom color, size and position, tiled repeat mode",
+            "Applied automatically to every page of the PDF",
+          ],
+        }),
+        faqSchema([
+          {
+            q: "Is my PDF uploaded to a server?",
+            a: "No. All processing runs in your browser with pdf-lib. Your PDF is never uploaded, stored or sent to any third party.",
+          },
+          {
+            q: "Does the watermark apply to every page?",
+            a: "Yes. Your text or logo watermark is automatically applied to every page of the PDF.",
+          },
+          {
+            q: "Can I use text and a logo at the same time?",
+            a: "Yes. You can enable text and logo watermarks together, each with its own opacity, size and position.",
+          },
+        ]),
+      ],
+    });
+  }, []);
+
+  const update = (patch: Partial<PdfWatermarkSettings>) =>
+    setSettings((prev) => ({ ...prev, ...patch }));
+
+  const textPreviewImg = useMemo(() => {
+    if (!settings.textEnabled || !settings.text.trim()) return null;
+    const png = renderTextToPng(settings.text, settings.textColor);
+    if (!png) return null;
+    const img = new Image();
+    img.src = png.dataUrl;
+    return img;
+  }, [settings.textEnabled, settings.text, settings.textColor]);
+
+  const logoPreviewImg = useMemo(() => {
+    if (!settings.logoEnabled || !settings.logoSrc) return null;
+    const img = new Image();
+    img.src = settings.logoSrc;
+    return img;
+  }, [settings.logoEnabled, settings.logoSrc]);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    const W = 420;
+    const H = 594;
+    canvas.width = W;
+    canvas.height = H;
+
+    const paintBase = () => {
+      ctx.clearRect(0, 0, W, H);
+      ctx.fillStyle = "#ffffff";
+      ctx.fillRect(0, 0, W, H);
+      ctx.strokeStyle = "#e5e7eb";
+      ctx.lineWidth = 1;
+      ctx.strokeRect(0.5, 0.5, W - 1, H - 1);
+      ctx.fillStyle = "#eef0f3";
+      for (let i = 0; i < 14; i++) {
+        const y = 48 + i * 34;
+        const lineW = i % 4 === 3 ? W * 0.4 : W * 0.72;
+        ctx.fillRect(40, y, lineW, 12);
+      }
+    };
+
+    const overlay = () => {
+      if (textPreviewImg && textPreviewImg.complete) {
+        drawPreviewImage(
+          ctx,
+          textPreviewImg,
+          settings.textPosition,
+          W,
+          H,
+          W * TEXT_SIZE_RATIO[settings.fontSize],
+          settings.textOpacity / 100
+        );
+      }
+      if (logoPreviewImg && logoPreviewImg.complete) {
+        drawPreviewImage(
+          ctx,
+          logoPreviewImg,
+          settings.logoPosition,
+          W,
+          H,
+          W * (settings.logoSize / 100),
+          settings.logoOpacity / 100
+        );
+      }
+    };
+
+    paintBase();
+
+    const imgs = [textPreviewImg, logoPreviewImg].filter(Boolean) as HTMLImageElement[];
+    const notReady = imgs.filter((im) => !im.complete);
+    if (notReady.length === 0) {
+      overlay();
+      return;
+    }
+    let pending = notReady.length;
+    let cancelled = false;
+    const onOne = () => {
+      if (cancelled) return;
+      pending -= 1;
+      if (pending <= 0) {
+        paintBase();
+        overlay();
+      }
+    };
+    notReady.forEach((im) => im.addEventListener("load", onOne, { once: true }));
+    return () => {
+      cancelled = true;
+    };
+  }, [
+    textPreviewImg,
+    logoPreviewImg,
+    settings.textPosition,
+    settings.fontSize,
+    settings.textOpacity,
+    settings.logoPosition,
+    settings.logoSize,
+    settings.logoOpacity,
+  ]);
+
+  const onPickPdf = (file?: File | null) => {
+    if (!file) return;
+    if (file.type !== "application/pdf" && !file.name.toLowerCase().endsWith(".pdf")) {
+      alert("Please select a PDF file");
+      return;
+    }
+    setResult((prev) => {
+      if (prev) URL.revokeObjectURL(prev.url);
+      return null;
+    });
+    setError(null);
+    setSelectedFile(file);
+  };
+
+  const onPickLogo = (file?: File | null) => {
+    if (!file) return;
+    if (!ACCEPTED_LOGO.includes(file.type)) {
+      alert("Logo must be a PNG, JPG or SVG file");
+      return;
+    }
+    if (file.size > MAX_LOGO_SIZE) {
+      alert("Logo file must be under 5MB");
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = () => update({ logoSrc: reader.result as string, logoEnabled: true });
+    reader.readAsDataURL(file);
+  };
+
+  const apply = async () => {
+    if (!selectedFile) return;
+    if (!settings.textEnabled && !settings.logoEnabled) {
+      setError("Enable at least a text or logo watermark.");
+      return;
+    }
+    if (settings.textEnabled && !settings.text.trim() && !settings.logoEnabled) {
+      setError("Enter watermark text, or enable the logo watermark.");
+      return;
+    }
+    setIsProcessing(true);
+    setError(null);
+    try {
+      const buf = await selectedFile.arrayBuffer();
+      const { bytes, pageCount } = await applyPdfWatermark(buf, settings);
+      const blob = new Blob([bytes.slice()], { type: "application/pdf" });
+      setResult((prev) => {
+        if (prev) URL.revokeObjectURL(prev.url);
+        return { url: URL.createObjectURL(blob), size: blob.size, pageCount };
+      });
+      if (typeof gtag !== "undefined") gtag("event", "apply_pdf_watermark");
+    } catch (e) {
+      console.error(e);
+      setError(
+        e instanceof Error ? `Processing failed: ${e.message}` : "Processing failed. Please check the PDF file."
+      );
+    } finally {
+      setIsProcessing(false);
+    }
+  };
+
+  const download = () => {
+    if (!result || !selectedFile) return;
+    const base = selectedFile.name.replace(/\.pdf$/i, "");
+    const a = document.createElement("a");
+    a.href = result.url;
+    a.download = `${base}-watermarked.pdf`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    if (typeof gtag !== "undefined") gtag("event", "download_pdf_watermark");
+  };
+
+  const reset = () => {
+    setResult((prev) => {
+      if (prev) URL.revokeObjectURL(prev.url);
+      return null;
+    });
+    setSelectedFile(null);
+    setSettings(DEFAULT_SETTINGS);
+    setError(null);
+    if (fileInputRef.current) fileInputRef.current.value = "";
+    if (logoInputRef.current) logoInputRef.current.value = "";
+  };
+
+  return (
+    <div className="min-h-screen bg-gray-50">
+      <header className="bg-white shadow-sm border-b border-gray-200">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-16">
+            <Link
+              href="/en/"
+              className="flex items-center space-x-3 hover-elevate rounded-lg px-2 py-1 -ml-2"
+            >
+              <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
+                <span className="text-white text-lg" role="img" aria-label="PDF watermark">
+                  📄
+                </span>
+              </div>
+              <div>
+                <h1 className="text-xl font-semibold text-gray-900">PDF Watermark Tool</h1>
+                <p className="text-xs text-gray-600">Secure local PDF processing</p>
+              </div>
+            </Link>
+            <div className="hidden md:flex items-center space-x-4">
+              <Link
+                href="/en/"
+                className="flex items-center space-x-1.5 text-sm text-gray-600 hover:text-primary transition-colors"
+              >
+                <ImageIcon className="w-4 h-4" aria-hidden="true" />
+                <span>Watermark Tool</span>
+              </Link>
+              <a
+                href="/pdf-watermark"
+                className="flex items-center space-x-1.5 text-sm text-gray-600 hover:text-primary transition-colors"
+                aria-label="切換到中文"
+              >
+                <Languages className="w-4 h-4" aria-hidden="true" />
+                <span>中文</span>
+              </a>
+              <div className="flex items-center space-x-2">
+                <Shield className="text-green-600 w-4 h-4" aria-hidden="true" />
+                <span className="text-sm text-gray-600">100% Local</span>
+              </div>
+            </div>
+            <button
+              type="button"
+              className="md:hidden p-2 text-2xl leading-none text-gray-700"
+              onClick={() => setMenuOpen(!menuOpen)}
+              aria-label={menuOpen ? "Close menu" : "Open menu"}
+              aria-expanded={menuOpen}
+            >
+              {menuOpen ? "✕" : "☰"}
+            </button>
+          </div>
+          {menuOpen && (
+            <nav className="md:hidden border-t border-gray-200 py-2">
+              <Link
+                href="/en/"
+                className="flex items-center space-x-2 py-3 px-4 text-gray-600 hover:bg-gray-50 rounded-lg"
+                onClick={() => setMenuOpen(false)}
+              >
+                <ImageIcon className="w-4 h-4" aria-hidden="true" />
+                <span>Watermark Tool</span>
+              </Link>
+              <a
+                href="/pdf-watermark"
+                className="flex items-center space-x-2 py-3 px-4 text-gray-600 hover:bg-gray-50 rounded-lg"
+                aria-label="切換到中文"
+              >
+                <Languages className="w-4 h-4" aria-hidden="true" />
+                <span>中文</span>
+              </a>
+            </nav>
+          )}
+        </div>
+      </header>
+
+      <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <Card className="bg-blue-50 border-blue-200 p-4 mb-8">
+          <div className="flex items-start space-x-3">
+            <Shield className="text-primary mt-0.5 w-5 h-5" />
+            <div>
+              <h2 className="font-medium text-blue-900 mb-1">Why use this PDF watermark tool?</h2>
+              <p className="text-sm text-blue-800">
+                Marking contracts, quotes, scanned IDs or confidential documents with a watermark helps prevent
+                misuse and reuse. This tool runs entirely in your browser with pdf-lib — your PDF is never uploaded,
+                there is no file size limit, and no copy is left behind.
+              </p>
+            </div>
+          </div>
+        </Card>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <div className="space-y-6">
+            <Card className="p-6">
+              <h2 className="text-lg font-semibold text-gray-900 mb-4">Upload PDF</h2>
+              <div
+                onDrop={(e) => {
+                  e.preventDefault();
+                  onPickPdf(e.dataTransfer.files[0]);
+                }}
+                onDragOver={(e) => e.preventDefault()}
+                onClick={() => fileInputRef.current?.click()}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    fileInputRef.current?.click();
+                  }
+                }}
+                role="button"
+                tabIndex={0}
+                aria-label="Upload PDF area, click or drop a file"
+                className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-primary hover:bg-blue-50 transition-colors cursor-pointer"
+              >
+                <Upload className="text-gray-400 w-12 h-12 mb-4 mx-auto" aria-hidden="true" />
+                <p className="text-gray-600 mb-2">Drop a PDF here, or click to choose a file</p>
+                <p className="text-sm text-gray-600 mb-4">PDF files only</p>
+                <button
+                  type="button"
+                  className="bg-primary text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+                >
+                  Choose PDF
+                </button>
+              </div>
+              <input
+                ref={fileInputRef}
+                type="file"
+                accept="application/pdf,.pdf"
+                className="hidden"
+                onChange={(e) => onPickPdf(e.target.files?.[0])}
+                aria-label="Choose PDF file"
+              />
+              {selectedFile && (
+                <div className="mt-4 p-3 bg-gray-50 rounded-lg">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center space-x-2">
+                      <CheckCircle className="text-green-600 w-5 h-5" aria-hidden="true" />
+                      <span className="text-sm font-medium break-all">{selectedFile.name}</span>
+                    </div>
+                    <span className="text-xs text-gray-600 whitespace-nowrap ml-2">
+                      {formatSize(selectedFile.size)}
+                    </span>
+                  </div>
+                </div>
+              )}
+            </Card>
+
+            <Card className="p-6">
+              <div className="flex items-center justify-between mb-4">
+                <h2 className="text-lg font-semibold text-gray-900">Text watermark</h2>
+                <label className="flex items-center space-x-2 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={settings.textEnabled}
+                    onChange={(e) => update({ textEnabled: e.target.checked })}
+                    className="w-4 h-4 accent-primary"
+                  />
+                  <span className="text-sm text-gray-600">Enable</span>
+                </label>
+              </div>
+
+              <div className={settings.textEnabled ? "" : "opacity-50 pointer-events-none"}>
+                <label htmlFor="wm-text" className="block text-sm font-medium text-gray-700 mb-1">
+                  Watermark text
+                </label>
+                <input
+                  id="wm-text"
+                  type="text"
+                  value={settings.text}
+                  onChange={(e) => update({ text: e.target.value })}
+                  placeholder="e.g. CONFIDENTIAL"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary mb-4"
+                />
+
+                <div className="grid grid-cols-2 gap-4 mb-4">
+                  <div>
+                    <label htmlFor="wm-color" className="block text-sm font-medium text-gray-700 mb-1">
+                      Color
+                    </label>
+                    <input
+                      id="wm-color"
+                      type="color"
+                      value={settings.textColor}
+                      onChange={(e) => update({ textColor: e.target.value })}
+                      className="w-full h-10 rounded-lg border border-gray-300 cursor-pointer"
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="wm-size" className="block text-sm font-medium text-gray-700 mb-1">
+                      Size
+                    </label>
+                    <select
+                      id="wm-size"
+                      value={settings.fontSize}
+                      onChange={(e) => update({ fontSize: e.target.value as FontSize })}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                    >
+                      {FONT_SIZES.map((s) => (
+                        <option key={s.value} value={s.value}>
+                          {s.label}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Opacity: {settings.textOpacity}%
+                </label>
+                <input
+                  type="range"
+                  min={5}
+                  max={100}
+                  value={settings.textOpacity}
+                  onChange={(e) => update({ textOpacity: Number(e.target.value) })}
+                  className="w-full accent-primary mb-4"
+                />
+
+                <label htmlFor="wm-pos" className="block text-sm font-medium text-gray-700 mb-1">
+                  Position
+                </label>
+                <select
+                  id="wm-pos"
+                  value={settings.textPosition}
+                  onChange={(e) => update({ textPosition: e.target.value as WatermarkPosition })}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                >
+                  {POSITIONS.map((p) => (
+                    <option key={p.value} value={p.value}>
+                      {p.label}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </Card>
+
+            <Card className="p-6">
+              <div className="flex items-center justify-between mb-4">
+                <h2 className="text-lg font-semibold text-gray-900">Logo watermark</h2>
+                <label className="flex items-center space-x-2 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={settings.logoEnabled}
+                    onChange={(e) => update({ logoEnabled: e.target.checked })}
+                    className="w-4 h-4 accent-primary"
+                  />
+                  <span className="text-sm text-gray-600">Enable</span>
+                </label>
+              </div>
+
+              <div className={settings.logoEnabled ? "" : "opacity-50 pointer-events-none"}>
+                <div className="flex items-center space-x-3 mb-4">
+                  <button
+                    type="button"
+                    onClick={() => logoInputRef.current?.click()}
+                    className="bg-white border border-gray-300 text-gray-700 px-4 py-2 rounded-lg hover:border-primary transition-colors text-sm"
+                  >
+                    Choose logo (PNG / JPG / SVG)
+                  </button>
+                  {settings.logoSrc && (
+                    <img
+                      src={settings.logoSrc}
+                      alt="Logo preview"
+                      className="w-10 h-10 object-contain border border-gray-200 rounded"
+                    />
+                  )}
+                </div>
+                <input
+                  ref={logoInputRef}
+                  type="file"
+                  accept="image/png,image/jpeg,image/svg+xml"
+                  className="hidden"
+                  onChange={(e) => onPickLogo(e.target.files?.[0])}
+                  aria-label="Choose logo file"
+                />
+
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Size: {settings.logoSize}% of page width
+                </label>
+                <input
+                  type="range"
+                  min={5}
+                  max={50}
+                  value={settings.logoSize}
+                  onChange={(e) => update({ logoSize: Number(e.target.value) })}
+                  className="w-full accent-primary mb-4"
+                />
+
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Opacity: {settings.logoOpacity}%
+                </label>
+                <input
+                  type="range"
+                  min={5}
+                  max={100}
+                  value={settings.logoOpacity}
+                  onChange={(e) => update({ logoOpacity: Number(e.target.value) })}
+                  className="w-full accent-primary mb-4"
+                />
+
+                <label htmlFor="logo-pos" className="block text-sm font-medium text-gray-700 mb-1">
+                  Position
+                </label>
+                <select
+                  id="logo-pos"
+                  value={settings.logoPosition}
+                  onChange={(e) => update({ logoPosition: e.target.value as WatermarkPosition })}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                >
+                  {POSITIONS.map((p) => (
+                    <option key={p.value} value={p.value}>
+                      {p.label}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </Card>
+          </div>
+
+          <div className="space-y-6">
+            <Card className="p-6">
+              <h2 className="text-lg font-semibold text-gray-900 mb-4">Preview (sample page)</h2>
+              <p className="text-xs text-gray-500 mb-4">
+                Below is how the watermark lays out on a single page — it will be applied to every page of your PDF.
+              </p>
+              <div className="flex justify-center bg-gray-100 rounded-lg p-4">
+                <canvas
+                  ref={canvasRef}
+                  className="max-w-full h-auto shadow-md rounded"
+                  style={{ maxHeight: "480px" }}
+                  aria-label="Watermark layout preview"
+                />
+              </div>
+            </Card>
+
+            <Card className="p-6">
+              <div className="space-y-3">
+                {error && (
+                  <div className="p-3 bg-red-50 border border-red-200 rounded-lg">
+                    <p className="text-sm text-red-800">{error}</p>
+                  </div>
+                )}
+                {result && (
+                  <div className="p-3 bg-green-50 border border-green-200 rounded-lg">
+                    <p className="text-sm text-green-800">
+                      Watermarked {result.pageCount} page(s), output {formatSize(result.size)}.
+                    </p>
+                  </div>
+                )}
+
+                <button
+                  onClick={apply}
+                  disabled={!selectedFile || isProcessing}
+                  className="w-full bg-primary text-white py-3 px-4 rounded-lg hover:bg-blue-700 transition-colors font-medium disabled:bg-gray-400 disabled:cursor-not-allowed flex items-center justify-center"
+                >
+                  <FileText className="w-4 h-4 mr-2" aria-hidden="true" />
+                  {isProcessing ? "Processing..." : "Apply watermark to PDF"}
+                </button>
+
+                <button
+                  onClick={download}
+                  disabled={!result}
+                  className="w-full bg-green-600 text-white py-3 px-4 rounded-lg hover:bg-green-700 transition-colors font-medium disabled:bg-gray-400 disabled:cursor-not-allowed flex items-center justify-center"
+                >
+                  <Download className="w-4 h-4 mr-2" aria-hidden="true" />
+                  Download watermarked PDF
+                </button>
+
+                <button
+                  onClick={reset}
+                  disabled={!selectedFile}
+                  className="w-full bg-gray-500 text-white py-2 px-4 rounded-lg hover:bg-gray-600 transition-colors disabled:bg-gray-300 disabled:cursor-not-allowed flex items-center justify-center"
+                >
+                  <RefreshCw className="w-4 h-4 mr-2" aria-hidden="true" />
+                  Start over
+                </button>
+
+                <a
+                  href="https://ko-fi.com/justinlee2061"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm text-gray-400 hover:text-blue-500 transition-colors mt-2 inline-block"
+                >
+                  ☕ Found it useful? Buy me a coffee
+                </a>
+              </div>
+            </Card>
+          </div>
+        </div>
+
+        <section className="mt-12">
+          <h2 className="sr-only">Features</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <Card className="p-6 text-center">
+              <Lock className="text-primary w-8 h-8 mb-3 mx-auto" aria-hidden="true" />
+              <h3 className="font-semibold text-gray-900 mb-2">Fully local</h3>
+              <p className="text-sm text-gray-600">
+                Your PDF never leaves your browser — no server, no upload, no file size limit.
+              </p>
+            </Card>
+            <Card className="p-6 text-center">
+              <FileText className="text-primary w-8 h-8 mb-3 mx-auto" aria-hidden="true" />
+              <h3 className="font-semibold text-gray-900 mb-2">Every page</h3>
+              <p className="text-sm text-gray-600">
+                Text and logo watermarks can be combined and applied to every page at once.
+              </p>
+            </Card>
+            <Card className="p-6 text-center">
+              <ImageIcon className="text-primary w-8 h-8 mb-3 mx-auto" aria-hidden="true" />
+              <h3 className="font-semibold text-gray-900 mb-2">Unicode text</h3>
+              <p className="text-sm text-gray-600">
+                Text is rendered in the browser then embedded, so any language works without garbled glyphs.
+              </p>
+            </Card>
+          </div>
+        </section>
+
+        <section className="mt-12 prose prose-sm max-w-none text-gray-600">
+          <h2 className="text-xl font-semibold text-gray-900 mb-3">Why watermark a PDF?</h2>
+          <p>
+            When sending contracts, quotes, scanned IDs or tender documents, a "For X use only" watermark helps
+            prevent your file from being reused or misused. For PDF copies of IDs, passports and bank documents, a
+            watermark is an important step in protecting personal data.
+          </p>
+          <h2 className="text-xl font-semibold text-gray-900 mb-3 mt-6">100% local, privacy-safe</h2>
+          <p>
+            Unlike many online PDF services that upload your file to a server, this tool runs entirely in your
+            browser with pdf-lib. Your PDF is never uploaded, stored or sent to any third party — ideal for
+            documents with personal or business-confidential information.
+          </p>
+          <h2 className="text-xl font-semibold text-gray-900 mb-3 mt-6">Text and logo watermarks</h2>
+          <p>
+            Use a text watermark, a logo watermark, or both together, each with its own opacity, size and position.
+            The tiled repeat mode staggers the watermark across the whole page to make it hard to crop out.
+          </p>
+        </section>
+      </main>
+
+      <footer className="bg-white border-t border-gray-200 mt-16">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <div className="flex flex-col md:flex-row justify-between items-center">
+            <p className="text-sm text-gray-600 mb-4 md:mb-0">
+              © 2025 ImageMarker - Protect your privacy
+            </p>
+            <div className="flex items-center space-x-4">
+              <Link href="/en/" className="text-sm text-primary hover:underline">
+                Watermark Tool
+              </Link>
+              <Link href="/en/compress" className="text-sm text-primary hover:underline">
+                Compress
+              </Link>
+              <Link href="/en/resize" className="text-sm text-primary hover:underline">
+                Resize
+              </Link>
+              <Link href="/en/blog" className="text-sm text-primary hover:underline">
+                Blog
+              </Link>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+  );
+}
