@@ -284,7 +284,8 @@ export default function CompressPage() {
                     max={100}
                     value={quality}
                     onChange={(e) => setQuality(Number(e.target.value))}
-                    className="w-full accent-primary cursor-pointer"
+                    className="w-full cursor-pointer"
+                    style={{ ['--range-progress']: `${((quality - 1) / 99) * 100}%` } as any}
                   />
                   <div className="flex justify-between text-xs text-gray-500 mt-1">
                     <span>檔案更小</span>

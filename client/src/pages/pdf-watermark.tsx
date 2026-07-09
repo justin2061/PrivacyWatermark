@@ -495,7 +495,8 @@ export default function PdfWatermarkPage() {
                   max={100}
                   value={settings.textOpacity}
                   onChange={(e) => update({ textOpacity: Number(e.target.value) })}
-                  className="w-full accent-primary mb-4"
+                  className="w-full mb-4"
+                  style={{ ['--range-progress']: `${((settings.textOpacity - 5) / 95) * 100}%` } as any}
                 />
 
                 <label htmlFor="wm-pos" className="block text-sm font-medium text-gray-700 mb-1">
@@ -566,7 +567,8 @@ export default function PdfWatermarkPage() {
                   max={50}
                   value={settings.logoSize}
                   onChange={(e) => update({ logoSize: Number(e.target.value) })}
-                  className="w-full accent-primary mb-4"
+                  className="w-full mb-4"
+                  style={{ ['--range-progress']: `${((settings.logoSize - 5) / 45) * 100}%` } as any}
                 />
 
                 <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -578,7 +580,8 @@ export default function PdfWatermarkPage() {
                   max={100}
                   value={settings.logoOpacity}
                   onChange={(e) => update({ logoOpacity: Number(e.target.value) })}
-                  className="w-full accent-primary mb-4"
+                  className="w-full mb-4"
+                  style={{ ['--range-progress']: `${((settings.logoOpacity - 5) / 95) * 100}%` } as any}
                 />
 
                 <label htmlFor="logo-pos" className="block text-sm font-medium text-gray-700 mb-1">

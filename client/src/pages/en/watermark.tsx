@@ -60,9 +60,12 @@ export default function WatermarkEnPage() {
         {/* Privacy Notice — compact trust badge */}
         <PrivacyBanner lang="en" className="mb-8" />
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        {/* Mobile: preview pinned to the top, settings scroll below; desktop keeps two columns.
+            All three blocks are direct grid children so the sticky preview's containing block
+            spans the full settings height and stays pinned while scrolling. */}
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
           {/* Left Panel - Controls */}
-          <div className="space-y-6">
+          <div className="space-y-6 order-2 lg:order-none lg:col-start-1 lg:row-start-1 lg:row-span-2">
             <FileUploadZone
               selectedFile={selectedFile}
               onFileSelect={(file) => { if (typeof gtag !== 'undefined') gtag('event', 'upload_image'); handleFileSelect(file); }}
@@ -116,25 +119,31 @@ export default function WatermarkEnPage() {
 
           {/* Right Panel - Preview Canvas (revealed after upload to keep first screen clean) */}
           {selectedFile ? (
-            <div className="space-y-6">
-              <CanvasPreview
-                canvasRef={canvasRef}
-                selectedFile={selectedFile}
-                processedImage={processedImage}
-                lang="en"
-              />
+            <>
+              {/* Mobile: preview sticks to the top (top-16 clears the fixed header) so the
+                  live preview stays visible while scrolling settings; lg:static on desktop */}
+              <div className="order-1 lg:order-none lg:col-start-2 lg:row-start-1 sticky top-16 z-30 -mx-4 px-4 pt-2 pb-3 bg-gray-50 shadow-sm sm:-mx-6 sm:px-6 lg:static lg:z-auto lg:mx-0 lg:px-0 lg:pt-0 lg:pb-0 lg:bg-transparent lg:shadow-none">
+                <CanvasPreview
+                  canvasRef={canvasRef}
+                  selectedFile={selectedFile}
+                  processedImage={processedImage}
+                  lang="en"
+                />
+              </div>
 
-              <ProcessingStatus
-                selectedFile={selectedFile}
-                processedImage={processedImage}
-                progress={progress}
-                lang="en"
-              />
-
-              {processedImage && <KofiSupport variant="success" lang="en" />}
-            </div>
+              {/* Processing status + success CTA: after settings on mobile, under preview on desktop */}
+              <div className="order-3 lg:order-none lg:col-start-2 lg:row-start-2 space-y-6">
+                <ProcessingStatus
+                  selectedFile={selectedFile}
+                  processedImage={processedImage}
+                  progress={progress}
+                  lang="en"
+                />
+                {processedImage && <KofiSupport variant="success" lang="en" />}
+              </div>
+            </>
           ) : (
-            <div className="hidden lg:flex items-center justify-center">
+            <div className="hidden lg:flex items-center justify-center lg:col-start-2 lg:row-start-1">
               <div className="text-center text-gray-400">
                 <span className="text-5xl mb-3 block" role="img" aria-hidden="true">🖼️</span>
                 <p className="text-sm">Preview and processing status will appear here after you upload an image</p>

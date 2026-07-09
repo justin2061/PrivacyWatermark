@@ -108,9 +108,11 @@ export default function WatermarkPage() {
         {/* Privacy Notice — 精簡信任標誌 */}
         <PrivacyBanner lang="zh" className="mb-8" />
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        {/* 手機版：預覽區固定在上、設定區在下可滾動；桌面版維持左右兩欄。
+            三個區塊都是 grid 的直接子元素，sticky 的包含區塊才會涵蓋整個設定區高度 */}
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
           {/* Left Panel - Controls */}
-          <div className="space-y-6">
+          <div className="space-y-6 order-2 lg:order-none lg:col-start-1 lg:row-start-1 lg:row-span-2">
             <FileUploadZone
               selectedFile={selectedFile}
               onFileSelect={(file) => { if (typeof gtag !== 'undefined') gtag('event', 'upload_image'); handleFileSelect(file); }}
@@ -166,24 +168,29 @@ export default function WatermarkPage() {
 
           {/* Right Panel - Preview Canvas（上傳圖片後才展開，保持首屏乾淨） */}
           {selectedFile ? (
-            <div className="space-y-6">
-              <CanvasPreview
-                canvasRef={canvasRef}
-                selectedFile={selectedFile}
-                processedImage={processedImage}
-              />
+            <>
+              {/* 手機版：預覽 sticky 固定在螢幕上方（top-16 讓開固定的 Header），
+                  調整設定時即時可見；桌面版 lg:static 還原為右上角一般排版 */}
+              <div className="order-1 lg:order-none lg:col-start-2 lg:row-start-1 sticky top-16 z-30 -mx-4 px-4 pt-2 pb-3 bg-gray-50 shadow-sm sm:-mx-6 sm:px-6 lg:static lg:z-auto lg:mx-0 lg:px-0 lg:pt-0 lg:pb-0 lg:bg-transparent lg:shadow-none">
+                <CanvasPreview
+                  canvasRef={canvasRef}
+                  selectedFile={selectedFile}
+                  processedImage={processedImage}
+                />
+              </div>
 
-              <ProcessingStatus
-                selectedFile={selectedFile}
-                processedImage={processedImage}
-                progress={progress}
-              />
-
-              {/* 完成下載後的支持 CTA */}
-              {processedImage && <KofiSupport variant="success" />}
-            </div>
+              {/* 處理狀態與完成後的支持 CTA：手機在設定區之後、桌面在預覽下方 */}
+              <div className="order-3 lg:order-none lg:col-start-2 lg:row-start-2 space-y-6">
+                <ProcessingStatus
+                  selectedFile={selectedFile}
+                  processedImage={processedImage}
+                  progress={progress}
+                />
+                {processedImage && <KofiSupport variant="success" />}
+              </div>
+            </>
           ) : (
-            <div className="hidden lg:flex items-center justify-center">
+            <div className="hidden lg:flex items-center justify-center lg:col-start-2 lg:row-start-1">
               <div className="text-center text-gray-400">
                 <span className="text-5xl mb-3 block" role="img" aria-hidden="true">🖼️</span>
                 <p className="text-sm">上傳圖片後，預覽與處理狀態會顯示在這裡</p>
