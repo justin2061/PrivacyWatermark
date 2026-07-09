@@ -1,6 +1,8 @@
 import { Link } from "wouter";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Card } from "@/components/ui/card";
+import { SiteHeader } from "@/components/SiteHeader";
+import { PrivacyBanner } from "@/components/PrivacyBanner";
 import { FileUploadZone } from "@/components/watermark/FileUploadZone";
 import { WatermarkControls } from "@/components/watermark/WatermarkControls";
 import { CanvasPreview } from "@/components/watermark/CanvasPreview";
@@ -8,20 +10,7 @@ import { ProcessingStatus } from "@/components/watermark/ProcessingStatus";
 import { KofiSupport } from "@/components/KofiSupport";
 import { useWatermark } from "@/hooks/useWatermark";
 import { setPageSeo, webAppSchema } from "@/lib/seo";
-import {
-  Shield,
-  Lock,
-  Zap,
-  Eraser,
-  Languages,
-  Layers,
-  Scissors,
-  Minimize2,
-  Repeat,
-  Scaling,
-  BookOpen,
-  FileText,
-} from "lucide-react";
+import { Lock, Zap, Eraser } from "lucide-react";
 
 export default function WatermarkEnPage() {
   const {
@@ -37,8 +26,6 @@ export default function WatermarkEnPage() {
     downloadImage,
     resetCanvas
   } = useWatermark();
-
-  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
     return setPageSeo({
@@ -66,197 +53,12 @@ export default function WatermarkEnPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <header className="bg-white shadow-sm border-b border-gray-200">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
-            <div className="flex items-center space-x-3">
-              <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-                <span className="text-white text-lg" role="img" aria-label="Camera icon">📷</span>
-              </div>
-              <div>
-                <h1 className="text-xl font-semibold text-gray-900">Image Watermark Tool</h1>
-                <p className="text-xs text-gray-600">Secure Local Image Processing</p>
-              </div>
-            </div>
-            {/* Desktop nav */}
-            <div className="hidden md:flex items-center space-x-4">
-              <Link
-                href="/en/batch"
-                className="flex items-center space-x-1.5 text-sm text-gray-600 hover:text-primary transition-colors"
-              >
-                <Layers className="w-4 h-4" aria-hidden="true" />
-                <span>Batch</span>
-              </Link>
-              <Link
-                href="/en/exif-clean"
-                className="flex items-center space-x-1.5 text-sm text-gray-600 hover:text-primary transition-colors"
-              >
-                <Eraser className="w-4 h-4" aria-hidden="true" />
-                <span>EXIF Cleaner</span>
-              </Link>
-              <Link
-                href="/en/remove-bg"
-                className="flex items-center space-x-1.5 text-sm text-gray-600 hover:text-primary transition-colors"
-              >
-                <Scissors className="w-4 h-4" aria-hidden="true" />
-                <span>Remove BG</span>
-              </Link>
-              <Link
-                href="/en/compress"
-                className="flex items-center space-x-1.5 text-sm text-gray-600 hover:text-primary transition-colors"
-              >
-                <Minimize2 className="w-4 h-4" aria-hidden="true" />
-                <span>Compress</span>
-              </Link>
-              <Link
-                href="/en/convert"
-                className="flex items-center space-x-1.5 text-sm text-gray-600 hover:text-primary transition-colors"
-              >
-                <Repeat className="w-4 h-4" aria-hidden="true" />
-                <span>Convert</span>
-              </Link>
-              <Link
-                href="/en/resize"
-                className="flex items-center space-x-1.5 text-sm text-gray-600 hover:text-primary transition-colors"
-              >
-                <Scaling className="w-4 h-4" aria-hidden="true" />
-                <span>Resize</span>
-              </Link>
-              <Link
-                href="/en/pdf-watermark"
-                className="flex items-center space-x-1.5 text-sm text-gray-600 hover:text-primary transition-colors"
-              >
-                <FileText className="w-4 h-4" aria-hidden="true" />
-                <span>PDF Watermark</span>
-              </Link>
-              <Link
-                href="/en/blog"
-                className="flex items-center space-x-1.5 text-sm text-gray-600 hover:text-primary transition-colors"
-              >
-                <BookOpen className="w-4 h-4" aria-hidden="true" />
-                <span>Blog</span>
-              </Link>
-              <a
-                href="/"
-                className="flex items-center space-x-1.5 text-sm text-gray-600 hover:text-primary transition-colors"
-                aria-label="切換到中文版"
-              >
-                <Languages className="w-4 h-4" aria-hidden="true" />
-                <span>中文</span>
-              </a>
-              <div className="flex items-center space-x-2">
-                <Shield className="text-green-600 w-4 h-4" aria-hidden="true" />
-                <span className="text-sm text-gray-600">100% Local</span>
-              </div>
-            </div>
-
-            {/* Mobile hamburger */}
-            <button
-              type="button"
-              className="md:hidden p-2 text-2xl leading-none text-gray-700"
-              onClick={() => setMenuOpen(!menuOpen)}
-              aria-label={menuOpen ? "Close menu" : "Open menu"}
-              aria-expanded={menuOpen}
-            >
-              {menuOpen ? "✕" : "☰"}
-            </button>
-          </div>
-
-          {/* Mobile menu */}
-          {menuOpen && (
-            <nav className="md:hidden border-t border-gray-200 py-2">
-              <Link
-                href="/en/batch"
-                className="flex items-center space-x-2 py-3 px-4 text-gray-600 hover:bg-gray-50 rounded-lg"
-                onClick={() => setMenuOpen(false)}
-              >
-                <Layers className="w-4 h-4" aria-hidden="true" />
-                <span>Batch</span>
-              </Link>
-              <Link
-                href="/en/exif-clean"
-                className="flex items-center space-x-2 py-3 px-4 text-gray-600 hover:bg-gray-50 rounded-lg"
-                onClick={() => setMenuOpen(false)}
-              >
-                <Eraser className="w-4 h-4" aria-hidden="true" />
-                <span>EXIF Cleaner</span>
-              </Link>
-              <Link
-                href="/en/remove-bg"
-                className="flex items-center space-x-2 py-3 px-4 text-gray-600 hover:bg-gray-50 rounded-lg"
-                onClick={() => setMenuOpen(false)}
-              >
-                <Scissors className="w-4 h-4" aria-hidden="true" />
-                <span>Remove BG</span>
-              </Link>
-              <Link
-                href="/en/compress"
-                className="flex items-center space-x-2 py-3 px-4 text-gray-600 hover:bg-gray-50 rounded-lg"
-                onClick={() => setMenuOpen(false)}
-              >
-                <Minimize2 className="w-4 h-4" aria-hidden="true" />
-                <span>Compress</span>
-              </Link>
-              <Link
-                href="/en/convert"
-                className="flex items-center space-x-2 py-3 px-4 text-gray-600 hover:bg-gray-50 rounded-lg"
-                onClick={() => setMenuOpen(false)}
-              >
-                <Repeat className="w-4 h-4" aria-hidden="true" />
-                <span>Convert</span>
-              </Link>
-              <Link
-                href="/en/resize"
-                className="flex items-center space-x-2 py-3 px-4 text-gray-600 hover:bg-gray-50 rounded-lg"
-                onClick={() => setMenuOpen(false)}
-              >
-                <Scaling className="w-4 h-4" aria-hidden="true" />
-                <span>Resize</span>
-              </Link>
-              <Link
-                href="/en/pdf-watermark"
-                className="flex items-center space-x-2 py-3 px-4 text-gray-600 hover:bg-gray-50 rounded-lg"
-                onClick={() => setMenuOpen(false)}
-              >
-                <FileText className="w-4 h-4" aria-hidden="true" />
-                <span>PDF Watermark</span>
-              </Link>
-              <Link
-                href="/en/blog"
-                className="flex items-center space-x-2 py-3 px-4 text-gray-600 hover:bg-gray-50 rounded-lg"
-                onClick={() => setMenuOpen(false)}
-              >
-                <BookOpen className="w-4 h-4" aria-hidden="true" />
-                <span>Blog</span>
-              </Link>
-              <a
-                href="/"
-                className="flex items-center space-x-2 py-3 px-4 text-gray-600 hover:bg-gray-50 rounded-lg"
-                aria-label="切換到中文版"
-              >
-                <Languages className="w-4 h-4" aria-hidden="true" />
-                <span>中文</span>
-              </a>
-            </nav>
-          )}
-        </div>
-      </header>
+      <SiteHeader lang="en" current="watermark" />
 
       {/* Main Content */}
       <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Privacy Notice */}
-        <Card className="bg-blue-50 border-blue-200 p-4 mb-8">
-          <div className="flex items-start space-x-3">
-            <Shield className="text-primary mt-0.5 w-5 h-5" />
-            <div>
-              <h2 className="font-medium text-blue-900 mb-1">Privacy Protection</h2>
-              <p className="text-sm text-blue-800">
-                Your images are processed entirely in your browser and are never uploaded to any server. Perfect for photographers and creators who need to watermark portfolios, client previews, proofs and stock photos before sharing them online.
-              </p>
-            </div>
-          </div>
-        </Card>
+        {/* Privacy Notice — compact trust badge */}
+        <PrivacyBanner lang="en" className="mb-8" />
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Left Panel - Controls */}
@@ -312,24 +114,33 @@ export default function WatermarkEnPage() {
             </Card>
           </div>
 
-          {/* Right Panel - Preview Canvas */}
-          <div className="space-y-6">
-            <CanvasPreview
-              canvasRef={canvasRef}
-              selectedFile={selectedFile}
-              processedImage={processedImage}
-              lang="en"
-            />
+          {/* Right Panel - Preview Canvas (revealed after upload to keep first screen clean) */}
+          {selectedFile ? (
+            <div className="space-y-6">
+              <CanvasPreview
+                canvasRef={canvasRef}
+                selectedFile={selectedFile}
+                processedImage={processedImage}
+                lang="en"
+              />
 
-            <ProcessingStatus
-              selectedFile={selectedFile}
-              processedImage={processedImage}
-              progress={progress}
-              lang="en"
-            />
+              <ProcessingStatus
+                selectedFile={selectedFile}
+                processedImage={processedImage}
+                progress={progress}
+                lang="en"
+              />
 
-            {processedImage && <KofiSupport variant="success" lang="en" />}
-          </div>
+              {processedImage && <KofiSupport variant="success" lang="en" />}
+            </div>
+          ) : (
+            <div className="hidden lg:flex items-center justify-center">
+              <div className="text-center text-gray-400">
+                <span className="text-5xl mb-3 block" role="img" aria-hidden="true">🖼️</span>
+                <p className="text-sm">Preview and processing status will appear here after you upload an image</p>
+              </div>
+            </div>
+          )}
         </div>
 
         {/* Features Section */}

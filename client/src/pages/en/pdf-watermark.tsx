@@ -1,6 +1,8 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Link } from "wouter";
 import { Card } from "@/components/ui/card";
+import { SiteHeader } from "@/components/SiteHeader";
+import { PrivacyBanner } from "@/components/PrivacyBanner";
 import { KofiSupport } from "@/components/KofiSupport";
 import { setPageSeo, webAppSchema, faqSchema } from "@/lib/seo";
 import {
@@ -15,10 +17,8 @@ import {
   Download,
   FileText,
   Image as ImageIcon,
-  Languages,
   Lock,
   RefreshCw,
-  Shield,
   Upload,
 } from "lucide-react";
 
@@ -116,7 +116,6 @@ export default function PdfWatermarkEnPage() {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const logoInputRef = useRef<HTMLInputElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const [menuOpen, setMenuOpen] = useState(false);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [settings, setSettings] = useState<PdfWatermarkSettings>(DEFAULT_SETTINGS);
   const [isProcessing, setIsProcessing] = useState(false);
@@ -351,91 +350,10 @@ export default function PdfWatermarkEnPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <header className="bg-white shadow-sm border-b border-gray-200">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
-            <Link
-              href="/en/"
-              className="flex items-center space-x-3 hover-elevate rounded-lg px-2 py-1 -ml-2"
-            >
-              <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-                <span className="text-white text-lg" role="img" aria-label="PDF watermark">
-                  📄
-                </span>
-              </div>
-              <div>
-                <h1 className="text-xl font-semibold text-gray-900">PDF Watermark Tool</h1>
-                <p className="text-xs text-gray-600">Secure local PDF processing</p>
-              </div>
-            </Link>
-            <div className="hidden md:flex items-center space-x-4">
-              <Link
-                href="/en/"
-                className="flex items-center space-x-1.5 text-sm text-gray-600 hover:text-primary transition-colors"
-              >
-                <ImageIcon className="w-4 h-4" aria-hidden="true" />
-                <span>Watermark Tool</span>
-              </Link>
-              <a
-                href="/pdf-watermark"
-                className="flex items-center space-x-1.5 text-sm text-gray-600 hover:text-primary transition-colors"
-                aria-label="切換到中文"
-              >
-                <Languages className="w-4 h-4" aria-hidden="true" />
-                <span>中文</span>
-              </a>
-              <div className="flex items-center space-x-2">
-                <Shield className="text-green-600 w-4 h-4" aria-hidden="true" />
-                <span className="text-sm text-gray-600">100% Local</span>
-              </div>
-            </div>
-            <button
-              type="button"
-              className="md:hidden p-2 text-2xl leading-none text-gray-700"
-              onClick={() => setMenuOpen(!menuOpen)}
-              aria-label={menuOpen ? "Close menu" : "Open menu"}
-              aria-expanded={menuOpen}
-            >
-              {menuOpen ? "✕" : "☰"}
-            </button>
-          </div>
-          {menuOpen && (
-            <nav className="md:hidden border-t border-gray-200 py-2">
-              <Link
-                href="/en/"
-                className="flex items-center space-x-2 py-3 px-4 text-gray-600 hover:bg-gray-50 rounded-lg"
-                onClick={() => setMenuOpen(false)}
-              >
-                <ImageIcon className="w-4 h-4" aria-hidden="true" />
-                <span>Watermark Tool</span>
-              </Link>
-              <a
-                href="/pdf-watermark"
-                className="flex items-center space-x-2 py-3 px-4 text-gray-600 hover:bg-gray-50 rounded-lg"
-                aria-label="切換到中文"
-              >
-                <Languages className="w-4 h-4" aria-hidden="true" />
-                <span>中文</span>
-              </a>
-            </nav>
-          )}
-        </div>
-      </header>
+      <SiteHeader lang="en" current="pdf-watermark" />
 
       <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <Card className="bg-blue-50 border-blue-200 p-4 mb-8">
-          <div className="flex items-start space-x-3">
-            <Shield className="text-primary mt-0.5 w-5 h-5" />
-            <div>
-              <h2 className="font-medium text-blue-900 mb-1">Why use this PDF watermark tool?</h2>
-              <p className="text-sm text-blue-800">
-                Marking contracts, quotes, scanned IDs or confidential documents with a watermark helps prevent
-                misuse and reuse. This tool runs entirely in your browser with pdf-lib — your PDF is never uploaded,
-                there is no file size limit, and no copy is left behind.
-              </p>
-            </div>
-          </div>
-        </Card>
+        <PrivacyBanner lang="en" className="mb-8" />
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           <div className="space-y-6">

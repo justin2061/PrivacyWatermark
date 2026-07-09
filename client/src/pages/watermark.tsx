@@ -1,6 +1,8 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Link } from "wouter";
 import { Card } from "@/components/ui/card";
+import { SiteHeader } from "@/components/SiteHeader";
+import { PrivacyBanner } from "@/components/PrivacyBanner";
 import { FileUploadZone } from "@/components/watermark/FileUploadZone";
 import { WatermarkControls } from "@/components/watermark/WatermarkControls";
 import { CanvasPreview } from "@/components/watermark/CanvasPreview";
@@ -8,7 +10,7 @@ import { ProcessingStatus } from "@/components/watermark/ProcessingStatus";
 import { KofiSupport } from "@/components/KofiSupport";
 import { useWatermark } from "@/hooks/useWatermark";
 import { setPageSeo, webAppSchema, faqSchema } from "@/lib/seo";
-import { Shield, Lock, Zap, BookOpen, Eraser, Layers, Languages, Minimize2, Repeat, Scaling, Scissors, FileText, Loader2 } from "lucide-react";
+import { Lock, Zap, Eraser, Loader2 } from "lucide-react";
 
 export default function WatermarkPage() {
   const {
@@ -24,8 +26,6 @@ export default function WatermarkPage() {
     downloadImage,
     resetCanvas
   } = useWatermark();
-
-  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
     return setPageSeo({
@@ -101,197 +101,12 @@ export default function WatermarkPage() {
 
   return (
     <div className="min-h-screen bg-gray-50 pb-20 md:pb-0">
-      {/* Header */}
-      <header className="bg-white shadow-sm border-b border-gray-200">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
-            <div className="flex items-center space-x-3">
-              <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-                <span className="text-white text-lg" role="img" aria-label="相機圖示">📷</span>
-              </div>
-              <div>
-                <h1 className="text-xl font-semibold text-gray-900">證件浮水印工具</h1>
-                <p className="text-xs text-gray-600">安全的本地端圖片處理</p>
-              </div>
-            </div>
-            {/* 桌面版導航 */}
-            <div className="hidden md:flex items-center space-x-4">
-              <Link
-                href="/batch"
-                className="flex items-center space-x-1.5 text-sm text-gray-600 hover:text-primary transition-colors"
-              >
-                <Layers className="w-4 h-4" aria-hidden="true" />
-                <span>批次處理</span>
-              </Link>
-              <Link
-                href="/exif-clean"
-                className="flex items-center space-x-1.5 text-sm text-gray-600 hover:text-primary transition-colors"
-              >
-                <Eraser className="w-4 h-4" aria-hidden="true" />
-                <span>EXIF 清除器</span>
-              </Link>
-              <Link
-                href="/remove-bg"
-                className="flex items-center space-x-1.5 text-sm text-gray-600 hover:text-primary transition-colors"
-              >
-                <Scissors className="w-4 h-4" aria-hidden="true" />
-                <span>AI 去背</span>
-              </Link>
-              <Link
-                href="/compress"
-                className="flex items-center space-x-1.5 text-sm text-gray-600 hover:text-primary transition-colors"
-              >
-                <Minimize2 className="w-4 h-4" aria-hidden="true" />
-                <span>圖片壓縮</span>
-              </Link>
-              <Link
-                href="/convert"
-                className="flex items-center space-x-1.5 text-sm text-gray-600 hover:text-primary transition-colors"
-              >
-                <Repeat className="w-4 h-4" aria-hidden="true" />
-                <span>格式轉換</span>
-              </Link>
-              <Link
-                href="/resize"
-                className="flex items-center space-x-1.5 text-sm text-gray-600 hover:text-primary transition-colors"
-              >
-                <Scaling className="w-4 h-4" aria-hidden="true" />
-                <span>圖片縮放</span>
-              </Link>
-              <Link
-                href="/pdf-watermark"
-                className="flex items-center space-x-1.5 text-sm text-gray-600 hover:text-primary transition-colors"
-              >
-                <FileText className="w-4 h-4" aria-hidden="true" />
-                <span>PDF 浮水印</span>
-              </Link>
-              <Link
-                href="/blog"
-                className="flex items-center space-x-1.5 text-sm text-gray-600 hover:text-primary transition-colors"
-              >
-                <BookOpen className="w-4 h-4" aria-hidden="true" />
-                <span>使用教學與文章</span>
-              </Link>
-              <a
-                href="/en/"
-                className="flex items-center space-x-1.5 text-sm text-gray-600 hover:text-primary transition-colors"
-                aria-label="Switch to English"
-              >
-                <Languages className="w-4 h-4" aria-hidden="true" />
-                <span>EN</span>
-              </a>
-              <div className="flex items-center space-x-2">
-                <Shield className="text-green-600 w-4 h-4" aria-hidden="true" />
-                <span className="text-sm text-gray-600">100% 本地處理</span>
-              </div>
-            </div>
-
-            {/* 手機版漢堡按鈕 */}
-            <button
-              type="button"
-              className="md:hidden p-2 text-2xl leading-none text-gray-700"
-              onClick={() => setMenuOpen(!menuOpen)}
-              aria-label={menuOpen ? "關閉選單" : "開啟選單"}
-              aria-expanded={menuOpen}
-            >
-              {menuOpen ? '✕' : '☰'}
-            </button>
-          </div>
-
-          {/* 手機版展開選單 */}
-          {menuOpen && (
-            <nav className="md:hidden border-t border-gray-200 py-2">
-              <Link
-                href="/batch"
-                className="flex items-center space-x-2 py-3 px-4 text-gray-600 hover:bg-gray-50 rounded-lg"
-                onClick={() => setMenuOpen(false)}
-              >
-                <Layers className="w-4 h-4" aria-hidden="true" />
-                <span>批次處理</span>
-              </Link>
-              <Link
-                href="/exif-clean"
-                className="flex items-center space-x-2 py-3 px-4 text-gray-600 hover:bg-gray-50 rounded-lg"
-                onClick={() => setMenuOpen(false)}
-              >
-                <Eraser className="w-4 h-4" aria-hidden="true" />
-                <span>EXIF 清除器</span>
-              </Link>
-              <Link
-                href="/remove-bg"
-                className="flex items-center space-x-2 py-3 px-4 text-gray-600 hover:bg-gray-50 rounded-lg"
-                onClick={() => setMenuOpen(false)}
-              >
-                <Scissors className="w-4 h-4" aria-hidden="true" />
-                <span>AI 去背</span>
-              </Link>
-              <Link
-                href="/compress"
-                className="flex items-center space-x-2 py-3 px-4 text-gray-600 hover:bg-gray-50 rounded-lg"
-                onClick={() => setMenuOpen(false)}
-              >
-                <Minimize2 className="w-4 h-4" aria-hidden="true" />
-                <span>圖片壓縮</span>
-              </Link>
-              <Link
-                href="/convert"
-                className="flex items-center space-x-2 py-3 px-4 text-gray-600 hover:bg-gray-50 rounded-lg"
-                onClick={() => setMenuOpen(false)}
-              >
-                <Repeat className="w-4 h-4" aria-hidden="true" />
-                <span>格式轉換</span>
-              </Link>
-              <Link
-                href="/resize"
-                className="flex items-center space-x-2 py-3 px-4 text-gray-600 hover:bg-gray-50 rounded-lg"
-                onClick={() => setMenuOpen(false)}
-              >
-                <Scaling className="w-4 h-4" aria-hidden="true" />
-                <span>圖片縮放</span>
-              </Link>
-              <Link
-                href="/pdf-watermark"
-                className="flex items-center space-x-2 py-3 px-4 text-gray-600 hover:bg-gray-50 rounded-lg"
-                onClick={() => setMenuOpen(false)}
-              >
-                <FileText className="w-4 h-4" aria-hidden="true" />
-                <span>PDF 浮水印</span>
-              </Link>
-              <Link
-                href="/blog"
-                className="flex items-center space-x-2 py-3 px-4 text-gray-600 hover:bg-gray-50 rounded-lg"
-                onClick={() => setMenuOpen(false)}
-              >
-                <BookOpen className="w-4 h-4" aria-hidden="true" />
-                <span>使用教學與文章</span>
-              </Link>
-              <a
-                href="/en/"
-                className="flex items-center space-x-2 py-3 px-4 text-gray-600 hover:bg-gray-50 rounded-lg"
-                aria-label="Switch to English"
-              >
-                <Languages className="w-4 h-4" aria-hidden="true" />
-                <span>EN</span>
-              </a>
-            </nav>
-          )}
-        </div>
-      </header>
+      <SiteHeader lang="zh" current="watermark" />
 
       {/* Main Content */}
       <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Privacy Notice */}
-        <Card className="bg-blue-50 border-blue-200 p-4 mb-8">
-          <div className="flex items-start space-x-3">
-            <Shield className="text-primary mt-0.5 w-5 h-5" />
-            <div>
-              <h2 className="font-medium text-blue-900 mb-1">隱私安全保護</h2>
-              <p className="text-sm text-blue-800">
-                您的圖片完全在瀏覽器中處理，不會上傳到任何伺服器。適合處理身分證、護照、駕照、健保卡等各類證件影本及機密文件。無論是租屋、求職、辦理業務時需要提供證件影本，都建議先加上浮水印保護個資安全。
-              </p>
-            </div>
-          </div>
-        </Card>
+        {/* Privacy Notice — 精簡信任標誌 */}
+        <PrivacyBanner lang="zh" className="mb-8" />
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Left Panel - Controls */}
@@ -349,23 +164,32 @@ export default function WatermarkPage() {
             </Card>
           </div>
 
-          {/* Right Panel - Preview Canvas */}
-          <div className="space-y-6">
-            <CanvasPreview
-              canvasRef={canvasRef}
-              selectedFile={selectedFile}
-              processedImage={processedImage}
-            />
+          {/* Right Panel - Preview Canvas（上傳圖片後才展開，保持首屏乾淨） */}
+          {selectedFile ? (
+            <div className="space-y-6">
+              <CanvasPreview
+                canvasRef={canvasRef}
+                selectedFile={selectedFile}
+                processedImage={processedImage}
+              />
 
-            <ProcessingStatus
-              selectedFile={selectedFile}
-              processedImage={processedImage}
-              progress={progress}
-            />
+              <ProcessingStatus
+                selectedFile={selectedFile}
+                processedImage={processedImage}
+                progress={progress}
+              />
 
-            {/* 完成下載後的支持 CTA */}
-            {processedImage && <KofiSupport variant="success" />}
-          </div>
+              {/* 完成下載後的支持 CTA */}
+              {processedImage && <KofiSupport variant="success" />}
+            </div>
+          ) : (
+            <div className="hidden lg:flex items-center justify-center">
+              <div className="text-center text-gray-400">
+                <span className="text-5xl mb-3 block" role="img" aria-hidden="true">🖼️</span>
+                <p className="text-sm">上傳圖片後，預覽與處理狀態會顯示在這裡</p>
+              </div>
+            </div>
+          )}
         </div>
 
         {/* Features Section */}

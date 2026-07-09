@@ -1,6 +1,8 @@
 import { useEffect, useRef } from "react";
 import { Link } from "wouter";
 import { Card } from "@/components/ui/card";
+import { SiteHeader } from "@/components/SiteHeader";
+import { PrivacyBanner } from "@/components/PrivacyBanner";
 import { KofiSupport } from "@/components/KofiSupport";
 import { useExifCleaner } from "@/hooks/useExifCleaner";
 import { setPageSeo, webAppSchema } from "@/lib/seo";
@@ -9,8 +11,6 @@ import {
   CheckCircle,
   Download,
   EraserIcon,
-  Image as ImageIcon,
-  Languages,
   Lock,
   RefreshCw,
   Shield,
@@ -79,67 +79,10 @@ export default function ExifCleanEnPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <header className="bg-white shadow-sm border-b border-gray-200">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
-            <Link
-              href="/en"
-              className="flex items-center space-x-3 hover-elevate rounded-lg px-2 py-1 -ml-2"
-            >
-              <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-                <span className="text-white text-lg" role="img" aria-label="EXIF cleaner">
-                  🧼
-                </span>
-              </div>
-              <div>
-                <h1 className="text-xl font-semibold text-gray-900">EXIF Cleaner</h1>
-                <p className="text-xs text-gray-600">
-                  Remove GPS, camera and software data from photos
-                </p>
-              </div>
-            </Link>
-            <div className="flex items-center space-x-4">
-              <Link
-                href="/en"
-                className="flex items-center space-x-1.5 text-sm text-gray-600 hover:text-primary transition-colors"
-              >
-                <ImageIcon className="w-4 h-4" aria-hidden="true" />
-                <span>Watermark Tool</span>
-              </Link>
-              <a
-                href="/exif-clean"
-                className="flex items-center space-x-1.5 text-sm text-gray-600 hover:text-primary transition-colors"
-                aria-label="切換到中文"
-              >
-                <Languages className="w-4 h-4" aria-hidden="true" />
-                <span>中文</span>
-              </a>
-              <div className="flex items-center space-x-2">
-                <Shield className="text-green-600 w-4 h-4" aria-hidden="true" />
-                <span className="text-sm text-gray-600">100% Local</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </header>
+      <SiteHeader lang="en" current="exif-clean" />
 
       <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <Card className="bg-blue-50 border-blue-200 p-4 mb-8">
-          <div className="flex items-start space-x-3">
-            <Shield className="text-primary mt-0.5 w-5 h-5" />
-            <div>
-              <h2 className="font-medium text-blue-900 mb-1">Why remove EXIF?</h2>
-              <p className="text-sm text-blue-800">
-                Phones and cameras write hidden data into every photo: GPS
-                coordinates, camera model, serial number, editing software and
-                the exact time it was taken. Stripping this before uploading to
-                social media, forums or sending it to a third party prevents your
-                home address and movements from being reverse-engineered. All
-                processing happens in your browser — images are never uploaded.
-              </p>
-            </div>
-          </div>
-        </Card>
+        <PrivacyBanner lang="en" className="mb-8" />
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           <div className="space-y-6">

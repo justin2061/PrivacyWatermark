@@ -1,19 +1,19 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "wouter";
 import { Card } from "@/components/ui/card";
+import { SiteHeader } from "@/components/SiteHeader";
+import { PrivacyBanner } from "@/components/PrivacyBanner";
 import { KofiSupport } from "@/components/KofiSupport";
 import { setPageSeo, webAppSchema } from "@/lib/seo";
 import {
   CheckCircle,
   Download,
   Image as ImageIcon,
-  Languages,
   Link2,
   Link2Off,
   Lock,
   RefreshCw,
   Scaling,
-  Shield,
   Upload,
 } from "lucide-react";
 
@@ -257,62 +257,10 @@ export default function ResizeEnPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <header className="bg-white shadow-sm border-b border-gray-200">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
-            <Link
-              href="/en/"
-              className="flex items-center space-x-3 hover-elevate rounded-lg px-2 py-1 -ml-2"
-            >
-              <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-                <span className="text-white text-lg" role="img" aria-label="Resize">
-                  📐
-                </span>
-              </div>
-              <div>
-                <h1 className="text-xl font-semibold text-gray-900">Image Resizer</h1>
-                <p className="text-xs text-gray-600">Secure Local Image Resizing</p>
-              </div>
-            </Link>
-            <div className="flex items-center space-x-4">
-              <Link
-                href="/en/"
-                className="flex items-center space-x-1.5 text-sm text-gray-600 hover:text-primary transition-colors"
-              >
-                <ImageIcon className="w-4 h-4" aria-hidden="true" />
-                <span>Watermark Tool</span>
-              </Link>
-              <a
-                href="/resize"
-                className="flex items-center space-x-1.5 text-sm text-gray-600 hover:text-primary transition-colors"
-                aria-label="切換到中文版"
-              >
-                <Languages className="w-4 h-4" aria-hidden="true" />
-                <span>中文</span>
-              </a>
-              <div className="flex items-center space-x-2">
-                <Shield className="text-green-600 w-4 h-4" aria-hidden="true" />
-                <span className="text-sm text-gray-600">100% Local</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </header>
+      <SiteHeader lang="en" current="resize" />
 
       <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <Card className="bg-blue-50 border-blue-200 p-4 mb-8">
-          <div className="flex items-start space-x-3">
-            <Shield className="text-primary mt-0.5 w-5 h-5" />
-            <div>
-              <h2 className="font-medium text-blue-900 mb-1">Why use this resizer?</h2>
-              <p className="text-sm text-blue-800">
-                Resize images to fit social media dimensions, make ID photos, or shrink images for faster
-                loading. Everything runs in your browser with the Canvas API — your images are never
-                uploaded to any server, there are no size limits and no copies are kept.
-              </p>
-            </div>
-          </div>
-        </Card>
+        <PrivacyBanner lang="en" className="mb-8" />
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Left: upload + settings */}

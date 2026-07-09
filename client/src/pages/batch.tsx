@@ -1,6 +1,8 @@
 import { useEffect, useRef } from "react";
 import { Link } from "wouter";
 import { Card } from "@/components/ui/card";
+import { SiteHeader } from "@/components/SiteHeader";
+import { PrivacyBanner } from "@/components/PrivacyBanner";
 import { KofiSupport } from "@/components/KofiSupport";
 import { WatermarkControls } from "@/components/watermark/WatermarkControls";
 import { setPageSeo, webAppSchema } from "@/lib/seo";
@@ -9,10 +11,8 @@ import {
   MAX_FILES,
 } from "@/hooks/useBatchWatermark";
 import {
-  Shield,
   Upload,
   X,
-  ArrowLeft,
   CheckCircle,
   Eye,
   Image as ImageIcon,
@@ -97,54 +97,11 @@ export default function BatchPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <header className="bg-white shadow-sm border-b border-gray-200">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
-            <div className="flex items-center space-x-3">
-              <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-                <span className="text-white text-lg" role="img" aria-label="相機圖示">
-                  📷
-                </span>
-              </div>
-              <div>
-                <h1 className="text-xl font-semibold text-gray-900">批次浮水印</h1>
-                <p className="text-xs text-gray-600">一次處理多張證件影本</p>
-              </div>
-            </div>
-            <div className="flex items-center space-x-4">
-              <Link
-                href="/"
-                className="flex items-center space-x-1.5 text-sm text-gray-600 hover:text-primary transition-colors"
-              >
-                <ArrowLeft className="w-4 h-4" aria-hidden="true" />
-                <span>返回單張處理</span>
-              </Link>
-              <div className="flex items-center space-x-2">
-                <Shield className="text-green-600 w-4 h-4" aria-hidden="true" />
-                <span className="text-sm text-gray-600">100% 本地處理</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </header>
+      <SiteHeader lang="zh" current="batch" />
 
       <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Banner */}
-        <Card className="bg-blue-50 border-blue-200 p-4 mb-8">
-          <div className="flex items-start space-x-3">
-            <Shield className="text-primary mt-0.5 w-5 h-5" />
-            <div>
-              <h2 className="font-medium text-blue-900 mb-1">
-                批次浮水印 — 一次處理多張證件影本
-              </h2>
-              <p className="text-sm text-blue-800">
-                一次上傳最多 {MAX_FILES} 張圖片，套用相同的浮水印設定，再打包成 ZIP 一鍵下載。所有圖片
-                100% 在你的瀏覽器中處理，不會上傳到任何伺服器。
-              </p>
-            </div>
-          </div>
-        </Card>
+        {/* Privacy Notice — 精簡信任標誌 */}
+        <PrivacyBanner lang="zh" className="mb-8" />
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Left Panel - Upload + Controls + Actions */}

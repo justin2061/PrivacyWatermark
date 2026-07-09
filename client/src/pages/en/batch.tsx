@@ -1,19 +1,18 @@
 import { useEffect, useRef } from "react";
 import { Link } from "wouter";
 import { Card } from "@/components/ui/card";
+import { SiteHeader } from "@/components/SiteHeader";
+import { PrivacyBanner } from "@/components/PrivacyBanner";
 import { KofiSupport } from "@/components/KofiSupport";
 import { WatermarkControls } from "@/components/watermark/WatermarkControls";
 import { useBatchWatermark, MAX_FILES } from "@/hooks/useBatchWatermark";
 import { setPageSeo, webAppSchema } from "@/lib/seo";
 import {
-  Shield,
   Upload,
   X,
-  ArrowLeft,
   CheckCircle,
   Eye,
   Image as ImageIcon,
-  Languages,
 } from "lucide-react";
 
 function formatFileSize(bytes: number): string {
@@ -95,68 +94,11 @@ export default function BatchEnPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <header className="bg-white shadow-sm border-b border-gray-200">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
-            <div className="flex items-center space-x-3">
-              <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-                <span className="text-white text-lg" role="img" aria-label="Camera icon">
-                  📷
-                </span>
-              </div>
-              <div>
-                <h1 className="text-xl font-semibold text-gray-900">
-                  Batch Watermark
-                </h1>
-                <p className="text-xs text-gray-600">
-                  Process multiple images at once
-                </p>
-              </div>
-            </div>
-            <div className="flex items-center space-x-4">
-              <Link
-                href="/en"
-                className="flex items-center space-x-1.5 text-sm text-gray-600 hover:text-primary transition-colors"
-              >
-                <ArrowLeft className="w-4 h-4" aria-hidden="true" />
-                <span>Back to single image</span>
-              </Link>
-              <a
-                href="/batch"
-                className="flex items-center space-x-1.5 text-sm text-gray-600 hover:text-primary transition-colors"
-                aria-label="切換到中文"
-              >
-                <Languages className="w-4 h-4" aria-hidden="true" />
-                <span>中文</span>
-              </a>
-              <div className="flex items-center space-x-2">
-                <Shield className="text-green-600 w-4 h-4" aria-hidden="true" />
-                <span className="text-sm text-gray-600">100% Local</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </header>
+      <SiteHeader lang="en" current="batch" />
 
       <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Banner */}
-        <Card className="bg-blue-50 border-blue-200 p-4 mb-8">
-          <div className="flex items-start space-x-3">
-            <Shield className="text-primary mt-0.5 w-5 h-5" />
-            <div>
-              <h2 className="font-medium text-blue-900 mb-1">
-                Batch Watermark — Process Many Images at Once
-              </h2>
-              <p className="text-sm text-blue-800">
-                Upload up to {MAX_FILES} images at a time, apply the same
-                watermark settings, then download them all as a ZIP. Every image
-                is processed 100% in your browser and is never uploaded to any
-                server.
-              </p>
-            </div>
-          </div>
-        </Card>
+        {/* Privacy Notice — compact trust badge */}
+        <PrivacyBanner lang="en" className="mb-8" />
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Left Panel - Upload + Controls + Actions */}

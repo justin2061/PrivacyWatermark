@@ -1,17 +1,16 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "wouter";
 import { Card } from "@/components/ui/card";
+import { SiteHeader } from "@/components/SiteHeader";
+import { PrivacyBanner } from "@/components/PrivacyBanner";
 import { KofiSupport } from "@/components/KofiSupport";
 import { setPageSeo, webAppSchema } from "@/lib/seo";
 import {
   CheckCircle,
   Download,
-  Image as ImageIcon,
-  Languages,
   Lock,
   RefreshCw,
   Scissors,
-  Shield,
   Sparkles,
   Upload,
 } from "lucide-react";
@@ -78,7 +77,6 @@ function compositeBackground(
 
 export default function RemoveBgPage() {
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const [menuOpen, setMenuOpen] = useState(false);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   // 去背後的透明 PNG（原始結果，永遠保留以便切換背景）
   const [cutoutBlob, setCutoutBlob] = useState<Blob | null>(null);
@@ -235,79 +233,7 @@ export default function RemoveBgPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <header className="bg-white shadow-sm border-b border-gray-200">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
-            <Link
-              href="/"
-              className="flex items-center space-x-3 hover-elevate rounded-lg px-2 py-1 -ml-2"
-            >
-              <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-                <span className="text-white text-lg" role="img" aria-label="去背">
-                  ✂️
-                </span>
-              </div>
-              <div>
-                <h1 className="text-xl font-semibold text-gray-900">AI 智能去背</h1>
-                <p className="text-xs text-gray-600">一鍵移除背景，本地端處理</p>
-              </div>
-            </Link>
-            {/* 桌面版導航 */}
-            <div className="hidden md:flex items-center space-x-4">
-              <Link
-                href="/"
-                className="flex items-center space-x-1.5 text-sm text-gray-600 hover:text-primary transition-colors"
-              >
-                <ImageIcon className="w-4 h-4" aria-hidden="true" />
-                <span>浮水印工具</span>
-              </Link>
-              <a
-                href="/en/remove-bg"
-                className="flex items-center space-x-1.5 text-sm text-gray-600 hover:text-primary transition-colors"
-                aria-label="Switch to English"
-              >
-                <Languages className="w-4 h-4" aria-hidden="true" />
-                <span>EN</span>
-              </a>
-              <div className="flex items-center space-x-2">
-                <Shield className="text-green-600 w-4 h-4" aria-hidden="true" />
-                <span className="text-sm text-gray-600">100% 本地處理</span>
-              </div>
-            </div>
-            {/* 手機版漢堡按鈕 */}
-            <button
-              type="button"
-              className="md:hidden p-2 text-2xl leading-none text-gray-700"
-              onClick={() => setMenuOpen(!menuOpen)}
-              aria-label={menuOpen ? "關閉選單" : "開啟選單"}
-              aria-expanded={menuOpen}
-            >
-              {menuOpen ? "✕" : "☰"}
-            </button>
-          </div>
-          {menuOpen && (
-            <nav className="md:hidden border-t border-gray-200 py-2">
-              <Link
-                href="/"
-                className="flex items-center space-x-2 py-3 px-4 text-gray-600 hover:bg-gray-50 rounded-lg"
-                onClick={() => setMenuOpen(false)}
-              >
-                <ImageIcon className="w-4 h-4" aria-hidden="true" />
-                <span>浮水印工具</span>
-              </Link>
-              <a
-                href="/en/remove-bg"
-                className="flex items-center space-x-2 py-3 px-4 text-gray-600 hover:bg-gray-50 rounded-lg"
-                aria-label="Switch to English"
-              >
-                <Languages className="w-4 h-4" aria-hidden="true" />
-                <span>EN</span>
-              </a>
-            </nav>
-          )}
-        </div>
-      </header>
+      <SiteHeader lang="zh" current="remove-bg" />
 
       <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* 標題 */}
@@ -320,19 +246,8 @@ export default function RemoveBgPage() {
           </p>
         </div>
 
-        {/* 隱私提示 */}
-        <Card className="bg-blue-50 border-blue-200 p-4 mb-8">
-          <div className="flex items-start space-x-3">
-            <Shield className="text-primary mt-0.5 w-5 h-5" />
-            <div>
-              <h2 className="font-medium text-blue-900 mb-1">為什麼用這個去背工具？</h2>
-              <p className="text-sm text-blue-800">
-                這款工具使用 AI 模型（@imgly/background-removal）完全在你的瀏覽器中運作，圖片不會上傳到任何伺服器。
-                首次使用會下載約 30MB 的 AI 模型並快取在瀏覽器中，之後即可離線、即時去背，特別適合處理商品照、人像或含個資的圖片。
-              </p>
-            </div>
-          </div>
-        </Card>
+        {/* 隱私提示 — 精簡信任標誌 */}
+        <PrivacyBanner lang="zh" className="mb-8" />
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* 左側：上傳 + 操作 */}

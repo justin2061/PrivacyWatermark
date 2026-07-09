@@ -1,6 +1,8 @@
 import { useEffect, useRef } from "react";
 import { Link } from "wouter";
 import { Card } from "@/components/ui/card";
+import { SiteHeader } from "@/components/SiteHeader";
+import { PrivacyBanner } from "@/components/PrivacyBanner";
 import { KofiSupport } from "@/components/KofiSupport";
 import { useExifCleaner } from "@/hooks/useExifCleaner";
 import { setPageSeo, webAppSchema } from "@/lib/seo";
@@ -9,7 +11,6 @@ import {
   CheckCircle,
   Download,
   EraserIcon,
-  Image as ImageIcon,
   Lock,
   RefreshCw,
   Shield,
@@ -75,48 +76,10 @@ export default function ExifCleanPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <header className="bg-white shadow-sm border-b border-gray-200">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
-            <Link href="/" className="flex items-center space-x-3 hover-elevate rounded-lg px-2 py-1 -ml-2">
-              <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-                <span className="text-white text-lg" role="img" aria-label="橡皮擦">🧼</span>
-              </div>
-              <div>
-                <h1 className="text-xl font-semibold text-gray-900">EXIF 清除器</h1>
-                <p className="text-xs text-gray-600">移除照片中的 GPS、相機、軟體等隱私資訊</p>
-              </div>
-            </Link>
-            <div className="flex items-center space-x-4">
-              <Link
-                href="/"
-                className="flex items-center space-x-1.5 text-sm text-gray-600 hover:text-primary transition-colors"
-              >
-                <ImageIcon className="w-4 h-4" aria-hidden="true" />
-                <span>浮水印工具</span>
-              </Link>
-              <div className="flex items-center space-x-2">
-                <Shield className="text-green-600 w-4 h-4" aria-hidden="true" />
-                <span className="text-sm text-gray-600">100% 本地處理</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </header>
+      <SiteHeader lang="zh" current="exif-clean" />
 
       <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <Card className="bg-blue-50 border-blue-200 p-4 mb-8">
-          <div className="flex items-start space-x-3">
-            <Shield className="text-primary mt-0.5 w-5 h-5" />
-            <div>
-              <h2 className="font-medium text-blue-900 mb-1">為什麼要清除 EXIF？</h2>
-              <p className="text-sm text-blue-800">
-                手機與相機在每張照片裡都會寫入隱藏資訊：拍攝地點 GPS、相機型號、序號、修圖軟體、拍攝時間等。
-                上傳到社群、論壇或交給第三方前清除這些資料，可避免家裡地址、行蹤被反推出來。所有處理都在瀏覽器中完成，圖片不會上傳。
-              </p>
-            </div>
-          </div>
-        </Card>
+        <PrivacyBanner lang="zh" className="mb-8" />
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           <div className="space-y-6">

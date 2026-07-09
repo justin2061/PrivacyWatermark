@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "wouter";
 import { Card } from "@/components/ui/card";
+import { SiteHeader } from "@/components/SiteHeader";
 import { KofiSupport } from "@/components/KofiSupport";
 import { setPageSeo, webAppSchema, faqSchema } from "@/lib/seo";
 import { PAIRS, type ConvertPair, type PairMime } from "@/lib/convertPairs";
@@ -8,10 +9,7 @@ import {
   ArrowRight,
   CheckCircle,
   Download,
-  Image as ImageIcon,
-  Languages,
   RefreshCw,
-  Shield,
   Upload,
 } from "lucide-react";
 
@@ -267,48 +265,7 @@ export default function ConvertPairPage({ pair, lang = "zh" }: ConvertPairPagePr
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <header className="bg-white shadow-sm border-b border-gray-200">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
-            <Link
-              href={en ? "/en/" : "/"}
-              className="flex items-center space-x-3 hover-elevate rounded-lg px-2 py-1 -ml-2"
-            >
-              <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-                <span className="text-white text-lg" role="img" aria-label="Convert">
-                  🔄
-                </span>
-              </div>
-              <div>
-                <p className="text-xl font-semibold text-gray-900">{t.headerTitle}</p>
-                <p className="text-xs text-gray-600">{t.headerSub}</p>
-              </div>
-            </Link>
-            <div className="flex items-center space-x-4">
-              <Link
-                href={en ? "/en/" : "/"}
-                className="hidden sm:flex items-center space-x-1.5 text-sm text-gray-600 hover:text-primary transition-colors"
-              >
-                <ImageIcon className="w-4 h-4" aria-hidden="true" />
-                <span>{t.watermarkTool}</span>
-              </Link>
-              <a
-                href={en ? `/convert/${pair.slug}` : `/en/convert/${pair.slug}`}
-                className="flex items-center space-x-1.5 text-sm text-gray-600 hover:text-primary transition-colors"
-                aria-label={t.switchAria}
-              >
-                <Languages className="w-4 h-4" aria-hidden="true" />
-                <span>{t.switchLang}</span>
-              </a>
-              <div className="hidden sm:flex items-center space-x-2">
-                <Shield className="text-green-600 w-4 h-4" aria-hidden="true" />
-                <span className="text-sm text-gray-600">{t.localBadge}</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </header>
+      <SiteHeader lang={lang} current="convert" />
 
       <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* h1 + 前言 */}
