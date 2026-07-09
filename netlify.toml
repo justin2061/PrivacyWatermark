@@ -11,38 +11,29 @@
 [context.production.environment]
   NODE_VERSION = "20"
 
-# Disable Netlify's "Pretty URLs" post-processing. It is ON by default and forces
-# every directory path to a TRAILING SLASH (301 /blog/:slug -> /blog/:slug/). Our
-# prerender writes each article as a directory index (dist/blog/:slug/index.html),
-# so Pretty URLs would 301-add the slash while the [[redirects]] rule below
-# 301-strips it — an infinite redirect loop that broke Google indexing (GSC
-# "Redirect error"). We standardize on the NO-slash form (sitemap + canonical tags
-# all use it), so Pretty URLs must be off and the trailing-slash 301 kept.
+# Blog article URL canonicalization — read before re-adding any [[redirects]] here.
+#
+# Each article is prerendered as a directory index (dist/blog/:slug/index.html),
+# which Netlify serves at BOTH /blog/:slug and /blog/:slug/ with a 200 (same as
+# every other prerendered page, e.g. /exif-clean). Google is told which form to
+# index by the <link rel="canonical"> tag — the no-slash form — matching sitemap.xml.
+# This canonical-tag dedup is the site-wide pattern and indexes cleanly.
+#
+# Do NOT try to force a single URL with a trailing-slash 301 (as a previous commit
+# did): Netlify's redirect engine IGNORES trailing slashes when matching, so
+# `from = "/blog/:slug/"` also matches the no-slash request. With force = true it
+# then 301s the no-slash URL to itself — an infinite loop that broke Google
+# indexing (GSC "Redirect error"). Without force it never fires, because the static
+# file takes precedence. A one-directional slash 301 is therefore impossible here;
+# the canonical tag is the only correct lever.
+#
+# pretty_urls = false keeps Netlify from injecting its own trailing-slash redirects,
+# so both forms stay a plain 200.
 [build.processing]
   skip_processing = false
 
 [build.processing.html]
   pretty_urls = false
-
-# Canonicalize blog article URLs: strip the trailing slash so Google indexes a
-# single URL per article. Our canonical tags and sitemap use the no-slash form
-# for articles (e.g. /blog/rent-id-watermark), but a prerendered index.html also
-# exists at that path, so Netlify would otherwise serve the /blog/rent-id-watermark/
-# variant too — splitting ranking signals across two URLs. The :slug placeholder
-# matches a single non-empty segment, so the /blog/ and /en/blog indexes (which
-# legitimately keep/lack their own slash) are left untouched. force = true is
-# required for the 301 to win over the existing static file.
-[[redirects]]
-  from = "/blog/:slug/"
-  to = "/blog/:slug"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/en/blog/:slug/"
-  to = "/en/blog/:slug"
-  status = 301
-  force = true
 
 # Static prerendered files (dist/**/index.html) are served automatically and
 # take precedence over this SPA fallback, so crawlers get full HTML. This
