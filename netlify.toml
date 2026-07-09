@@ -11,6 +11,19 @@
 [context.production.environment]
   NODE_VERSION = "20"
 
+# Disable Netlify's "Pretty URLs" post-processing. It is ON by default and forces
+# every directory path to a TRAILING SLASH (301 /blog/:slug -> /blog/:slug/). Our
+# prerender writes each article as a directory index (dist/blog/:slug/index.html),
+# so Pretty URLs would 301-add the slash while the [[redirects]] rule below
+# 301-strips it — an infinite redirect loop that broke Google indexing (GSC
+# "Redirect error"). We standardize on the NO-slash form (sitemap + canonical tags
+# all use it), so Pretty URLs must be off and the trailing-slash 301 kept.
+[build.processing]
+  skip_processing = false
+
+[build.processing.html]
+  pretty_urls = false
+
 # Canonicalize blog article URLs: strip the trailing slash so Google indexes a
 # single URL per article. Our canonical tags and sitemap use the no-slash form
 # for articles (e.g. /blog/rent-id-watermark), but a prerendered index.html also
