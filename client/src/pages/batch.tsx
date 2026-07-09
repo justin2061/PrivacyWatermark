@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import { Link } from "wouter";
 import { Card } from "@/components/ui/card";
+import { KofiSupport } from "@/components/KofiSupport";
 import { WatermarkControls } from "@/components/watermark/WatermarkControls";
 import { setPageSeo, webAppSchema } from "@/lib/seo";
 import {
@@ -15,6 +16,7 @@ import {
   CheckCircle,
   Eye,
   Image as ImageIcon,
+  Loader2,
 } from "lucide-react";
 
 function formatFileSize(bytes: number): string {
@@ -269,9 +271,13 @@ export default function BatchPage() {
                   aria-label={isProcessing ? "處理中，請稍候" : "全部套用浮水印"}
                   className="w-full bg-primary text-white py-3 px-4 rounded-lg hover:bg-blue-700 transition-colors font-medium disabled:bg-gray-400 disabled:cursor-not-allowed flex items-center justify-center"
                 >
-                  <span className="mr-2" aria-hidden="true">
-                    ✨
-                  </span>
+                  {isProcessing ? (
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" aria-hidden="true" />
+                  ) : (
+                    <span className="mr-2" aria-hidden="true">
+                      ✨
+                    </span>
+                  )}
                   {isProcessing
                     ? `處理中... (${processedCount}/${images.length})`
                     : "全部套用浮水印"}
@@ -302,13 +308,19 @@ export default function BatchPage() {
                   onClick={reset}
                   disabled={!hasImages}
                   aria-label="重新開始，清除所有圖片"
-                  className="w-full bg-gray-500 text-white py-2 px-4 rounded-lg hover:bg-gray-600 transition-colors disabled:bg-gray-300 disabled:cursor-not-allowed flex items-center justify-center"
+                  className="w-full bg-gray-500 text-white py-2.5 px-4 rounded-lg hover:bg-gray-600 transition-colors disabled:bg-gray-300 disabled:cursor-not-allowed flex items-center justify-center min-h-[44px]"
                 >
                   <span className="mr-2" aria-hidden="true">
                     🔄
                   </span>
                   重新開始
                 </button>
+
+                <KofiSupport className="mt-2" />
+
+                {allProcessed && (
+                  <KofiSupport variant="success" className="mt-4" />
+                )}
               </div>
             </Card>
           </div>

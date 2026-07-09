@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "wouter";
 import { Card } from "@/components/ui/card";
+import { KofiSupport } from "@/components/KofiSupport";
 import { setPageSeo, webAppSchema } from "@/lib/seo";
 import {
   CheckCircle,
@@ -431,7 +432,7 @@ export default function RemoveBgPage() {
                           ? "text-primary font-medium"
                           : stage === "done"
                           ? "text-gray-400"
-                          : "text-gray-300"
+                          : "text-gray-400"
                       }`}
                     >
                       <span className="mr-2">
@@ -447,7 +448,7 @@ export default function RemoveBgPage() {
                       className={`flex items-center ${
                         stage === "done"
                           ? "text-green-600 font-medium"
-                          : "text-gray-300"
+                          : "text-gray-400"
                       }`}
                     >
                       <span className="mr-2">{stage === "done" ? "✅" : "○"}</span>
@@ -571,6 +572,9 @@ export default function RemoveBgPage() {
                   輸出檔案大小：{formatSize(result.size)}（PNG）
                 </p>
               )}
+              {result && (
+                <KofiSupport variant="success" className="mt-4" />
+              )}
             </Card>
 
             <Card className="p-6">
@@ -586,19 +590,12 @@ export default function RemoveBgPage() {
                 <button
                   onClick={reset}
                   disabled={!selectedFile}
-                  className="w-full bg-gray-500 text-white py-2 px-4 rounded-lg hover:bg-gray-600 transition-colors disabled:bg-gray-300 disabled:cursor-not-allowed flex items-center justify-center"
+                  className="w-full bg-gray-500 text-white py-2.5 px-4 rounded-lg hover:bg-gray-600 transition-colors disabled:bg-gray-300 disabled:cursor-not-allowed flex items-center justify-center min-h-[44px]"
                 >
                   <RefreshCw className="w-4 h-4 mr-2" aria-hidden="true" />
                   重新開始
                 </button>
-                <a
-                  href="https://ko-fi.com/justinlee2061"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-sm text-gray-400 hover:text-blue-500 transition-colors mt-2 inline-block"
-                >
-                  ☕ 覺得好用？請我喝杯咖啡
-                </a>
+                <KofiSupport className="mt-2" />
               </div>
             </Card>
           </div>

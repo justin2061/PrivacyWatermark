@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "wouter";
 import { Card } from "@/components/ui/card";
+import { KofiSupport } from "@/components/KofiSupport";
 import { setPageSeo, webAppSchema, faqSchema } from "@/lib/seo";
 import { PAIRS, type ConvertPair, type PairMime } from "@/lib/convertPairs";
 import {
@@ -434,11 +435,14 @@ export default function ConvertPairPage({ pair, lang = "zh" }: ConvertPairPagePr
                   )}
 
                   {result && (
-                    <img
-                      src={result.url}
-                      alt={t.previewAlt}
-                      className="max-w-full rounded-lg border border-gray-200"
-                    />
+                    <>
+                      <img
+                        src={result.url}
+                        alt={t.previewAlt}
+                        className="max-w-full rounded-lg border border-gray-200"
+                      />
+                      <KofiSupport variant="success" lang={en ? "en" : "zh"} className="mt-4" />
+                    </>
                   )}
                 </>
               )}
@@ -457,19 +461,12 @@ export default function ConvertPairPage({ pair, lang = "zh" }: ConvertPairPagePr
                 <button
                   onClick={reset}
                   disabled={!selectedFile}
-                  className="w-full bg-gray-500 text-white py-2 px-4 rounded-lg hover:bg-gray-600 transition-colors disabled:bg-gray-300 disabled:cursor-not-allowed flex items-center justify-center"
+                  className="w-full bg-gray-500 text-white py-2.5 min-h-[44px] px-4 rounded-lg hover:bg-gray-600 transition-colors disabled:bg-gray-300 disabled:cursor-not-allowed flex items-center justify-center"
                 >
                   <RefreshCw className="w-4 h-4 mr-2" aria-hidden="true" />
                   {t.startOver}
                 </button>
-                <a
-                  href="https://ko-fi.com/justinlee2061"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-sm text-gray-400 hover:text-blue-500 transition-colors mt-2 inline-block"
-                >
-                  {t.kofi}
-                </a>
+                <KofiSupport lang={en ? "en" : "zh"} className="mt-2" />
               </div>
             </Card>
           </div>

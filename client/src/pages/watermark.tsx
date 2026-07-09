@@ -5,9 +5,10 @@ import { FileUploadZone } from "@/components/watermark/FileUploadZone";
 import { WatermarkControls } from "@/components/watermark/WatermarkControls";
 import { CanvasPreview } from "@/components/watermark/CanvasPreview";
 import { ProcessingStatus } from "@/components/watermark/ProcessingStatus";
+import { KofiSupport } from "@/components/KofiSupport";
 import { useWatermark } from "@/hooks/useWatermark";
 import { setPageSeo, webAppSchema, faqSchema } from "@/lib/seo";
-import { Shield, Lock, Zap, BookOpen, Eraser, Layers, Languages, Minimize2, Repeat, Scaling, Scissors, FileText } from "lucide-react";
+import { Shield, Lock, Zap, BookOpen, Eraser, Layers, Languages, Minimize2, Repeat, Scaling, Scissors, FileText, Loader2 } from "lucide-react";
 
 export default function WatermarkPage() {
   const {
@@ -315,7 +316,11 @@ export default function WatermarkPage() {
                   aria-label={isProcessing ? "處理中，請稍候" : "套用浮水印"}
                   className="w-full bg-primary text-white py-3 px-4 rounded-lg hover:bg-blue-700 transition-colors font-medium disabled:bg-gray-400 disabled:cursor-not-allowed flex items-center justify-center"
                 >
-                  <span className="mr-2" aria-hidden="true">{isProcessing ? "⏳" : "🖌️"}</span>
+                  {isProcessing ? (
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" aria-hidden="true" />
+                  ) : (
+                    <span className="mr-2" aria-hidden="true">🖌️</span>
+                  )}
                   {isProcessing ? "處理中..." : "套用浮水印"}
                 </button>
 
@@ -333,20 +338,13 @@ export default function WatermarkPage() {
                   onClick={resetCanvas}
                   disabled={!selectedFile}
                   aria-label="重新開始，清除目前的圖片"
-                  className="w-full bg-gray-500 text-white py-2 px-4 rounded-lg hover:bg-gray-600 transition-colors disabled:bg-gray-300 disabled:cursor-not-allowed flex items-center justify-center"
+                  className="w-full min-h-[44px] bg-gray-500 text-white py-2.5 px-4 rounded-lg hover:bg-gray-600 transition-colors disabled:bg-gray-300 disabled:cursor-not-allowed flex items-center justify-center"
                 >
                   <span className="mr-2" aria-hidden="true">🔄</span>
                   重新開始
                 </button>
 
-                <a
-                  href="https://ko-fi.com/justinlee2061"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-sm text-gray-400 hover:text-blue-500 transition-colors mt-2 inline-block"
-                >
-                  ☕ 覺得好用？請我喝杯咖啡
-                </a>
+                <KofiSupport className="mt-2" />
               </div>
             </Card>
           </div>
@@ -364,6 +362,9 @@ export default function WatermarkPage() {
               processedImage={processedImage}
               progress={progress}
             />
+
+            {/* 完成下載後的支持 CTA */}
+            {processedImage && <KofiSupport variant="success" />}
           </div>
         </div>
 
@@ -514,14 +515,7 @@ export default function WatermarkPage() {
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="mb-4 md:mb-0">
               <p className="text-sm text-gray-600">© 2025 證件浮水印工具 - 保護您的隱私安全</p>
-              <a
-                href="https://ko-fi.com/justinlee2061"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-sm text-gray-400 hover:text-blue-500 transition-colors mt-1 inline-block"
-              >
-                ☕ 支持這個免費工具
-              </a>
+              <KofiSupport className="mt-1" />
             </div>
             <div className="flex items-center space-x-4">
               <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">

@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import { Link } from "wouter";
 import { Card } from "@/components/ui/card";
+import { KofiSupport } from "@/components/KofiSupport";
 import { WatermarkControls } from "@/components/watermark/WatermarkControls";
 import { useBatchWatermark, MAX_FILES } from "@/hooks/useBatchWatermark";
 import { setPageSeo, webAppSchema } from "@/lib/seo";
@@ -323,13 +324,19 @@ export default function BatchEnPage() {
                   onClick={reset}
                   disabled={!hasImages}
                   aria-label="Start over and clear all images"
-                  className="w-full bg-gray-500 text-white py-2 px-4 rounded-lg hover:bg-gray-600 transition-colors disabled:bg-gray-300 disabled:cursor-not-allowed flex items-center justify-center"
+                  className="w-full bg-gray-500 text-white py-2.5 min-h-[44px] px-4 rounded-lg hover:bg-gray-600 transition-colors disabled:bg-gray-300 disabled:cursor-not-allowed flex items-center justify-center"
                 >
                   <span className="mr-2" aria-hidden="true">
                     🔄
                   </span>
                   Start Over
                 </button>
+
+                <KofiSupport lang="en" className="mt-2" />
+
+                {allProcessed && (
+                  <KofiSupport variant="success" lang="en" className="mt-4" />
+                )}
               </div>
             </Card>
           </div>

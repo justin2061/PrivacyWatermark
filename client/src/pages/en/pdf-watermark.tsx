@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Link } from "wouter";
 import { Card } from "@/components/ui/card";
+import { KofiSupport } from "@/components/KofiSupport";
 import { setPageSeo, webAppSchema, faqSchema } from "@/lib/seo";
 import {
   applyPdfWatermark,
@@ -687,11 +688,14 @@ export default function PdfWatermarkEnPage() {
                   </div>
                 )}
                 {result && (
-                  <div className="p-3 bg-green-50 border border-green-200 rounded-lg">
-                    <p className="text-sm text-green-800">
-                      Watermarked {result.pageCount} page(s), output {formatSize(result.size)}.
-                    </p>
-                  </div>
+                  <>
+                    <div className="p-3 bg-green-50 border border-green-200 rounded-lg">
+                      <p className="text-sm text-green-800">
+                        Watermarked {result.pageCount} page(s), output {formatSize(result.size)}.
+                      </p>
+                    </div>
+                    <KofiSupport variant="success" lang="en" className="mt-4" />
+                  </>
                 )}
 
                 <button
@@ -715,20 +719,13 @@ export default function PdfWatermarkEnPage() {
                 <button
                   onClick={reset}
                   disabled={!selectedFile}
-                  className="w-full bg-gray-500 text-white py-2 px-4 rounded-lg hover:bg-gray-600 transition-colors disabled:bg-gray-300 disabled:cursor-not-allowed flex items-center justify-center"
+                  className="w-full bg-gray-500 text-white py-2.5 min-h-[44px] px-4 rounded-lg hover:bg-gray-600 transition-colors disabled:bg-gray-300 disabled:cursor-not-allowed flex items-center justify-center"
                 >
                   <RefreshCw className="w-4 h-4 mr-2" aria-hidden="true" />
                   Start over
                 </button>
 
-                <a
-                  href="https://ko-fi.com/justinlee2061"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-sm text-gray-400 hover:text-blue-500 transition-colors mt-2 inline-block"
-                >
-                  ☕ Found it useful? Buy me a coffee
-                </a>
+                <KofiSupport lang="en" className="mt-2" />
               </div>
             </Card>
           </div>

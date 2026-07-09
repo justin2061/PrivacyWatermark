@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Link } from "wouter";
 import { Card } from "@/components/ui/card";
+import { KofiSupport } from "@/components/KofiSupport";
 import { setPageSeo, webAppSchema, faqSchema } from "@/lib/seo";
 import {
   applyPdfWatermark,
@@ -734,20 +735,17 @@ export default function PdfWatermarkPage() {
                 <button
                   onClick={reset}
                   disabled={!selectedFile}
-                  className="w-full bg-gray-500 text-white py-2 px-4 rounded-lg hover:bg-gray-600 transition-colors disabled:bg-gray-300 disabled:cursor-not-allowed flex items-center justify-center"
+                  className="w-full bg-gray-500 text-white py-2.5 px-4 rounded-lg hover:bg-gray-600 transition-colors disabled:bg-gray-300 disabled:cursor-not-allowed flex items-center justify-center min-h-[44px]"
                 >
                   <RefreshCw className="w-4 h-4 mr-2" aria-hidden="true" />
                   重新開始
                 </button>
 
-                <a
-                  href="https://ko-fi.com/justinlee2061"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-sm text-gray-400 hover:text-blue-500 transition-colors mt-2 inline-block"
-                >
-                  ☕ 覺得好用？請我喝杯咖啡
-                </a>
+                <KofiSupport className="mt-2" />
+
+                {result && (
+                  <KofiSupport variant="success" className="mt-4" />
+                )}
               </div>
             </Card>
           </div>

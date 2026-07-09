@@ -5,6 +5,7 @@ import { FileUploadZone } from "@/components/watermark/FileUploadZone";
 import { WatermarkControls } from "@/components/watermark/WatermarkControls";
 import { CanvasPreview } from "@/components/watermark/CanvasPreview";
 import { ProcessingStatus } from "@/components/watermark/ProcessingStatus";
+import { KofiSupport } from "@/components/KofiSupport";
 import { useWatermark } from "@/hooks/useWatermark";
 import { setPageSeo, webAppSchema } from "@/lib/seo";
 import {
@@ -300,20 +301,13 @@ export default function WatermarkEnPage() {
                   onClick={resetCanvas}
                   disabled={!selectedFile}
                   aria-label="Start over and clear the current image"
-                  className="w-full bg-gray-500 text-white py-2 px-4 rounded-lg hover:bg-gray-600 transition-colors disabled:bg-gray-300 disabled:cursor-not-allowed flex items-center justify-center"
+                  className="w-full bg-gray-500 text-white py-2.5 min-h-[44px] px-4 rounded-lg hover:bg-gray-600 transition-colors disabled:bg-gray-300 disabled:cursor-not-allowed flex items-center justify-center"
                 >
                   <span className="mr-2" aria-hidden="true">🔄</span>
                   Start Over
                 </button>
 
-                <a
-                  href="https://ko-fi.com/justinlee2061"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-sm text-gray-400 hover:text-blue-500 transition-colors mt-2 inline-block"
-                >
-                  ☕ Find this useful? Buy me a coffee
-                </a>
+                <KofiSupport lang="en" className="mt-2" />
               </div>
             </Card>
           </div>
@@ -333,6 +327,8 @@ export default function WatermarkEnPage() {
               progress={progress}
               lang="en"
             />
+
+            {processedImage && <KofiSupport variant="success" lang="en" />}
           </div>
         </div>
 
@@ -442,14 +438,7 @@ export default function WatermarkEnPage() {
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="mb-4 md:mb-0">
               <p className="text-sm text-gray-600">© 2026 Image Watermark Tool — Protecting your privacy</p>
-              <a
-                href="https://ko-fi.com/justinlee2061"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-sm text-gray-400 hover:text-blue-500 transition-colors mt-1 inline-block"
-              >
-                ☕ Support this free tool
-              </a>
+              <KofiSupport lang="en" className="mt-1" />
             </div>
             <div className="flex items-center space-x-4">
               <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">

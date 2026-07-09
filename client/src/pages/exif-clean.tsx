@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import { Link } from "wouter";
 import { Card } from "@/components/ui/card";
+import { KofiSupport } from "@/components/KofiSupport";
 import { useExifCleaner } from "@/hooks/useExifCleaner";
 import { setPageSeo, webAppSchema } from "@/lib/seo";
 import {
@@ -194,11 +195,13 @@ export default function ExifCleanPage() {
                 <button
                   onClick={reset}
                   disabled={!selectedFile}
-                  className="w-full bg-gray-500 text-white py-2 px-4 rounded-lg hover:bg-gray-600 transition-colors disabled:bg-gray-300 disabled:cursor-not-allowed flex items-center justify-center"
+                  className="w-full bg-gray-500 text-white py-2.5 px-4 rounded-lg hover:bg-gray-600 transition-colors disabled:bg-gray-300 disabled:cursor-not-allowed flex items-center justify-center min-h-[44px]"
                 >
                   <RefreshCw className="w-4 h-4 mr-2" aria-hidden="true" />
                   重新開始
                 </button>
+
+                <KofiSupport className="mt-2" />
               </div>
             </Card>
           </div>
@@ -293,6 +296,7 @@ export default function ExifCleanPage() {
                   alt="清除 metadata 後的預覽"
                   className="max-w-full rounded-lg border border-gray-200"
                 />
+                <KofiSupport variant="success" className="mt-4" />
               </Card>
             )}
           </div>
