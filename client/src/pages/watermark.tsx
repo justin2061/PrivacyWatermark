@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { Link } from "wouter";
 import { Card } from "@/components/ui/card";
 import { SiteHeader } from "@/components/SiteHeader";
+import { ToolsShowcase } from "@/components/ToolsShowcase";
 import { PrivacyBanner } from "@/components/PrivacyBanner";
 import { FileUploadZone } from "@/components/watermark/FileUploadZone";
 import { WatermarkControls } from "@/components/watermark/WatermarkControls";
@@ -198,6 +199,9 @@ export default function WatermarkPage() {
             </div>
           )}
         </div>
+
+        {/* 所有工具中心 */}
+        <ToolsShowcase lang="zh" current="watermark" />
 
         {/* Features Section */}
         <section className="mt-12" aria-labelledby="features-heading">

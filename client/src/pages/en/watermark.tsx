@@ -2,6 +2,7 @@ import { Link } from "wouter";
 import { useEffect } from "react";
 import { Card } from "@/components/ui/card";
 import { SiteHeader } from "@/components/SiteHeader";
+import { ToolsShowcase } from "@/components/ToolsShowcase";
 import { PrivacyBanner } from "@/components/PrivacyBanner";
 import { FileUploadZone } from "@/components/watermark/FileUploadZone";
 import { WatermarkControls } from "@/components/watermark/WatermarkControls";
@@ -151,6 +152,9 @@ export default function WatermarkEnPage() {
             </div>
           )}
         </div>
+
+        {/* All tools hub */}
+        <ToolsShowcase lang="en" current="watermark" />
 
         {/* Features Section */}
         <section className="mt-12" aria-labelledby="features-heading">
