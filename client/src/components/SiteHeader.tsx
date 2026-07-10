@@ -6,6 +6,8 @@ import {
   FileText,
   Eraser,
   Scissors,
+  Grid2x2,
+  Crop,
   Minimize2,
   Repeat,
   Scaling,
@@ -30,9 +32,11 @@ export type NavKey =
   | "pdf-watermark"
   | "exif-clean"
   | "remove-bg"
+  | "mosaic"
   | "compress"
   | "convert"
   | "resize"
+  | "social-crop"
   | "blog";
 
 interface NavItem {
@@ -114,6 +118,12 @@ export function SiteHeader({ lang = "zh", current }: SiteHeaderProps) {
       icon: Scissors,
     },
     {
+      key: "mosaic",
+      href: `${base}/mosaic`,
+      label: isEn ? "Mosaic & Blur" : "馬賽克遮蔽",
+      icon: Grid2x2,
+    },
+    {
       key: "compress",
       href: `${base}/compress`,
       label: isEn ? "Compress" : "圖片壓縮",
@@ -124,6 +134,12 @@ export function SiteHeader({ lang = "zh", current }: SiteHeaderProps) {
       href: `${base}/convert`,
       label: isEn ? "Convert" : "格式轉換",
       icon: Repeat,
+    },
+    {
+      key: "social-crop",
+      href: `${base}/social-crop`,
+      label: isEn ? "Social Crop" : "社群裁切",
+      icon: Crop,
     },
     {
       key: "resize",

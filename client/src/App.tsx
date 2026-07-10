@@ -41,10 +41,14 @@ import ConvertPairEnPage from "@/pages/en/convert-pair";
 import { PAIRS } from "@/lib/convertPairs";
 import ResizePage from "@/pages/resize";
 import ResizeEnPage from "@/pages/en/resize";
+import SocialCropPage from "@/pages/social-crop";
+import SocialCropEnPage from "@/pages/en/social-crop";
 import RemoveBgPage from "@/pages/remove-bg";
 import RemoveBgEnPage from "@/pages/en/remove-bg";
 import PdfWatermarkPage from "@/pages/pdf-watermark";
 import PdfWatermarkEnPage from "@/pages/en/pdf-watermark";
+import MosaicPage from "@/pages/mosaic";
+import MosaicEnPage from "@/pages/en/mosaic";
 import IsIdWatermarkUsefulPage from "@/pages/blog/is-id-watermark-useful";
 import TinypngIloveimgSquooshAlternatives from "@/pages/blog/tinypng-iloveimg-squoosh-alternatives";
 import TinypngIloveimgSquooshAlternativesEn from "@/pages/en/blog/tinypng-iloveimg-squoosh-alternatives";
@@ -114,10 +118,14 @@ function Router() {
       ))}
       <Route path="/resize" component={ResizePage} />
       <Route path="/en/resize" component={ResizeEnPage} />
+      <Route path="/social-crop" component={SocialCropPage} />
+      <Route path="/en/social-crop" component={SocialCropEnPage} />
       <Route path="/remove-bg" component={RemoveBgPage} />
       <Route path="/en/remove-bg" component={RemoveBgEnPage} />
       <Route path="/pdf-watermark" component={PdfWatermarkPage} />
       <Route path="/en/pdf-watermark" component={PdfWatermarkEnPage} />
+      <Route path="/mosaic" component={MosaicPage} />
+      <Route path="/en/mosaic" component={MosaicEnPage} />
       <Route path="/blog/is-id-watermark-useful" component={IsIdWatermarkUsefulPage} />
       <Route path="/blog/batch-watermark-methods" component={BatchWatermarkMethodsPage} />
       <Route path="/blog/tinypng-iloveimg-squoosh-alternatives" component={TinypngIloveimgSquooshAlternatives} />
