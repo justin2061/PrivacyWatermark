@@ -60,6 +60,10 @@ import LandlordAsksForId from "@/pages/blog/landlord-asks-for-id";
 import BatchWatermarkGuide from "@/pages/blog/batch-watermark-guide";
 import WhatIsExifData from "@/pages/blog/what-is-exif-data";
 import ImageCompressionGuide from "@/pages/blog/image-compression-guide";
+import IdCopyLeakedConsequences from "@/pages/blog/id-copy-leaked-consequences";
+import RentBeforeGivingId3Things from "@/pages/blog/rent-before-giving-id-3-things";
+import JobInterviewIdCopySafety from "@/pages/blog/job-interview-id-copy-safety";
+import IdWatermarkCompleteGuide from "@/pages/blog/id-watermark-complete-guide";
 import NotFound from "@/pages/not-found";
 import BlogIndex from "@/pages/blog/index";
 import RentIdWatermark from "@/pages/blog/rent-id-watermark";
@@ -136,6 +140,10 @@ function Router() {
       <Route path="/blog/batch-watermark-guide" component={BatchWatermarkGuide} />
       <Route path="/blog/what-is-exif-data" component={WhatIsExifData} />
       <Route path="/blog/image-compression-guide" component={ImageCompressionGuide} />
+      <Route path="/blog/id-copy-leaked-consequences" component={IdCopyLeakedConsequences} />
+      <Route path="/blog/rent-before-giving-id-3-things" component={RentBeforeGivingId3Things} />
+      <Route path="/blog/job-interview-id-copy-safety" component={JobInterviewIdCopySafety} />
+      <Route path="/blog/id-watermark-complete-guide" component={IdWatermarkCompleteGuide} />
       <Route path="/en/blog/tinypng-iloveimg-squoosh-alternatives" component={TinypngIloveimgSquooshAlternativesEn} />
       <Route component={NotFound} />
     </Switch>
