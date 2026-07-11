@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "wouter";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, type LucideIcon } from "lucide-react";
 import {
   CATEGORIES,
   TOOLS,
@@ -28,9 +28,9 @@ export function ToolsShowcase({ lang = "zh", current, className = "" }: ToolsSho
     ? { heading: "All Tools", subtitle: "10+ privacy-first image tools — all run 100% in your browser", all: "All", current: "In use" }
     : { heading: "所有工具", subtitle: "10+ 款隱私優先的圖片工具，全部 100% 在你的瀏覽器執行", all: "全部", current: "使用中" };
 
-  const tabs: { id: Tab; label: string; emoji?: string }[] = [
+  const tabs: { id: Tab; label: string; icon?: LucideIcon }[] = [
     { id: "all", label: t.all },
-    ...CATEGORIES.map((cat) => ({ id: cat.id as Tab, label: cat.label[lang], emoji: cat.emoji })),
+    ...CATEGORIES.map((cat) => ({ id: cat.id as Tab, label: cat.label[lang], icon: cat.icon })),
   ];
 
   const visible = tab === "all" ? TOOLS : TOOLS.filter((tool) => tool.category === tab);
@@ -61,7 +61,7 @@ export function ToolsShowcase({ lang = "zh", current, className = "" }: ToolsSho
                   : "bg-white text-gray-600 border border-gray-200 hover:border-primary hover:text-primary"
               }`}
             >
-              {tabItem.emoji && <span aria-hidden="true">{tabItem.emoji}</span>}
+              {tabItem.icon && <tabItem.icon className="w-4 h-4" aria-hidden="true" />}
               <span>{tabItem.label}</span>
             </button>
           );

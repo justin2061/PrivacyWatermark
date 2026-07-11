@@ -4,6 +4,12 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Slider } from "@/components/ui/slider";
+import {
+  ArrowUpLeft, ArrowUp, ArrowUpRight,
+  ArrowLeft, Crosshair, ArrowRight,
+  ArrowDownLeft, ArrowDown, ArrowDownRight,
+  Repeat,
+} from "lucide-react";
 
 export type WatermarkPosition =
   | 'top-left' | 'top-center' | 'top-right'
@@ -180,25 +186,25 @@ export function WatermarkControls({ settings, onSettingsChange, disabled, lang =
   ];
 
   const positions = lang === 'en' ? [
-    { value: 'top-left', label: 'Top Left', icon: '↖' },
-    { value: 'top-center', label: 'Top Center', icon: '↑' },
-    { value: 'top-right', label: 'Top Right', icon: '↗' },
-    { value: 'center-left', label: 'Center Left', icon: '←' },
-    { value: 'center', label: 'Center', icon: '⊕' },
-    { value: 'center-right', label: 'Center Right', icon: '→' },
-    { value: 'bottom-left', label: 'Bottom Left', icon: '↙' },
-    { value: 'bottom-center', label: 'Bottom Center', icon: '↓' },
-    { value: 'bottom-right', label: 'Bottom Right', icon: '↘' },
+    { value: 'top-left', label: 'Top Left', icon: ArrowUpLeft },
+    { value: 'top-center', label: 'Top Center', icon: ArrowUp },
+    { value: 'top-right', label: 'Top Right', icon: ArrowUpRight },
+    { value: 'center-left', label: 'Center Left', icon: ArrowLeft },
+    { value: 'center', label: 'Center', icon: Crosshair },
+    { value: 'center-right', label: 'Center Right', icon: ArrowRight },
+    { value: 'bottom-left', label: 'Bottom Left', icon: ArrowDownLeft },
+    { value: 'bottom-center', label: 'Bottom Center', icon: ArrowDown },
+    { value: 'bottom-right', label: 'Bottom Right', icon: ArrowDownRight },
   ] : [
-    { value: 'top-left', label: '左上', icon: '↖' },
-    { value: 'top-center', label: '中上', icon: '↑' },
-    { value: 'top-right', label: '右上', icon: '↗' },
-    { value: 'center-left', label: '左中', icon: '←' },
-    { value: 'center', label: '中央', icon: '⊕' },
-    { value: 'center-right', label: '右中', icon: '→' },
-    { value: 'bottom-left', label: '左下', icon: '↙' },
-    { value: 'bottom-center', label: '中下', icon: '↓' },
-    { value: 'bottom-right', label: '右下', icon: '↘' },
+    { value: 'top-left', label: '左上', icon: ArrowUpLeft },
+    { value: 'top-center', label: '中上', icon: ArrowUp },
+    { value: 'top-right', label: '右上', icon: ArrowUpRight },
+    { value: 'center-left', label: '左中', icon: ArrowLeft },
+    { value: 'center', label: '中央', icon: Crosshair },
+    { value: 'center-right', label: '右中', icon: ArrowRight },
+    { value: 'bottom-left', label: '左下', icon: ArrowDownLeft },
+    { value: 'bottom-center', label: '中下', icon: ArrowDown },
+    { value: 'bottom-right', label: '右下', icon: ArrowDownRight },
   ];
 
   const repeatLabel = lang === 'en' ? 'Repeat' : '重複';
@@ -226,7 +232,7 @@ export function WatermarkControls({ settings, onSettingsChange, disabled, lang =
                 : 'border-gray-300'
             } ${controlDisabled ? 'opacity-50 cursor-not-allowed' : ''}`}
           >
-            <span className="text-sm block mb-1">{position.icon}</span>
+            <position.icon className="w-4 h-4 mx-auto mb-1" aria-hidden="true" />
             <div>{position.label}</div>
           </button>
         ))}
@@ -244,7 +250,7 @@ export function WatermarkControls({ settings, onSettingsChange, disabled, lang =
             : 'border-gray-300'
         } ${controlDisabled ? 'opacity-50 cursor-not-allowed' : ''}`}
       >
-        <span className="text-sm" aria-hidden="true">🔄</span>
+        <Repeat className="w-4 h-4" aria-hidden="true" />
         <span>{repeatLabel}</span>
       </button>
     </div>

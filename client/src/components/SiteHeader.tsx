@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "wouter";
-import { BookOpen, Languages, ChevronDown } from "lucide-react";
+import { BookOpen, Languages, ChevronDown, Menu, X } from "lucide-react";
 import {
   CATEGORIES,
   toolsByCategory,
@@ -125,7 +125,7 @@ export function SiteHeader({ lang = "zh", current }: SiteHeaderProps) {
                   {CATEGORIES.map((cat) => (
                     <div key={cat.id}>
                       <div className="flex items-center gap-1.5 mb-2 px-2 text-xs font-semibold uppercase tracking-wide text-gray-400">
-                        <span aria-hidden="true">{cat.emoji}</span>
+                        <cat.icon className="w-3.5 h-3.5" aria-hidden="true" />
                         <span>{cat.label[lang]}</span>
                       </div>
                       <ul className="space-y-0.5">
@@ -200,12 +200,16 @@ export function SiteHeader({ lang = "zh", current }: SiteHeaderProps) {
           {/* 手機版漢堡按鈕 */}
           <button
             type="button"
-            className="md:hidden p-2 text-2xl leading-none text-gray-700"
+            className="md:hidden p-2 leading-none text-gray-700"
             onClick={() => setMenuOpen(!menuOpen)}
             aria-label={menuOpen ? t.closeMenu : t.openMenu}
             aria-expanded={menuOpen}
           >
-            {menuOpen ? "✕" : "☰"}
+            {menuOpen ? (
+              <X className="w-6 h-6" aria-hidden="true" />
+            ) : (
+              <Menu className="w-6 h-6" aria-hidden="true" />
+            )}
           </button>
         </div>
 
@@ -215,7 +219,7 @@ export function SiteHeader({ lang = "zh", current }: SiteHeaderProps) {
             {CATEGORIES.map((cat) => (
               <div key={cat.id} className="pb-1">
                 <div className="flex items-center gap-1.5 px-4 pt-3 pb-1 text-xs font-semibold uppercase tracking-wide text-gray-400">
-                  <span aria-hidden="true">{cat.emoji}</span>
+                  <cat.icon className="w-3.5 h-3.5" aria-hidden="true" />
                   <span>{cat.label[lang]}</span>
                 </div>
                 {toolsByCategory(cat.id).map((tool) => {

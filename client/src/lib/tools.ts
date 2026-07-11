@@ -9,6 +9,9 @@ import {
   Scaling,
   Scissors,
   Crop,
+  Shield,
+  Settings,
+  Sparkles,
   type LucideIcon,
 } from "lucide-react";
 
@@ -38,7 +41,7 @@ interface Localized {
 
 export interface CategoryDef {
   id: CategoryId;
-  emoji: string;
+  icon: LucideIcon;
   label: Localized;
 }
 
@@ -53,9 +56,9 @@ export interface ToolDef {
 }
 
 export const CATEGORIES: CategoryDef[] = [
-  { id: "protect", emoji: "🛡️", label: { zh: "隱私保護", en: "Protect" } },
-  { id: "process", emoji: "⚙️", label: { zh: "圖片處理", en: "Process" } },
-  { id: "create", emoji: "✨", label: { zh: "社群創作", en: "Create" } },
+  { id: "protect", icon: Shield, label: { zh: "隱私保護", en: "Protect" } },
+  { id: "process", icon: Settings, label: { zh: "圖片處理", en: "Process" } },
+  { id: "create", icon: Sparkles, label: { zh: "社群創作", en: "Create" } },
 ];
 
 export const TOOLS: ToolDef[] = [
