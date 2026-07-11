@@ -1,6 +1,8 @@
 import { useEffect } from "react";
 import { Link } from "wouter";
 import { ReadMoreArrow } from "@/components/read-more-arrow";
+import { InlineCTA } from "@/components/InlineCTA";
+import { PopularTools } from "@/components/PopularTools";
 import {
   setPageSeo,
   articleSchema,
@@ -9,6 +11,7 @@ import {
 } from "@/lib/seo";
 
 const URL = "https://imagemarker.app/blog/job-interview-id-copy-safety";
+const SLUG = "job-interview-id-copy-safety";
 
 export default function JobInterviewIdCopySafety() {
   useEffect(() => {
@@ -122,6 +125,8 @@ export default function JobInterviewIdCopySafety() {
               </li>
             </ul>
 
+            <InlineCTA tool="watermark" position="mid_article" location={SLUG} />
+
             <h2>求職詐騙常見的 3 種劇本</h2>
 
             <h3>劇本一：假職缺、真蒐證</h3>
@@ -158,6 +163,8 @@ export default function JobInterviewIdCopySafety() {
               <br />
               透過公司正式的 HR 信箱或系統提交，而非私人 LINE；同時截圖記錄交件時間、對象與用途，作為日後憑證。
             </p>
+
+            <InlineCTA tool="mosaic" position="mid_article" location={SLUG} />
 
             <h2>3 分鐘做好一份安全影本</h2>
             <p>
@@ -203,6 +210,8 @@ export default function JobInterviewIdCopySafety() {
             </p>
           </div>
         </article>
+
+        <PopularTools location={SLUG} className="mt-12" />
 
         {/* 相關文章 */}
         <section className="mt-12 border-t pt-8">

@@ -1,6 +1,8 @@
 import { useEffect } from "react";
 import { Link } from "wouter";
 import { ReadMoreArrow } from "@/components/read-more-arrow";
+import { InlineCTA } from "@/components/InlineCTA";
+import { PopularTools } from "@/components/PopularTools";
 import {
   setPageSeo,
   articleSchema,
@@ -9,6 +11,7 @@ import {
 } from "@/lib/seo";
 
 const URL = "https://imagemarker.app/blog/rent-required-documents";
+const SLUG = "rent-required-documents";
 
 export default function RentRequiredDocuments() {
   useEffect(() => {
@@ -108,6 +111,8 @@ export default function RentRequiredDocuments() {
               健保卡影本、存摺影本、信用卡資料，在單純住宅租賃通常<strong>都不是必要文件</strong>。若房東額外索取這些，你有權詢問用途，或直接婉拒。租屋不是辦貸款，不需要交出這麼多敏感資料。
             </p>
 
+            <InlineCTA tool="watermark" position="mid_article" location={SLUG} />
+
             <h2>身分證影本：核對正本，別隨手留影本</h2>
             <p>
               最安全的做法是：<strong>當面出示身分證正本讓房東核對，但不留下影本</strong>。契約上填寫姓名與身分證字號即可，多數情況足夠。
@@ -150,6 +155,8 @@ export default function RentRequiredDocuments() {
               <br />
               LINE、Email 傳送的影本會留在對方裝置與雲端，務必先加浮水印，並主動提醒刪除。
             </p>
+
+            <InlineCTA tool="mosaic" position="mid_article" location={SLUG} />
 
             <h2>常見問題</h2>
             <p>
@@ -194,6 +201,8 @@ export default function RentRequiredDocuments() {
             </p>
           </div>
         </article>
+
+        <PopularTools location={SLUG} className="mt-12" />
 
         {/* 相關文章 */}
         <section className="mt-12 border-t pt-8">

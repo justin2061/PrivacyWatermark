@@ -1,6 +1,8 @@
 import { useEffect } from "react";
 import { Link } from "wouter";
 import { ReadMoreArrow } from "@/components/read-more-arrow";
+import { InlineCTA } from "@/components/InlineCTA";
+import { PopularTools } from "@/components/PopularTools";
 import {
   setPageSeo,
   articleSchema,
@@ -9,6 +11,7 @@ import {
 } from "@/lib/seo";
 
 const URL = "https://imagemarker.app/blog/id-watermark-complete-guide";
+const SLUG = "id-watermark-complete-guide";
 
 export default function IdWatermarkCompleteGuide() {
   useEffect(() => {
@@ -105,6 +108,8 @@ export default function IdWatermarkCompleteGuide() {
               它擋不住 100% 的風險，但它把一張「人人可用」的影本，變成一張「只有某件事能用」的影本——這個差別，往往就是被冒用與沒事的分水嶺。
             </p>
 
+            <InlineCTA tool="watermark" position="mid_article" location={SLUG} />
+
             <h2>5 種常見情境，浮水印這樣寫</h2>
             <p>
               浮水印的核心公式是 <strong>「用途 ＋ 對象 ＋ 日期」</strong>。以下是五種最常見情境的寫法範例，可直接套用：
@@ -183,6 +188,8 @@ export default function IdWatermarkCompleteGuide() {
               。
             </p>
 
+            <InlineCTA tool="mosaic" position="mid_article" location={SLUG} />
+
             <h2>進階技巧：Logo 浮水印與馬賽克遮蔽</h2>
 
             <h3>Logo 浮水印</h3>
@@ -251,6 +258,8 @@ export default function IdWatermarkCompleteGuide() {
             </p>
           </div>
         </article>
+
+        <PopularTools location={SLUG} className="mt-12" />
 
         {/* 相關文章 */}
         <section className="mt-12 border-t pt-8">

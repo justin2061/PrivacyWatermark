@@ -1,6 +1,8 @@
 import { useEffect } from "react";
 import { Link } from "wouter";
 import { ReadMoreArrow } from "@/components/read-more-arrow";
+import { InlineCTA } from "@/components/InlineCTA";
+import { PopularTools } from "@/components/PopularTools";
 import {
   setPageSeo,
   articleSchema,
@@ -9,6 +11,7 @@ import {
 } from "@/lib/seo";
 
 const URL = "https://imagemarker.app/blog/landlord-asks-for-id";
+const SLUG = "landlord-asks-for-id";
 
 export default function LandlordAsksForId() {
   useEffect(() => {
@@ -109,6 +112,8 @@ export default function LandlordAsksForId() {
               <li>在看屋、還沒談定條件的階段就要你先交證件。</li>
             </ul>
 
+            <InlineCTA tool="watermark" position="mid_article" location={SLUG} />
+
             <h2>該給嗎？三種情境的建議</h2>
 
             <h3>情境一：房東只是要核對身分</h3>
@@ -144,6 +149,8 @@ export default function LandlordAsksForId() {
             <p>
               把「加浮水印」講成是<strong>保護雙方</strong>的做法，房東通常都能接受。若對方堅持一定要乾淨影本、又說不出理由，反而要提高警覺。
             </p>
+
+            <InlineCTA tool="mosaic" position="mid_article" location={SLUG} />
 
             <h2>一定要給，就這樣安全交付</h2>
             <p>
@@ -201,6 +208,8 @@ export default function LandlordAsksForId() {
             </p>
           </div>
         </article>
+
+        <PopularTools location={SLUG} className="mt-12" />
 
         {/* 相關文章 */}
         <section className="mt-12 border-t pt-8">

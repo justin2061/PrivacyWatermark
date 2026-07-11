@@ -3,6 +3,7 @@ import { Link } from "wouter";
 import { Card } from "@/components/ui/card";
 import { SiteHeader } from "@/components/SiteHeader";
 import { KofiSupport } from "@/components/KofiSupport";
+import { ToolRecommendations } from "@/components/ToolRecommendations";
 import { setPageSeo, webAppSchema, faqSchema } from "@/lib/seo";
 import { PAIRS, type ConvertPair, type PairMime } from "@/lib/convertPairs";
 import {
@@ -428,6 +429,10 @@ export default function ConvertPairPage({ pair, lang = "zh" }: ConvertPairPagePr
             </Card>
           </div>
         </div>
+
+        {result && (
+          <ToolRecommendations current="convert" lang={en ? "en" : "zh"} className="mt-12" />
+        )}
 
         {/* FAQ（內容與 faqSchema 完全一致） */}
         <section className="mt-12">

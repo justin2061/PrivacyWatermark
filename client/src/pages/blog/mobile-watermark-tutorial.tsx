@@ -1,6 +1,8 @@
 import { useEffect } from "react";
 import { Link } from "wouter";
 import { ReadMoreArrow } from "@/components/read-more-arrow";
+import { InlineCTA } from "@/components/InlineCTA";
+import { PopularTools } from "@/components/PopularTools";
 import {
   setPageSeo,
   articleSchema,
@@ -9,6 +11,7 @@ import {
 } from "@/lib/seo";
 
 const URL = "https://imagemarker.app/blog/mobile-watermark-tutorial";
+const SLUG = "mobile-watermark-tutorial";
 const TITLE = "手機怎麼幫身分證加浮水印？免安裝 App 的最快方法";
 
 export default function MobileWatermarkTutorial() {
@@ -126,6 +129,8 @@ export default function MobileWatermarkTutorial() {
               線上工具：用同一個網址，所有手機表現一致。
             </p>
 
+            <InlineCTA tool="watermark" position="mid_article" location={SLUG} />
+
             <h2>3 步驟手機幫身分證加浮水印</h2>
 
             <h3>步驟一：用手機瀏覽器打開 ImageMarker</h3>
@@ -190,6 +195,8 @@ export default function MobileWatermarkTutorial() {
               4. 確認後桌面就會出現捷徑。
             </p>
 
+            <InlineCTA tool="mosaic" position="mid_article" location={SLUG} />
+
             <h2>iPhone 和 Android 操作差異</h2>
             <p>
               整體流程兩個系統都一樣，但有幾個小細節要注意：
@@ -243,6 +250,8 @@ export default function MobileWatermarkTutorial() {
           </div>
         <p className="mt-8 text-center text-sm text-gray-400"><a href="https://ko-fi.com/justinlee2061" target="_blank" rel="noopener noreferrer" className="hover:text-blue-500 transition-colors">☕ 如果這篇文章幫到你，請我喝杯咖啡</a></p>
         </article>
+
+        <PopularTools location={SLUG} className="mt-12" />
 
         {/* 相關文章 */}
         <section className="mt-12 border-t pt-8">

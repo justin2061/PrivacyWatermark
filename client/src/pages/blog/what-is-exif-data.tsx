@@ -1,6 +1,8 @@
 import { useEffect } from "react";
 import { Link } from "wouter";
 import { ReadMoreArrow } from "@/components/read-more-arrow";
+import { InlineCTA } from "@/components/InlineCTA";
+import { PopularTools } from "@/components/PopularTools";
 import {
   setPageSeo,
   articleSchema,
@@ -9,6 +11,7 @@ import {
 } from "@/lib/seo";
 
 const URL = "https://imagemarker.app/blog/what-is-exif-data";
+const SLUG = "what-is-exif-data";
 
 export default function WhatIsExifData() {
   useEffect(() => {
@@ -115,6 +118,8 @@ export default function WhatIsExifData() {
               對攝影師來說，這些資訊很實用；但對一般人來說，其中的 <strong>GPS 與時間</strong>就是不折不扣的個資。
             </p>
 
+            <InlineCTA tool="exif-clean" position="mid_article" location={SLUG} />
+
             <h2>EXIF 會帶來哪些風險？</h2>
 
             <h3>1. 洩漏住家與常出沒地點</h3>
@@ -144,6 +149,8 @@ export default function WhatIsExifData() {
             <p>
               換句話說，你不能假設「反正平台會處理」。<strong>唯一可靠的做法，是照片離開你手上之前，自己先清乾淨。</strong>
             </p>
+
+            <InlineCTA tool="watermark" position="mid_article" location={SLUG} />
 
             <h2>清除 EXIF 常見問題</h2>
             <p>
@@ -223,6 +230,8 @@ export default function WhatIsExifData() {
             </a>
           </p>
         </article>
+
+        <PopularTools location={SLUG} className="mt-12" />
 
         {/* 相關文章 */}
         <section className="mt-12 border-t pt-8">

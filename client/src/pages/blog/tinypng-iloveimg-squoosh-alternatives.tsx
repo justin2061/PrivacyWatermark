@@ -1,6 +1,8 @@
 import { useEffect } from "react";
 import { Link } from "wouter";
 import { ReadMoreArrow } from "@/components/read-more-arrow";
+import { InlineCTA } from "@/components/InlineCTA";
+import { PopularTools } from "@/components/PopularTools";
 import {
   setPageSeo,
   articleSchema,
@@ -10,6 +12,7 @@ import {
 
 const URL =
   "https://imagemarker.app/blog/tinypng-iloveimg-squoosh-alternatives";
+const SLUG = "tinypng-iloveimg-squoosh-alternatives";
 
 export default function TinypngIloveimgSquooshAlternatives() {
   useEffect(() => {
@@ -109,6 +112,8 @@ export default function TinypngIloveimgSquooshAlternatives() {
               這篇誠實比較 4 款常見的免費線上圖片工具：TinyPNG、iLoveIMG、Squoosh 和 ImageMarker，重點放在「檔案有沒有離開你的裝置」以及各自的功能與限制。
             </p>
 
+            <InlineCTA tool="compress" position="mid_article" location={SLUG} />
+
             <h2>快速結論</h2>
             <ul>
               <li>
@@ -177,6 +182,8 @@ export default function TinypngIloveimgSquooshAlternatives() {
                 <strong>適合：</strong>處理證件、含個資圖片，或想要一站式隱私工具箱的使用者
               </li>
             </ul>
+
+            <InlineCTA tool="exif-clean" position="mid_article" location={SLUG} />
 
             <h2>功能比較表</h2>
             <div className="overflow-x-auto">
@@ -306,6 +313,8 @@ export default function TinypngIloveimgSquooshAlternatives() {
             </a>
           </p>
         </article>
+
+        <PopularTools location={SLUG} tools={["compress", "convert", "exif-clean", "watermark"]} className="mt-12" />
 
         {/* 相關文章 */}
         <section className="mt-12 border-t pt-8">

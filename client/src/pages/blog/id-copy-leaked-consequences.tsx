@@ -1,6 +1,8 @@
 import { useEffect } from "react";
 import { Link } from "wouter";
 import { ReadMoreArrow } from "@/components/read-more-arrow";
+import { InlineCTA } from "@/components/InlineCTA";
+import { PopularTools } from "@/components/PopularTools";
 import {
   setPageSeo,
   articleSchema,
@@ -9,6 +11,7 @@ import {
 } from "@/lib/seo";
 
 const URL = "https://imagemarker.app/blog/id-copy-leaked-consequences";
+const SLUG = "id-copy-leaked-consequences";
 
 export default function IdCopyLeakedConsequences() {
   useEffect(() => {
@@ -99,6 +102,8 @@ export default function IdCopyLeakedConsequences() {
               這類案例的共同點是：<strong>受害者交出影本的當下，完全沒有戒心</strong>。因為「只是影本」聽起來不痛不癢——但這正是最大的誤會。
             </p>
 
+            <InlineCTA tool="watermark" position="mid_article" location={SLUG} />
+
             <h2>身分證影本外洩，常見的 5 種盜用手法</h2>
 
             <h3>1. 盜辦手機門號</h3>
@@ -133,6 +138,8 @@ export default function IdCopyLeakedConsequences() {
             <p>
               而且影本一旦離開你的手，就再也收不回來。它可能被存在對方手機、上傳到雲端、轉傳給第三人、甚至隨著裝置遺失而外洩。你無法控制它的去向——你唯一能控制的，是<strong>交出去之前把它變得「無法被挪用」</strong>。
             </p>
+
+            <InlineCTA tool="mosaic" position="mid_article" location={SLUG} />
 
             <h2>最簡單的自保：交件前加浮水印</h2>
             <p>
@@ -197,6 +204,8 @@ export default function IdCopyLeakedConsequences() {
             </p>
           </div>
         </article>
+
+        <PopularTools location={SLUG} className="mt-12" />
 
         {/* 相關文章 */}
         <section className="mt-12 border-t pt-8">

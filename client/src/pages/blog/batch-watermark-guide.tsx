@@ -1,6 +1,8 @@
 import { useEffect } from "react";
 import { Link } from "wouter";
 import { ReadMoreArrow } from "@/components/read-more-arrow";
+import { InlineCTA } from "@/components/InlineCTA";
+import { PopularTools } from "@/components/PopularTools";
 import {
   setPageSeo,
   articleSchema,
@@ -9,6 +11,7 @@ import {
 } from "@/lib/seo";
 
 const URL = "https://imagemarker.app/blog/batch-watermark-guide";
+const SLUG = "batch-watermark-guide";
 
 export default function BatchWatermarkGuide() {
   useEffect(() => {
@@ -112,6 +115,8 @@ export default function BatchWatermarkGuide() {
               如果每張需要放<strong>不同</strong>文字（各自的姓名、編號），批次就幫不上忙，得逐張製作。以下比較都以「統一浮水印」為前提。
             </p>
 
+            <InlineCTA tool="batch" position="mid_article" location={SLUG} />
+
             <h2>方法一：手機修圖 App 逐張處理</h2>
             <p>
               最直覺、也最多人一開始用的方法：打開手機修圖 App，一張張加文字或貼圖浮水印。
@@ -149,6 +154,8 @@ export default function BatchWatermarkGuide() {
                 <strong>適合：</strong>已經有 Photoshop、需要高度客製、經常大量處理的專業工作者
               </li>
             </ul>
+
+            <InlineCTA tool="watermark" position="mid_article" location={SLUG} />
 
             <h2>方法三：線上批次浮水印工具</h2>
             <p>
@@ -279,6 +286,8 @@ export default function BatchWatermarkGuide() {
             </a>
           </p>
         </article>
+
+        <PopularTools location={SLUG} className="mt-12" />
 
         {/* 相關文章 */}
         <section className="mt-12 border-t pt-8">

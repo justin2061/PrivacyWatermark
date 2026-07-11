@@ -1,6 +1,8 @@
 import { useEffect } from "react";
 import { Link } from "wouter";
 import { ReadMoreArrow } from "@/components/read-more-arrow";
+import { InlineCTA } from "@/components/InlineCTA";
+import { PopularTools } from "@/components/PopularTools";
 import {
   setPageSeo,
   articleSchema,
@@ -9,6 +11,7 @@ import {
 } from "@/lib/seo";
 
 const URL = "https://imagemarker.app/blog/batch-watermark-methods";
+const SLUG = "batch-watermark-methods";
 
 export default function BatchWatermarkMethods() {
   useEffect(() => {
@@ -104,6 +107,8 @@ export default function BatchWatermarkMethods() {
               <strong>適合：</strong>3-5 張以內、且每張用途各不相同的情況。
             </p>
 
+            <InlineCTA tool="batch" position="mid_article" location={SLUG} />
+
             <h2>方法二：Photoshop 批次動作</h2>
             <p>
               如果你本來就有 Photoshop，可以用「動作（Action）」錄製一次加浮水印的步驟，再用「批次處理（Batch）」套用到整個資料夾。
@@ -131,6 +136,8 @@ export default function BatchWatermarkMethods() {
             <p>
               <strong>適合：</strong>處理非機密的一般圖片（如商品照、活動照）。<strong>不建議</strong>用於證件影本。
             </p>
+
+            <InlineCTA tool="watermark" position="mid_article" location={SLUG} />
 
             <h2>理想方案：本地端批次處理</h2>
             <p>
@@ -192,6 +199,8 @@ export default function BatchWatermarkMethods() {
           </div>
         <p className="mt-8 text-center text-sm text-gray-400"><a href="https://ko-fi.com/justinlee2061" target="_blank" rel="noopener noreferrer" className="hover:text-blue-500 transition-colors">☕ 如果這篇文章幫到你，請我喝杯咖啡</a></p>
         </article>
+
+        <PopularTools location={SLUG} className="mt-12" />
 
         {/* 相關文章 */}
         <section className="mt-12 border-t pt-8">

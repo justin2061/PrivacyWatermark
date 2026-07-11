@@ -1,6 +1,8 @@
 import { useEffect } from "react";
 import { Link } from "wouter";
 import { ReadMoreArrow } from "@/components/read-more-arrow";
+import { InlineCTA } from "@/components/InlineCTA";
+import { PopularTools } from "@/components/PopularTools";
 import {
   setPageSeo,
   articleSchema,
@@ -9,6 +11,7 @@ import {
 } from "@/lib/seo";
 
 const URL = "https://imagemarker.app/blog/watermark-templates-guide";
+const SLUG = "watermark-templates-guide";
 const TITLE =
   "身分證影本簽註寫法＋證件浮水印範本：10 種情境怎麼寫（2026 最新）";
 
@@ -229,6 +232,8 @@ export default function WatermarkTemplatesGuidePage() {
               </p>
             </div>
 
+            <InlineCTA tool="watermark" position="mid_article" location={SLUG} />
+
             <h2>身分證影本加註（簽註）寫法範例</h2>
             <p>
               「加註」和「簽註」指的是同一件事：<strong>用筆手寫</strong>在身分證影本上、限定用途的註記；而浮水印則是用軟體加在<strong>電子檔</strong>上的半透明文字。一個處理紙本、一個處理數位檔，核心原則相同——寫清楚<strong>用途＋對象＋日期</strong>三要素，缺一不可。
@@ -266,6 +271,8 @@ export default function WatermarkTemplatesGuidePage() {
               有這三個要素，即使影本外流也很難被挪作他用。日期尤其重要——它限制了影本的有效時間，
               半年後對方還想拿來用，法律上站不住腳。
             </p>
+
+            <InlineCTA tool="mosaic" position="mid_article" location={SLUG} />
 
             <h2>10 種情境完整範本</h2>
 
@@ -372,6 +379,8 @@ export default function WatermarkTemplatesGuidePage() {
           </div>
         <p className="mt-8 text-center text-sm text-gray-400"><a href="https://ko-fi.com/justinlee2061" target="_blank" rel="noopener noreferrer" className="hover:text-blue-500 transition-colors">☕ 如果這篇文章幫到你，請我喝杯咖啡</a></p>
         </article>
+
+        <PopularTools location={SLUG} className="mt-12" />
 
         {/* Related Articles */}
         <section className="mt-10">

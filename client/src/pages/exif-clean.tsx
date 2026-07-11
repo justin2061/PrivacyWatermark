@@ -4,6 +4,7 @@ import { Card } from "@/components/ui/card";
 import { SiteHeader } from "@/components/SiteHeader";
 import { PrivacyBanner } from "@/components/PrivacyBanner";
 import { KofiSupport } from "@/components/KofiSupport";
+import { ToolRecommendations } from "@/components/ToolRecommendations";
 import { useExifCleaner } from "@/hooks/useExifCleaner";
 import { setPageSeo, webAppSchema } from "@/lib/seo";
 import {
@@ -264,6 +265,10 @@ export default function ExifCleanPage() {
             )}
           </div>
         </div>
+
+        {cleaned && (
+          <ToolRecommendations current="exif-clean" lang="zh" className="mt-12" />
+        )}
 
         <section className="mt-12">
           <h2 className="sr-only">特色</h2>

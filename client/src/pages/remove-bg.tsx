@@ -4,6 +4,7 @@ import { Card } from "@/components/ui/card";
 import { SiteHeader } from "@/components/SiteHeader";
 import { PrivacyBanner } from "@/components/PrivacyBanner";
 import { KofiSupport } from "@/components/KofiSupport";
+import { ToolRecommendations } from "@/components/ToolRecommendations";
 import { setPageSeo, webAppSchema } from "@/lib/seo";
 import {
   CheckCircle,
@@ -515,6 +516,10 @@ export default function RemoveBgPage() {
             </Card>
           </div>
         </div>
+
+        {result && (
+          <ToolRecommendations current="remove-bg" lang="zh" className="mt-12" />
+        )}
 
         {/* 特色 */}
         <section className="mt-12">

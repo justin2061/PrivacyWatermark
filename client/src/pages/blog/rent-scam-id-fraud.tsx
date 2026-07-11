@@ -1,6 +1,8 @@
 import { useEffect } from "react";
 import { Link } from "wouter";
 import { ReadMoreArrow } from "@/components/read-more-arrow";
+import { InlineCTA } from "@/components/InlineCTA";
+import { PopularTools } from "@/components/PopularTools";
 import {
   setPageSeo,
   articleSchema,
@@ -9,6 +11,7 @@ import {
 } from "@/lib/seo";
 
 const URL = "https://imagemarker.app/blog/rent-scam-id-fraud";
+const SLUG = "rent-scam-id-fraud";
 
 export default function RentScamIdFraud() {
   useEffect(() => {
@@ -108,6 +111,8 @@ export default function RentScamIdFraud() {
               以「填資料驗證身分」「上傳證件完成媒合」為由，誘導你在假網站上傳證件照片。認明官方平台網址、不點來路不明的連結，是基本防線。
             </p>
 
+            <InlineCTA tool="watermark" position="mid_article" location={SLUG} />
+
             <h2>證件被冒用，會發生什麼事？</h2>
             <p>
               一張外洩的身分證影本，在詐騙集團手上可能被用來：
@@ -152,6 +157,8 @@ export default function RentScamIdFraud() {
               用畢請對方刪除影本，同時自己截圖保存「何時、給了誰、什麼用途」，作為日後追究的依據。
             </p>
 
+            <InlineCTA tool="mosaic" position="mid_article" location={SLUG} />
+
             <h2>常見問題</h2>
             <p>
               <strong>Q：怎麼判斷租屋廣告是不是詐騙？</strong>
@@ -195,6 +202,8 @@ export default function RentScamIdFraud() {
             </p>
           </div>
         </article>
+
+        <PopularTools location={SLUG} className="mt-12" />
 
         {/* 相關文章 */}
         <section className="mt-12 border-t pt-8">

@@ -1,6 +1,8 @@
 import { useEffect } from "react";
 import { Link } from "wouter";
 import { ReadMoreArrow } from "@/components/read-more-arrow";
+import { InlineCTA } from "@/components/InlineCTA";
+import { PopularTools } from "@/components/PopularTools";
 import {
   setPageSeo,
   articleSchema,
@@ -9,6 +11,7 @@ import {
 } from "@/lib/seo";
 
 const URL = "https://imagemarker.app/blog/other-documents-watermark";
+const SLUG = "other-documents-watermark";
 const TITLE =
   "不只身分證！存摺、健保卡、駕照影本也要加浮水印";
 
@@ -108,6 +111,8 @@ export default function OtherDocumentsWatermark() {
               這些證件因為使用頻率高、流通範圍廣（銀行、汽車保養廠、租車公司、學校、補習班、健身房……），一旦外洩很難追蹤源頭。加浮水印是最簡單也最有效的事前防護。
             </p>
 
+            <InlineCTA tool="watermark" position="mid_article" location={SLUG} />
+
             <h2>6 種常見證件的浮水印範本</h2>
             <p>
               不同證件用途不同，浮水印寫法也略有差異。以下範本可以直接套用，依實際情境調整對象和日期即可：
@@ -186,6 +191,8 @@ export default function OtherDocumentsWatermark() {
               <br />
               詐騙集團蒐集學生證或在職證明後，會偽裝成「校方公告」「公司人事通知」寄送釣魚信，誘騙你或你的家人點擊惡意連結。
             </p>
+
+            <InlineCTA tool="mosaic" position="mid_article" location={SLUG} />
 
             <h2>萬能浮水印公式：一句話保護所有證件</h2>
             <p>
@@ -285,6 +292,8 @@ export default function OtherDocumentsWatermark() {
           </div>
         <p className="mt-8 text-center text-sm text-gray-400"><a href="https://ko-fi.com/justinlee2061" target="_blank" rel="noopener noreferrer" className="hover:text-blue-500 transition-colors">☕ 如果這篇文章幫到你，請我喝杯咖啡</a></p>
         </article>
+
+        <PopularTools location={SLUG} className="mt-12" />
 
         {/* 相關文章 */}
         <section className="mt-12 border-t pt-8">

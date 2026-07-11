@@ -1,12 +1,16 @@
 import { useEffect } from "react";
 import { Link } from "wouter";
 import { ReadMoreArrow } from "@/components/read-more-arrow";
+import { InlineCTA } from "@/components/InlineCTA";
+import { PopularTools } from "@/components/PopularTools";
 import {
   setPageSeo,
   articleSchema,
   faqSchema,
   blogBreadcrumb,
 } from "@/lib/seo";
+
+const SLUG = "rent-id-watermark";
 
 const URL = "https://imagemarker.app/blog/rent-id-watermark";
 
@@ -106,6 +110,8 @@ export default function RentIdWatermark() {
               即使影本不幸外流，有了浮水印的證件影本在被冒用時會大幅降低成功率，因為對方一看就知道這不是一份「乾淨」的影本。
             </p>
 
+            <InlineCTA tool="watermark" position="mid_article" location={SLUG} />
+
             <h2>浮水印要寫什麼？</h2>
             <p>
               很多人知道要加浮水印，但不確定該寫什麼。以下是幾個常見場景的建議：
@@ -128,6 +134,8 @@ export default function RentIdWatermark() {
             <p>
               寫浮水印的重點：寫明「用途」+「對象」+「日期」。這三個資訊缺一不可，才能確保影本不會被挪作他用。
             </p>
+
+            <InlineCTA tool="mosaic" position="mid_article" location={SLUG} />
 
             <h2>3 步驟幫證件加浮水印</h2>
             <p>
@@ -223,6 +231,9 @@ export default function RentIdWatermark() {
             </p>
           </div>
         </article>
+
+        {/* 熱門工具快速入口 */}
+        <PopularTools location={SLUG} className="mt-12" />
 
         {/* 相關文章 */}
         <section className="mt-12 border-t pt-8">

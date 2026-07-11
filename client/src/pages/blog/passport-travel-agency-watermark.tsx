@@ -1,6 +1,8 @@
 import { useEffect } from "react";
 import { Link } from "wouter";
 import { ReadMoreArrow } from "@/components/read-more-arrow";
+import { InlineCTA } from "@/components/InlineCTA";
+import { PopularTools } from "@/components/PopularTools";
 import {
   setPageSeo,
   articleSchema,
@@ -9,6 +11,7 @@ import {
 } from "@/lib/seo";
 
 const URL = "https://imagemarker.app/blog/passport-travel-agency-watermark";
+const SLUG = "passport-travel-agency-watermark";
 const TITLE = "護照影本交給旅行社安全嗎？報名旅行團前必做的自保 3 件事（2026）";
 
 export default function PassportTravelAgencyWatermark() {
@@ -100,6 +103,8 @@ export default function PassportTravelAgencyWatermark() {
               旅行社確實受《個人資料保護法》規範，也有蒐集護照影本的正當業務需要。重點不是「不給」，而是「聰明地給」——在你能掌控的環節先上鎖。
             </p>
 
+            <InlineCTA tool="watermark" position="mid_article" location={SLUG} />
+
             <h2>自保第 1 件事：加上「限定用途」浮水印</h2>
             <p>
               最有效、也最簡單的一步，就是在護照影本上加浮水印，把它的「可用範圍」鎖死。核心公式是：
@@ -134,6 +139,8 @@ export default function PassportTravelAgencyWatermark() {
             <p>
               「請問我的護照影本會存放在哪裡？行程結束後會刪除嗎？」正規旅行社通常都有個資保護政策，能明確回答；如果對方支支吾吾，或要求你把護照傳到私人 LINE、私人信箱，就要提高警覺。盡量透過旅行社的<strong>官方管道</strong>（公司 email、官網上傳系統）提供，避免傳給個人帳號。
             </p>
+
+            <InlineCTA tool="mosaic" position="mid_article" location={SLUG} />
 
             <h2>自保第 3 件事：只給「當次需要」的頁面</h2>
             <p>
@@ -200,6 +207,8 @@ export default function PassportTravelAgencyWatermark() {
             </a>
           </p>
         </article>
+
+        <PopularTools location={SLUG} className="mt-12" />
 
         {/* 相關文章 */}
         <section className="mt-12 border-t pt-8">

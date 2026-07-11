@@ -4,6 +4,7 @@ import { Card } from "@/components/ui/card";
 import { SiteHeader } from "@/components/SiteHeader";
 import { PrivacyBanner } from "@/components/PrivacyBanner";
 import { KofiSupport } from "@/components/KofiSupport";
+import { ToolRecommendations } from "@/components/ToolRecommendations";
 import { setPageSeo, webAppSchema } from "@/lib/seo";
 import { PAIRS } from "@/lib/convertPairs";
 import {
@@ -375,6 +376,10 @@ export default function ConvertPage() {
             </Card>
           </div>
         </div>
+
+        {result && (
+          <ToolRecommendations current="convert" lang="zh" className="mt-12" />
+        )}
 
         {/* 特色 */}
         <section className="mt-12">

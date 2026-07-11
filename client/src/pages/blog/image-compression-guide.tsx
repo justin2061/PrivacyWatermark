@@ -1,6 +1,8 @@
 import { useEffect } from "react";
 import { Link } from "wouter";
 import { ReadMoreArrow } from "@/components/read-more-arrow";
+import { InlineCTA } from "@/components/InlineCTA";
+import { PopularTools } from "@/components/PopularTools";
 import {
   setPageSeo,
   articleSchema,
@@ -9,6 +11,7 @@ import {
 } from "@/lib/seo";
 
 const URL = "https://imagemarker.app/blog/image-compression-guide";
+const SLUG = "image-compression-guide";
 
 export default function ImageCompressionGuide() {
   useEffect(() => {
@@ -113,6 +116,8 @@ export default function ImageCompressionGuide() {
             <p>
               <strong>有損壓縮</strong>（lossy，如 JPEG）會捨棄一些肉眼較不敏感的細節換取更小的檔案，壓過頭會出現色塊、模糊；<strong>無損壓縮</strong>（lossless）不損失任何畫質，但縮減幅度較小。多數工具讓你自己調強度——一般照片壓到 70～80% 品質，檔案通常能少一半以上，而肉眼幾乎看不出差異。
             </p>
+
+            <InlineCTA tool="compress" position="mid_article" location={SLUG} />
 
             <h2>5 款免費圖片壓縮工具推薦</h2>
 
@@ -236,6 +241,8 @@ export default function ImageCompressionGuide() {
               </table>
             </div>
 
+            <InlineCTA tool="convert" position="mid_article" location={SLUG} />
+
             <h2>怎麼選？看你壓的是什麼圖</h2>
             <ul>
               <li>
@@ -321,6 +328,8 @@ export default function ImageCompressionGuide() {
             </a>
           </p>
         </article>
+
+        <PopularTools location={SLUG} tools={["compress", "convert", "resize", "watermark"]} className="mt-12" />
 
         {/* 相關文章 */}
         <section className="mt-12 border-t pt-8">

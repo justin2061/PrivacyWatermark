@@ -1,6 +1,8 @@
 import { useEffect } from "react";
 import { Link } from "wouter";
 import { ReadMoreArrow } from "@/components/read-more-arrow";
+import { InlineCTA } from "@/components/InlineCTA";
+import { PopularTools } from "@/components/PopularTools";
 import {
   setPageSeo,
   articleSchema,
@@ -9,6 +11,7 @@ import {
 } from "@/lib/seo";
 
 const URL = "https://imagemarker.app/blog/rent-before-giving-id-3-things";
+const SLUG = "rent-before-giving-id-3-things";
 
 export default function RentBeforeGivingId3Things() {
   useEffect(() => {
@@ -91,6 +94,8 @@ export default function RentBeforeGivingId3Things() {
               所以你要做的，不是質疑房東的人品，而是讓那張影本「就算外流也沒用」。以下三件事，簽約前花五分鐘就能做完。
             </p>
 
+            <InlineCTA tool="watermark" position="mid_article" location={SLUG} />
+
             <h2>第 1 件事：加浮水印，寫明「僅供租屋使用」</h2>
             <p>
               這是最關鍵的一步。在影本上打一層半透明文字，明確標註<strong>用途＋對象＋日期</strong>，例如「僅供○○（房東姓名／地址）租屋簽約使用，2026.07」。
@@ -106,6 +111,8 @@ export default function RentBeforeGivingId3Things() {
             <p>
               「浮水印 + 局部遮蔽」是黃金組合：浮水印宣告用途，遮蔽則直接讓最敏感的資料看不到。給得剛好夠用，就是最安全的給法。
             </p>
+
+            <InlineCTA tool="mosaic" position="mid_article" location={SLUG} />
 
             <h2>第 3 件事：保留交件證據</h2>
             <p>
@@ -185,6 +192,8 @@ export default function RentBeforeGivingId3Things() {
             </p>
           </div>
         </article>
+
+        <PopularTools location={SLUG} className="mt-12" />
 
         {/* 相關文章 */}
         <section className="mt-12 border-t pt-8">

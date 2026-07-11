@@ -4,6 +4,7 @@ import { Card } from "@/components/ui/card";
 import { SiteHeader } from "@/components/SiteHeader";
 import { PrivacyBanner } from "@/components/PrivacyBanner";
 import { KofiSupport } from "@/components/KofiSupport";
+import { ToolRecommendations } from "@/components/ToolRecommendations";
 import { setPageSeo, webAppSchema, faqSchema } from "@/lib/seo";
 import {
   applyPdfWatermark,
@@ -671,6 +672,10 @@ export default function PdfWatermarkPage() {
             </Card>
           </div>
         </div>
+
+        {result && (
+          <ToolRecommendations current="pdf-watermark" lang="zh" className="mt-12" />
+        )}
 
         {/* Features */}
         <section className="mt-12">

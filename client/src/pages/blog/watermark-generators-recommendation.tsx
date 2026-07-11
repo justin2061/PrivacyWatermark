@@ -1,6 +1,8 @@
 import { useEffect } from "react";
 import { Link } from "wouter";
 import { ReadMoreArrow } from "@/components/read-more-arrow";
+import { InlineCTA } from "@/components/InlineCTA";
+import { PopularTools } from "@/components/PopularTools";
 import {
   setPageSeo,
   articleSchema,
@@ -9,6 +11,7 @@ import {
 } from "@/lib/seo";
 
 const URL = "https://imagemarker.app/blog/watermark-generators-recommendation";
+const SLUG = "watermark-generators-recommendation";
 
 export default function WatermarkGeneratorsRecommendation() {
   useEffect(() => {
@@ -122,6 +125,8 @@ export default function WatermarkGeneratorsRecommendation() {
               一款好用的浮水印產生器應該同時做到「免費、免註冊、可調整透明度與位置」，並針對你的主要用途（證件、防盜圖、PDF）最佳化。下面先整理挑選重點，再逐一比較 5 款工具。
             </p>
 
+            <InlineCTA tool="watermark" position="mid_article" location={SLUG} />
+
             <h2>挑選浮水印工具的 5 個重點</h2>
             <ol>
               <li>
@@ -198,6 +203,8 @@ export default function WatermarkGeneratorsRecommendation() {
                 <strong>適合：</strong>想做出有設計感浮水印的使用者
               </li>
             </ul>
+
+            <InlineCTA tool="batch" position="mid_article" location={SLUG} />
 
             <h2>功能比較表</h2>
             <div className="overflow-x-auto">
@@ -340,6 +347,8 @@ export default function WatermarkGeneratorsRecommendation() {
           </div>
         <p className="mt-8 text-center text-sm text-gray-400"><a href="https://ko-fi.com/justinlee2061" target="_blank" rel="noopener noreferrer" className="hover:text-blue-500 transition-colors">☕ 如果這篇文章幫到你，請我喝杯咖啡</a></p>
         </article>
+
+        <PopularTools location={SLUG} className="mt-12" />
 
         {/* 相關文章 */}
         <section className="mt-12 border-t pt-8">

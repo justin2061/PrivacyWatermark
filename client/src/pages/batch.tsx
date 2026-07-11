@@ -4,6 +4,7 @@ import { Card } from "@/components/ui/card";
 import { SiteHeader } from "@/components/SiteHeader";
 import { PrivacyBanner } from "@/components/PrivacyBanner";
 import { KofiSupport } from "@/components/KofiSupport";
+import { ToolRecommendations } from "@/components/ToolRecommendations";
 import { WatermarkControls } from "@/components/watermark/WatermarkControls";
 import { setPageSeo, webAppSchema } from "@/lib/seo";
 import {
@@ -359,6 +360,10 @@ export default function BatchPage() {
             </Card>
           </div>
         </div>
+
+        {allProcessed && (
+          <ToolRecommendations current="batch" lang="zh" className="mt-12" />
+        )}
       </main>
 
       {/* Footer */}

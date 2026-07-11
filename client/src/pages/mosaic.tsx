@@ -4,6 +4,7 @@ import { Card } from "@/components/ui/card";
 import { SiteHeader } from "@/components/SiteHeader";
 import { PrivacyBanner } from "@/components/PrivacyBanner";
 import { KofiSupport } from "@/components/KofiSupport";
+import { ToolRecommendations } from "@/components/ToolRecommendations";
 import { setPageSeo, webAppSchema } from "@/lib/seo";
 import { useMosaic, type MaskType } from "@/hooks/useMosaic";
 import {
@@ -320,6 +321,10 @@ export default function MosaicPage() {
           onChange={(e) => m.onPickFile(e.target.files?.[0])}
           aria-label="選擇圖片檔案"
         />
+
+        {hasResult && (
+          <ToolRecommendations current="mosaic" lang="zh" className="mt-12" />
+        )}
 
         {/* 特色 */}
         <section className="mt-12">

@@ -1,6 +1,8 @@
 import { useEffect } from "react";
 import { Link } from "wouter";
 import { ReadMoreArrow } from "@/components/read-more-arrow";
+import { InlineCTA } from "@/components/InlineCTA";
+import { PopularTools } from "@/components/PopularTools";
 import {
   setPageSeo,
   articleSchema,
@@ -9,6 +11,7 @@ import {
 } from "@/lib/seo";
 
 const URL = "https://imagemarker.app/blog/anti-theft-photo-watermark";
+const SLUG = "anti-theft-photo-watermark";
 
 export default function AntiTheftPhotoWatermark() {
   useEffect(() => {
@@ -112,6 +115,8 @@ export default function AntiTheftPhotoWatermark() {
               結論很直接：<strong>防盜圖浮水印的重點不是「有沒有加」，而是「移除它的成本有多高」</strong>。移除成本低於盜圖者的耐心，浮水印就是裝飾品。
             </p>
 
+            <InlineCTA tool="watermark" position="mid_article" location={SLUG} />
+
             <h2>有效防盜圖的 5 個技巧</h2>
 
             <h3>技巧 1：滿版斜向重複，覆蓋整張圖</h3>
@@ -154,6 +159,8 @@ export default function AntiTheftPhotoWatermark() {
                 <strong>社群貼文</strong>——轉傳就是社群的天性，防不如導：把「@帳號」用清楚可讀的大小放在主體附近，讓每次被轉發都幫你帶粉絲。
               </li>
             </ul>
+
+            <InlineCTA tool="batch" position="mid_article" location={SLUG} />
 
             <h2>用 ImageMarker 免費做滿版浮水印（不上傳、3 分鐘）</h2>
             <p>
@@ -233,6 +240,8 @@ export default function AntiTheftPhotoWatermark() {
             </a>
           </p>
         </article>
+
+        <PopularTools location={SLUG} className="mt-12" />
 
         {/* 相關文章 */}
         <section className="mt-12 border-t pt-8">

@@ -1,6 +1,8 @@
 import { useEffect } from "react";
 import { Link } from "wouter";
 import { ReadMoreArrow } from "@/components/read-more-arrow";
+import { InlineCTA } from "@/components/InlineCTA";
+import { PopularTools } from "@/components/PopularTools";
 import {
   setPageSeo,
   articleSchema,
@@ -9,6 +11,7 @@ import {
 } from "@/lib/seo";
 
 const URL = "https://imagemarker.app/blog/is-id-watermark-useful";
+const SLUG = "is-id-watermark-useful";
 
 export default function IsIdWatermarkUseful() {
   useEffect(() => {
@@ -119,6 +122,8 @@ export default function IsIdWatermarkUseful() {
               如果當初那張影本上有「僅供 OO 房東租屋建檔使用，他用無效」的浮水印，電信門市在受理時就會看到這行字，多數會直接拒絕受理或要求本人到場。事後申訴時，這行浮水印也是證明「影本被挪用」的有力證據。
             </p>
 
+            <InlineCTA tool="watermark" position="mid_article" location={SLUG} />
+
             <h2>案例二：小李求職，影本被開人頭公司</h2>
             <p>
               小李應徵工作時被要求先提供身分證影本「方便辦理勞健保」。錄取通知卻遲遲沒來，半年後他發現自己名下莫名多了一間公司，成了人頭負責人，還背上稅務責任。
@@ -134,6 +139,8 @@ export default function IsIdWatermarkUseful() {
             <p>
               小陳因此完全沒有受到損失。這就是浮水印最理想的效果——<strong>在傷害發生前就把它擋下來。</strong>
             </p>
+
+            <InlineCTA tool="mosaic" position="mid_article" location={SLUG} />
 
             <h2>法律與官方依據：加註用途是被建議的做法</h2>
             <p>
@@ -229,6 +236,8 @@ export default function IsIdWatermarkUseful() {
           </div>
         <p className="mt-8 text-center text-sm text-gray-400"><a href="https://ko-fi.com/justinlee2061" target="_blank" rel="noopener noreferrer" className="hover:text-blue-500 transition-colors">☕ 如果這篇文章幫到你，請我喝杯咖啡</a></p>
         </article>
+
+        <PopularTools location={SLUG} className="mt-12" />
 
         {/* 相關文章 */}
         <section className="mt-12 border-t pt-8">

@@ -1,6 +1,8 @@
 import { useEffect } from "react";
 import { Link } from "wouter";
 import { ReadMoreArrow } from "@/components/read-more-arrow";
+import { InlineCTA } from "@/components/InlineCTA";
+import { PopularTools } from "@/components/PopularTools";
 import {
   setPageSeo,
   articleSchema,
@@ -9,6 +11,7 @@ import {
 } from "@/lib/seo";
 
 const URL = "https://imagemarker.app/blog/passport-watermark-guide";
+const SLUG = "passport-watermark-guide";
 
 export default function PassportWatermarkGuide() {
   useEffect(() => {
@@ -106,6 +109,8 @@ export default function PassportWatermarkGuide() {
               更關鍵的是，護照號碼一旦外洩，補辦程序遠比身分證複雜，還需要重新申辦各國簽證。事前花一分鐘加浮水印，比事後處理輕鬆太多。
             </p>
 
+            <InlineCTA tool="watermark" position="mid_article" location={SLUG} />
+
             <h2>護照影本怎麼印？</h2>
             <p>
               很多人出國前才發現家裡沒有印表機，其實要印護照影本有三種簡單做法：
@@ -174,6 +179,8 @@ export default function PassportWatermarkGuide() {
             <p>
               寫法的核心三要素：<strong>用途 + 對象 + 日期</strong>。日期建議寫到「年月日」，避免被當作可長期使用的影本。
             </p>
+
+            <InlineCTA tool="mosaic" position="mid_article" location={SLUG} />
 
             <h2>浮水印放哪個位置最安全？</h2>
             <p>
@@ -269,6 +276,8 @@ export default function PassportWatermarkGuide() {
           </div>
         <p className="mt-8 text-center text-sm text-gray-400"><a href="https://ko-fi.com/justinlee2061" target="_blank" rel="noopener noreferrer" className="hover:text-blue-500 transition-colors">☕ 如果這篇文章幫到你，請我喝杯咖啡</a></p>
         </article>
+
+        <PopularTools location={SLUG} className="mt-12" />
 
         {/* 相關文章 */}
         <section className="mt-12 border-t pt-8">
