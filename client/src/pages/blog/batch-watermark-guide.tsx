@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { Link } from "wouter";
+import { ReadMoreArrow } from "@/components/read-more-arrow";
 import {
   setPageSeo,
   articleSchema,
@@ -257,7 +258,7 @@ export default function BatchWatermarkGuide() {
               批次浮水印沒有唯一解，取決於你的情境：臨時三五張，手機 App 就夠；已有 Photoshop、要高度客製，錄個動作最強大；而對大多數人來說——想快、想免費、又不想讓照片離開裝置——線上本機處理的批次工具是最務實的甜蜜點。與其一張張加到手軟，不如一次上傳、統一套用、打包帶走。
             </p>
             <p>
-              立即免費批次加浮水印 →{" "}
+              立即免費批次加浮水印<ReadMoreArrow />{" "}
               <a
                 href="https://imagemarker.app/batch"
                 target="_blank"
@@ -292,7 +293,7 @@ export default function BatchWatermarkGuide() {
                   比較逐張處理、Photoshop 批次、線上工具 3 種方法的優缺點。
                 </p>
                 <span className="inline-block mt-3 text-sm text-primary font-medium">
-                  閱讀全文 →
+                  閱讀全文<ReadMoreArrow />
                 </span>
               </article>
             </Link>
@@ -305,7 +306,7 @@ export default function BatchWatermarkGuide() {
                   滿版斜向重複、半透明疊主體等 5 個真正有效的防盜圖技巧。
                 </p>
                 <span className="inline-block mt-3 text-sm text-primary font-medium">
-                  閱讀全文 →
+                  閱讀全文<ReadMoreArrow />
                 </span>
               </article>
             </Link>
@@ -318,7 +319,7 @@ export default function BatchWatermarkGuide() {
                   完整比較本地端處理 vs 雲端上傳、隱私安全、功能優缺點。
                 </p>
                 <span className="inline-block mt-3 text-sm text-primary font-medium">
-                  閱讀全文 →
+                  閱讀全文<ReadMoreArrow />
                 </span>
               </article>
             </Link>

@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { Link } from "wouter";
+import { ReadMoreArrow } from "@/components/read-more-arrow";
 import {
   setPageSeo,
   articleSchema,
@@ -213,7 +214,7 @@ export default function PassportTravelAgencyWatermark() {
                   護照浮水印怎麼寫、放哪個位置最安全？附 5 種常見範本，出國前必看。
                 </p>
                 <span className="inline-block mt-3 text-sm text-primary font-medium">
-                  閱讀全文 →
+                  閱讀全文<ReadMoreArrow />
                 </span>
               </article>
             </Link>
@@ -226,7 +227,7 @@ export default function PassportTravelAgencyWatermark() {
                   存摺、健保卡、駕照等影本也是詐騙高危目標，教你 6 種常見證件的浮水印寫法。
                 </p>
                 <span className="inline-block mt-3 text-sm text-primary font-medium">
-                  閱讀全文 →
+                  閱讀全文<ReadMoreArrow />
                 </span>
               </article>
             </Link>
@@ -239,7 +240,7 @@ export default function PassportTravelAgencyWatermark() {
                   租屋、求職、開戶、保險……每種情境的證件浮水印該寫什麼？完整 10 種範本直接套用。
                 </p>
                 <span className="inline-block mt-3 text-sm text-primary font-medium">
-                  閱讀全文 →
+                  閱讀全文<ReadMoreArrow />
                 </span>
               </article>
             </Link>

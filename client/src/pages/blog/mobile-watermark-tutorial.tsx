@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { Link } from "wouter";
+import { ReadMoreArrow } from "@/components/read-more-arrow";
 import {
   setPageSeo,
   articleSchema,
@@ -256,7 +257,7 @@ export default function MobileWatermarkTutorial() {
                   租屋前必看！教你用 ImageMarker 三步驟幫身分證影本加上浮水印，防止個資被冒用。
                 </p>
                 <span className="inline-block mt-3 text-sm text-primary font-medium">
-                  閱讀全文 →
+                  閱讀全文<ReadMoreArrow />
                 </span>
               </article>
             </Link>
@@ -269,7 +270,7 @@ export default function MobileWatermarkTutorial() {
                   精選 5 款最好用的免費浮水印工具，完整比較本地處理 vs 雲端上傳、隱私安全與功能優缺點。
                 </p>
                 <span className="inline-block mt-3 text-sm text-primary font-medium">
-                  閱讀全文 →
+                  閱讀全文<ReadMoreArrow />
                 </span>
               </article>
             </Link>

@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { Link } from "wouter";
+import { ReadMoreArrow } from "@/components/read-more-arrow";
 import {
   setPageSeo,
   articleSchema,
@@ -291,7 +292,7 @@ export default function RentingProtectIdDocumentsEn() {
               href="/en/"
               className="inline-block px-5 py-2 bg-blue-600 text-white rounded-md font-medium hover:bg-blue-700 transition-colors"
             >
-              Watermark My Documents Free &rarr;
+              Watermark My Documents Free<ReadMoreArrow />
             </Link>
           </div>
 
@@ -321,7 +322,7 @@ export default function RentingProtectIdDocumentsEn() {
                   do it free in your browser.
                 </p>
                 <span className="inline-block mt-3 text-sm text-primary font-medium">
-                  Read more →
+                  Read more<ReadMoreArrow />
                 </span>
               </article>
             </Link>
@@ -335,7 +336,7 @@ export default function RentingProtectIdDocumentsEn() {
                   protects you.
                 </p>
                 <span className="inline-block mt-3 text-sm text-primary font-medium">
-                  Read more →
+                  Read more<ReadMoreArrow />
                 </span>
               </article>
             </Link>
@@ -349,7 +350,7 @@ export default function RentingProtectIdDocumentsEn() {
                   or document.
                 </p>
                 <span className="inline-block mt-3 text-sm text-primary font-medium">
-                  Read more →
+                  Read more<ReadMoreArrow />
                 </span>
               </article>
             </Link>

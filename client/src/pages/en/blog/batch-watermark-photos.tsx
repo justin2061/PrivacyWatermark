@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { Link } from "wouter";
+import { ReadMoreArrow } from "@/components/read-more-arrow";
 import {
   setPageSeo,
   articleSchema,
@@ -280,7 +281,7 @@ export default function BatchWatermarkPhotosEn() {
               href="/en/batch"
               className="inline-block px-5 py-2 bg-blue-600 text-white rounded-md font-medium hover:bg-blue-700 transition-colors"
             >
-              Open the Batch Watermark Tool &rarr;
+              Open the Batch Watermark Tool<ReadMoreArrow />
             </Link>
           </div>
 
@@ -310,7 +311,7 @@ export default function BatchWatermarkPhotosEn() {
                   Lightroom, no upload required.
                 </p>
                 <span className="inline-block mt-3 text-sm text-primary font-medium">
-                  Read more →
+                  Read more<ReadMoreArrow />
                 </span>
               </article>
             </Link>
@@ -324,7 +325,7 @@ export default function BatchWatermarkPhotosEn() {
                   images without ruining them.
                 </p>
                 <span className="inline-block mt-3 text-sm text-primary font-medium">
-                  Read more →
+                  Read more<ReadMoreArrow />
                 </span>
               </article>
             </Link>
@@ -338,7 +339,7 @@ export default function BatchWatermarkPhotosEn() {
                   Shrink a whole batch for the web without visible quality loss.
                 </p>
                 <span className="inline-block mt-3 text-sm text-primary font-medium">
-                  Read more →
+                  Read more<ReadMoreArrow />
                 </span>
               </article>
             </Link>

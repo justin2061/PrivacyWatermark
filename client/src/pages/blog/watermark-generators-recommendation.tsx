@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { Link } from "wouter";
+import { ReadMoreArrow } from "@/components/read-more-arrow";
 import {
   setPageSeo,
   articleSchema,
@@ -327,7 +328,7 @@ export default function WatermarkGeneratorsRecommendation() {
               不論選擇哪一款，記得養成「交出任何證件影本前先加浮水印」的習慣，這是保護自己個資的簡單卻重要的一步。
             </p>
             <p>
-              立即試用 ImageMarker →{" "}
+              立即試用 ImageMarker<ReadMoreArrow />{" "}
               <a
                 href="https://imagemarker.app"
                 target="_blank"
@@ -353,7 +354,7 @@ export default function WatermarkGeneratorsRecommendation() {
                   教你用 ImageMarker 三步驟幫身分證影本加上浮水印，防止個資被冒用。
                 </p>
                 <span className="inline-block mt-3 text-sm text-primary font-medium">
-                  閱讀全文 →
+                  閱讀全文<ReadMoreArrow />
                 </span>
               </article>
             </Link>
@@ -366,7 +367,7 @@ export default function WatermarkGeneratorsRecommendation() {
                   不用下載 App，用手機瀏覽器 3 分鐘完成證件浮水印，iPhone 和 Android 都適用。
                 </p>
                 <span className="inline-block mt-3 text-sm text-primary font-medium">
-                  閱讀全文 →
+                  閱讀全文<ReadMoreArrow />
                 </span>
               </article>
             </Link>
@@ -379,7 +380,7 @@ export default function WatermarkGeneratorsRecommendation() {
                   存摺、健保卡、駕照等影本也是詐騙高危目標，本篇教你 6 種證件的浮水印寫法。
                 </p>
                 <span className="inline-block mt-3 text-sm text-primary font-medium">
-                  閱讀全文 →
+                  閱讀全文<ReadMoreArrow />
                 </span>
               </article>
             </Link>

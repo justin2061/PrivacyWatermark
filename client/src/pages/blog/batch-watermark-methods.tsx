@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { Link } from "wouter";
+import { ReadMoreArrow } from "@/components/read-more-arrow";
 import {
   setPageSeo,
   articleSchema,
@@ -205,7 +206,7 @@ export default function BatchWatermarkMethods() {
                   租屋、求職、開戶、保險……每種情境的證件浮水印該寫什麼？完整 10 種範本讓你直接套用。
                 </p>
                 <span className="inline-block mt-3 text-sm text-primary font-medium">
-                  閱讀全文 →
+                  閱讀全文<ReadMoreArrow />
                 </span>
               </article>
             </Link>
@@ -218,7 +219,7 @@ export default function BatchWatermarkMethods() {
                   不用下載 App，用手機瀏覽器就能幫身分證加浮水印。本篇教你 3 分鐘完成，iPhone 和 Android 都適用。
                 </p>
                 <span className="inline-block mt-3 text-sm text-primary font-medium">
-                  閱讀全文 →
+                  閱讀全文<ReadMoreArrow />
                 </span>
               </article>
             </Link>

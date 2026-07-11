@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { Link } from "wouter";
+import { ReadMoreArrow } from "@/components/read-more-arrow";
 import {
   setPageSeo,
   articleSchema,
@@ -198,7 +199,7 @@ export default function RentBeforeGivingId3Things() {
                   房東要影本合理嗎？完整分析你的權利、能不能拒絕，附實用話術。
                 </p>
                 <span className="inline-block mt-3 text-sm text-primary font-medium">
-                  閱讀全文 →
+                  閱讀全文<ReadMoreArrow />
                 </span>
               </article>
             </Link>
@@ -211,7 +212,7 @@ export default function RentBeforeGivingId3Things() {
                   租屋要準備哪些文件？哪些能拒絕？教你安全交付身分證影本。
                 </p>
                 <span className="inline-block mt-3 text-sm text-primary font-medium">
-                  閱讀全文 →
+                  閱讀全文<ReadMoreArrow />
                 </span>
               </article>
             </Link>
@@ -224,7 +225,7 @@ export default function RentBeforeGivingId3Things() {
                   影本外洩後可能被盜辦門號、申貸、開人頭帳戶，教你最簡單的自保方法。
                 </p>
                 <span className="inline-block mt-3 text-sm text-primary font-medium">
-                  閱讀全文 →
+                  閱讀全文<ReadMoreArrow />
                 </span>
               </article>
             </Link>

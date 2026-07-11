@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { Link } from "wouter";
+import { ReadMoreArrow } from "@/components/read-more-arrow";
 import { Card } from "@/components/ui/card";
 import { SiteHeader } from "@/components/SiteHeader";
 import { ToolsShowcase } from "@/components/ToolsShowcase";
@@ -246,7 +247,7 @@ export default function WatermarkPage() {
                 href="/exif-clean"
                 className="inline-flex items-center justify-center whitespace-nowrap bg-primary text-white py-2.5 px-5 rounded-lg hover:bg-blue-700 transition-colors font-medium text-sm"
               >
-                前往 EXIF 清除器 →
+                前往 EXIF 清除器<ReadMoreArrow />
               </Link>
             </div>
           </Card>
@@ -269,7 +270,7 @@ export default function WatermarkPage() {
                 href="/blog/rent-id-watermark"
                 className="inline-block text-sm text-primary font-medium hover:underline"
               >
-                閱讀全文 →
+                閱讀全文<ReadMoreArrow />
               </Link>
             </Card>
 
@@ -286,7 +287,7 @@ export default function WatermarkPage() {
                 href="/blog/watermark-generators-recommendation"
                 className="inline-block text-sm text-primary font-medium hover:underline"
               >
-                閱讀全文 →
+                閱讀全文<ReadMoreArrow />
               </Link>
             </Card>
 
@@ -303,7 +304,7 @@ export default function WatermarkPage() {
                 href="/blog/watermark-templates-guide"
                 className="inline-block text-sm text-primary font-medium hover:underline"
               >
-                閱讀全文 →
+                閱讀全文<ReadMoreArrow />
               </Link>
             </Card>
 
@@ -320,7 +321,7 @@ export default function WatermarkPage() {
                 href="/blog/mobile-watermark-tutorial"
                 className="inline-block text-sm text-primary font-medium hover:underline"
               >
-                閱讀全文 →
+                閱讀全文<ReadMoreArrow />
               </Link>
             </Card>
 
@@ -337,7 +338,7 @@ export default function WatermarkPage() {
                 href="/blog/other-documents-watermark"
                 className="inline-block text-sm text-primary font-medium hover:underline"
               >
-                閱讀全文 →
+                閱讀全文<ReadMoreArrow />
               </Link>
             </Card>
           </div>

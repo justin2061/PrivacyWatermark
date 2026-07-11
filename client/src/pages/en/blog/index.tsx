@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { Link } from "wouter";
+import { ReadMoreArrow } from "@/components/read-more-arrow";
 import { setPageSeo } from "@/lib/seo";
 
 type Category = "Security" | "Photography" | "Tutorial" | "Privacy";
@@ -226,7 +227,7 @@ export default function BlogIndexEn() {
                   {article.excerpt}
                 </p>
                 <span className="mt-3 inline-block text-sm font-medium text-primary">
-                  Read more →
+                  Read more<ReadMoreArrow />
                 </span>
               </Link>
             </li>

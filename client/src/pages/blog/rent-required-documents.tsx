@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { Link } from "wouter";
+import { ReadMoreArrow } from "@/components/read-more-arrow";
 import {
   setPageSeo,
   articleSchema,
@@ -207,7 +208,7 @@ export default function RentRequiredDocuments() {
                   租屋前必看！教你用 ImageMarker 三步驟幫身分證影本加上浮水印，防止個資被冒用。
                 </p>
                 <span className="inline-block mt-3 text-sm text-primary font-medium">
-                  閱讀全文 →
+                  閱讀全文<ReadMoreArrow />
                 </span>
               </article>
             </Link>
@@ -220,7 +221,7 @@ export default function RentRequiredDocuments() {
                   房東要身分證影本合理嗎？哪些能給、哪些能拒絕？一篇搞懂你的權利與自保方法。
                 </p>
                 <span className="inline-block mt-3 text-sm text-primary font-medium">
-                  閱讀全文 →
+                  閱讀全文<ReadMoreArrow />
                 </span>
               </article>
             </Link>
@@ -233,7 +234,7 @@ export default function RentRequiredDocuments() {
                   假房東、假仲介、要求證件影本……拆解常見租屋詐騙手法，教你保護證件不被冒用。
                 </p>
                 <span className="inline-block mt-3 text-sm text-primary font-medium">
-                  閱讀全文 →
+                  閱讀全文<ReadMoreArrow />
                 </span>
               </article>
             </Link>

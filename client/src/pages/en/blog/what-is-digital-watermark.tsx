@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { Link } from "wouter";
+import { ReadMoreArrow } from "@/components/read-more-arrow";
 import {
   setPageSeo,
   articleSchema,
@@ -290,7 +291,7 @@ export default function WhatIsDigitalWatermarkEn() {
               href="/en/"
               className="inline-block px-5 py-2 bg-blue-600 text-white rounded-md font-medium hover:bg-blue-700 transition-colors"
             >
-              Try the Watermark Tool Free &rarr;
+              Try the Watermark Tool Free<ReadMoreArrow />
             </Link>
           </div>
 
@@ -320,7 +321,7 @@ export default function WhatIsDigitalWatermarkEn() {
                   images without ruining them.
                 </p>
                 <span className="inline-block mt-3 text-sm text-primary font-medium">
-                  Read more →
+                  Read more<ReadMoreArrow />
                 </span>
               </article>
             </Link>
@@ -334,7 +335,7 @@ export default function WhatIsDigitalWatermarkEn() {
                   sensitive documents.
                 </p>
                 <span className="inline-block mt-3 text-sm text-primary font-medium">
-                  Read more →
+                  Read more<ReadMoreArrow />
                 </span>
               </article>
             </Link>
@@ -348,7 +349,7 @@ export default function WhatIsDigitalWatermarkEn() {
                   price and privacy.
                 </p>
                 <span className="inline-block mt-3 text-sm text-primary font-medium">
-                  Read more →
+                  Read more<ReadMoreArrow />
                 </span>
               </article>
             </Link>

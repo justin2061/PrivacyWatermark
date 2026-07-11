@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { Link } from "wouter";
+import { ReadMoreArrow } from "@/components/read-more-arrow";
 import {
   setPageSeo,
   articleSchema,
@@ -324,7 +325,7 @@ export default function SocialMediaImageSizesEn() {
               href="/en/resize"
               className="inline-block px-5 py-2 bg-blue-600 text-white rounded-md font-medium hover:bg-blue-700 transition-colors"
             >
-              Open the Resize Tool &rarr;
+              Open the Resize Tool<ReadMoreArrow />
             </Link>
           </div>
 
@@ -355,7 +356,7 @@ export default function SocialMediaImageSizesEn() {
                   loss.
                 </p>
                 <span className="inline-block mt-3 text-sm text-primary font-medium">
-                  Read more →
+                  Read more<ReadMoreArrow />
                 </span>
               </article>
             </Link>
@@ -368,7 +369,7 @@ export default function SocialMediaImageSizesEn() {
                   Protect your own work before you post it to social media.
                 </p>
                 <span className="inline-block mt-3 text-sm text-primary font-medium">
-                  Read more →
+                  Read more<ReadMoreArrow />
                 </span>
               </article>
             </Link>
@@ -381,7 +382,7 @@ export default function SocialMediaImageSizesEn() {
                   Preparing a whole set for social? Stamp them all at once.
                 </p>
                 <span className="inline-block mt-3 text-sm text-primary font-medium">
-                  Read more →
+                  Read more<ReadMoreArrow />
                 </span>
               </article>
             </Link>

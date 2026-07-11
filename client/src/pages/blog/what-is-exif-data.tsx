@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { Link } from "wouter";
+import { ReadMoreArrow } from "@/components/read-more-arrow";
 import {
   setPageSeo,
   articleSchema,
@@ -201,7 +202,7 @@ export default function WhatIsExifData() {
               照片會說話，而 EXIF 說的往往是你不想讓陌生人知道的事：你家在哪、你幾點在哪、你用什麼裝置。好消息是，清除它只要幾秒鐘、不傷畫質，還能批次完成。養成一個習慣就好——<strong>照片離開你手上之前，先清 EXIF</strong>，尤其是在家拍的、要賣二手的、要交給第三方的。
             </p>
             <p>
-              立即免費清除照片 EXIF →{" "}
+              立即免費清除照片 EXIF<ReadMoreArrow />{" "}
               <a
                 href="https://imagemarker.app/exif-clean"
                 target="_blank"
@@ -236,7 +237,7 @@ export default function WhatIsExifData() {
                   哪些圖片工具真正在瀏覽器本機處理？隱私差異與功能一次看懂。
                 </p>
                 <span className="inline-block mt-3 text-sm text-primary font-medium">
-                  閱讀全文 →
+                  閱讀全文<ReadMoreArrow />
                 </span>
               </article>
             </Link>
@@ -249,7 +250,7 @@ export default function WhatIsExifData() {
                   滿版斜向重複、半透明疊主體等 5 個真正有效的防盜圖技巧。
                 </p>
                 <span className="inline-block mt-3 text-sm text-primary font-medium">
-                  閱讀全文 →
+                  閱讀全文<ReadMoreArrow />
                 </span>
               </article>
             </Link>
@@ -262,7 +263,7 @@ export default function WhatIsExifData() {
                   三步驟幫身分證影本加上浮水印，防止個資被冒用。
                 </p>
                 <span className="inline-block mt-3 text-sm text-primary font-medium">
-                  閱讀全文 →
+                  閱讀全文<ReadMoreArrow />
                 </span>
               </article>
             </Link>

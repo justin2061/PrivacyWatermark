@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { Link } from "wouter";
+import { ReadMoreArrow } from "@/components/read-more-arrow";
 import {
   setPageSeo,
   articleSchema,
@@ -360,7 +361,7 @@ export default function TinypngIloveimgSquooshAlternativesEn() {
               device.
             </p>
             <p>
-              Try ImageMarker now &rarr;{" "}
+              Try ImageMarker now<ReadMoreArrow />{" "}
               <a
                 href="https://imagemarker.app/en/"
                 target="_blank"
@@ -386,7 +387,7 @@ export default function TinypngIloveimgSquooshAlternativesEn() {
                   watermarking.
                 </p>
                 <span className="inline-block mt-3 text-sm text-primary font-medium">
-                  Read more →
+                  Read more<ReadMoreArrow />
                 </span>
               </article>
             </Link>
@@ -400,7 +401,7 @@ export default function TinypngIloveimgSquooshAlternativesEn() {
                   how to strip them.
                 </p>
                 <span className="inline-block mt-3 text-sm text-primary font-medium">
-                  Read more →
+                  Read more<ReadMoreArrow />
                 </span>
               </article>
             </Link>
@@ -414,7 +415,7 @@ export default function TinypngIloveimgSquooshAlternativesEn() {
                   browser.
                 </p>
                 <span className="inline-block mt-3 text-sm text-primary font-medium">
-                  Read more →
+                  Read more<ReadMoreArrow />
                 </span>
               </article>
             </Link>

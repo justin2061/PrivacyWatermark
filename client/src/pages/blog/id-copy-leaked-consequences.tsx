@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { Link } from "wouter";
+import { ReadMoreArrow } from "@/components/read-more-arrow";
 import {
   setPageSeo,
   articleSchema,
@@ -210,7 +211,7 @@ export default function IdCopyLeakedConsequences() {
                   浮水印真的擋得住冒用嗎？用 3 個真實案例與個資法依據告訴你答案。
                 </p>
                 <span className="inline-block mt-3 text-sm text-primary font-medium">
-                  閱讀全文 →
+                  閱讀全文<ReadMoreArrow />
                 </span>
               </article>
             </Link>
@@ -223,7 +224,7 @@ export default function IdCopyLeakedConsequences() {
                   從什麼是證件浮水印到 5 種常見情境的完整教學，3 步驟輕鬆完成。
                 </p>
                 <span className="inline-block mt-3 text-sm text-primary font-medium">
-                  閱讀全文 →
+                  閱讀全文<ReadMoreArrow />
                 </span>
               </article>
             </Link>
@@ -236,7 +237,7 @@ export default function IdCopyLeakedConsequences() {
                   拆解 5 種常見租屋詐騙與證件冒用手法，教你辨識詐騙、保護影本。
                 </p>
                 <span className="inline-block mt-3 text-sm text-primary font-medium">
-                  閱讀全文 →
+                  閱讀全文<ReadMoreArrow />
                 </span>
               </article>
             </Link>

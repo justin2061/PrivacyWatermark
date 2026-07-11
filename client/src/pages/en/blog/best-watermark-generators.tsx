@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { Link } from "wouter";
+import { ReadMoreArrow } from "@/components/read-more-arrow";
 import {
   setPageSeo,
   articleSchema,
@@ -414,7 +415,7 @@ export default function BestWatermarkGeneratorsEn() {
               href="/en/"
               className="inline-block px-5 py-2 bg-blue-600 text-white rounded-md font-medium hover:bg-blue-700 transition-colors"
             >
-              Open ImageMarker Free &rarr;
+              Open ImageMarker Free<ReadMoreArrow />
             </Link>
           </div>
 
@@ -444,7 +445,7 @@ export default function BestWatermarkGeneratorsEn() {
                   watermarking.
                 </p>
                 <span className="inline-block mt-3 text-sm text-primary font-medium">
-                  Read more →
+                  Read more<ReadMoreArrow />
                 </span>
               </article>
             </Link>
@@ -458,7 +459,7 @@ export default function BestWatermarkGeneratorsEn() {
                   your browser.
                 </p>
                 <span className="inline-block mt-3 text-sm text-primary font-medium">
-                  Read more →
+                  Read more<ReadMoreArrow />
                 </span>
               </article>
             </Link>
@@ -471,7 +472,7 @@ export default function BestWatermarkGeneratorsEn() {
                   Watermark up to 20 images in one go, entirely in your browser.
                 </p>
                 <span className="inline-block mt-3 text-sm text-primary font-medium">
-                  Read more →
+                  Read more<ReadMoreArrow />
                 </span>
               </article>
             </Link>

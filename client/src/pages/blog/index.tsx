@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { Link } from "wouter";
+import { ReadMoreArrow } from "@/components/read-more-arrow";
 
 const articles = [
   {
@@ -195,7 +196,7 @@ export default function BlogIndex() {
                   {article.summary}
                 </p>
                 <span className="inline-block mt-4 text-sm text-primary font-medium">
-                  閱讀文章 →
+                  閱讀文章<ReadMoreArrow />
                 </span>
               </article>
             </Link>

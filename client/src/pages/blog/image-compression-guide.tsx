@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { Link } from "wouter";
+import { ReadMoreArrow } from "@/components/read-more-arrow";
 import {
   setPageSeo,
   articleSchema,
@@ -299,7 +300,7 @@ export default function ImageCompressionGuide() {
               圖片太大不必再頭痛。壓縮工具沒有絕對的「最好」，只有「最適合當下情境」的：非敏感圖片求方便，雲端工具就很好用；要極致壓縮率找 Squoosh；但只要圖片上有個資，就選檔案不離開裝置的本機工具。搞懂有損無損、先縮尺寸再壓縮，你就能又快又安全地把每張圖變小。
             </p>
             <p>
-              立即免費壓縮圖片 →{" "}
+              立即免費壓縮圖片<ReadMoreArrow />{" "}
               <a
                 href="https://imagemarker.app/compress"
                 target="_blank"
@@ -334,7 +335,7 @@ export default function ImageCompressionGuide() {
                   哪些圖片工具真正在瀏覽器本機處理？隱私差異與功能一次看懂。
                 </p>
                 <span className="inline-block mt-3 text-sm text-primary font-medium">
-                  閱讀全文 →
+                  閱讀全文<ReadMoreArrow />
                 </span>
               </article>
             </Link>
@@ -347,7 +348,7 @@ export default function ImageCompressionGuide() {
                   照片藏了 GPS、時間、手機型號，交出前先一鍵清乾淨。
                 </p>
                 <span className="inline-block mt-3 text-sm text-primary font-medium">
-                  閱讀全文 →
+                  閱讀全文<ReadMoreArrow />
                 </span>
               </article>
             </Link>
@@ -360,7 +361,7 @@ export default function ImageCompressionGuide() {
                   比較手機 App、Photoshop、線上工具，一次搞定整批浮水印。
                 </p>
                 <span className="inline-block mt-3 text-sm text-primary font-medium">
-                  閱讀全文 →
+                  閱讀全文<ReadMoreArrow />
                 </span>
               </article>
             </Link>

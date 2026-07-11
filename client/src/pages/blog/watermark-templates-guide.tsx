@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { Link } from "wouter";
+import { ReadMoreArrow } from "@/components/read-more-arrow";
 import {
   setPageSeo,
   articleSchema,
@@ -202,10 +203,19 @@ export default function WatermarkTemplatesGuidePage() {
             </p>
             <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 my-4 not-prose">
               <p className="font-semibold text-gray-900 mb-2">身分證影本簽註寫法範例（可直接照抄）</p>
-              <ul className="text-sm text-gray-700 space-y-1 list-disc pl-5">
-                <li>第一行：僅提供 OO 銀行 ——————</li>
-                <li>第二行：申辦 OO 信用卡使用 ——————</li>
-                <li>第三行：2026/07/01，他用無效 ——————</li>
+              <ul className="text-sm text-gray-700 space-y-2 pl-1">
+                <li className="flex items-baseline gap-2">
+                  <span className="whitespace-nowrap">第一行：僅提供 OO 銀行</span>
+                  <span className="flex-1 border-b border-gray-400" aria-hidden="true" />
+                </li>
+                <li className="flex items-baseline gap-2">
+                  <span className="whitespace-nowrap">第二行：申辦 OO 信用卡使用</span>
+                  <span className="flex-1 border-b border-gray-400" aria-hidden="true" />
+                </li>
+                <li className="flex items-baseline gap-2">
+                  <span className="whitespace-nowrap">第三行：2026/07/01，他用無效</span>
+                  <span className="flex-1 border-b border-gray-400" aria-hidden="true" />
+                </li>
               </ul>
               <p className="text-sm text-gray-600 mt-2">
                 三行寫完後，每行結尾用橫線把剩餘空白補滿，避免被人補寫其他用途；文字跨到證件影像上，但不要遮住姓名與身分證字號。這就是最標準的身分證影本簽註寫法範例。
@@ -356,7 +366,7 @@ export default function WatermarkTemplatesGuidePage() {
             </p>
             <p>
               <a href="https://imagemarker.app" className="inline-block bg-primary text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors font-medium no-underline">
-                立即使用 ImageMarker 加浮水印 →
+                立即使用 ImageMarker 加浮水印<ReadMoreArrow />
               </a>
             </p>
           </div>

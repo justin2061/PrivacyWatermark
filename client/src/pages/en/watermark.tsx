@@ -1,4 +1,5 @@
 import { Link } from "wouter";
+import { ReadMoreArrow } from "@/components/read-more-arrow";
 import { useEffect } from "react";
 import { Card } from "@/components/ui/card";
 import { SiteHeader } from "@/components/SiteHeader";
@@ -199,7 +200,7 @@ export default function WatermarkEnPage() {
                 href="/en/exif-clean"
                 className="inline-flex items-center justify-center whitespace-nowrap bg-primary text-white py-2.5 px-5 rounded-lg hover:bg-blue-700 transition-colors font-medium text-sm"
               >
-                Open EXIF Cleaner →
+                Open EXIF Cleaner<ReadMoreArrow />
               </Link>
             </div>
           </Card>
@@ -215,7 +216,7 @@ export default function WatermarkEnPage() {
               href="/en/blog"
               className="text-sm font-medium text-primary hover:underline"
             >
-              View all →
+              View all<ReadMoreArrow />
             </Link>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">

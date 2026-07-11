@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { Link } from "wouter";
+import { ReadMoreArrow } from "@/components/read-more-arrow";
 import {
   setPageSeo,
   articleSchema,
@@ -264,7 +265,7 @@ export default function IdWatermarkCompleteGuide() {
                   租屋、求職、開戶、保險……10 種情境的浮水印範本讓你直接套用。
                 </p>
                 <span className="inline-block mt-3 text-sm text-primary font-medium">
-                  閱讀全文 →
+                  閱讀全文<ReadMoreArrow />
                 </span>
               </article>
             </Link>
@@ -277,7 +278,7 @@ export default function IdWatermarkCompleteGuide() {
                   不用下載 App，用手機瀏覽器 3 分鐘完成，iPhone、Android 都適用。
                 </p>
                 <span className="inline-block mt-3 text-sm text-primary font-medium">
-                  閱讀全文 →
+                  閱讀全文<ReadMoreArrow />
                 </span>
               </article>
             </Link>
@@ -290,7 +291,7 @@ export default function IdWatermarkCompleteGuide() {
                   影本外洩後可能被盜辦門號、申貸、開人頭帳戶，教你最簡單的自保方法。
                 </p>
                 <span className="inline-block mt-3 text-sm text-primary font-medium">
-                  閱讀全文 →
+                  閱讀全文<ReadMoreArrow />
                 </span>
               </article>
             </Link>

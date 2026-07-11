@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { Link } from "wouter";
+import { ReadMoreArrow } from "@/components/read-more-arrow";
 import {
   setPageSeo,
   articleSchema,
@@ -218,7 +219,7 @@ export default function RemoveExifData() {
               href="/exif-clean"
               className="inline-block px-5 py-2 bg-blue-600 text-white rounded-md font-medium hover:bg-blue-700 transition-colors"
             >
-              Clean EXIF Data Free &rarr;
+              Clean EXIF Data Free<ReadMoreArrow />
             </Link>
           </div>
 

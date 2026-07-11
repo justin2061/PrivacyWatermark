@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { Link } from "wouter";
+import { ReadMoreArrow } from "@/components/read-more-arrow";
 import {
   setPageSeo,
   articleSchema,
@@ -211,7 +212,7 @@ export default function AntiTheftPhotoWatermark() {
               防盜圖浮水印的核心觀念只有一句話：<strong>讓移除浮水印的成本，高於盜圖者願意付出的努力</strong>。滿版斜向重複、半透明疊主體、字級夠大、放上帳號網址、控制輸出解析度——五件事做到位，就能擋下絕大多數的投機盜圖，剩下的交給低解析度預覽和你手上的原始檔證據。
             </p>
             <p>
-              立即免費幫作品加上防盜浮水印 →{" "}
+              立即免費幫作品加上防盜浮水印<ReadMoreArrow />{" "}
               <a
                 href="https://imagemarker.app"
                 target="_blank"
@@ -246,7 +247,7 @@ export default function AntiTheftPhotoWatermark() {
                   完整比較本地端處理 vs 雲端上傳、隱私安全、功能優缺點。
                 </p>
                 <span className="inline-block mt-3 text-sm text-primary font-medium">
-                  閱讀全文 →
+                  閱讀全文<ReadMoreArrow />
                 </span>
               </article>
             </Link>
@@ -259,7 +260,7 @@ export default function AntiTheftPhotoWatermark() {
                   比較逐張處理、Photoshop 批次、線上工具 3 種方法的優缺點。
                 </p>
                 <span className="inline-block mt-3 text-sm text-primary font-medium">
-                  閱讀全文 →
+                  閱讀全文<ReadMoreArrow />
                 </span>
               </article>
             </Link>
@@ -272,7 +273,7 @@ export default function AntiTheftPhotoWatermark() {
                   哪些圖片工具真正在瀏覽器本機處理？隱私差異與功能一次看懂。
                 </p>
                 <span className="inline-block mt-3 text-sm text-primary font-medium">
-                  閱讀全文 →
+                  閱讀全文<ReadMoreArrow />
                 </span>
               </article>
             </Link>

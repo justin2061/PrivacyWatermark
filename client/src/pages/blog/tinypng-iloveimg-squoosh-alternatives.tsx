@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { Link } from "wouter";
+import { ReadMoreArrow } from "@/components/read-more-arrow";
 import {
   setPageSeo,
   articleSchema,
@@ -284,7 +285,7 @@ export default function TinypngIloveimgSquooshAlternatives() {
               「免費線上工具」不代表沒有成本——有時成本是你的檔案副本。工具本身沒有好壞，關鍵是分清楚場合：非敏感圖片用雲端工具求方便沒問題，但只要圖片上有個資，就選擇檔案不離開裝置的本機處理工具。
             </p>
             <p>
-              立即試用 ImageMarker →{" "}
+              立即試用 ImageMarker<ReadMoreArrow />{" "}
               <a
                 href="https://imagemarker.app"
                 target="_blank"
@@ -319,7 +320,7 @@ export default function TinypngIloveimgSquooshAlternatives() {
                   完整比較本地端處理 vs 雲端上傳、隱私安全、功能優缺點。
                 </p>
                 <span className="inline-block mt-3 text-sm text-primary font-medium">
-                  閱讀全文 →
+                  閱讀全文<ReadMoreArrow />
                 </span>
               </article>
             </Link>
@@ -332,7 +333,7 @@ export default function TinypngIloveimgSquooshAlternatives() {
                   比較逐張處理、Photoshop 批次、線上工具 3 種方法的優缺點。
                 </p>
                 <span className="inline-block mt-3 text-sm text-primary font-medium">
-                  閱讀全文 →
+                  閱讀全文<ReadMoreArrow />
                 </span>
               </article>
             </Link>
@@ -345,7 +346,7 @@ export default function TinypngIloveimgSquooshAlternatives() {
                   三步驟幫身分證影本加上浮水印，防止個資被冒用。
                 </p>
                 <span className="inline-block mt-3 text-sm text-primary font-medium">
-                  閱讀全文 →
+                  閱讀全文<ReadMoreArrow />
                 </span>
               </article>
             </Link>
