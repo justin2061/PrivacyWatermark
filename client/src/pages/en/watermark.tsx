@@ -118,39 +118,30 @@ export default function WatermarkEnPage() {
             </Card>
           </div>
 
-          {/* Right Panel - Preview Canvas (revealed after upload to keep first screen clean) */}
-          {selectedFile ? (
-            <>
-              {/* Mobile: preview sticks to the top (top-16 clears the fixed header) so the
-                  live preview stays visible while scrolling settings; lg:static on desktop */}
-              <div className="order-1 lg:order-none lg:col-start-2 lg:row-start-1 sticky top-16 z-30 -mx-4 px-4 pt-2 pb-3 bg-gray-50 shadow-sm sm:-mx-6 sm:px-6 lg:static lg:z-auto lg:mx-0 lg:px-0 lg:pt-0 lg:pb-0 lg:bg-transparent lg:shadow-none">
-                <CanvasPreview
-                  canvasRef={canvasRef}
-                  selectedFile={selectedFile}
-                  processedImage={processedImage}
-                  lang="en"
-                />
-              </div>
+          {/* Right Panel - Preview (always rendered as a direct grid child, matching /batch,
+              so the mobile sticky is established at first layout and holds while scrolling —
+              instead of being inserted only after upload, which can break sticky on mobile) */}
+          <div className="order-1 lg:order-none lg:col-start-2 lg:row-start-1 sticky top-16 z-30 -mx-4 px-4 pt-2 pb-3 bg-gray-50 shadow-sm sm:-mx-6 sm:px-6 lg:static lg:z-auto lg:mx-0 lg:px-0 lg:pt-0 lg:pb-0 lg:bg-transparent lg:shadow-none">
+            <CanvasPreview
+              canvasRef={canvasRef}
+              selectedFile={selectedFile}
+              processedImage={processedImage}
+              lang="en"
+            />
+          </div>
 
-              {/* Processing status + success CTA: after settings on mobile, under preview on desktop */}
-              <div className="order-3 lg:order-none lg:col-start-2 lg:row-start-2 space-y-6">
-                <ProcessingStatus
-                  selectedFile={selectedFile}
-                  processedImage={processedImage}
-                  progress={progress}
-                  lang="en"
-                />
-                {processedImage && (
-                  <DownloadSuccess tool="watermark" lang="en" imageCount={1} />
-                )}
-              </div>
-            </>
-          ) : (
-            <div className="hidden lg:flex items-center justify-center lg:col-start-2 lg:row-start-1">
-              <div className="text-center text-gray-400">
-                <span className="text-5xl mb-3 block" role="img" aria-hidden="true">🖼️</span>
-                <p className="text-sm">Preview and processing status will appear here after you upload an image</p>
-              </div>
+          {/* Processing status + success CTA: shown after upload (non-sticky) */}
+          {selectedFile && (
+            <div className="order-3 lg:order-none lg:col-start-2 lg:row-start-2 space-y-6">
+              <ProcessingStatus
+                selectedFile={selectedFile}
+                processedImage={processedImage}
+                progress={progress}
+                lang="en"
+              />
+              {processedImage && (
+                <DownloadSuccess tool="watermark" lang="en" imageCount={1} />
+              )}
             </div>
           )}
         </div>

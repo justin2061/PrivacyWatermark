@@ -167,37 +167,27 @@ export default function WatermarkPage() {
             </Card>
           </div>
 
-          {/* Right Panel - Preview Canvas（上傳圖片後才展開，保持首屏乾淨） */}
-          {selectedFile ? (
-            <>
-              {/* 手機版：預覽 sticky 固定在螢幕上方（top-16 讓開固定的 Header），
-                  調整設定時即時可見；桌面版 lg:static 還原為右上角一般排版 */}
-              <div className="order-1 lg:order-none lg:col-start-2 lg:row-start-1 sticky top-16 z-30 -mx-4 px-4 pt-2 pb-3 bg-gray-50 shadow-sm sm:-mx-6 sm:px-6 lg:static lg:z-auto lg:mx-0 lg:px-0 lg:pt-0 lg:pb-0 lg:bg-transparent lg:shadow-none">
-                <CanvasPreview
-                  canvasRef={canvasRef}
-                  selectedFile={selectedFile}
-                  processedImage={processedImage}
-                />
-              </div>
+          {/* Right Panel - Preview（與 /batch 一致：預覽固定渲染為 grid 直接子元素，
+              讓手機 sticky 從初次排版就建立、捲動時穩定固定，不因上傳後才插入而失效） */}
+          <div className="order-1 lg:order-none lg:col-start-2 lg:row-start-1 sticky top-16 z-30 -mx-4 px-4 pt-2 pb-3 bg-gray-50 shadow-sm sm:-mx-6 sm:px-6 lg:static lg:z-auto lg:mx-0 lg:px-0 lg:pt-0 lg:pb-0 lg:bg-transparent lg:shadow-none">
+            <CanvasPreview
+              canvasRef={canvasRef}
+              selectedFile={selectedFile}
+              processedImage={processedImage}
+            />
+          </div>
 
-              {/* 處理狀態與完成後的支持 CTA：手機在設定區之後、桌面在預覽下方 */}
-              <div className="order-3 lg:order-none lg:col-start-2 lg:row-start-2 space-y-6">
-                <ProcessingStatus
-                  selectedFile={selectedFile}
-                  processedImage={processedImage}
-                  progress={progress}
-                />
-                {processedImage && (
-                  <DownloadSuccess tool="watermark" lang="zh" imageCount={1} />
-                )}
-              </div>
-            </>
-          ) : (
-            <div className="hidden lg:flex items-center justify-center lg:col-start-2 lg:row-start-1">
-              <div className="text-center text-gray-400">
-                <span className="text-5xl mb-3 block" role="img" aria-hidden="true">🖼️</span>
-                <p className="text-sm">上傳圖片後，預覽與處理狀態會顯示在這裡</p>
-              </div>
+          {/* 處理狀態與完成後的支持 CTA：上傳後才顯示（非 sticky，不影響預覽固定） */}
+          {selectedFile && (
+            <div className="order-3 lg:order-none lg:col-start-2 lg:row-start-2 space-y-6">
+              <ProcessingStatus
+                selectedFile={selectedFile}
+                processedImage={processedImage}
+                progress={progress}
+              />
+              {processedImage && (
+                <DownloadSuccess tool="watermark" lang="zh" imageCount={1} />
+              )}
             </div>
           )}
         </div>
