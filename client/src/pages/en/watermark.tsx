@@ -121,7 +121,11 @@ export default function WatermarkEnPage() {
           {/* Right Panel - Preview (always rendered as a direct grid child, matching /batch,
               so the mobile sticky is established at first layout and holds while scrolling —
               instead of being inserted only after upload, which can break sticky on mobile) */}
-          <div className="order-1 lg:order-none lg:col-start-2 lg:row-start-1 sticky top-16 z-30 -mx-4 px-4 pt-2 pb-3 bg-gray-50 shadow-sm sm:-mx-6 sm:px-6 lg:static lg:z-auto lg:mx-0 lg:px-0 lg:pt-0 lg:pb-0 lg:bg-transparent lg:shadow-none">
+          {/* will-change-transform: after an image loads the preview holds a <canvas> (its own GPU layer);
+              promoting the sticky wrapper to its own compositing layer keeps the canvas in sync with the
+              sticky offset while scrolling. (transform-gpu's translate3d(0,0,0) flattens to 2D and won't
+              promote a layer.) Desktop is lg:static so lg:will-change-auto turns it off. */}
+          <div className="order-1 lg:order-none lg:col-start-2 lg:row-start-1 sticky top-16 z-30 -mx-4 px-4 pt-2 pb-3 bg-gray-50 shadow-sm will-change-transform lg:will-change-auto sm:-mx-6 sm:px-6 lg:static lg:z-auto lg:mx-0 lg:px-0 lg:pt-0 lg:pb-0 lg:bg-transparent lg:shadow-none">
             <CanvasPreview
               canvasRef={canvasRef}
               selectedFile={selectedFile}

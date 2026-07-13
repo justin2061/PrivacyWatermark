@@ -168,8 +168,13 @@ export default function WatermarkPage() {
           </div>
 
           {/* Right Panel - Preview（與 /batch 一致：預覽固定渲染為 grid 直接子元素，
-              讓手機 sticky 從初次排版就建立、捲動時穩定固定，不因上傳後才插入而失效） */}
-          <div className="order-1 lg:order-none lg:col-start-2 lg:row-start-1 sticky top-16 z-30 -mx-4 px-4 pt-2 pb-3 bg-gray-50 shadow-sm sm:-mx-6 sm:px-6 lg:static lg:z-auto lg:mx-0 lg:px-0 lg:pt-0 lg:pb-0 lg:bg-transparent lg:shadow-none">
+              讓手機 sticky 從初次排版就建立、捲動時穩定固定，不因上傳後才插入而失效）
+              will-change-transform：載入圖片後預覽內含 <canvas>（獨立 GPU 圖層），若 sticky 容器
+              本身沒被提升成合成圖層，捲動時 sticky 位移與 canvas 圖層會失去同步、預覽看似被推走。
+              will-change: transform 把 sticky 容器提升成自己的合成圖層，讓 canvas 與容器一起移動。
+              （transform-gpu 的 translate3d(0,0,0) 會被瀏覽器攤平成 2D、無法提升圖層，故不用它。）
+              桌面 lg:static 不需要，lg:will-change-auto 關掉。 */}
+          <div className="order-1 lg:order-none lg:col-start-2 lg:row-start-1 sticky top-16 z-30 -mx-4 px-4 pt-2 pb-3 bg-gray-50 shadow-sm will-change-transform lg:will-change-auto sm:-mx-6 sm:px-6 lg:static lg:z-auto lg:mx-0 lg:px-0 lg:pt-0 lg:pb-0 lg:bg-transparent lg:shadow-none">
             <CanvasPreview
               canvasRef={canvasRef}
               selectedFile={selectedFile}
