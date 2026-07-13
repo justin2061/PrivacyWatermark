@@ -87,6 +87,20 @@ export default function SocialCropPage() {
   const [zoomPct, setZoomPct] = useState<number>(100); // 100 = 完整範圍，越大越放大
   const [containerW, setContainerW] = useState<number>(0);
   const [downloaded, setDownloaded] = useState(false);
+  // 手機把預覽最大高度壓低，讓 sticky 裁切區不佔滿螢幕；桌面維持 460px。
+  // 因為裁切座標全部由 displayScale 換算，縮小 maxDisplayH 會讓預覽與裁切框一起等比縮放，不影響座標正確性。
+  const [maxDisplayH, setMaxDisplayH] = useState<number>(MAX_DISPLAY_H);
+  useEffect(() => {
+    const update = () =>
+      setMaxDisplayH(
+        window.innerWidth < 1024
+          ? Math.max(170, Math.round(window.innerHeight * 0.26))
+          : MAX_DISPLAY_H,
+      );
+    update();
+    window.addEventListener("resize", update);
+    return () => window.removeEventListener("resize", update);
+  }, []);
 
   useEffect(() => {
     return setPageSeo({
@@ -151,8 +165,8 @@ export default function SocialCropPage() {
   let displayH = 0;
   if (imgSize && containerW > 0) {
     displayScale = containerW / imgSize.w;
-    if (imgSize.h * displayScale > MAX_DISPLAY_H) {
-      displayScale = MAX_DISPLAY_H / imgSize.h;
+    if (imgSize.h * displayScale > maxDisplayH) {
+      displayScale = maxDisplayH / imgSize.h;
     }
     displayW = imgSize.w * displayScale;
     displayH = imgSize.h * displayScale;
@@ -371,10 +385,11 @@ export default function SocialCropPage() {
 
         {selectedFile && imgUrl && imgSize && (
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            {/* 左：裁切編輯區 */}
-            <div className="lg:col-span-2 space-y-6">
-              <Card className="p-6">
-                <div className="flex items-center justify-between mb-4">
+            {/* 左：裁切編輯區（手機置頂 sticky，選平台/縮放時仍看得到裁切預覽） */}
+            <div className="lg:col-span-2 space-y-6 sticky top-16 z-30 -mx-4 px-4 pt-2 bg-gray-50 shadow-sm sm:-mx-6 sm:px-6 lg:static lg:z-auto lg:mx-0 lg:px-0 lg:pt-0 lg:bg-transparent lg:shadow-none">
+              <Card className="p-3 sm:p-6">
+                {/* 標題列在手機隱藏，讓 sticky 裁切區更精簡 */}
+                <div className="hidden sm:flex items-center justify-between mb-4">
                   <h2 className="text-lg font-semibold text-gray-900">
                     裁切預覽
                     {selectedPlatform && (
@@ -472,7 +487,7 @@ export default function SocialCropPage() {
                       <ZoomIn className="w-4 h-4" aria-hidden="true" />
                     </button>
                   </div>
-                  <p className="mt-2 text-xs text-gray-500">
+                  <p className="mt-2 text-xs text-gray-500 hidden sm:block">
                     拖曳白色裁切框可調整位置；使用滑桿放大取景以裁切更小範圍。
                   </p>
                 </div>

@@ -111,8 +111,8 @@ export default function MosaicPage() {
           </Card>
         ) : (
           <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-6">
-            {/* 主要：畫布 */}
-            <div className="space-y-4 order-2 lg:order-1">
+            {/* 主要：畫布（手機置頂 sticky，調整遮蔽參數時仍看得到圖） */}
+            <div className="space-y-4 order-1 lg:order-1 sticky top-16 z-30 -mx-4 px-4 pt-2 bg-gray-50 shadow-sm sm:-mx-6 sm:px-6 lg:static lg:z-auto lg:mx-0 lg:px-0 lg:pt-0 lg:bg-transparent lg:shadow-none">
               <Card className="p-4">
                 <div className="flex items-center justify-between mb-3">
                   <div className="flex items-center space-x-2 min-w-0">
@@ -135,7 +135,7 @@ export default function MosaicPage() {
                     onPointerDown={m.onPointerDown}
                     onPointerMove={m.onPointerMove}
                     onPointerUp={m.onPointerUp}
-                    className="max-w-full cursor-crosshair"
+                    className="max-w-full max-h-[38vh] lg:max-h-none cursor-crosshair"
                     style={{ touchAction: "none" }}
                     aria-label="可拖曳選取遮蔽區域的圖片畫布"
                   />
@@ -143,8 +143,8 @@ export default function MosaicPage() {
               </Card>
             </div>
 
-            {/* 側邊：工具列 */}
-            <div className="space-y-4 order-1 lg:order-2">
+            {/* 側邊：工具列（手機在畫布下方） */}
+            <div className="space-y-4 order-2 lg:order-2">
               <Card className="p-5">
                 <h2 className="text-base font-semibold text-gray-900 mb-3">遮蔽方式</h2>
                 <div className="grid grid-cols-3 gap-2 mb-4">

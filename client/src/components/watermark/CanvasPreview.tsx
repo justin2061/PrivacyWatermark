@@ -44,8 +44,9 @@ export function CanvasPreview({ canvasRef, selectedFile, processedImage, lang = 
   }, [selectedFile]);
 
   return (
-    <Card className="p-4 md:p-6">
-      <div className="flex items-center justify-between mb-2 md:mb-4">
+    <Card className="p-3 md:p-6">
+      {/* 標題列在手機隱藏，讓 sticky 預覽保持精簡（約螢幕 20%） */}
+      <div className="hidden md:flex items-center justify-between mb-2 md:mb-4">
         <h2 className="text-base md:text-lg font-semibold text-gray-900">{t.title}</h2>
         <div className="flex items-center space-x-2 text-sm text-gray-500">
           <Eye className="w-4 h-4" />
@@ -53,26 +54,26 @@ export function CanvasPreview({ canvasRef, selectedFile, processedImage, lang = 
         </div>
       </div>
 
-      {/* Canvas Container — compact on mobile so the sticky preview stays ~40% of the screen */}
-      <div className="border border-gray-200 rounded-lg p-2 md:p-4 bg-gray-50 min-h-[150px] md:min-h-[400px] flex items-center justify-center">
+      {/* Canvas Container — 手機固定小高度，sticky 不佔滿螢幕、下方設定看得到 */}
+      <div className="border border-gray-200 rounded-lg p-2 md:p-4 bg-gray-50 h-[140px] md:h-auto md:min-h-[400px] flex items-center justify-center">
         {!selectedFile ? (
           <div className="text-center">
-            <span className="text-gray-400 text-6xl mb-4 block">📷</span>
-            <p className="text-gray-500 mb-2">{t.emptyMain}</p>
-            <p className="text-sm text-gray-400">{t.emptySub}</p>
+            <span className="text-gray-400 text-3xl md:text-6xl md:mb-4 block">📷</span>
+            <p className="text-gray-500 mb-2 hidden md:block">{t.emptyMain}</p>
+            <p className="text-sm text-gray-400 hidden md:block">{t.emptySub}</p>
           </div>
         ) : (
           <canvas
             ref={canvasRef}
-            className="max-w-full max-h-[24vh] md:max-h-[400px] object-contain"
+            className="max-w-full max-h-[124px] md:max-h-[400px] object-contain"
             style={{ display: selectedFile ? 'block' : 'none' }}
           />
         )}
       </div>
 
-      {/* Canvas Info */}
+      {/* Canvas Info（手機隱藏，節省 sticky 高度） */}
       {selectedFile && (
-        <div className="mt-2 md:mt-4 flex justify-between text-xs md:text-sm text-gray-500">
+        <div className="mt-2 md:mt-4 hidden md:flex justify-between text-xs md:text-sm text-gray-500">
           <span>{t.format}: {selectedFile.type.split('/')[1].toUpperCase()}</span>
           <span>{t.size}: {imageDimensions ? `${imageDimensions.width}×${imageDimensions.height}` : t.loading}</span>
         </div>

@@ -84,6 +84,20 @@ export default function SocialCropEnPage() {
   const [zoomPct, setZoomPct] = useState<number>(100);
   const [containerW, setContainerW] = useState<number>(0);
   const [downloaded, setDownloaded] = useState(false);
+  // Cap the preview height on mobile so the sticky crop area doesn't fill the screen; 460px on desktop.
+  // All crop coordinates derive from displayScale, so shrinking maxDisplayH scales preview + crop box together — coordinates stay correct.
+  const [maxDisplayH, setMaxDisplayH] = useState<number>(MAX_DISPLAY_H);
+  useEffect(() => {
+    const update = () =>
+      setMaxDisplayH(
+        window.innerWidth < 1024
+          ? Math.max(170, Math.round(window.innerHeight * 0.26))
+          : MAX_DISPLAY_H,
+      );
+    update();
+    window.addEventListener("resize", update);
+    return () => window.removeEventListener("resize", update);
+  }, []);
 
   useEffect(() => {
     return setPageSeo({
@@ -147,8 +161,8 @@ export default function SocialCropEnPage() {
   let displayH = 0;
   if (imgSize && containerW > 0) {
     displayScale = containerW / imgSize.w;
-    if (imgSize.h * displayScale > MAX_DISPLAY_H) {
-      displayScale = MAX_DISPLAY_H / imgSize.h;
+    if (imgSize.h * displayScale > maxDisplayH) {
+      displayScale = maxDisplayH / imgSize.h;
     }
     displayW = imgSize.w * displayScale;
     displayH = imgSize.h * displayScale;
@@ -366,10 +380,11 @@ export default function SocialCropEnPage() {
 
         {selectedFile && imgUrl && imgSize && (
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            {/* Left: crop editor */}
-            <div className="lg:col-span-2 space-y-6">
-              <Card className="p-6">
-                <div className="flex items-center justify-between mb-4">
+            {/* Left: crop editor (sticky on top for mobile so the crop preview stays visible while picking a platform/zoom) */}
+            <div className="lg:col-span-2 space-y-6 sticky top-16 z-30 -mx-4 px-4 pt-2 bg-gray-50 shadow-sm sm:-mx-6 sm:px-6 lg:static lg:z-auto lg:mx-0 lg:px-0 lg:pt-0 lg:bg-transparent lg:shadow-none">
+              <Card className="p-3 sm:p-6">
+                {/* Header hidden on mobile to keep the sticky crop area compact */}
+                <div className="hidden sm:flex items-center justify-between mb-4">
                   <h2 className="text-lg font-semibold text-gray-900">
                     Crop Preview
                     {selectedPlatform && (
@@ -464,7 +479,7 @@ export default function SocialCropEnPage() {
                       <ZoomIn className="w-4 h-4" aria-hidden="true" />
                     </button>
                   </div>
-                  <p className="mt-2 text-xs text-gray-500">
+                  <p className="mt-2 text-xs text-gray-500 hidden sm:block">
                     Drag the white crop box to reposition; use the slider to zoom in and crop a smaller area.
                   </p>
                 </div>
