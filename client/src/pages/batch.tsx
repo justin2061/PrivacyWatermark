@@ -318,8 +318,9 @@ export default function BatchPage() {
 
           {/* Preview（手機置頂 sticky，隨設定調整即時可見；桌面右欄上方） */}
           <div className="order-1 lg:order-none lg:col-start-2 lg:row-start-1 sticky top-16 z-30 -mx-4 px-4 pt-2 pb-3 bg-gray-50 shadow-sm sm:-mx-6 sm:px-6 lg:static lg:z-auto lg:mx-0 lg:px-0 lg:pt-0 lg:pb-0 lg:bg-transparent lg:shadow-none">
-            <Card className="p-6">
-              <div className="flex items-center justify-between mb-4">
+            <Card className="p-3 sm:p-6">
+              {/* 標題列在手機隱藏，省下 sticky 高度 */}
+              <div className="hidden sm:flex items-center justify-between mb-4">
                 <h2 className="text-lg font-semibold text-gray-900">預覽畫面</h2>
                 <div className="flex items-center space-x-2 text-sm text-gray-500">
                   <Eye className="w-4 h-4" />
@@ -327,24 +328,25 @@ export default function BatchPage() {
                 </div>
               </div>
 
-              {/* Big preview（手機縮小高度，避免 sticky 佔滿整個螢幕） */}
-              <div className="border border-gray-200 rounded-lg p-4 bg-gray-50 min-h-[200px] sm:min-h-[400px] flex items-center justify-center">
+              {/* Big preview（手機固定 ~120px 小高度，sticky 不佔滿螢幕、下方設定看得到） */}
+              <div className="border border-gray-200 rounded-lg p-2 sm:p-4 bg-gray-50 h-[120px] sm:h-auto sm:min-h-[400px] flex items-center justify-center">
                 {!selectedImage ? (
                   <div className="text-center">
-                    <span className="text-gray-400 text-6xl mb-4 block">📷</span>
-                    <p className="text-gray-500 mb-2">上傳圖片後會在此處顯示預覽</p>
-                    <p className="text-sm text-gray-400">點擊縮圖可切換查看不同圖片</p>
+                    <span className="text-gray-400 text-3xl sm:text-6xl sm:mb-4 block">📷</span>
+                    <p className="text-gray-500 mb-2 hidden sm:block">上傳圖片後會在此處顯示預覽</p>
+                    <p className="text-sm text-gray-400 hidden sm:block">點擊縮圖可切換查看不同圖片</p>
                   </div>
                 ) : (
                   <canvas
                     ref={canvasRef}
-                    className="max-w-full max-h-[200px] sm:max-h-[400px] object-contain"
+                    className="max-w-full max-h-[104px] sm:max-h-[400px] object-contain"
                   />
                 )}
               </div>
 
+              {/* 檔名/尺寸資訊在手機隱藏 */}
               {selectedImage && (
-                <div className="mt-4 flex justify-between text-sm text-gray-500">
+                <div className="mt-4 hidden sm:flex justify-between text-sm text-gray-500">
                   <span className="truncate mr-2">{selectedImage.file.name}</span>
                   <span className="flex-shrink-0">
                     {selectedImage.img.naturalWidth}×{selectedImage.img.naturalHeight}
@@ -352,9 +354,9 @@ export default function BatchPage() {
                 </div>
               )}
 
-              {/* Thumbnail strip */}
+              {/* Thumbnail strip（手機隱藏，改由上傳清單切換預覽圖片） */}
               {hasImages && (
-                <div className="mt-4 flex gap-2 overflow-x-auto pb-1" aria-label="圖片縮圖列">
+                <div className="mt-4 hidden sm:flex gap-2 overflow-x-auto pb-1" aria-label="圖片縮圖列">
                   {images.map((img) => (
                     <button
                       key={img.id}
