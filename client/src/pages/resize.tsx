@@ -3,9 +3,10 @@ import { Link } from "wouter";
 import { Card } from "@/components/ui/card";
 import { SiteHeader } from "@/components/SiteHeader";
 import { PrivacyBanner } from "@/components/PrivacyBanner";
-import { KofiSupport } from "@/components/KofiSupport";
+import { DownloadSuccess } from "@/components/DownloadSuccess";
 import { ToolRecommendations } from "@/components/ToolRecommendations";
 import { setPageSeo, webAppSchema } from "@/lib/seo";
+import { trackToolUseStart } from "@/lib/analytics";
 import {
   CheckCircle,
   Download,
@@ -189,6 +190,7 @@ export default function ResizePage() {
       alert("請選擇圖片檔案（JPG、PNG、WebP、BMP、GIF）");
       return;
     }
+    trackToolUseStart("resize");
     setResult((prev) => {
       if (prev) URL.revokeObjectURL(prev.url);
       return null;
@@ -471,7 +473,7 @@ export default function ResizePage() {
                         alt="縮放後的預覽"
                         className="max-w-full rounded-lg border border-gray-200"
                       />
-                      <KofiSupport variant="success" className="mt-4" />
+                      <DownloadSuccess tool="resize" lang="zh" imageCount={1} className="mt-4" />
                     </>
                   )}
                 </>
@@ -496,7 +498,6 @@ export default function ResizePage() {
                   <RefreshCw className="w-4 h-4 mr-2" aria-hidden="true" />
                   重新開始
                 </button>
-                <KofiSupport className="mt-2" />
               </div>
             </Card>
           </div>

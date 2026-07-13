@@ -1,12 +1,17 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "wouter";
 import { Card } from "@/components/ui/card";
 import { SiteHeader } from "@/components/SiteHeader";
 import { PrivacyBanner } from "@/components/PrivacyBanner";
-import { KofiSupport } from "@/components/KofiSupport";
+import { ProUpsell } from "@/components/ProUpsell";
+import { DownloadSuccess } from "@/components/DownloadSuccess";
 import { WatermarkControls } from "@/components/watermark/WatermarkControls";
 import { useBatchWatermark, MAX_FILES } from "@/hooks/useBatchWatermark";
 import { setPageSeo, webAppSchema } from "@/lib/seo";
+import { trackToolUseStart } from "@/lib/analytics";
+
+// Show the Pro prompt past this count (free features stay unrestricted)
+const FREE_IMAGE_LIMIT = 10;
 import {
   Upload,
   X,
@@ -44,6 +49,17 @@ export default function BatchEnPage() {
   } = useBatchWatermark("en");
 
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const [proDismissed, setProDismissed] = useState(false);
+  const startedRef = useRef(false);
+
+  useEffect(() => {
+    if (!startedRef.current && images.length > 0) {
+      startedRef.current = true;
+      trackToolUseStart("batch");
+    }
+  }, [images.length]);
+
+  const showProPrompt = images.length > FREE_IMAGE_LIMIT && !proDismissed;
 
   useEffect(() => {
     return setPageSeo({
@@ -99,6 +115,17 @@ export default function BatchEnPage() {
       <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Privacy Notice — compact trust badge */}
         <PrivacyBanner lang="en" className="mb-8" />
+
+        {/* Past the 11th image: non-blocking Pro prompt (dismissible) */}
+        {showProPrompt && (
+          <ProUpsell
+            tool="batch"
+            lang="en"
+            imageCount={images.length}
+            onClose={() => setProDismissed(true)}
+            className="mb-8"
+          />
+        )}
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Left Panel - Upload + Controls + Actions */}
@@ -274,10 +301,13 @@ export default function BatchEnPage() {
                   Start Over
                 </button>
 
-                <KofiSupport lang="en" className="mt-2" />
-
                 {allProcessed && (
-                  <KofiSupport variant="success" lang="en" className="mt-4" />
+                  <DownloadSuccess
+                    tool="batch"
+                    lang="en"
+                    imageCount={images.length}
+                    className="mt-4"
+                  />
                 )}
               </div>
             </Card>

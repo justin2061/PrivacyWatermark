@@ -3,9 +3,10 @@ import { Link } from "wouter";
 import { Card } from "@/components/ui/card";
 import { SiteHeader } from "@/components/SiteHeader";
 import { PrivacyBanner } from "@/components/PrivacyBanner";
-import { KofiSupport } from "@/components/KofiSupport";
+import { DownloadSuccess } from "@/components/DownloadSuccess";
 import { ToolRecommendations } from "@/components/ToolRecommendations";
 import { setPageSeo, webAppSchema, faqSchema } from "@/lib/seo";
+import { trackToolUseStart } from "@/lib/analytics";
 import {
   applyPdfWatermark,
   renderTextToPng,
@@ -284,6 +285,7 @@ export default function PdfWatermarkPage() {
       alert("請選擇 PDF 檔案");
       return;
     }
+    trackToolUseStart("pdf-watermark");
     setResult((prev) => {
       if (prev) URL.revokeObjectURL(prev.url);
       return null;
@@ -663,10 +665,8 @@ export default function PdfWatermarkPage() {
                   重新開始
                 </button>
 
-                <KofiSupport className="mt-2" />
-
                 {result && (
-                  <KofiSupport variant="success" className="mt-4" />
+                  <DownloadSuccess tool="pdf-watermark" lang="zh" imageCount={1} className="mt-4" />
                 )}
               </div>
             </Card>

@@ -3,7 +3,8 @@ import { Link } from "wouter";
 import { Card } from "@/components/ui/card";
 import { SiteHeader } from "@/components/SiteHeader";
 import { PrivacyBanner } from "@/components/PrivacyBanner";
-import { KofiSupport } from "@/components/KofiSupport";
+import { DownloadSuccess } from "@/components/DownloadSuccess";
+import { trackToolUseStart } from "@/lib/analytics";
 import { useExifCleaner } from "@/hooks/useExifCleaner";
 import { setPageSeo, webAppSchema } from "@/lib/seo";
 import {
@@ -70,6 +71,7 @@ export default function ExifCleanEnPage() {
 
   const onPickFile = (file?: File | null) => {
     if (!file) return;
+    trackToolUseStart("exif-clean");
     if (!ACCEPTED.split(",").includes(file.type)) {
       alert("Only JPG, PNG and WebP formats are supported");
       return;
@@ -182,8 +184,6 @@ export default function ExifCleanEnPage() {
                   <RefreshCw className="w-4 h-4 mr-2" aria-hidden="true" />
                   Start Over
                 </button>
-
-                <KofiSupport lang="en" className="mt-2" />
               </div>
             </Card>
           </div>
@@ -302,7 +302,7 @@ export default function ExifCleanEnPage() {
                   alt="Preview after removing metadata"
                   className="max-w-full rounded-lg border border-gray-200"
                 />
-                <KofiSupport variant="success" lang="en" className="mt-4" />
+                <DownloadSuccess tool="exif-clean" lang="en" imageCount={1} className="mt-4" />
               </Card>
             )}
           </div>

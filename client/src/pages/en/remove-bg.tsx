@@ -3,7 +3,8 @@ import { Link } from "wouter";
 import { Card } from "@/components/ui/card";
 import { SiteHeader } from "@/components/SiteHeader";
 import { PrivacyBanner } from "@/components/PrivacyBanner";
-import { KofiSupport } from "@/components/KofiSupport";
+import { DownloadSuccess } from "@/components/DownloadSuccess";
+import { trackToolUseStart } from "@/lib/analytics";
 import { setPageSeo, webAppSchema } from "@/lib/seo";
 import {
   CheckCircle,
@@ -190,6 +191,7 @@ export default function RemoveBgEnPage() {
 
   const onPickFile = (file?: File | null) => {
     if (!file) return;
+    trackToolUseStart("remove-bg");
     if (!ACCEPTED.split(",").includes(file.type)) {
       alert("Only JPG, PNG and WebP formats are supported");
       return;
@@ -505,7 +507,7 @@ export default function RemoveBgEnPage() {
                   <p className="text-xs text-gray-500 mt-2">
                     Output size: {formatSize(result.size)} (PNG)
                   </p>
-                  <KofiSupport variant="success" lang="en" className="mt-4" />
+                  <DownloadSuccess tool="remove-bg" lang="en" imageCount={1} className="mt-4" />
                 </>
               )}
             </Card>
@@ -528,7 +530,6 @@ export default function RemoveBgEnPage() {
                   <RefreshCw className="w-4 h-4 mr-2" aria-hidden="true" />
                   Start Over
                 </button>
-                <KofiSupport lang="en" className="mt-2" />
               </div>
             </Card>
           </div>

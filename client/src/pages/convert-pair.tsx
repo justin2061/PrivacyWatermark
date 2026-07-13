@@ -2,9 +2,10 @@ import { useEffect, useRef, useState } from "react";
 import { Link } from "wouter";
 import { Card } from "@/components/ui/card";
 import { SiteHeader } from "@/components/SiteHeader";
-import { KofiSupport } from "@/components/KofiSupport";
+import { DownloadSuccess } from "@/components/DownloadSuccess";
 import { ToolRecommendations } from "@/components/ToolRecommendations";
 import { setPageSeo, webAppSchema, faqSchema } from "@/lib/seo";
+import { trackToolUseStart } from "@/lib/analytics";
 import { PAIRS, type ConvertPair, type PairMime } from "@/lib/convertPairs";
 import {
   ArrowRight,
@@ -233,6 +234,7 @@ export default function ConvertPairPage({ pair, lang = "zh" }: ConvertPairPagePr
       alert(t.notImage);
       return;
     }
+    trackToolUseStart("convert");
     setResult((prev) => {
       if (prev) URL.revokeObjectURL(prev.url);
       return null;
@@ -399,7 +401,7 @@ export default function ConvertPairPage({ pair, lang = "zh" }: ConvertPairPagePr
                         alt={t.previewAlt}
                         className="max-w-full rounded-lg border border-gray-200"
                       />
-                      <KofiSupport variant="success" lang={en ? "en" : "zh"} className="mt-4" />
+                      <DownloadSuccess tool="convert" lang={en ? "en" : "zh"} imageCount={1} className="mt-4" />
                     </>
                   )}
                 </>
@@ -424,7 +426,6 @@ export default function ConvertPairPage({ pair, lang = "zh" }: ConvertPairPagePr
                   <RefreshCw className="w-4 h-4 mr-2" aria-hidden="true" />
                   {t.startOver}
                 </button>
-                <KofiSupport lang={en ? "en" : "zh"} className="mt-2" />
               </div>
             </Card>
           </div>

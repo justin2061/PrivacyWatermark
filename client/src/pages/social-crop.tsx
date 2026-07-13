@@ -3,14 +3,14 @@ import { Link } from "wouter";
 import { Card } from "@/components/ui/card";
 import { SiteHeader } from "@/components/SiteHeader";
 import { PrivacyBanner } from "@/components/PrivacyBanner";
-import { KofiSupport } from "@/components/KofiSupport";
+import { DownloadSuccess } from "@/components/DownloadSuccess";
 import { ToolRecommendations } from "@/components/ToolRecommendations";
 import { setPageSeo, webAppSchema } from "@/lib/seo";
+import { trackToolUseStart } from "@/lib/analytics";
 import {
   CheckCircle,
   Crop,
   Download,
-  ExternalLink,
   Facebook,
   Image as ImageIcon,
   Instagram,
@@ -19,7 +19,6 @@ import {
   Move,
   RefreshCw,
   Sliders,
-  Sparkles,
   Twitter,
   Upload,
   Youtube,
@@ -235,6 +234,7 @@ export default function SocialCropPage() {
       alert("請選擇圖片檔案（JPG、PNG、WebP、BMP、GIF）");
       return;
     }
+    trackToolUseStart("social-crop");
     const url = URL.createObjectURL(file);
     const img = new Image();
     img.onload = () => {
@@ -605,28 +605,10 @@ export default function SocialCropPage() {
                   </button>
                 </div>
 
-                {/* Canva 推薦（下載後顯示） */}
+                {/* 下載後：Ko-fi 支持 + 情境式聯盟推薦（含 Canva，帶 GA 追蹤） */}
                 {downloaded && (
-                  <div className="mt-4 rounded-lg border border-purple-200 bg-purple-50 p-4">
-                    <p className="flex items-start gap-2 text-sm text-purple-900">
-                      <Sparkles className="mt-0.5 h-4 w-4 flex-shrink-0" aria-hidden="true" />
-                      <span>
-                        需要為社群貼文加上文字和設計？試試 Canva 的免費模板。
-                      </span>
-                    </p>
-                    <a
-                      href={CANVA_URL}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="mt-3 inline-flex items-center gap-1.5 text-sm font-medium text-purple-700 hover:text-purple-900"
-                    >
-                      前往 Canva
-                      <ExternalLink className="h-3.5 w-3.5" aria-hidden="true" />
-                    </a>
-                  </div>
+                  <DownloadSuccess tool="social-crop" lang="zh" imageCount={1} className="mt-4" />
                 )}
-
-                <KofiSupport className="mt-4 w-full justify-center" />
               </Card>
 
               <div className="flex items-center gap-2 rounded-lg bg-gray-50 p-3">

@@ -1,16 +1,21 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "wouter";
 import { Card } from "@/components/ui/card";
 import { SiteHeader } from "@/components/SiteHeader";
 import { PrivacyBanner } from "@/components/PrivacyBanner";
-import { KofiSupport } from "@/components/KofiSupport";
+import { ProUpsell } from "@/components/ProUpsell";
+import { DownloadSuccess } from "@/components/DownloadSuccess";
 import { ToolRecommendations } from "@/components/ToolRecommendations";
 import { WatermarkControls } from "@/components/watermark/WatermarkControls";
 import { setPageSeo, webAppSchema } from "@/lib/seo";
+import { trackToolUseStart } from "@/lib/analytics";
 import {
   useBatchWatermark,
   MAX_FILES,
 } from "@/hooks/useBatchWatermark";
+
+// 超過此張數即顯示 Pro 提示（免費功能不受限，只是提示大量處理的 Pro 版）
+const FREE_IMAGE_LIMIT = 10;
 import {
   Upload,
   X,
@@ -49,6 +54,18 @@ export default function BatchPage() {
   } = useBatchWatermark();
 
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const [proDismissed, setProDismissed] = useState(false);
+  const startedRef = useRef(false);
+
+  // tool_use_start：第一次有圖片進來時送一次
+  useEffect(() => {
+    if (!startedRef.current && images.length > 0) {
+      startedRef.current = true;
+      trackToolUseStart("batch");
+    }
+  }, [images.length]);
+
+  const showProPrompt = images.length > FREE_IMAGE_LIMIT && !proDismissed;
 
   useEffect(() => {
     return setPageSeo({
@@ -103,6 +120,17 @@ export default function BatchPage() {
       <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Privacy Notice — 精簡信任標誌 */}
         <PrivacyBanner lang="zh" className="mb-8" />
+
+        {/* 第 11 張以上：非阻斷式 Pro 提示（可關閉，不影響免費操作） */}
+        {showProPrompt && (
+          <ProUpsell
+            tool="batch"
+            lang="zh"
+            imageCount={images.length}
+            onClose={() => setProDismissed(true)}
+            className="mb-8"
+          />
+        )}
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Left Panel - Upload + Controls + Actions */}
@@ -274,10 +302,13 @@ export default function BatchPage() {
                   重新開始
                 </button>
 
-                <KofiSupport className="mt-2" />
-
                 {allProcessed && (
-                  <KofiSupport variant="success" className="mt-4" />
+                  <DownloadSuccess
+                    tool="batch"
+                    lang="zh"
+                    imageCount={images.length}
+                    className="mt-4"
+                  />
                 )}
               </div>
             </Card>

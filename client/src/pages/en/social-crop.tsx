@@ -3,13 +3,13 @@ import { Link } from "wouter";
 import { Card } from "@/components/ui/card";
 import { SiteHeader } from "@/components/SiteHeader";
 import { PrivacyBanner } from "@/components/PrivacyBanner";
-import { KofiSupport } from "@/components/KofiSupport";
+import { DownloadSuccess } from "@/components/DownloadSuccess";
+import { trackToolUseStart } from "@/lib/analytics";
 import { setPageSeo, webAppSchema } from "@/lib/seo";
 import {
   CheckCircle,
   Crop,
   Download,
-  ExternalLink,
   Facebook,
   Image as ImageIcon,
   Instagram,
@@ -18,7 +18,6 @@ import {
   Move,
   RefreshCw,
   Sliders,
-  Sparkles,
   Twitter,
   Upload,
   Youtube,
@@ -226,6 +225,7 @@ export default function SocialCropEnPage() {
 
   const onPickFile = (file?: File | null) => {
     if (!file) return;
+    trackToolUseStart("social-crop");
     if (!file.type.startsWith("image/")) {
       alert("Please choose an image file (JPG, PNG, WebP, BMP, GIF)");
       return;
@@ -596,28 +596,10 @@ export default function SocialCropEnPage() {
                   </button>
                 </div>
 
-                {/* Canva recommendation (shown after download) */}
+                {/* After download: Ko-fi support + contextual affiliate next-steps (incl. Canva, GA-tracked) */}
                 {downloaded && (
-                  <div className="mt-4 rounded-lg border border-purple-200 bg-purple-50 p-4">
-                    <p className="flex items-start gap-2 text-sm text-purple-900">
-                      <Sparkles className="mt-0.5 h-4 w-4 flex-shrink-0" aria-hidden="true" />
-                      <span>
-                        Need to add text and design to your social post? Try Canva's free templates.
-                      </span>
-                    </p>
-                    <a
-                      href={CANVA_URL}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="mt-3 inline-flex items-center gap-1.5 text-sm font-medium text-purple-700 hover:text-purple-900"
-                    >
-                      Go to Canva
-                      <ExternalLink className="h-3.5 w-3.5" aria-hidden="true" />
-                    </a>
-                  </div>
+                  <DownloadSuccess tool="social-crop" lang="en" imageCount={1} className="mt-4" />
                 )}
-
-                <KofiSupport lang="en" className="mt-4 w-full justify-center" />
               </Card>
 
               <div className="flex items-center gap-2 rounded-lg bg-gray-50 p-3">

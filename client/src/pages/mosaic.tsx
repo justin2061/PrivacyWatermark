@@ -3,9 +3,10 @@ import { Link } from "wouter";
 import { Card } from "@/components/ui/card";
 import { SiteHeader } from "@/components/SiteHeader";
 import { PrivacyBanner } from "@/components/PrivacyBanner";
-import { KofiSupport } from "@/components/KofiSupport";
+import { DownloadSuccess } from "@/components/DownloadSuccess";
 import { ToolRecommendations } from "@/components/ToolRecommendations";
 import { setPageSeo, webAppSchema } from "@/lib/seo";
+import { trackToolUseStart } from "@/lib/analytics";
 import { useMosaic, type MaskType } from "@/hooks/useMosaic";
 import {
   CheckCircle,
@@ -57,6 +58,12 @@ export default function MosaicPage() {
 
   const hasResult = m.regions.length > 0;
 
+  const pickFile = (file?: File | null) => {
+    if (!file) return;
+    trackToolUseStart("mosaic");
+    m.onPickFile(file);
+  };
+
   return (
     <div className="min-h-screen bg-gray-50">
       <SiteHeader lang="zh" current="mosaic" />
@@ -73,7 +80,7 @@ export default function MosaicPage() {
             <div
               onDrop={(e) => {
                 e.preventDefault();
-                m.onPickFile(e.dataTransfer.files[0]);
+                pickFile(e.dataTransfer.files[0]);
               }}
               onDragOver={(e) => e.preventDefault()}
               onClick={() => m.fileInputRef.current?.click()}
@@ -305,8 +312,7 @@ export default function MosaicPage() {
                     <RefreshCw className="w-4 h-4 mr-2" aria-hidden="true" />
                     重新開始
                   </button>
-                  {hasResult && <KofiSupport variant="success" className="mt-1" />}
-                  <KofiSupport className="mt-1" />
+                  {hasResult && <DownloadSuccess tool="mosaic" lang="zh" imageCount={1} className="mt-1" />}
                 </div>
               </Card>
             </div>
@@ -318,7 +324,7 @@ export default function MosaicPage() {
           type="file"
           accept={ACCEPTED}
           className="hidden"
-          onChange={(e) => m.onPickFile(e.target.files?.[0])}
+          onChange={(e) => pickFile(e.target.files?.[0])}
           aria-label="選擇圖片檔案"
         />
 

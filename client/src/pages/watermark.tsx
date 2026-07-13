@@ -9,8 +9,9 @@ import { FileUploadZone } from "@/components/watermark/FileUploadZone";
 import { WatermarkControls } from "@/components/watermark/WatermarkControls";
 import { CanvasPreview } from "@/components/watermark/CanvasPreview";
 import { ProcessingStatus } from "@/components/watermark/ProcessingStatus";
-import { KofiSupport } from "@/components/KofiSupport";
+import { DownloadSuccess } from "@/components/DownloadSuccess";
 import { useWatermark } from "@/hooks/useWatermark";
+import { trackToolUseStart } from "@/lib/analytics";
 import { setPageSeo, webAppSchema, faqSchema } from "@/lib/seo";
 import { Lock, Zap, Eraser, Loader2 } from "lucide-react";
 
@@ -117,7 +118,7 @@ export default function WatermarkPage() {
           <div className="space-y-6 order-2 lg:order-none lg:col-start-1 lg:row-start-1 lg:row-span-2">
             <FileUploadZone
               selectedFile={selectedFile}
-              onFileSelect={(file) => { if (typeof gtag !== 'undefined') gtag('event', 'upload_image'); handleFileSelect(file); }}
+              onFileSelect={(file) => { if (typeof gtag !== 'undefined') gtag('event', 'upload_image'); trackToolUseStart('watermark'); handleFileSelect(file); }}
             />
 
             <WatermarkControls
@@ -162,8 +163,6 @@ export default function WatermarkPage() {
                   <span className="mr-2" aria-hidden="true">🔄</span>
                   重新開始
                 </button>
-
-                <KofiSupport className="mt-2" />
               </div>
             </Card>
           </div>
@@ -188,7 +187,9 @@ export default function WatermarkPage() {
                   processedImage={processedImage}
                   progress={progress}
                 />
-                {processedImage && <KofiSupport variant="success" />}
+                {processedImage && (
+                  <DownloadSuccess tool="watermark" lang="zh" imageCount={1} />
+                )}
               </div>
             </>
           ) : (
@@ -351,7 +352,6 @@ export default function WatermarkPage() {
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="mb-4 md:mb-0">
               <p className="text-sm text-gray-600">© 2025 證件浮水印工具 - 保護您的隱私安全</p>
-              <KofiSupport className="mt-1" />
             </div>
             <div className="flex items-center space-x-4">
               <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">

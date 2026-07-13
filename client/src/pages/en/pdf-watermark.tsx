@@ -3,7 +3,8 @@ import { Link } from "wouter";
 import { Card } from "@/components/ui/card";
 import { SiteHeader } from "@/components/SiteHeader";
 import { PrivacyBanner } from "@/components/PrivacyBanner";
-import { KofiSupport } from "@/components/KofiSupport";
+import { DownloadSuccess } from "@/components/DownloadSuccess";
+import { trackToolUseStart } from "@/lib/analytics";
 import { setPageSeo, webAppSchema, faqSchema } from "@/lib/seo";
 import {
   applyPdfWatermark,
@@ -266,6 +267,7 @@ export default function PdfWatermarkEnPage() {
 
   const onPickPdf = (file?: File | null) => {
     if (!file) return;
+    trackToolUseStart("pdf-watermark");
     if (file.type !== "application/pdf" && !file.name.toLowerCase().endsWith(".pdf")) {
       alert("Please select a PDF file");
       return;
@@ -615,7 +617,7 @@ export default function PdfWatermarkEnPage() {
                         Watermarked {result.pageCount} page(s), output {formatSize(result.size)}.
                       </p>
                     </div>
-                    <KofiSupport variant="success" lang="en" className="mt-4" />
+                    <DownloadSuccess tool="pdf-watermark" lang="en" imageCount={1} className="mt-4" />
                   </>
                 )}
 
@@ -645,8 +647,6 @@ export default function PdfWatermarkEnPage() {
                   <RefreshCw className="w-4 h-4 mr-2" aria-hidden="true" />
                   Start over
                 </button>
-
-                <KofiSupport lang="en" className="mt-2" />
               </div>
             </Card>
           </div>

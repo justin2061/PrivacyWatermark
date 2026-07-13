@@ -3,7 +3,8 @@ import { Link } from "wouter";
 import { Card } from "@/components/ui/card";
 import { SiteHeader } from "@/components/SiteHeader";
 import { PrivacyBanner } from "@/components/PrivacyBanner";
-import { KofiSupport } from "@/components/KofiSupport";
+import { DownloadSuccess } from "@/components/DownloadSuccess";
+import { trackToolUseStart } from "@/lib/analytics";
 import { setPageSeo, webAppSchema } from "@/lib/seo";
 import { PAIRS } from "@/lib/convertPairs";
 import {
@@ -146,6 +147,7 @@ export default function ConvertEnPage() {
 
   const onPickFile = (file?: File | null) => {
     if (!file) return;
+    trackToolUseStart("convert");
     if (!file.type.startsWith("image/")) {
       alert("Please choose an image file (JPG, PNG, WebP, BMP, GIF)");
       return;
@@ -346,7 +348,7 @@ export default function ConvertEnPage() {
                   )}
 
                   {result && (
-                    <KofiSupport variant="success" lang="en" className="mt-4" />
+                    <DownloadSuccess tool="convert" lang="en" imageCount={1} className="mt-4" />
                   )}
                 </>
               )}
@@ -370,7 +372,6 @@ export default function ConvertEnPage() {
                   <RefreshCw className="w-4 h-4 mr-2" aria-hidden="true" />
                   Start Over
                 </button>
-                <KofiSupport lang="en" className="mt-2" />
               </div>
             </Card>
           </div>

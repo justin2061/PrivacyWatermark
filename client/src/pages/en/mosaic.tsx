@@ -3,7 +3,8 @@ import { Link } from "wouter";
 import { Card } from "@/components/ui/card";
 import { SiteHeader } from "@/components/SiteHeader";
 import { PrivacyBanner } from "@/components/PrivacyBanner";
-import { KofiSupport } from "@/components/KofiSupport";
+import { DownloadSuccess } from "@/components/DownloadSuccess";
+import { trackToolUseStart } from "@/lib/analytics";
 import { setPageSeo, webAppSchema } from "@/lib/seo";
 import { useMosaic, type MaskType } from "@/hooks/useMosaic";
 import {
@@ -58,6 +59,11 @@ export default function MosaicEnPage() {
 
   const hasResult = m.regions.length > 0;
 
+  const onPickFile = (file?: File | null) => {
+    if (file) trackToolUseStart("mosaic");
+    m.onPickFile(file);
+  };
+
   return (
     <div className="min-h-screen bg-gray-50">
       <SiteHeader lang="en" current="mosaic" />
@@ -73,7 +79,7 @@ export default function MosaicEnPage() {
             <div
               onDrop={(e) => {
                 e.preventDefault();
-                m.onPickFile(e.dataTransfer.files[0]);
+                onPickFile(e.dataTransfer.files[0]);
               }}
               onDragOver={(e) => e.preventDefault()}
               onClick={() => m.fileInputRef.current?.click()}
@@ -305,8 +311,7 @@ export default function MosaicEnPage() {
                     <RefreshCw className="w-4 h-4 mr-2" aria-hidden="true" />
                     Start Over
                   </button>
-                  {hasResult && <KofiSupport variant="success" lang="en" className="mt-1" />}
-                  <KofiSupport lang="en" className="mt-1" />
+                  {hasResult && <DownloadSuccess tool="mosaic" lang="en" imageCount={1} className="mt-1" />}
                 </div>
               </Card>
             </div>
@@ -318,7 +323,7 @@ export default function MosaicEnPage() {
           type="file"
           accept={ACCEPTED}
           className="hidden"
-          onChange={(e) => m.onPickFile(e.target.files?.[0])}
+          onChange={(e) => onPickFile(e.target.files?.[0])}
           aria-label="Select image file"
         />
 
