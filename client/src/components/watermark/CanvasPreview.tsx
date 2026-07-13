@@ -54,8 +54,11 @@ export function CanvasPreview({ canvasRef, selectedFile, processedImage, lang = 
         </div>
       </div>
 
-      {/* Canvas Container — 手機固定 35vh 高度，sticky 不佔滿螢幕、下方設定看得到 */}
-      <div className="border border-gray-200 rounded-lg p-2 sm:p-4 bg-gray-50 h-[35vh] sm:h-auto sm:min-h-[400px] flex items-center justify-center">
+      {/* Canvas Container — 手機用「固定 px」而非 vh 高度。
+          vh 在 iOS Safari 會隨捲動時網址列收合／展開而重新計算，
+          導致 sticky 預覽在上傳圖片後高度變動、進而脫離固定（batch 頁用固定 px 才不會壞）。
+          改為固定 px 後高度在捲動中恆定，sticky 穩定固定，與 /batch 一致。 */}
+      <div className="border border-gray-200 rounded-lg p-2 sm:p-4 bg-gray-50 h-[240px] sm:h-auto sm:min-h-[400px] flex items-center justify-center">
         {!selectedFile ? (
           <div className="text-center">
             <span className="text-gray-400 text-3xl sm:text-6xl sm:mb-4 block">📷</span>
@@ -65,7 +68,7 @@ export function CanvasPreview({ canvasRef, selectedFile, processedImage, lang = 
         ) : (
           <canvas
             ref={canvasRef}
-            className="max-w-full max-h-[33vh] sm:max-h-[400px] object-contain"
+            className="max-w-full max-h-[224px] sm:max-h-[400px] object-contain"
             style={{ display: selectedFile ? 'block' : 'none' }}
           />
         )}
