@@ -44,28 +44,28 @@ export function CanvasPreview({ canvasRef, selectedFile, processedImage, lang = 
   }, [selectedFile]);
 
   return (
-    <Card className="p-3 md:p-6">
-      {/* 標題列在手機隱藏，讓 sticky 預覽保持精簡（約螢幕 20%） */}
-      <div className="hidden md:flex items-center justify-between mb-2 md:mb-4">
-        <h2 className="text-base md:text-lg font-semibold text-gray-900">{t.title}</h2>
+    <Card className="p-3 sm:p-6">
+      {/* 標題列在手機隱藏，讓 sticky 預覽保持精簡 */}
+      <div className="hidden sm:flex items-center justify-between mb-4">
+        <h2 className="text-base sm:text-lg font-semibold text-gray-900">{t.title}</h2>
         <div className="flex items-center space-x-2 text-sm text-gray-500">
           <Eye className="w-4 h-4" />
           <span>{t.live}</span>
         </div>
       </div>
 
-      {/* Canvas Container — 手機固定小高度，sticky 不佔滿螢幕、下方設定看得到 */}
-      <div className="border border-gray-200 rounded-lg p-2 md:p-4 bg-gray-50 h-[140px] md:h-auto md:min-h-[400px] flex items-center justify-center">
+      {/* Canvas Container — 手機固定 35vh 高度，sticky 不佔滿螢幕、下方設定看得到 */}
+      <div className="border border-gray-200 rounded-lg p-2 sm:p-4 bg-gray-50 h-[35vh] sm:h-auto sm:min-h-[400px] flex items-center justify-center">
         {!selectedFile ? (
           <div className="text-center">
-            <span className="text-gray-400 text-3xl md:text-6xl md:mb-4 block">📷</span>
-            <p className="text-gray-500 mb-2 hidden md:block">{t.emptyMain}</p>
-            <p className="text-sm text-gray-400 hidden md:block">{t.emptySub}</p>
+            <span className="text-gray-400 text-3xl sm:text-6xl sm:mb-4 block">📷</span>
+            <p className="text-gray-500 mb-2 hidden sm:block">{t.emptyMain}</p>
+            <p className="text-sm text-gray-400 hidden sm:block">{t.emptySub}</p>
           </div>
         ) : (
           <canvas
             ref={canvasRef}
-            className="max-w-full max-h-[124px] md:max-h-[400px] object-contain"
+            className="max-w-full max-h-[33vh] sm:max-h-[400px] object-contain"
             style={{ display: selectedFile ? 'block' : 'none' }}
           />
         )}
@@ -73,7 +73,7 @@ export function CanvasPreview({ canvasRef, selectedFile, processedImage, lang = 
 
       {/* Canvas Info（手機隱藏，節省 sticky 高度） */}
       {selectedFile && (
-        <div className="mt-2 md:mt-4 hidden md:flex justify-between text-xs md:text-sm text-gray-500">
+        <div className="mt-4 hidden sm:flex justify-between text-xs sm:text-sm text-gray-500">
           <span>{t.format}: {selectedFile.type.split('/')[1].toUpperCase()}</span>
           <span>{t.size}: {imageDimensions ? `${imageDimensions.width}×${imageDimensions.height}` : t.loading}</span>
         </div>
