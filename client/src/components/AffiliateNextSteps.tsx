@@ -8,10 +8,11 @@ interface Affiliate {
   name: string; // GA affiliate_name（穩定英文代號）
   icon: LucideIcon;
   /**
-   * 對外連結。目前先放官網首頁；待申請到聯盟行銷後，直接換成帶追蹤參數的
-   * 聯盟連結即可（GA 事件與 UI 皆不需改動）。
+   * 真實的聯盟行銷追蹤連結。目前尚未申請到任何聯盟，一律為 null——
+   * url 為 null 的項目不會渲染（不放官網首頁假連結、也不放 # 死連結）。
+   * 申請到後把對應的 url 換成帶追蹤參數的聯盟連結即可，UI／GA 事件皆不需改動。
    */
-  url: string;
+  url: string | null;
   label: { zh: string; en: string };
   /** 情境化的一句話「下一步」文案 */
   blurb: { zh: string; en: string };
@@ -20,7 +21,7 @@ interface Affiliate {
 const CANVA: Affiliate = {
   name: "canva",
   icon: Palette,
-  url: "https://www.canva.com/",
+  url: null, // TODO: 換成 Canva 聯盟連結
   label: { zh: "用 Canva 做社群圖", en: "Design with Canva" },
   blurb: {
     zh: "把處理好的圖片做成貼文、限動或封面",
@@ -31,7 +32,7 @@ const CANVA: Affiliate = {
 const ADOBE: Affiliate = {
   name: "adobe",
   icon: Wand2,
-  url: "https://www.adobe.com/products/photoshop.html",
+  url: null, // TODO: 換成 Adobe 聯盟連結
   label: { zh: "用 Adobe 進階編輯", en: "Edit further in Adobe" },
   blurb: {
     zh: "需要修圖、去瑕疵或更細緻的調整",
@@ -42,7 +43,7 @@ const ADOBE: Affiliate = {
 const SHUTTERSTOCK: Affiliate = {
   name: "shutterstock",
   icon: ImageIcon,
-  url: "https://www.shutterstock.com/",
+  url: null, // TODO: 換成 Shutterstock 聯盟連結
   label: { zh: "到 Shutterstock 找素材", en: "Find stock on Shutterstock" },
   blurb: {
     zh: "缺背景圖或設計素材？這裡有海量選擇",
@@ -82,7 +83,11 @@ export function AffiliateNextSteps({
   className = "",
 }: AffiliateNextStepsProps) {
   const isEn = lang === "en";
-  const items = NEXT_STEPS[current] ?? [];
+  // 只顯示有真實聯盟連結的項目；尚未申請到的（url 為 null）先不渲染，
+  // 避免出現假連結或 # 死連結。等填入真實連結後即自動出現。
+  const items = (NEXT_STEPS[current] ?? []).filter(
+    (item): item is Affiliate & { url: string } => Boolean(item.url),
+  );
   if (items.length === 0) return null;
 
   const heading = isEn ? "Next step" : "下一步";
