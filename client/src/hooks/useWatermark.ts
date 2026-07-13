@@ -8,7 +8,12 @@ export function useWatermark() {
   const [isProcessing, setIsProcessing] = useState(false);
   const [progress, setProgress] = useState(0);
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  
+  // Cache the decoded image so settings changes re-render from it directly,
+  // instead of re-reading the file + decoding a new Image on every change.
+  // Matches /batch's approach; avoids the repeated canvas rebuild that makes
+  // Chrome device-emulation promote the canvas to a layer and desync sticky.
+  const imageRef = useRef<HTMLImageElement | null>(null);
+
   const [watermarkSettings, setWatermarkSettings] = useState<WatermarkSettings>({
     mode: "text",
     textEnabled: true,
@@ -36,8 +41,9 @@ export function useWatermark() {
     reader.onload = (e) => {
       const img = new Image();
       img.onload = () => {
+        // Cache the decoded image and render the first preview from it
+        imageRef.current = img;
         if (canvasRef.current) {
-          // Load image and apply current watermark settings for preview
           processor.current.previewWatermark(img, canvasRef.current, watermarkSettings);
         }
       };
@@ -49,25 +55,16 @@ export function useWatermark() {
   const updateWatermarkSettings = useCallback((newSettings: Partial<WatermarkSettings>) => {
     setWatermarkSettings(prev => {
       const updated = { ...prev, ...newSettings };
-      
-      // Update preview in real-time when settings change
-      if (selectedFile && canvasRef.current) {
-        const reader = new FileReader();
-        reader.onload = (e) => {
-          const img = new Image();
-          img.onload = () => {
-            if (canvasRef.current) {
-              processor.current.previewWatermark(img, canvasRef.current, updated);
-            }
-          };
-          img.src = e.target?.result as string;
-        };
-        reader.readAsDataURL(selectedFile);
+
+      // Re-render preview from the cached decoded image — no file re-read,
+      // so the canvas is repainted from an already-decoded bitmap (like /batch).
+      if (imageRef.current && canvasRef.current) {
+        processor.current.previewWatermark(imageRef.current, canvasRef.current, updated);
       }
-      
+
       return updated;
     });
-  }, [selectedFile]);
+  }, []);
 
   const applyWatermark = useCallback(async () => {
     if (!selectedFile || !canvasRef.current) return;
@@ -125,7 +122,8 @@ export function useWatermark() {
     setProcessedImage(null);
     setProgress(0);
     setIsProcessing(false);
-    
+    imageRef.current = null;
+
     if (canvasRef.current) {
       const ctx = canvasRef.current.getContext('2d');
       if (ctx) {
