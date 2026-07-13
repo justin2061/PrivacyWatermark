@@ -103,7 +103,7 @@ export default function WatermarkPage() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gray-50 pb-20 md:pb-0">
+    <div className="min-h-screen bg-gray-50">
       <SiteHeader lang="zh" current="watermark" />
 
       {/* Main Content */}
@@ -356,28 +356,6 @@ export default function WatermarkPage() {
           </div>
         </div>
       </footer>
-
-      {/* Mobile Sticky CTA - 只在手機上且有圖片時顯示 */}
-      {selectedFile && (
-        <div className="fixed bottom-0 left-0 right-0 z-50 md:hidden bg-white border-t border-gray-200 p-3 flex gap-2 shadow-lg">
-          <button
-            onClick={() => { if (typeof gtag !== 'undefined') gtag('event', 'apply_watermark'); applyWatermark(); }}
-            disabled={isProcessing}
-            aria-label={isProcessing ? "處理中，請稍候" : "套用浮水印"}
-            className="flex-1 bg-primary text-white py-3 rounded-lg font-medium disabled:bg-gray-400 disabled:cursor-not-allowed"
-          >
-            {isProcessing ? "⏳ 處理中..." : "🖌️ 套用浮水印"}
-          </button>
-          <button
-            onClick={() => { if (typeof gtag !== 'undefined') gtag('event', 'download_image'); downloadImage(); }}
-            disabled={!processedImage}
-            aria-label="下載處理後的圖片"
-            className="flex-1 bg-green-600 text-white py-3 rounded-lg font-medium disabled:bg-gray-400 disabled:cursor-not-allowed"
-          >
-            📥 下載
-          </button>
-        </div>
-      )}
     </div>
   );
 }
