@@ -2,7 +2,6 @@ import { useRef, useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Slider } from "@/components/ui/slider";
 import {
   ArrowUpLeft, ArrowUp, ArrowUpRight,
@@ -427,24 +426,24 @@ export function WatermarkControls({ settings, onSettingsChange, disabled, lang =
           textControlsDisabled,
         )}
 
-        {/* Font Size */}
+        {/* Font Size — 使用原生 <select>：手機上採用系統原生選單，避免 Radix Select
+            的 scroll-lock 在行動裝置造成畫面縮放／卡住。text-base 讓 iOS 不會在
+            聚焦時自動放大（font-size < 16px 會觸發縮放）。 */}
         <div>
-          <Label className="block text-sm font-medium text-gray-700 mb-2">{t.fontSize}</Label>
-          <Select
+          <Label htmlFor="fontSizeSelect" className="block text-sm font-medium text-gray-700 mb-2">{t.fontSize}</Label>
+          <select
+            id="fontSizeSelect"
             value={settings.fontSize}
-            onValueChange={(value) => onSettingsChange({ fontSize: value as WatermarkSettings['fontSize'] })}
+            onChange={(e) => onSettingsChange({ fontSize: e.target.value as WatermarkSettings['fontSize'] })}
             disabled={textControlsDisabled}
+            aria-label={t.fontSize}
+            className="flex h-10 w-full items-center rounded-md border border-input bg-background px-3 py-2 text-base sm:text-sm ring-offset-background focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
           >
-            <SelectTrigger aria-label={t.fontSize}>
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="small">{t.fontSmall}</SelectItem>
-              <SelectItem value="medium">{t.fontMedium}</SelectItem>
-              <SelectItem value="large">{t.fontLarge}</SelectItem>
-              <SelectItem value="xlarge">{t.fontXlarge}</SelectItem>
-            </SelectContent>
-          </Select>
+            <option value="small">{t.fontSmall}</option>
+            <option value="medium">{t.fontMedium}</option>
+            <option value="large">{t.fontLarge}</option>
+            <option value="xlarge">{t.fontXlarge}</option>
+          </select>
         </div>
         </>
         ) : (

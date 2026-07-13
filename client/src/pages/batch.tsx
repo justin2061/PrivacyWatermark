@@ -132,9 +132,11 @@ export default function BatchPage() {
           />
         )}
 
+        {/* 手機版：預覽置頂 sticky、設定在下可捲動；桌面維持左右兩欄。
+            三個區塊都是 grid 的直接子元素，sticky 的包含區塊才會涵蓋整個設定區高度。 */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {/* Left Panel - Upload + Controls + Actions */}
-          <div className="space-y-6">
+          {/* Left Panel - Upload + Controls + Actions（手機在預覽下方、桌面左欄） */}
+          <div className="space-y-6 order-2 lg:order-none lg:col-start-1 lg:row-start-1 lg:row-span-2">
             {/* Upload Zone */}
             <Card className="p-6">
               <div className="flex items-center justify-between mb-4">
@@ -314,8 +316,8 @@ export default function BatchPage() {
             </Card>
           </div>
 
-          {/* Right Panel - Preview */}
-          <div className="space-y-6">
+          {/* Preview（手機置頂 sticky，隨設定調整即時可見；桌面右欄上方） */}
+          <div className="order-1 lg:order-none lg:col-start-2 lg:row-start-1 sticky top-16 z-30 -mx-4 px-4 pt-2 pb-3 bg-gray-50 shadow-sm sm:-mx-6 sm:px-6 lg:static lg:z-auto lg:mx-0 lg:px-0 lg:pt-0 lg:pb-0 lg:bg-transparent lg:shadow-none">
             <Card className="p-6">
               <div className="flex items-center justify-between mb-4">
                 <h2 className="text-lg font-semibold text-gray-900">預覽畫面</h2>
@@ -325,8 +327,8 @@ export default function BatchPage() {
                 </div>
               </div>
 
-              {/* Big preview */}
-              <div className="border border-gray-200 rounded-lg p-4 bg-gray-50 min-h-[400px] flex items-center justify-center">
+              {/* Big preview（手機縮小高度，避免 sticky 佔滿整個螢幕） */}
+              <div className="border border-gray-200 rounded-lg p-4 bg-gray-50 min-h-[200px] sm:min-h-[400px] flex items-center justify-center">
                 {!selectedImage ? (
                   <div className="text-center">
                     <span className="text-gray-400 text-6xl mb-4 block">📷</span>
@@ -336,7 +338,7 @@ export default function BatchPage() {
                 ) : (
                   <canvas
                     ref={canvasRef}
-                    className="max-w-full max-h-[400px] object-contain"
+                    className="max-w-full max-h-[200px] sm:max-h-[400px] object-contain"
                   />
                 )}
               </div>
@@ -379,8 +381,10 @@ export default function BatchPage() {
                 </div>
               )}
             </Card>
+          </div>
 
-            {/* Privacy reminder */}
+          {/* Privacy reminder（手機最下、桌面右欄下方） */}
+          <div className="order-3 lg:order-none lg:col-start-2 lg:row-start-2">
             <Card className="p-4 bg-green-50 border-green-200">
               <div className="flex items-start space-x-3">
                 <ImageIcon className="text-green-600 mt-0.5 w-5 h-5 flex-shrink-0" />
