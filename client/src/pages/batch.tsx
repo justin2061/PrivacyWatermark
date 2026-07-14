@@ -119,7 +119,11 @@ export default function BatchPage() {
 
       <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Privacy Notice — 精簡信任標誌 */}
-        <PrivacyBanner lang="zh" className="mb-8" />
+        {/* 桌面版：Header 下方一個固定高度的 app 版面 —— 隱私條 + 工具區剛好填滿一個視窗高度，
+            工具區內部各自捲動、操作全程不需捲動整頁；下方內容照常在其下方流動。
+            所有 app 版面樣式一律用 lg: 前綴，手機版完全維持原本排版不受影響。 */}
+        <div className="lg:h-[calc(100vh-4rem)] lg:-mt-8 lg:pt-4 lg:flex lg:flex-col lg:overflow-hidden">
+        <PrivacyBanner lang="zh" className="mb-8 lg:mb-4 lg:flex-shrink-0" />
 
         {/* 第 11 張以上：非阻斷式 Pro 提示（可關閉，不影響免費操作） */}
         {showProPrompt && (
@@ -128,15 +132,18 @@ export default function BatchPage() {
             lang="zh"
             imageCount={images.length}
             onClose={() => setProDismissed(true)}
-            className="mb-8"
+            className="mb-8 lg:mb-4 lg:flex-shrink-0"
           />
         )}
 
         {/* 手機版：預覽置頂 sticky、設定在下可捲動；桌面維持左右兩欄。
-            三個區塊都是 grid 的直接子元素，sticky 的包含區塊才會涵蓋整個設定區高度。 */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {/* Left Panel - Upload + Controls + Actions（手機在預覽下方、桌面左欄） */}
-          <div className="space-y-6 order-2 lg:order-none lg:col-start-1 lg:row-start-1 lg:row-span-2">
+            三個區塊都是 grid 的直接子元素，sticky 的包含區塊才會涵蓋整個設定區高度。
+            桌面：grid 以 flex-1 填滿 app 版面剩餘高度，rows 為 [預覽 1fr / 隱私提示 auto]。 */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-6 lg:flex-1 lg:min-h-0 lg:grid-rows-[minmax(0,1fr)_auto]">
+          {/* Left Panel - Upload + Controls + Actions（手機在預覽下方、桌面左欄滿高、內部捲動、按鈕釘底） */}
+          <div className="space-y-6 order-2 lg:order-none lg:col-start-1 lg:row-start-1 lg:row-span-2 lg:h-full lg:min-h-0 lg:flex lg:flex-col lg:space-y-0 lg:gap-6">
+            {/* 桌面：這一塊（上傳 + 設定）內部捲動；手機維持原本區塊流 */}
+            <div className="space-y-6 lg:flex-1 lg:min-h-0 lg:overflow-y-auto lg:pr-2 lg:-mr-2">
             {/* Upload Zone */}
             <Card className="p-6">
               <div className="flex items-center justify-between mb-4">
@@ -249,9 +256,10 @@ export default function BatchPage() {
               onSettingsChange={updateWatermarkSettings}
               disabled={!hasImages}
             />
+            </div>
 
-            {/* Action Buttons */}
-            <Card className="p-6">
+            {/* Action Buttons（桌面釘在左欄底部） */}
+            <Card className="p-6 lg:flex-shrink-0">
               <div className="space-y-3">
                 <button
                   onClick={applyAll}
@@ -317,7 +325,7 @@ export default function BatchPage() {
           </div>
 
           {/* Preview（手機置頂 sticky，隨設定調整即時可見；桌面右欄上方） */}
-          <div className="order-1 lg:order-none lg:col-start-2 lg:row-start-1 sticky top-16 z-30 -mx-4 px-4 pt-2 pb-3 bg-gray-50 shadow-sm sm:-mx-6 sm:px-6 lg:static lg:z-auto lg:mx-0 lg:px-0 lg:pt-0 lg:pb-0 lg:bg-transparent lg:shadow-none">
+          <div className="order-1 lg:order-none lg:col-start-2 lg:row-start-1 sticky top-16 z-30 -mx-4 px-4 pt-2 pb-3 bg-gray-50 shadow-sm sm:-mx-6 sm:px-6 lg:static lg:z-auto lg:mx-0 lg:px-0 lg:pt-0 lg:pb-0 lg:bg-transparent lg:shadow-none lg:min-h-0 lg:overflow-y-auto">
             <Card className="p-3 sm:p-6">
               {/* 標題列在手機隱藏，省下 sticky 高度 */}
               <div className="hidden sm:flex items-center justify-between mb-4">
@@ -386,7 +394,7 @@ export default function BatchPage() {
           </div>
 
           {/* Privacy reminder（手機最下、桌面右欄下方） */}
-          <div className="order-3 lg:order-none lg:col-start-2 lg:row-start-2">
+          <div className="order-3 lg:order-none lg:col-start-2 lg:row-start-2 lg:min-h-0 lg:overflow-y-auto">
             <Card className="p-4 bg-green-50 border-green-200">
               <div className="flex items-start space-x-3">
                 <ImageIcon className="text-green-600 mt-0.5 w-5 h-5 flex-shrink-0" />
@@ -396,6 +404,7 @@ export default function BatchPage() {
               </div>
             </Card>
           </div>
+        </div>
         </div>
 
         {allProcessed && (
