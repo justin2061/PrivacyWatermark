@@ -61,9 +61,30 @@ function WarnBanner({
 }
 
 /**
- * 全站頂部防護提醒（Electron／非官方來源／機器人）。掛在 App 層（Router 之上），
+ * Electron 環境下持續顯示的品牌歸屬標籤（右下角、小字、半透明）。
+ * 與可關閉的警告 banner 不同：不阻擋、不警告、無關閉鈕，只是低調標記來源。
+ * 一般瀏覽器不會 render 此元件（由呼叫端依 isElectron 決定）。
+ */
+function PoweredByBadge() {
+  return (
+    <a
+      href={SITE_URL}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Powered by imagemarker.app（前往官方網站）"
+      className="fixed bottom-2 right-2 z-50 inline-flex items-center gap-1 rounded-full bg-black/45 px-2.5 py-1 text-[11px] font-medium leading-none text-white/90 shadow-sm backdrop-blur-sm transition-opacity hover:bg-black/60 hover:text-white"
+    >
+      Powered by imagemarker.app
+      <ExternalLink className="h-3 w-3" aria-hidden="true" />
+    </a>
+  );
+}
+
+/**
+ * 全站輕度防護提醒（Electron／非官方來源／機器人）。掛在 App 層（Router 之上），
  * 每個路由都涵蓋。一般瀏覽器 render 為 null；GA 事件於掛載時各觸發一次。
- * 關閉用元件 state（非 localStorage），每次開啟 App／重新載入都會再顯示。
+ * banner 關閉用元件 state（非 localStorage），每次開啟 App／重新載入都會再顯示；
+ * Electron 的品牌標籤則不可關閉，持續顯示。
  */
 export function ProtectionNotice() {
   // 惰性初始化：掛載時偵測一次
@@ -77,26 +98,36 @@ export function ProtectionNotice() {
     if (state.isBot) trackBotDetected(state.userAgent);
   }, [state]);
 
-  if (dismissed) return null;
+  // Electron：持續顯示的品牌標籤（不可關閉，與警告 banner 分開）。
+  const badge = state.isElectron ? <PoweredByBadge /> : null;
 
-  // 只顯示最嚴重者：機器人 > 非官方來源。（Electron 不顯示 banner，僅上方 GA 記錄）
-  if (state.isBot) {
-    return (
-      <WarnBanner tone="red" onClose={() => setDismissed(true)}>
-        偵測到自動化／無頭瀏覽器存取，核心工具已停用。本工具僅於官方網站{" "}
-        <SiteLink /> 免費提供，請以一般瀏覽器前往使用。
-      </WarnBanner>
-    );
+  // 只顯示最嚴重的 banner：機器人 > 非官方來源。（Electron 不顯示 banner，僅品牌標籤 + GA）
+  let banner: ReactNode = null;
+  if (!dismissed) {
+    if (state.isBot) {
+      banner = (
+        <WarnBanner tone="red" onClose={() => setDismissed(true)}>
+          偵測到自動化／無頭瀏覽器存取，核心工具已停用。本工具僅於官方網站{" "}
+          <SiteLink /> 免費提供，請以一般瀏覽器前往使用。
+        </WarnBanner>
+      );
+    } else if (state.isUnauthorizedOrigin) {
+      banner = (
+        <WarnBanner tone="red" onClose={() => setDismissed(true)}>
+          您正在使用非官方版本，請到 <SiteLink />{" "}
+          使用正版工具，以確保功能正確與個資安全。
+        </WarnBanner>
+      );
+    }
   }
-  if (state.isUnauthorizedOrigin) {
-    return (
-      <WarnBanner tone="red" onClose={() => setDismissed(true)}>
-        您正在使用非官方版本，請到 <SiteLink />{" "}
-        使用正版工具，以確保功能正確與個資安全。
-      </WarnBanner>
-    );
-  }
-  return null;
+
+  if (!badge && !banner) return null;
+  return (
+    <>
+      {banner}
+      {badge}
+    </>
+  );
 }
 
 /**
