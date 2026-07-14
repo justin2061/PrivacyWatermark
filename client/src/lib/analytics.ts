@@ -162,6 +162,18 @@ export function trackKofiClick(location: string): void {
 }
 
 /**
+ * 偵測到頁面被包在 Electron 環境（疑似第三方把 imagemarker.app 包成桌面 App）時觸發。
+ * 附上 user agent 以利辨識來源包裝；不含任何 PII。
+ */
+export function trackElectronDetected(userAgent: string): void {
+  if (typeof gtag !== "undefined") {
+    gtag("event", "electron_detected", {
+      user_agent: userAgent,
+    });
+  }
+}
+
+/**
  * 情境式聯盟行銷（Canva／Adobe／Shutterstock）推薦被點擊時觸發。
  * affiliate_name：外站名稱；tool_name：從哪個工具的完成頁點出去。
  */

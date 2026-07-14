@@ -3,6 +3,7 @@ import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { ElectronNotice } from "@/components/ElectronNotice";
 import WatermarkPage from "@/pages/watermark";
 import WatermarkEnPage from "@/pages/en/watermark";
 import WatermarkPhotosOnlineEn from "@/pages/en/blog/watermark-photos-online";
@@ -155,6 +156,8 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <Toaster />
+        {/* Electron 環境輕度提醒（一般瀏覽器 render 為 null，不受影響） */}
+        <ElectronNotice />
         <Router />
       </TooltipProvider>
     </QueryClientProvider>
