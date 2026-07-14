@@ -71,6 +71,7 @@ export function ProtectionNotice() {
   const [dismissed, setDismissed] = useState(false);
 
   useEffect(() => {
+    // Electron 只記錄、不擋不警告 —— Claude 桌面版/VS Code/Slack 等合法 app 皆為 Electron
     if (state.isElectron) trackElectronDetected(state.userAgent);
     if (state.isUnauthorizedOrigin) trackUnauthorizedEmbed(state.hostname);
     if (state.isBot) trackBotDetected(state.userAgent);
@@ -78,7 +79,7 @@ export function ProtectionNotice() {
 
   if (dismissed) return null;
 
-  // 只顯示最嚴重者：機器人 > 非官方來源 > Electron
+  // 只顯示最嚴重者：機器人 > 非官方來源。（Electron 不顯示 banner，僅上方 GA 記錄）
   if (state.isBot) {
     return (
       <WarnBanner tone="red" onClose={() => setDismissed(true)}>
@@ -92,14 +93,6 @@ export function ProtectionNotice() {
       <WarnBanner tone="red" onClose={() => setDismissed(true)}>
         您正在使用非官方版本，請到 <SiteLink />{" "}
         使用正版工具，以確保功能正確與個資安全。
-      </WarnBanner>
-    );
-  }
-  if (state.isElectron) {
-    return (
-      <WarnBanner tone="amber" onClose={() => setDismissed(true)}>
-        此工具由 <SiteLink />{" "}
-        免費提供，建議到官網 imagemarker.app 使用以獲得最佳體驗與最新功能。
       </WarnBanner>
     );
   }
