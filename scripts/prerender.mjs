@@ -111,6 +111,15 @@ async function main() {
   for (const route of routes) {
     const page = await browser.newPage();
     try {
+      // Mark this as a prerender run BEFORE any app script executes, so the
+      // client-side protection module (client/src/lib/protection.ts) treats it
+      // as a clean baseline and renders full content. Without this, the headless
+      // Chrome used here (UA contains "HeadlessChrome" + navigator.webdriver=true)
+      // would trip bot-detection and bake a "blocked" screen into every static
+      // page — an SEO catastrophe.
+      await page.evaluateOnNewDocument(() => {
+        window.__PRERENDER__ = true;
+      });
       await page.goto(base + route, {
         waitUntil: "domcontentloaded",
         timeout: 30000,

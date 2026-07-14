@@ -174,6 +174,30 @@ export function trackElectronDetected(userAgent: string): void {
 }
 
 /**
+ * 偵測到頁面被載入在非官方域名／file:// 來源（疑似他人拷貝站台自行架設）時觸發。
+ * 記錄非官方 hostname 以利辨識來源；不含任何 PII。
+ */
+export function trackUnauthorizedEmbed(hostname: string): void {
+  if (typeof gtag !== "undefined") {
+    gtag("event", "unauthorized_embed", {
+      hostname,
+    });
+  }
+}
+
+/**
+ * 偵測到無頭瀏覽器／自動化工具（HeadlessChrome、navigator.webdriver）存取時觸發。
+ * 附上 user agent 以利辨識爬蟲來源；已知搜尋引擎爬蟲不會觸發（見 lib/protection）。
+ */
+export function trackBotDetected(userAgent: string): void {
+  if (typeof gtag !== "undefined") {
+    gtag("event", "bot_detected", {
+      user_agent: userAgent,
+    });
+  }
+}
+
+/**
  * 情境式聯盟行銷（Canva／Adobe／Shutterstock）推薦被點擊時觸發。
  * affiliate_name：外站名稱；tool_name：從哪個工具的完成頁點出去。
  */

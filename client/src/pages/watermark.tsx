@@ -10,6 +10,8 @@ import { WatermarkControls } from "@/components/watermark/WatermarkControls";
 import { CanvasPreview } from "@/components/watermark/CanvasPreview";
 import { ProcessingStatus } from "@/components/watermark/ProcessingStatus";
 import { DownloadSuccess } from "@/components/DownloadSuccess";
+import { BotBlockNotice } from "@/components/ProtectionNotice";
+import { detectProtection } from "@/lib/protection";
 import { useWatermark } from "@/hooks/useWatermark";
 import { trackToolUseStart } from "@/lib/analytics";
 import { setPageSeo, webAppSchema, faqSchema } from "@/lib/seo";
@@ -29,6 +31,9 @@ export default function WatermarkPage() {
     downloadImage,
     resetCanvas
   } = useWatermark();
+
+  // 機器人／無頭瀏覽器：不載入互動工具元件，改顯示封鎖提示（prerender 不受影響）
+  const { isBot: blocked } = detectProtection();
 
   useEffect(() => {
     return setPageSeo({
@@ -108,10 +113,18 @@ export default function WatermarkPage() {
 
       {/* Main Content */}
       <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* 機器人／無頭瀏覽器：以封鎖提示取代整個工具區（不載入工具元件） */}
+        {blocked && (
+          <div className="py-8 lg:py-12">
+            <BotBlockNotice lang="zh" />
+          </div>
+        )}
+
         {/* Privacy Notice — 精簡信任標誌 */}
         {/* 桌面版：Header 下方一個固定高度的 app 版面 —— 隱私條 + 工具區剛好填滿一個視窗高度，
             工具區內部各自捲動、操作全程不需捲動整頁；下方 SEO 內容照常在其下方流動。
             所有 app 版面樣式一律用 lg: 前綴，手機版完全維持原本排版不受影響。 */}
+        {!blocked && (
         <div className="lg:h-[calc(100vh-4rem)] lg:-mt-8 lg:pt-4 lg:flex lg:flex-col lg:overflow-hidden">
         <PrivacyBanner lang="zh" className="mb-8 lg:mb-4 lg:flex-shrink-0" />
 
@@ -205,6 +218,7 @@ export default function WatermarkPage() {
           )}
         </div>
         </div>
+        )}
 
         {/* 所有工具中心 */}
         <ToolsShowcase lang="zh" current="watermark" />

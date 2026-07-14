@@ -42,3 +42,13 @@
   from = "/*"
   to = "/index.html"
   status = 200
+
+# 防止網站被 iframe 嵌入到其他網站（clickjacking／未授權嵌入防護）。
+# frame-ancestors 'self' 只允許自己嵌入自己；此 CSP 只設 frame-ancestors 一項，
+# 不會限制腳本／樣式／WASM 等其他資源（未列的指令一律放行），故不影響既有功能。
+# X-Frame-Options 供不支援 frame-ancestors 的舊瀏覽器做等效防護。
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Content-Security-Policy = "frame-ancestors 'self'"
+    X-Frame-Options = "SAMEORIGIN"
