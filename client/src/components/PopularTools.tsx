@@ -28,17 +28,26 @@ export function PopularTools({
   location,
   className = "",
 }: PopularToolsProps) {
-  const isEn = lang === "en";
   const items = tools
     .map((key) => TOOLS.find((t) => t.key === key))
     .filter((t): t is NonNullable<typeof t> => Boolean(t));
 
   if (items.length === 0) return null;
 
-  const heading = isEn ? "Popular free tools" : "熱門工具";
-  const subtitle = isEn
-    ? "All run 100% in your browser — nothing is uploaded."
-    : "全部 100% 在你的瀏覽器執行，圖片不會上傳。";
+  const { heading, subtitle } = {
+    zh: {
+      heading: "熱門工具",
+      subtitle: "全部 100% 在你的瀏覽器執行，圖片不會上傳。",
+    },
+    en: {
+      heading: "Popular free tools",
+      subtitle: "All run 100% in your browser — nothing is uploaded.",
+    },
+    ja: {
+      heading: "よく使われる無料ツール",
+      subtitle: "すべてブラウザ内で動作し、画像はアップロードされません。",
+    },
+  }[lang];
 
   return (
     <section

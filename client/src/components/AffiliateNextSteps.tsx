@@ -13,19 +13,20 @@ interface Affiliate {
    * 申請到後把對應的 url 換成帶追蹤參數的聯盟連結即可，UI／GA 事件皆不需改動。
    */
   url: string | null;
-  label: { zh: string; en: string };
+  label: Record<Lang, string>;
   /** 情境化的一句話「下一步」文案 */
-  blurb: { zh: string; en: string };
+  blurb: Record<Lang, string>;
 }
 
 const CANVA: Affiliate = {
   name: "canva",
   icon: Palette,
   url: null, // TODO: 換成 Canva 聯盟連結
-  label: { zh: "用 Canva 做社群圖", en: "Design with Canva" },
+  label: { zh: "用 Canva 做社群圖", en: "Design with Canva", ja: "Canva で SNS 画像を作る" },
   blurb: {
     zh: "把處理好的圖片做成貼文、限動或封面",
     en: "Turn your image into posts, stories or covers",
+    ja: "加工した画像を投稿・ストーリー・カバーに仕上げる",
   },
 };
 
@@ -33,10 +34,11 @@ const ADOBE: Affiliate = {
   name: "adobe",
   icon: Wand2,
   url: null, // TODO: 換成 Adobe 聯盟連結
-  label: { zh: "用 Adobe 進階編輯", en: "Edit further in Adobe" },
+  label: { zh: "用 Adobe 進階編輯", en: "Edit further in Adobe", ja: "Adobe でさらに編集する" },
   blurb: {
     zh: "需要修圖、去瑕疵或更細緻的調整",
     en: "For retouching and finer edits",
+    ja: "レタッチや細かい調整をしたいときに",
   },
 };
 
@@ -44,10 +46,11 @@ const SHUTTERSTOCK: Affiliate = {
   name: "shutterstock",
   icon: ImageIcon,
   url: null, // TODO: 換成 Shutterstock 聯盟連結
-  label: { zh: "到 Shutterstock 找素材", en: "Find stock on Shutterstock" },
+  label: { zh: "到 Shutterstock 找素材", en: "Find stock on Shutterstock", ja: "Shutterstock で素材を探す" },
   blurb: {
     zh: "缺背景圖或設計素材？這裡有海量選擇",
     en: "Need backgrounds or design assets? Browse millions",
+    ja: "背景やデザイン素材が必要なら、膨大な選択肢から",
   },
 };
 
@@ -82,7 +85,6 @@ export function AffiliateNextSteps({
   lang = "zh",
   className = "",
 }: AffiliateNextStepsProps) {
-  const isEn = lang === "en";
   // 只顯示有真實聯盟連結的項目；尚未申請到的（url 為 null）先不渲染，
   // 避免出現假連結或 # 死連結。等填入真實連結後即自動出現。
   const items = (NEXT_STEPS[current] ?? []).filter(
@@ -90,7 +92,7 @@ export function AffiliateNextSteps({
   );
   if (items.length === 0) return null;
 
-  const heading = isEn ? "Next step" : "下一步";
+  const heading = { zh: "下一步", en: "Next step", ja: "次のステップ" }[lang];
 
   return (
     <section

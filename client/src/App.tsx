@@ -6,6 +6,11 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { ProtectionNotice } from "@/components/ProtectionNotice";
 import WatermarkPage from "@/pages/watermark";
 import WatermarkEnPage from "@/pages/en/watermark";
+import WatermarkJaPage from "@/pages/ja/watermark";
+import JaBlogIndex from "@/pages/ja/blog/index";
+import JaIdCopyWatermark from "@/pages/ja/blog/id-copy-watermark";
+import JaMyNumberCardCopySafe from "@/pages/ja/blog/my-number-card-copy-safe";
+import JaDocumentWatermarkTool from "@/pages/ja/blog/document-watermark-tool";
 import WatermarkPhotosOnlineEn from "@/pages/en/blog/watermark-photos-online";
 import WatermarkIdDocumentsEn from "@/pages/en/blog/watermark-id-documents";
 import WatermarkPhotosFreeEn from "@/pages/en/blog/watermark-photos-free";
@@ -24,6 +29,7 @@ import ImageCompressionGuideEn from "@/pages/en/blog/image-compression-guide";
 import WhatIsDigitalWatermarkEn from "@/pages/en/blog/what-is-digital-watermark";
 import SocialMediaImageSizesEn from "@/pages/en/blog/social-media-image-sizes";
 import EnBlogIndex from "@/pages/en/blog/index";
+import WatermarkIdBeforeSendingKycEn from "@/pages/en/blog/watermark-id-before-sending-kyc";
 import WatermarkTemplatesGuidePage from "@/pages/blog/watermark-templates-guide";
 import PassportWatermarkGuidePage from "@/pages/blog/passport-watermark-guide";
 import MobileWatermarkTutorialPage from "@/pages/blog/mobile-watermark-tutorial";
@@ -65,6 +71,9 @@ import IdCopyLeakedConsequences from "@/pages/blog/id-copy-leaked-consequences";
 import RentBeforeGivingId3Things from "@/pages/blog/rent-before-giving-id-3-things";
 import JobInterviewIdCopySafety from "@/pages/blog/job-interview-id-copy-safety";
 import IdWatermarkCompleteGuide from "@/pages/blog/id-watermark-complete-guide";
+import HkRentIdCopyWatermark from "@/pages/blog/hk-rent-id-copy-watermark";
+import MalaysiaBankAccountIcWatermark from "@/pages/blog/malaysia-bank-account-ic-watermark";
+import OverseasChinesePassportWatermark from "@/pages/blog/overseas-chinese-passport-watermark";
 import NotFound from "@/pages/not-found";
 import BlogIndex from "@/pages/blog/index";
 import RentIdWatermark from "@/pages/blog/rent-id-watermark";
@@ -76,6 +85,12 @@ function Router() {
       <Route path="/" component={WatermarkPage} />
       <Route path="/en" component={WatermarkEnPage} />
       <Route path="/en/" component={WatermarkEnPage} />
+      <Route path="/ja" component={WatermarkJaPage} />
+      <Route path="/ja/" component={WatermarkJaPage} />
+      <Route path="/ja/blog" component={JaBlogIndex} />
+      <Route path="/ja/blog/id-copy-watermark" component={JaIdCopyWatermark} />
+      <Route path="/ja/blog/my-number-card-copy-safe" component={JaMyNumberCardCopySafe} />
+      <Route path="/ja/blog/document-watermark-tool" component={JaDocumentWatermarkTool} />
       <Route path="/en/blog" component={EnBlogIndex} />
       <Route path="/en/blog/watermark-photos-online" component={WatermarkPhotosOnlineEn} />
       <Route path="/en/blog/watermark-id-documents" component={WatermarkIdDocumentsEn} />
@@ -94,6 +109,7 @@ function Router() {
       <Route path="/en/blog/image-compression-guide" component={ImageCompressionGuideEn} />
       <Route path="/en/blog/what-is-digital-watermark" component={WhatIsDigitalWatermarkEn} />
       <Route path="/en/blog/social-media-image-sizes" component={SocialMediaImageSizesEn} />
+      <Route path="/en/blog/watermark-id-before-sending-kyc" component={WatermarkIdBeforeSendingKycEn} />
       <Route path="/blog" component={BlogIndex} />
       <Route path="/blog/rent-id-watermark" component={RentIdWatermark} />
       <Route path="/blog/watermark-generators-recommendation" component={WatermarkGeneratorsRecommendation} />
@@ -145,6 +161,9 @@ function Router() {
       <Route path="/blog/rent-before-giving-id-3-things" component={RentBeforeGivingId3Things} />
       <Route path="/blog/job-interview-id-copy-safety" component={JobInterviewIdCopySafety} />
       <Route path="/blog/id-watermark-complete-guide" component={IdWatermarkCompleteGuide} />
+      <Route path="/blog/hk-rent-id-copy-watermark" component={HkRentIdCopyWatermark} />
+      <Route path="/blog/malaysia-bank-account-ic-watermark" component={MalaysiaBankAccountIcWatermark} />
+      <Route path="/blog/overseas-chinese-passport-watermark" component={OverseasChinesePassportWatermark} />
       <Route path="/en/blog/tinypng-iloveimg-squoosh-alternatives" component={TinypngIloveimgSquooshAlternativesEn} />
       <Route component={NotFound} />
     </Switch>

@@ -15,16 +15,11 @@ import { trackToolUseStart } from "@/lib/analytics";
 import { setPageSeo, webAppSchema, localeAlternates } from "@/lib/seo";
 import { Lock, Zap, Eraser } from "lucide-react";
 
-// The homepage was previously pitched at photographers ("watermark your photos"),
-// which is not what the English traffic actually searches for — impressions were
-// healthy but CTR sat near 0.3%. Retitled around the ID/passport intent that the
-// tool is genuinely built for.
-const TITLE =
-  "Free ID Document Watermark Tool — Protect Passport & ID Copies Online";
+const TITLE = "画像透かしツール｜身分証・書類の透かしを無料でブラウザ内作成";
 const DESCRIPTION =
-  "100% browser-based, no upload, privacy-first. Add watermarks to ID cards, passports, and documents before sharing. Free, fast, and secure.";
+  "身分証や書類のコピーに透かしを入れる無料ツール。アップロード不要で、すべてブラウザ内だけで処理します。提出先・用途・日付を入れて、なりすましや目的外使用を防ぎましょう。";
 
-export default function WatermarkEnPage() {
+export default function WatermarkJaPage() {
   const {
     selectedFile,
     watermarkSettings,
@@ -43,19 +38,19 @@ export default function WatermarkEnPage() {
     return setPageSeo({
       title: TITLE,
       description: DESCRIPTION,
-      canonical: "https://imagemarker.app/en/",
-      locale: "en_US",
+      canonical: "https://imagemarker.app/ja/",
+      locale: "ja_JP",
       alternates: localeAlternates({ zh: "/", en: "/en/", ja: "/ja/" }),
       jsonLd: webAppSchema({
-        name: "ID Document Watermark Tool — ImageMarker",
+        name: "画像透かしツール — ImageMarker",
         description: DESCRIPTION,
-        url: "https://imagemarker.app/en/",
-        inLanguage: "en",
+        url: "https://imagemarker.app/ja/",
+        inLanguage: "ja",
         featureList: [
-          "100% local in-browser processing — no uploads",
-          "Watermark ID cards, passports and documents before sharing",
-          "Live preview with one-click download",
-          "Works offline as an installable PWA",
+          "すべて端末内で処理 — アップロードは一切なし",
+          "身分証や書類に文字・ロゴの透かしを追加",
+          "リアルタイムのプレビューとワンクリックのダウンロード",
+          "PWA としてインストールすればオフラインでも利用可能",
         ],
       }),
     });
@@ -63,128 +58,115 @@ export default function WatermarkEnPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <SiteHeader lang="en" current="watermark" />
+      <SiteHeader lang="ja" current="watermark" />
 
-      {/* Main Content */}
       <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Privacy Notice — compact trust badge */}
-        <PrivacyBanner lang="en" className="mb-8" />
+        <PrivacyBanner lang="ja" className="mb-8" />
 
-        {/* Mobile: preview pinned to the top, settings scroll below; desktop keeps two columns.
-            All three blocks are direct grid children so the sticky preview's containing block
-            spans the full settings height and stays pinned while scrolling. */}
+        {/* 版面與中英版一致：手機把預覽 sticky 在最上方，桌面維持左右兩欄。
+            三個區塊都是 grid 的直接子元素，sticky 的 containing block 才會涵蓋
+            整個設定欄的高度。 */}
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
-          {/* Left Panel - Controls */}
+          {/* 左欄：設定 */}
           <div className="space-y-6 order-2 lg:order-none lg:col-start-1 lg:row-start-1 lg:row-span-2">
             <FileUploadZone
               selectedFile={selectedFile}
               onFileSelect={(file) => { if (typeof gtag !== 'undefined') gtag('event', 'upload_image'); trackToolUseStart('watermark'); handleFileSelect(file); }}
-              lang="en"
+              lang="ja"
             />
 
             <WatermarkControls
               settings={watermarkSettings}
               onSettingsChange={updateWatermarkSettings}
               disabled={!selectedFile}
-              lang="en"
+              lang="ja"
             />
 
-            {/* Action Buttons */}
             <Card className="p-6">
               <div className="space-y-3">
                 <button
                   onClick={() => { if (typeof gtag !== 'undefined') gtag('event', 'apply_watermark'); applyWatermark(); }}
                   disabled={!selectedFile || isProcessing}
-                  aria-label={isProcessing ? "Processing, please wait" : "Apply watermark"}
+                  aria-label={isProcessing ? "処理中です。しばらくお待ちください" : "透かしを適用"}
                   className="w-full bg-primary text-white py-3 px-4 rounded-lg hover:bg-blue-700 transition-colors font-medium disabled:bg-gray-400 disabled:cursor-not-allowed flex items-center justify-center"
                 >
                   <span className="mr-2" aria-hidden="true">🖌️</span>
-                  {isProcessing ? "Processing..." : "Apply Watermark"}
+                  {isProcessing ? "処理中..." : "透かしを適用"}
                 </button>
 
                 <button
                   onClick={() => { if (typeof gtag !== 'undefined') gtag('event', 'download_image'); downloadImage(); }}
                   disabled={!processedImage}
-                  aria-label="Download processed image"
+                  aria-label="処理した画像をダウンロード"
                   className="w-full bg-green-600 text-white py-3 px-4 rounded-lg hover:bg-green-700 transition-colors font-medium disabled:bg-gray-400 disabled:cursor-not-allowed flex items-center justify-center"
                 >
                   <span className="mr-2" aria-hidden="true">📥</span>
-                  Download Image
+                  画像をダウンロード
                 </button>
 
                 <button
                   onClick={resetCanvas}
                   disabled={!selectedFile}
-                  aria-label="Start over and clear the current image"
+                  aria-label="最初からやり直し、選択中の画像を消去"
                   className="w-full bg-gray-500 text-white py-2.5 min-h-[44px] px-4 rounded-lg hover:bg-gray-600 transition-colors disabled:bg-gray-300 disabled:cursor-not-allowed flex items-center justify-center"
                 >
                   <span className="mr-2" aria-hidden="true">🔄</span>
-                  Start Over
+                  最初からやり直す
                 </button>
               </div>
             </Card>
           </div>
 
-          {/* Right Panel - Preview (always rendered as a direct grid child, matching /batch,
-              so the mobile sticky is established at first layout and holds while scrolling —
-              instead of being inserted only after upload, which can break sticky on mobile) */}
-          {/* will-change-transform: after an image loads the preview holds a <canvas> (its own GPU layer);
-              promoting the sticky wrapper to its own compositing layer keeps the canvas in sync with the
-              sticky offset while scrolling. (transform-gpu's translate3d(0,0,0) flattens to 2D and won't
-              promote a layer.) Desktop is lg:static so lg:will-change-auto turns it off. */}
+          {/* 右欄：預覽 */}
           <div className="order-1 lg:order-none lg:col-start-2 lg:row-start-1 sticky top-16 z-30 -mx-4 px-4 pt-2 pb-3 bg-gray-50 shadow-sm will-change-transform lg:will-change-auto sm:-mx-6 sm:px-6 lg:static lg:z-auto lg:mx-0 lg:px-0 lg:pt-0 lg:pb-0 lg:bg-transparent lg:shadow-none">
             <CanvasPreview
               canvasRef={canvasRef}
               selectedFile={selectedFile}
               processedImage={processedImage}
-              lang="en"
+              lang="ja"
             />
           </div>
 
-          {/* Processing status + success CTA: shown after upload (non-sticky) */}
           {selectedFile && (
             <div className="order-3 lg:order-none lg:col-start-2 lg:row-start-2 space-y-6">
               <ProcessingStatus
                 selectedFile={selectedFile}
                 processedImage={processedImage}
                 progress={progress}
-                lang="en"
+                lang="ja"
               />
               {processedImage && (
-                <DownloadSuccess tool="watermark" lang="en" imageCount={1} />
+                <DownloadSuccess tool="watermark" lang="ja" imageCount={1} />
               )}
             </div>
           )}
         </div>
 
-        {/* All tools hub */}
-        <ToolsShowcase lang="en" current="watermark" />
+        <ToolsShowcase lang="ja" current="watermark" />
 
-        {/* Features Section */}
         <section className="mt-12" aria-labelledby="features-heading">
-          <h2 id="features-heading" className="sr-only">Features</h2>
+          <h2 id="features-heading" className="sr-only">特長</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <Card className="p-6 text-center">
               <Lock className="text-primary text-3xl mb-3 mx-auto w-8 h-8" aria-hidden="true" />
-              <h3 className="font-semibold text-gray-900 mb-2">Privacy First</h3>
-              <p className="text-sm text-gray-600">Images are processed entirely on your device and never uploaded — your photos and documents stay private.</p>
+              <h3 className="font-semibold text-gray-900 mb-2">アップロードなし</h3>
+              <p className="text-sm text-gray-600">画像の処理はすべて端末内で完結します。本人確認書類も外部のサーバーに送られることはありません。</p>
             </Card>
 
             <Card className="p-6 text-center">
-              <span className="text-primary text-3xl mb-3 block" role="img" aria-label="Lightning icon">⚡</span>
-              <h3 className="font-semibold text-gray-900 mb-2">Works Offline</h3>
-              <p className="text-sm text-gray-600">Installable as a PWA — add it to your home screen and use it without an internet connection.</p>
+              <span className="text-primary text-3xl mb-3 block" role="img" aria-label="稲妻のアイコン">⚡</span>
+              <h3 className="font-semibold text-gray-900 mb-2">オフラインでも使える</h3>
+              <p className="text-sm text-gray-600">PWA としてホーム画面に追加すれば、ネット接続がなくてもそのまま使えます。</p>
             </Card>
 
             <Card className="p-6 text-center">
               <Zap className="text-primary text-3xl mb-3 mx-auto w-8 h-8" aria-hidden="true" />
-              <h3 className="font-semibold text-gray-900 mb-2">Fast Processing</h3>
-              <p className="text-sm text-gray-600">Live preview of your watermark and one-click download for a smooth, instant workflow.</p>
+              <h3 className="font-semibold text-gray-900 mb-2">すぐに仕上がる</h3>
+              <p className="text-sm text-gray-600">透かしの効果はその場でプレビューに反映され、ワンクリックでダウンロードできます。</p>
             </Card>
           </div>
         </section>
 
-        {/* EXIF cleaner entry */}
         <section className="mt-12" aria-labelledby="exif-cta-heading">
           <Card className="p-6 md:p-8 bg-blue-50 border-blue-200">
             <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
@@ -192,10 +174,10 @@ export default function WatermarkEnPage() {
                 <Eraser className="text-primary mt-1 w-8 h-8 flex-shrink-0" aria-hidden="true" />
                 <div>
                   <h2 id="exif-cta-heading" className="font-semibold text-gray-900 mb-1">
-                    Photos hide GPS location and camera data — remove EXIF in one click
+                    写真には GPS 位置情報が残っています — EXIF をワンクリックで削除
                   </h2>
                   <p className="text-sm text-gray-600">
-                    Before sharing a photo, strip out the GPS coordinates, capture time and camera model stored in its EXIF metadata. Also 100% local — nothing is uploaded.
+                    写真を送る前に、EXIF に記録された位置情報・撮影日時・カメラの機種を削除しましょう。こちらも端末内だけで処理し、アップロードはありません。
                   </p>
                 </div>
               </div>
@@ -203,78 +185,76 @@ export default function WatermarkEnPage() {
                 href="/en/exif-clean"
                 className="inline-flex items-center justify-center whitespace-nowrap bg-primary text-white py-2.5 px-5 rounded-lg hover:bg-blue-700 transition-colors font-medium text-sm"
               >
-                Open EXIF Cleaner<ReadMoreArrow />
+                EXIF 削除ツールを開く<ReadMoreArrow />
               </Link>
             </div>
           </Card>
         </section>
 
-        {/* Latest Articles */}
         <section className="mt-12" aria-labelledby="articles-heading">
           <div className="flex items-center justify-between mb-4">
             <h2 id="articles-heading" className="font-semibold text-gray-900">
-              Latest Articles
+              新着記事
             </h2>
             <Link
-              href="/en/blog"
+              href="/ja/blog"
               className="text-sm font-medium text-primary hover:underline"
             >
-              View all<ReadMoreArrow />
+              すべて見る<ReadMoreArrow />
             </Link>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <Link
-              href="/en/blog/protect-photos-online"
+              href="/ja/blog/id-copy-watermark"
               className="block p-5 bg-white border border-gray-200 rounded-lg hover:border-primary transition-colors"
             >
               <h3 className="font-medium text-gray-900 mb-1">
-                How to Protect Your Photos Online
+                身分証のコピーに透かしを入れる方法
               </h3>
               <p className="text-sm text-gray-600">
-                A complete guide to watermarks, metadata and copyright for photographers.
+                何を書けばいいのか、濃さはどのくらいか。実際の手順まで解説します。
               </p>
             </Link>
             <Link
-              href="/en/blog/remove-exif-data"
+              href="/ja/blog/my-number-card-copy-safe"
               className="block p-5 bg-white border border-gray-200 rounded-lg hover:border-primary transition-colors"
             >
               <h3 className="font-medium text-gray-900 mb-1">
-                Why You Should Remove EXIF Data
+                マイナンバーカードのコピーを安全に送る方法
               </h3>
               <p className="text-sm text-gray-600">
-                Your photos hide GPS location and device data. Here&apos;s how to strip it.
+                表面と裏面は別物です。裏面の提出を求められたときの考え方。
               </p>
             </Link>
             <Link
-              href="/en/blog/digital-identity-protection"
+              href="/ja/blog/document-watermark-tool"
               className="block p-5 bg-white border border-gray-200 rounded-lg hover:border-primary transition-colors"
             >
               <h3 className="font-medium text-gray-900 mb-1">
-                Digital Identity Protection
+                個人情報を守る書類の透かし入れツール
               </h3>
               <p className="text-sm text-gray-600">
-                7 practical steps to keep your documents and identity safe online.
+                選ぶ基準はひとつ — そのファイル、どこで処理されていますか？
               </p>
             </Link>
           </div>
         </section>
       </main>
 
-      {/* Footer */}
       <footer className="bg-white border-t border-gray-200 mt-16" role="contentinfo">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="mb-4 md:mb-0">
-              <p className="text-sm text-gray-600">© 2026 Image Watermark Tool — Protecting your privacy</p>
+              <p className="text-sm text-gray-600">© 2026 画像透かしツール — あなたのプライバシーを守ります</p>
             </div>
             <div className="flex items-center space-x-4">
               <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                <span className="mr-1" role="img" aria-label="Check">✅</span>
-                Open Source
+                <span className="mr-1" role="img" aria-label="チェック">✅</span>
+                オープンソース
               </span>
               <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
-                <span className="mr-1" role="img" aria-label="Globe">🌐</span>
-                PWA Ready
+                <span className="mr-1" role="img" aria-label="地球儀">🌐</span>
+                PWA 対応
               </span>
             </div>
           </div>

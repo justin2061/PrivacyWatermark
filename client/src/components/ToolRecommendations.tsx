@@ -41,7 +41,6 @@ export function ToolRecommendations({
   lang = "zh",
   className = "",
 }: ToolRecommendationsProps) {
-  const isEn = lang === "en";
   const keys = RECOMMENDATIONS[current] ?? [];
   const tools = keys
     .map((key) => TOOLS.find((t) => t.key === key))
@@ -49,7 +48,11 @@ export function ToolRecommendations({
 
   if (tools.length === 0) return null;
 
-  const heading = isEn ? "You might also need" : "你可能也需要";
+  const heading = {
+    zh: "你可能也需要",
+    en: "You might also need",
+    ja: "こちらもおすすめ",
+  }[lang];
 
   return (
     <section

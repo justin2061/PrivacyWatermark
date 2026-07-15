@@ -8,6 +8,13 @@
 
 type JsonLd = Record<string, unknown>;
 
+/** One <link rel="alternate" hreflang="…"> entry. */
+export interface Alternate {
+  /** e.g. "zh-TW", "en", "ja", "x-default" */
+  hreflang: string;
+  href: string;
+}
+
 interface PageSeoOptions {
   title: string;
   description: string;
@@ -23,6 +30,13 @@ interface PageSeoOptions {
    * shell's default og:image/twitter:image so each article gets its own card.
    */
   ogImage?: string;
+  /**
+   * Per-page hreflang set. The shell (index.html) ships the homepage's
+   * alternates, which are wrong for every other URL — pass this on any page
+   * that has real translations and the whole set is replaced. Pages that omit
+   * it keep the shell's tags unchanged.
+   */
+  alternates?: Alternate[];
   /** One or more JSON-LD objects (Article, FAQPage, BreadcrumbList, ItemList…). */
   jsonLd?: JsonLd | JsonLd[];
 }
@@ -38,6 +52,7 @@ export function setPageSeo({
   canonical,
   locale,
   ogImage,
+  alternates,
   jsonLd,
 }: PageSeoOptions): () => void {
   document.title = title;
@@ -66,6 +81,25 @@ export function setPageSeo({
     document.documentElement.lang = locale.split(/[_-]/)[0];
   }
 
+  // hreflang: replace the shell's homepage set wholesale, so a page never
+  // advertises the homepage's translations as its own. Google needs every URL in
+  // the set to point back at the others, so callers pass the full cluster.
+  const altNodes: HTMLLinkElement[] = [];
+  if (alternates) {
+    document
+      .querySelectorAll('link[rel="alternate"][hreflang]')
+      .forEach((el) => el.remove());
+    for (const { hreflang, href } of alternates) {
+      const link = document.createElement("link");
+      link.rel = "alternate";
+      link.hreflang = hreflang;
+      link.href = href;
+      link.setAttribute("data-page-seo", "true");
+      document.head.appendChild(link);
+      altNodes.push(link);
+    }
+  }
+
   const nodes: HTMLScriptElement[] = [];
   if (jsonLd) {
     const blocks = Array.isArray(jsonLd) ? jsonLd : [jsonLd];
@@ -81,16 +115,44 @@ export function setPageSeo({
 
   return () => {
     for (const node of nodes) node.remove();
+    for (const node of altNodes) node.remove();
   };
 }
 
-/** Standard breadcrumb: 首頁 › 部落格 › <title> (or Home › Blog › <title>) */
+/**
+ * The hreflang cluster for a page that exists in every locale. `paths` are
+ * absolute site paths, e.g. localeAlternates({ zh: "/blog", en: "/en/blog",
+ * ja: "/ja/blog" }). x-default points at English, matching the shell.
+ */
+export function localeAlternates(paths: {
+  zh: string;
+  en: string;
+  ja?: string;
+}): Alternate[] {
+  const abs = (p: string) => `https://imagemarker.app${p}`;
+  const list: Alternate[] = [
+    { hreflang: "zh-TW", href: abs(paths.zh) },
+    { hreflang: "zh", href: abs(paths.zh) },
+    { hreflang: "en", href: abs(paths.en) },
+  ];
+  if (paths.ja) list.push({ hreflang: "ja", href: abs(paths.ja) });
+  list.push({ hreflang: "x-default", href: abs(paths.en) });
+  return list;
+}
+
+const BREADCRUMB_LABELS = {
+  zh: { home: "首頁", blog: "部落格", homeUrl: "/", blogUrl: "/blog" },
+  en: { home: "Home", blog: "Blog", homeUrl: "/en/", blogUrl: "/en/blog" },
+  ja: { home: "ホーム", blog: "ブログ", homeUrl: "/ja/", blogUrl: "/ja/blog" },
+} as const;
+
+/** Standard breadcrumb: 首頁 › 部落格 › <title> (localised per lang). */
 export function blogBreadcrumb(
   title: string,
   url: string,
-  lang: "zh" | "en" = "zh"
+  lang: "zh" | "en" | "ja" = "zh"
 ): JsonLd {
-  const en = lang === "en";
+  const l = BREADCRUMB_LABELS[lang];
   return {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -98,16 +160,14 @@ export function blogBreadcrumb(
       {
         "@type": "ListItem",
         position: 1,
-        name: en ? "Home" : "首頁",
-        item: en ? "https://imagemarker.app/en/" : "https://imagemarker.app/",
+        name: l.home,
+        item: `https://imagemarker.app${l.homeUrl}`,
       },
       {
         "@type": "ListItem",
         position: 2,
-        name: en ? "Blog" : "部落格",
-        item: en
-          ? "https://imagemarker.app/en/blog"
-          : "https://imagemarker.app/blog",
+        name: l.blog,
+        item: `https://imagemarker.app${l.blogUrl}`,
       },
       { "@type": "ListItem", position: 3, name: title, item: url },
     ],

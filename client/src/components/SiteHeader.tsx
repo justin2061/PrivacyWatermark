@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "wouter";
-import { BookOpen, Languages, ChevronDown, Menu, X } from "lucide-react";
+import { BookOpen, ChevronDown, Menu, X } from "lucide-react";
 import {
   CATEGORIES,
   toolsByCategory,
@@ -9,6 +9,7 @@ import {
   type NavKey,
 } from "@/lib/tools";
 import { trackToolNav } from "@/lib/analytics";
+import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 
 // 對外沿用 NavKey（頁面以 current={...} 高亮目前工具）
 export type { NavKey } from "@/lib/tools";
@@ -21,31 +22,38 @@ interface SiteHeaderProps {
 export function SiteHeader({ lang = "zh", current }: SiteHeaderProps) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [megaOpen, setMegaOpen] = useState(false);
-  const isEn = lang === "en";
-  const base = isEn ? "/en" : "";
-  const home = isEn ? "/en/" : "/";
+  const base = lang === "zh" ? "" : `/${lang}`;
+  const home = lang === "zh" ? "/" : `/${lang}/`;
 
-  const t = isEn
-    ? {
-        brand: "Image Watermark Tool",
-        tagline: "Secure local image processing",
-        tools: "Tools",
-        blog: "Blog",
-        langLabel: "中文",
-        langHref: "/",
-        openMenu: "Open menu",
-        closeMenu: "Close menu",
-      }
-    : {
-        brand: "證件浮水印工具",
-        tagline: "安全的本地端圖片處理",
-        tools: "工具",
-        blog: "Blog",
-        langLabel: "EN",
-        langHref: "/en/",
-        openMenu: "開啟選單",
-        closeMenu: "關閉選單",
-      };
+  const t = {
+    zh: {
+      brand: "證件浮水印工具",
+      tagline: "安全的本地端圖片處理",
+      tools: "工具",
+      blog: "Blog",
+      openMenu: "開啟選單",
+      closeMenu: "關閉選單",
+      cameraAlt: "相機圖示",
+    },
+    en: {
+      brand: "Image Watermark Tool",
+      tagline: "Secure local image processing",
+      tools: "Tools",
+      blog: "Blog",
+      openMenu: "Open menu",
+      closeMenu: "Close menu",
+      cameraAlt: "Camera icon",
+    },
+    ja: {
+      brand: "画像透かしツール",
+      tagline: "端末内で完結する安全な画像処理",
+      tools: "ツール",
+      blog: "ブログ",
+      openMenu: "メニューを開く",
+      closeMenu: "メニューを閉じる",
+      cameraAlt: "カメラのアイコン",
+    },
+  }[lang];
 
   // 目前頁面是否屬於某個工具（用來高亮桌面版「工具」入口）
   const toolsActive = CATEGORIES.some((cat) =>
@@ -70,7 +78,7 @@ export function SiteHeader({ lang = "zh", current }: SiteHeaderProps) {
               <span
                 className="text-white text-lg"
                 role="img"
-                aria-label={isEn ? "Camera icon" : "相機圖示"}
+                aria-label={t.cameraAlt}
               >
                 📷
               </span>
@@ -187,14 +195,7 @@ export function SiteHeader({ lang = "zh", current }: SiteHeaderProps) {
               <span>{t.blog}</span>
             </Link>
 
-            <a
-              href={t.langHref}
-              className="flex items-center space-x-1.5 text-sm text-gray-600 hover:text-primary transition-colors"
-              aria-label={isEn ? "Switch to Chinese" : "Switch to English"}
-            >
-              <Languages className="w-4 h-4" aria-hidden="true" />
-              <span>{t.langLabel}</span>
-            </a>
+            <LanguageSwitcher lang={lang} />
           </nav>
 
           {/* 手機版漢堡按鈕 */}
@@ -256,14 +257,11 @@ export function SiteHeader({ lang = "zh", current }: SiteHeaderProps) {
                 <BookOpen className="w-4 h-4" aria-hidden="true" />
                 <span>{t.blog}</span>
               </Link>
-              <a
-                href={t.langHref}
-                className="flex items-center space-x-2 py-3 px-4 text-gray-700 hover:bg-gray-50 rounded-lg"
-                aria-label={isEn ? "Switch to Chinese" : "Switch to English"}
-              >
-                <Languages className="w-4 h-4" aria-hidden="true" />
-                <span>{t.langLabel}</span>
-              </a>
+              <LanguageSwitcher
+                lang={lang}
+                variant="list"
+                onNavigate={() => setMenuOpen(false)}
+              />
             </div>
           </nav>
         )}

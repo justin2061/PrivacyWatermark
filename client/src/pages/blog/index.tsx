@@ -1,9 +1,30 @@
 import { useEffect } from "react";
 import { Link } from "wouter";
 import { ReadMoreArrow } from "@/components/read-more-arrow";
-import { setPageSeo } from "@/lib/seo";
+import { setPageSeo, localeAlternates } from "@/lib/seo";
 
 const articles = [
+  {
+    slug: "hk-rent-id-copy-watermark",
+    title: "香港租屋交身份證副本前，一定要加浮水印",
+    date: "2026-07-15",
+    summary:
+      "睇樓睇到心水單位，業主或地產代理開口就要身份證副本。交出去之前先加浮水印，寫明用途、對象同日期，一份副本就只能用喺一件事上。附香港適用嘅寫法同 3 步驟教學。",
+  },
+  {
+    slug: "malaysia-bank-account-ic-watermark",
+    title: "馬來西亞開銀行戶口：IC 影本怎麼加浮水印保護",
+    date: "2026-07-15",
+    summary:
+      "開戶口、申請信用卡、辦 SIM 卡，第一句都是「請給我 IC 副本」。IC 號碼本身就藏著出生日期與州屬，一份乾淨副本足以被冒名申請。教你用馬來文或中文寫對浮水印，讓前線人員看得懂又能保護自己。",
+  },
+  {
+    slug: "overseas-chinese-passport-watermark",
+    title: "海外華人必學：護照影本浮水印保護指南",
+    date: "2026-07-15",
+    summary:
+      "在海外，護照就是你唯一的身分證明——租房、開戶、辦門號、註冊學校都要交副本，經手的陌生人比在國內多得多。浮水印該用哪種語言寫？跨境出事又特別難追。這篇一次講清楚。",
+  },
   {
     slug: "id-copy-leaked-consequences",
     title:
@@ -162,6 +183,11 @@ export default function BlogIndex() {
         "ImageMarker 部落格：分享證件保護、個資安全的實用知識與教學。",
       canonical: "https://imagemarker.app/blog",
       locale: "zh_TW",
+      alternates: localeAlternates({
+        zh: "/blog",
+        en: "/en/blog",
+        ja: "/ja/blog",
+      }),
     });
   }, []);
 

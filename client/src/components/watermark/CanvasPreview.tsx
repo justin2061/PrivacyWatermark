@@ -1,34 +1,47 @@
 import { useState, useEffect } from "react";
 import { Card } from "@/components/ui/card";
 import { Eye } from "lucide-react";
+import type { Lang } from "@/lib/tools";
 
 interface CanvasPreviewProps {
   canvasRef: React.RefObject<HTMLCanvasElement>;
   selectedFile: File | null;
   processedImage: string | null;
-  lang?: 'zh' | 'en';
+  lang?: Lang;
 }
 
 export function CanvasPreview({ canvasRef, selectedFile, processedImage, lang = 'zh' }: CanvasPreviewProps) {
   const [imageDimensions, setImageDimensions] = useState<{width: number, height: number} | null>(null);
 
-  const t = lang === 'en' ? {
-    title: 'Preview',
-    live: 'Live preview',
-    emptyMain: 'Your preview will appear here after selecting an image',
-    emptySub: 'Watermark effects update in real time',
-    format: 'Format',
-    size: 'Original size',
-    loading: 'Loading...',
-  } : {
-    title: '預覽畫面',
-    live: '即時預覽',
-    emptyMain: '選擇圖片後會在此處顯示預覽',
-    emptySub: '支援即時預覽浮水印效果',
-    format: '格式',
-    size: '原始尺寸',
-    loading: '載入中...',
-  };
+  const t = {
+    zh: {
+      title: '預覽畫面',
+      live: '即時預覽',
+      emptyMain: '選擇圖片後會在此處顯示預覽',
+      emptySub: '支援即時預覽浮水印效果',
+      format: '格式',
+      size: '原始尺寸',
+      loading: '載入中...',
+    },
+    en: {
+      title: 'Preview',
+      live: 'Live preview',
+      emptyMain: 'Your preview will appear here after selecting an image',
+      emptySub: 'Watermark effects update in real time',
+      format: 'Format',
+      size: 'Original size',
+      loading: 'Loading...',
+    },
+    ja: {
+      title: 'プレビュー',
+      live: 'リアルタイム表示',
+      emptyMain: '画像を選ぶと、ここにプレビューが表示されます',
+      emptySub: '透かしの効果はその場で反映されます',
+      format: '形式',
+      size: '元のサイズ',
+      loading: '読み込み中...',
+    },
+  }[lang];
 
   useEffect(() => {
     if (selectedFile) {

@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { Link } from "wouter";
 import { ReadMoreArrow } from "@/components/read-more-arrow";
-import { setPageSeo } from "@/lib/seo";
+import { setPageSeo, localeAlternates } from "@/lib/seo";
 
 type Category = "Security" | "Photography" | "Tutorial" | "Privacy";
 
@@ -14,6 +14,15 @@ interface Article {
 }
 
 const articles: Article[] = [
+  {
+    slug: "watermark-id-before-sending-kyc",
+    title:
+      "How to Watermark Your ID Before Sending — Free KYC Document Protection",
+    excerpt:
+      "That KYC upload takes ten seconds, but your passport scan outlives your account — passed to verification vendors, cloud storage and support agents. Here's what to write on the watermark, and the honest answer on whether automated checks will accept it.",
+    date: "2026-07-15",
+    category: "Security",
+  },
   {
     slug: "renting-protect-id-documents",
     title: "Renting an Apartment? How to Protect Your ID Documents from Fraud",
@@ -175,6 +184,11 @@ export default function BlogIndexEn() {
       description: "Guides on watermarking photos and documents, removing EXIF data, and protecting your privacy online — all from ImageMarker, the free 100% browser-based tool.",
       canonical: "https://imagemarker.app/en/blog",
       locale: "en_US",
+      alternates: localeAlternates({
+        zh: "/blog",
+        en: "/en/blog",
+        ja: "/ja/blog",
+      }),
     });
   }, []);
 

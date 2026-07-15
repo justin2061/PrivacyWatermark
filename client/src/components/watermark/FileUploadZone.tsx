@@ -1,31 +1,43 @@
 import { useRef } from "react";
 import { Card } from "@/components/ui/card";
 import { Upload, CheckCircle } from "lucide-react";
+import type { Lang } from "@/lib/tools";
 
 interface FileUploadZoneProps {
   selectedFile: File | null;
   onFileSelect: (file: File) => void;
-  lang?: 'zh' | 'en';
+  lang?: Lang;
 }
 
 export function FileUploadZone({ selectedFile, onFileSelect, lang = 'zh' }: FileUploadZoneProps) {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const t = lang === 'en' ? {
-    title: 'Upload Image',
-    dropHint: 'Drag & drop image here, or click to select',
-    formats: 'Supports JPG, PNG. Max 10MB',
-    choose: 'Choose File',
-    chooseAria: 'Choose image file',
-    zoneAria: 'Upload area, click or drag a file here',
-  } : {
-    title: '上傳圖片',
-    dropHint: '將圖片拖放到此處，或點擊選擇檔案',
-    formats: '支援 JPG、PNG 格式，最大 10MB',
-    choose: '選擇檔案',
-    chooseAria: '選擇圖片檔案',
-    zoneAria: '上傳圖片區域，點擊或拖放檔案到此處',
-  };
+  const t = {
+    zh: {
+      title: '上傳圖片',
+      dropHint: '將圖片拖放到此處，或點擊選擇檔案',
+      formats: '支援 JPG、PNG 格式，最大 10MB',
+      choose: '選擇檔案',
+      chooseAria: '選擇圖片檔案',
+      zoneAria: '上傳圖片區域，點擊或拖放檔案到此處',
+    },
+    en: {
+      title: 'Upload Image',
+      dropHint: 'Drag & drop image here, or click to select',
+      formats: 'Supports JPG, PNG. Max 10MB',
+      choose: 'Choose File',
+      chooseAria: 'Choose image file',
+      zoneAria: 'Upload area, click or drag a file here',
+    },
+    ja: {
+      title: '画像を選ぶ',
+      dropHint: 'ここに画像をドラッグ＆ドロップ、またはクリックして選択',
+      formats: 'JPG・PNG に対応、最大 10MB',
+      choose: 'ファイルを選択',
+      chooseAria: '画像ファイルを選択',
+      zoneAria: '画像アップロード領域。クリックするか、ファイルをドラッグしてください',
+    },
+  }[lang];
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];

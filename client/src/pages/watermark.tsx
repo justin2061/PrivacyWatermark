@@ -14,7 +14,7 @@ import { BotBlockNotice } from "@/components/ProtectionNotice";
 import { detectProtection } from "@/lib/protection";
 import { useWatermark } from "@/hooks/useWatermark";
 import { trackToolUseStart } from "@/lib/analytics";
-import { setPageSeo, webAppSchema, faqSchema } from "@/lib/seo";
+import { setPageSeo, webAppSchema, faqSchema, localeAlternates } from "@/lib/seo";
 import { Lock, Zap, Eraser, Loader2 } from "lucide-react";
 
 export default function WatermarkPage() {
@@ -41,6 +41,8 @@ export default function WatermarkPage() {
       description:
         "免費線上浮水印產生器，專為身分證、護照、駕照等證件與機密文件設計。100% 本地端瀏覽器處理，不上傳任何檔案。支援自訂浮水印文字、透明度調整，適用租屋、求職等場景。",
       canonical: "https://imagemarker.app/",
+      locale: "zh_TW",
+      alternates: localeAlternates({ zh: "/", en: "/en/", ja: "/ja/" }),
       jsonLd: [
         webAppSchema({
           name: "證件浮水印工具 — ImageMarker",

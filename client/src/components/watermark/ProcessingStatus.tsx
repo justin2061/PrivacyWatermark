@@ -1,28 +1,39 @@
 import { Card } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { CheckCircle, Clock, Download } from "lucide-react";
+import type { Lang } from "@/lib/tools";
 
 interface ProcessingStatusProps {
   selectedFile: File | null;
   processedImage: string | null;
   progress: number;
-  lang?: 'zh' | 'en';
+  lang?: Lang;
 }
 
 export function ProcessingStatus({ selectedFile, processedImage, progress, lang = 'zh' }: ProcessingStatusProps) {
-  const t = lang === 'en' ? {
-    title: 'Processing Status',
-    loaded: 'Image loaded',
-    processed: 'Watermark applied',
-    ready: 'Ready to download',
-    progressAria: 'Watermark processing progress',
-  } : {
-    title: '處理狀態',
-    loaded: '圖片載入',
-    processed: '浮水印處理',
-    ready: '準備下載',
-    progressAria: '浮水印處理進度',
-  };
+  const t = {
+    zh: {
+      title: '處理狀態',
+      loaded: '圖片載入',
+      processed: '浮水印處理',
+      ready: '準備下載',
+      progressAria: '浮水印處理進度',
+    },
+    en: {
+      title: 'Processing Status',
+      loaded: 'Image loaded',
+      processed: 'Watermark applied',
+      ready: 'Ready to download',
+      progressAria: 'Watermark processing progress',
+    },
+    ja: {
+      title: '処理状況',
+      loaded: '画像の読み込み',
+      processed: '透かしの適用',
+      ready: 'ダウンロードの準備',
+      progressAria: '透かし処理の進捗',
+    },
+  }[lang];
 
   const getStatusIcon = (completed: boolean, inProgress: boolean) => {
     if (completed) return <CheckCircle className="text-green-600 w-5 h-5" />;

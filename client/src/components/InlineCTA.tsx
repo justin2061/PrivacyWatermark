@@ -28,89 +28,137 @@ const PRESETS: Record<CtaTool, CtaPreset> = {
     title: {
       zh: "立即為你的證件加上浮水印",
       en: "Add a watermark to your ID now",
+      ja: "身分証に今すぐ透かしを入れる",
     },
     desc: {
       zh: "免費、免安裝，100% 在你的瀏覽器完成，圖片不會上傳。",
       en: "Free, no install — runs 100% in your browser, nothing is uploaded.",
+      ja: "無料・インストール不要。ブラウザ内で完結し、画像はアップロードされません。",
     },
-    button: { zh: "免費使用浮水印工具", en: "Use the free watermark tool" },
+    button: {
+      zh: "免費使用浮水印工具",
+      en: "Use the free watermark tool",
+      ja: "無料の透かしツールを使う",
+    },
   },
   batch: {
     title: {
       zh: "要一次處理多張圖片？用批次浮水印",
       en: "Many images at once? Use batch watermark",
+      ja: "画像が何枚もある？一括透かしが便利です",
     },
     desc: {
       zh: "一次上傳、統一套用、打包下載，同樣 100% 本機處理。",
       en: "Upload once, apply to all, download as a zip — all on-device.",
+      ja: "まとめて選んで一括適用、zip でダウンロード。すべて端末内で処理します。",
     },
-    button: { zh: "免費使用批次浮水印", en: "Use batch watermark free" },
+    button: {
+      zh: "免費使用批次浮水印",
+      en: "Use batch watermark free",
+      ja: "一括透かしを無料で使う",
+    },
   },
   "pdf-watermark": {
     title: {
       zh: "要在 PDF 上加浮水印？",
       en: "Need to watermark a PDF?",
+      ja: "PDF に透かしを入れたいときは",
     },
     desc: {
       zh: "直接為 PDF 文件蓋上浮水印，不必先轉圖片，100% 本機處理。",
       en: "Stamp watermarks straight onto PDF files — no conversion, on-device.",
+      ja: "画像に変換せず PDF のまま透かしを追加。すべて端末内で処理します。",
     },
-    button: { zh: "免費使用 PDF 浮水印", en: "Use PDF watermark free" },
+    button: {
+      zh: "免費使用 PDF 浮水印",
+      en: "Use PDF watermark free",
+      ja: "PDF 透かしを無料で使う",
+    },
   },
   mosaic: {
     title: {
       zh: "想遮住證件上的敏感資訊？用馬賽克遮蔽",
       en: "Hide sensitive details with mosaic & blur",
+      ja: "見せたくない項目はモザイクで隠す",
     },
     desc: {
       zh: "把身分證字號、地址等欄位用馬賽克或色塊蓋掉，100% 本機處理。",
       en: "Cover ID numbers, addresses and more with mosaic or blur — on-device.",
+      ja: "番号や住所などをモザイク・塗りつぶしで隠せます。すべて端末内で処理します。",
     },
-    button: { zh: "免費使用馬賽克工具", en: "Use the mosaic tool free" },
+    button: {
+      zh: "免費使用馬賽克工具",
+      en: "Use the mosaic tool free",
+      ja: "モザイクツールを無料で使う",
+    },
   },
   "exif-clean": {
     title: {
       zh: "照片暗藏 GPS 位置？先清除 EXIF 再傳出去",
       en: "Photos hide GPS data — strip EXIF before sharing",
+      ja: "写真に GPS 情報が残っています。送る前に EXIF を削除",
     },
     desc: {
       zh: "一鍵移除 GPS 定位、拍攝時間與相機型號，100% 本機處理。",
       en: "Remove GPS, timestamps and camera info in one click, on-device.",
+      ja: "位置情報・撮影日時・カメラ情報をワンクリックで削除。端末内で処理します。",
     },
-    button: { zh: "免費使用 EXIF 清除器", en: "Use the EXIF cleaner free" },
+    button: {
+      zh: "免費使用 EXIF 清除器",
+      en: "Use the EXIF cleaner free",
+      ja: "EXIF 削除を無料で使う",
+    },
   },
   compress: {
     title: {
       zh: "圖片太大無法上傳？先壓縮一下",
       en: "Image too large to upload? Compress it",
+      ja: "ファイルが大きすぎて送れない？まず圧縮を",
     },
     desc: {
       zh: "縮小檔案大小又保留畫質，100% 在瀏覽器完成，不會上傳。",
       en: "Shrink file size while keeping quality — 100% in-browser.",
+      ja: "画質を保ったままサイズを縮小。ブラウザ内で完結します。",
     },
-    button: { zh: "免費使用圖片壓縮", en: "Use image compression free" },
+    button: {
+      zh: "免費使用圖片壓縮",
+      en: "Use image compression free",
+      ja: "画像圧縮を無料で使う",
+    },
   },
   convert: {
     title: {
       zh: "要轉換圖片格式？",
       en: "Need to convert an image format?",
+      ja: "画像の形式を変換したいときは",
     },
     desc: {
       zh: "JPG、PNG、WebP 一鍵互轉，100% 本機處理，不會上傳。",
       en: "Convert between JPG, PNG and WebP in one click, on-device.",
+      ja: "JPG・PNG・WebP をワンクリックで相互変換。端末内で処理します。",
     },
-    button: { zh: "免費使用格式轉換", en: "Use format converter free" },
+    button: {
+      zh: "免費使用格式轉換",
+      en: "Use format converter free",
+      ja: "形式変換を無料で使う",
+    },
   },
   resize: {
     title: {
       zh: "要調整圖片尺寸？",
       en: "Need to resize an image?",
+      ja: "画像のサイズを変えたいときは",
     },
     desc: {
       zh: "快速調整圖片寬高，100% 在瀏覽器完成，不會上傳。",
       en: "Resize width and height quickly — 100% in-browser.",
+      ja: "幅と高さをすばやく調整。ブラウザ内で完結します。",
     },
-    button: { zh: "免費使用圖片縮放", en: "Use the resize tool free" },
+    button: {
+      zh: "免費使用圖片縮放",
+      en: "Use the resize tool free",
+      ja: "サイズ変更を無料で使う",
+    },
   },
 };
 

@@ -1,11 +1,12 @@
 import { useEffect } from "react";
 import { Coffee } from "lucide-react";
 import { trackKofiImpression, trackKofiClick } from "@/lib/analytics";
+import type { Lang } from "@/lib/tools";
 
 const KOFI_URL = "https://ko-fi.com/justinlee2061";
 
 interface KofiSupportProps {
-  lang?: "zh" | "en";
+  lang?: Lang;
   /**
    * inline: 低調文字連結，放在操作卡片/footer（預設）
    * success: 完成下載後的高意圖 CTA 卡片
@@ -27,22 +28,28 @@ export function KofiSupport({
   location = variant === "success" ? "download_success" : "inline",
   className = "",
 }: KofiSupportProps) {
-  const t =
-    lang === "en"
-      ? {
-          inline: "Buy me a coffee",
-          successTitle: "Did ImageMarker save you some time?",
-          successBody:
-            "Chip in US$3 to help us keep these image tools free and privacy-first.",
-          successCta: "Support with US$3",
-        }
-      : {
-          inline: "覺得好用？請我喝杯咖啡",
-          successTitle: "ImageMarker 幫你節省了一些時間嗎？",
-          successBody:
-            "贊助 US$3，幫助我們持續提供免費、隱私優先的圖片工具。",
-          successCta: "贊助 US$3",
-        };
+  const t = {
+    zh: {
+      inline: "覺得好用？請我喝杯咖啡",
+      successTitle: "ImageMarker 幫你節省了一些時間嗎？",
+      successBody: "贊助 US$3，幫助我們持續提供免費、隱私優先的圖片工具。",
+      successCta: "贊助 US$3",
+    },
+    en: {
+      inline: "Buy me a coffee",
+      successTitle: "Did ImageMarker save you some time?",
+      successBody:
+        "Chip in US$3 to help us keep these image tools free and privacy-first.",
+      successCta: "Support with US$3",
+    },
+    ja: {
+      inline: "役に立ったら、コーヒーを一杯",
+      successTitle: "ImageMarker は時間の節約になりましたか？",
+      successBody:
+        "US$3 のご支援で、無料でプライバシー重視の画像ツールを続けられます。",
+      successCta: "US$3 で支援する",
+    },
+  }[lang];
 
   // success variant 一出現就算一次曝光
   useEffect(() => {

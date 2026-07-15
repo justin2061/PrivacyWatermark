@@ -22,11 +22,12 @@ interface ToolsShowcaseProps {
 
 export function ToolsShowcase({ lang = "zh", current, className = "" }: ToolsShowcaseProps) {
   const [tab, setTab] = useState<Tab>("all");
-  const isEn = lang === "en";
 
-  const t = isEn
-    ? { heading: "All Tools", subtitle: "10+ privacy-first image tools — all run 100% in your browser", all: "All", current: "In use" }
-    : { heading: "所有工具", subtitle: "10+ 款隱私優先的圖片工具，全部 100% 在你的瀏覽器執行", all: "全部", current: "使用中" };
+  const t = {
+    zh: { heading: "所有工具", subtitle: "10+ 款隱私優先的圖片工具，全部 100% 在你的瀏覽器執行", all: "全部", current: "使用中" },
+    en: { heading: "All Tools", subtitle: "10+ privacy-first image tools — all run 100% in your browser", all: "All", current: "In use" },
+    ja: { heading: "すべてのツール", subtitle: "プライバシー重視の画像ツール 10 種類以上。すべてブラウザ内で動作します", all: "すべて", current: "使用中" },
+  }[lang];
 
   const tabs: { id: Tab; label: string; icon?: LucideIcon }[] = [
     { id: "all", label: t.all },
