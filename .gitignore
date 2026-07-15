@@ -1,5 +1,8 @@
 node_modules
 dist
+# Puppeteer 下載的 Chromium（約 350MB）。netlify.toml 把 PUPPETEER_CACHE_DIR
+# 指到 /opt/build/repo/.cache/puppeteer，本機重現 build 時也會長在這裡。
+.cache/
 .DS_Store
 server/public
 vite.config.ts.*

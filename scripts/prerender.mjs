@@ -110,22 +110,40 @@ async function main() {
     ""
   );
 
+  // --disable-dev-shm-usage is load-bearing on CI, not boilerplate: Netlify's
+  // build container gives /dev/shm only ~64MB, and Chrome puts renderer shared
+  // memory there. Partway through the crawl a renderer outgrows it, the whole
+  // browser process dies, and the next newPage() fails with
+  //   ProtocolError (Target.createTarget): Session with given id not found
+  // — which is exactly how deploy 4d70072 died, at route 15 of 82. The flag
+  // moves that shared memory to /tmp (disk-backed), which has real space.
+  const launch = () =>
+    puppeteer.launch({
+      headless: "new",
+      args: [
+        "--no-sandbox",
+        "--disable-setuid-sandbox",
+        "--disable-dev-shm-usage",
+      ],
+    });
+
   let browser;
   try {
-    browser = await puppeteer.launch({
-      headless: "new",
-      args: ["--no-sandbox", "--disable-setuid-sandbox"],
-    });
+    browser = await launch();
   } catch (e) {
     await server.close();
     bail(`could not launch Chromium: ${e.message}`);
   }
 
-  // Phase 1 — crawl into memory. Never write to dist here.
-  const rendered = []; // { route, html }
-  for (const route of routes) {
-    const page = await browser.newPage();
+  /**
+   * Render one route on the current browser. Throws on any failure so the
+   * caller can decide whether to retry; returns null when the route rendered
+   * the wrong content (a real problem, not a transient one — don't retry it).
+   */
+  async function renderRoute(route) {
+    let page;
     try {
+      page = await browser.newPage();
       // Mark this as a prerender run BEFORE any app script executes, so the
       // client-side protection module (client/src/lib/protection.ts) treats it
       // as a clean baseline and renders full content. Without this, the headless
@@ -160,18 +178,52 @@ async function main() {
         console.warn(
           `[prerender] ✗ ${route}: captured homepage title, skipping to avoid wrong content`
         );
-      } else {
-        rendered.push({ route, html });
-        console.log(`[prerender] ✓ ${route} — ${title.slice(0, 40)}`);
+        return null;
       }
-    } catch (e) {
-      console.warn(`[prerender] ✗ ${route}: ${e.message}`);
+      return { html, title };
     } finally {
-      await page.close();
+      // page.close() on a crashed browser throws and would mask the real error.
+      try {
+        if (page && !page.isClosed()) await page.close();
+      } catch {
+        /* browser already gone; the caller relaunches before retrying */
+      }
     }
   }
 
-  await browser.close();
+  const rendered = []; // { route, html }
+  for (const route of routes) {
+    // Two attempts per route. A crashed Chrome takes out whichever route was
+    // unlucky enough to be in flight; that route is not itself broken, so give
+    // it a fresh browser and one more go. Without this, a single transient
+    // crash still leaves the crawl short — and production hard-fails on short.
+    for (let attempt = 1; attempt <= 2; attempt++) {
+      if (!browser.connected) {
+        console.warn("[prerender] browser died; relaunching…");
+        try {
+          browser = await launch();
+        } catch (e) {
+          await server.close();
+          bail(`could not relaunch Chromium mid-crawl: ${e.message}`);
+        }
+      }
+      try {
+        const result = await renderRoute(route);
+        if (result) {
+          rendered.push({ route, html: result.html });
+          console.log(`[prerender] ✓ ${route} — ${result.title.slice(0, 40)}`);
+        }
+        break; // rendered, or wrong-content (retrying won't help)
+      } catch (e) {
+        const last = attempt === 2;
+        console.warn(
+          `[prerender] ${last ? "✗" : "…retry"} ${route}: ${e.message}`
+        );
+      }
+    }
+  }
+
+  if (browser.connected) await browser.close();
   await server.close();
 
   // Phase 2 — write all captured pages now that the server is down.
