@@ -63,26 +63,44 @@ function outPathFor(route) {
 // swap in their own <title> (i.e. React/route didn't render properly).
 const DEFAULT_TITLE_HINT = "證件浮水印製作工具";
 
+// On a Netlify production build the prerender is NOT optional: without it every
+// route serves the identical SPA shell, so Google sees ~73 URLs that are all
+// byte-for-byte duplicates of the homepage (same <title>, canonical → "/") and
+// the whole site drops out of the index. That is far worse than a failed deploy,
+// which merely keeps the previous good one live. So bail LOUDLY here and let the
+// build go red, instead of silently shipping an unindexable site.
+// Locally / in dev the old safe no-op still applies.
+const PRERENDER_REQUIRED =
+  process.env.NETLIFY === "true" && process.env.CONTEXT === "production";
+
+function bail(message) {
+  if (PRERENDER_REQUIRED) {
+    console.error(`[prerender] FATAL: ${message}`);
+    console.error(
+      "[prerender] Refusing to deploy an unprerendered SPA from production — " +
+        "every route would serve the homepage shell and de-index the site."
+    );
+    process.exit(1);
+  }
+  console.warn(`[prerender] ${message} — skipping (site deploys as SPA).`);
+  process.exit(0);
+}
+
 async function main() {
   if (!existsSync(distDir)) {
-    console.warn("[prerender] dist/ not found; run `vite build` first. Skipping.");
-    process.exit(0);
+    bail("dist/ not found; run `vite build` first");
   }
 
   let puppeteer;
   try {
     puppeteer = (await import("puppeteer")).default;
   } catch {
-    console.warn(
-      "[prerender] puppeteer not installed; skipping prerender (site deploys as SPA)."
-    );
-    process.exit(0);
+    bail("puppeteer not installed");
   }
 
   const routes = getRoutes();
   if (routes.length === 0) {
-    console.warn("[prerender] no routes found; skipping.");
-    process.exit(0);
+    bail("no routes found in dist/sitemap.xml");
   }
   console.log(`[prerender] prerendering ${routes.length} routes…`);
 
@@ -99,11 +117,8 @@ async function main() {
       args: ["--no-sandbox", "--disable-setuid-sandbox"],
     });
   } catch (e) {
-    console.warn(
-      `[prerender] could not launch Chromium; skipping prerender (site deploys as SPA). ${e.message}`
-    );
     await server.close();
-    process.exit(0);
+    bail(`could not launch Chromium: ${e.message}`);
   }
 
   // Phase 1 — crawl into memory. Never write to dist here.
@@ -175,10 +190,22 @@ async function main() {
   console.log(
     `[prerender] done — ${written}/${routes.length} routes written.`
   );
+
+  // A partial crawl still de-indexes whatever it missed, so hold production to
+  // a full render. The threshold is every route: a route that silently stops
+  // rendering is exactly the regression this guard exists to catch.
+  if (PRERENDER_REQUIRED && written < routes.length) {
+    console.error(
+      `[prerender] FATAL: only ${written}/${routes.length} routes rendered; ` +
+        "the rest would serve the homepage shell."
+    );
+    process.exit(1);
+  }
 }
 
 main().catch((e) => {
-  // Never fail the build because of prerendering.
-  console.error("[prerender] non-fatal error:", e);
-  process.exit(0);
+  console.error("[prerender] error:", e);
+  // In production an unprerendered deploy is worse than no deploy — see
+  // PRERENDER_REQUIRED above.
+  process.exit(PRERENDER_REQUIRED ? 1 : 0);
 });

@@ -265,12 +265,13 @@
     <xhtml:link rel="alternate" hreflang="zh-tw" href="https://imagemarker.app/pdf-watermark" />
   </url>
   <url>
-    <loc>https://imagemarker.app/blog/</loc>
-    <lastmod>2026-04-07</lastmod>
+    <loc>https://imagemarker.app/blog</loc>
+    <lastmod>2026-07-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="zh-tw" href="https://imagemarker.app/blog/" />
-    <xhtml:link rel="alternate" hreflang="zh" href="https://imagemarker.app/blog/" />
+    <xhtml:link rel="alternate" hreflang="zh-tw" href="https://imagemarker.app/blog" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://imagemarker.app/blog" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://imagemarker.app/en/blog" />
   </url>
   <url>
     <loc>https://imagemarker.app/blog/rent-id-watermark</loc>

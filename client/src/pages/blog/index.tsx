@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { Link } from "wouter";
 import { ReadMoreArrow } from "@/components/read-more-arrow";
+import { setPageSeo } from "@/lib/seo";
 
 const articles = [
   {
@@ -155,14 +156,13 @@ const articles = [
 
 export default function BlogIndex() {
   useEffect(() => {
-    document.title = "部落格 | ImageMarker 證件浮水印工具";
-    const metaDesc = document.querySelector('meta[name="description"]');
-    if (metaDesc) {
-      metaDesc.setAttribute(
-        "content",
-        "ImageMarker 部落格：分享證件保護、個資安全的實用知識與教學。"
-      );
-    }
+    return setPageSeo({
+      title: "部落格 | ImageMarker 證件浮水印工具",
+      description:
+        "ImageMarker 部落格：分享證件保護、個資安全的實用知識與教學。",
+      canonical: "https://imagemarker.app/blog",
+      locale: "zh_TW",
+    });
   }, []);
 
   return (
