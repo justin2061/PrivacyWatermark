@@ -9,7 +9,7 @@ import { ToolRecommendations } from "@/components/ToolRecommendations";
 import { UploadZone } from "@/components/UploadZone";
 import { ActionButton, ActionButtons } from "@/components/ActionButtons";
 import { setPageSeo, webAppSchema } from "@/lib/seo";
-import { trackToolUseStart } from "@/lib/analytics";
+import { trackToolUseStart, trackToolEvent } from "@/lib/analytics";
 import {
   CheckCircle,
   Download,
@@ -181,6 +181,7 @@ export default function RemoveBgPage() {
       setCutoutBlob(blob);
       setStage("done");
       setPercent(100);
+      trackToolEvent("remove_bg_complete", "remove-bg");
     } catch (e) {
       console.error(e);
       setError(
@@ -199,6 +200,7 @@ export default function RemoveBgPage() {
       return;
     }
     trackToolUseStart("remove-bg");
+    trackToolEvent("remove_bg_start", "remove-bg");
     setResult((prev) => {
       if (prev) URL.revokeObjectURL(prev.url);
       return null;

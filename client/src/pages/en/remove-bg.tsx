@@ -8,7 +8,7 @@ import { DownloadSuccess } from "@/components/DownloadSuccess";
 import { ToolRecommendations } from "@/components/ToolRecommendations";
 import { UploadZone } from "@/components/UploadZone";
 import { ActionButton, ActionButtons } from "@/components/ActionButtons";
-import { trackToolUseStart } from "@/lib/analytics";
+import { trackToolUseStart, trackToolEvent } from "@/lib/analytics";
 import { setPageSeo, webAppSchema } from "@/lib/seo";
 import {
   CheckCircle,
@@ -181,6 +181,7 @@ export default function RemoveBgEnPage() {
       setCutoutBlob(blob);
       setStage("done");
       setPercent(100);
+      trackToolEvent("remove_bg_complete", "remove-bg");
     } catch (e) {
       console.error(e);
       setError(
@@ -195,6 +196,7 @@ export default function RemoveBgEnPage() {
   const onPickFile = (file?: File | null) => {
     if (!file) return;
     trackToolUseStart("remove-bg");
+    trackToolEvent("remove_bg_start", "remove-bg");
     if (!ACCEPTED.split(",").includes(file.type)) {
       alert("Only JPG, PNG and WebP formats are supported");
       return;

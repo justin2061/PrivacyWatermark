@@ -10,7 +10,7 @@ import { ToolsShowcase } from "@/components/ToolsShowcase";
 import { UploadZone } from "@/components/UploadZone";
 import { ActionButtons } from "@/components/ActionButtons";
 import { setPageSeo, webAppSchema } from "@/lib/seo";
-import { trackToolUseStart } from "@/lib/analytics";
+import { trackToolUseStart, trackToolEvent } from "@/lib/analytics";
 import { PAIRS } from "@/lib/convertPairs";
 import {
   CheckCircle,
@@ -156,6 +156,7 @@ export default function ConvertPage() {
       return;
     }
     trackToolUseStart("convert");
+    trackToolEvent("convert_start", "convert");
     setResult((prev) => {
       if (prev) URL.revokeObjectURL(prev.url);
       return null;
@@ -173,6 +174,7 @@ export default function ConvertPage() {
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
+    trackToolEvent("convert_complete", "convert");
   };
 
   const reset = () => {

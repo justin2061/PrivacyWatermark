@@ -8,7 +8,7 @@ import { DownloadSuccess } from "@/components/DownloadSuccess";
 import { ToolRecommendations } from "@/components/ToolRecommendations";
 import { UploadZone } from "@/components/UploadZone";
 import { ActionButtons } from "@/components/ActionButtons";
-import { trackToolUseStart } from "@/lib/analytics";
+import { trackToolUseStart, trackToolEvent } from "@/lib/analytics";
 import { setPageSeo, webAppSchema } from "@/lib/seo";
 import {
   CheckCircle,
@@ -153,6 +153,7 @@ export default function CompressEnPage() {
   const onPickFile = (file?: File | null) => {
     if (!file) return;
     trackToolUseStart("compress");
+    trackToolEvent("compress_start", "compress");
     if (!ACCEPTED.split(",").includes(file.type)) {
       alert("Only JPG, PNG and WebP are supported");
       return;
@@ -174,6 +175,7 @@ export default function CompressEnPage() {
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
+    trackToolEvent("compress_complete", "compress");
   };
 
   const reset = () => {

@@ -9,7 +9,7 @@ import { ToolRecommendations } from "@/components/ToolRecommendations";
 import { UploadZone } from "@/components/UploadZone";
 import { ActionButtons } from "@/components/ActionButtons";
 import { setPageSeo, webAppSchema, faqSchema } from "@/lib/seo";
-import { trackToolUseStart } from "@/lib/analytics";
+import { trackToolUseStart, trackToolEvent } from "@/lib/analytics";
 import {
   applyPdfWatermark,
   renderTextToPng,
@@ -288,6 +288,7 @@ export default function PdfWatermarkPage() {
       return;
     }
     trackToolUseStart("pdf-watermark");
+    trackToolEvent("pdf_watermark_start", "pdf-watermark");
     setResult((prev) => {
       if (prev) URL.revokeObjectURL(prev.url);
       return null;
@@ -333,6 +334,7 @@ export default function PdfWatermarkPage() {
         return { url: URL.createObjectURL(blob), size: blob.size, pageCount };
       });
       if (typeof gtag !== "undefined") gtag("event", "apply_pdf_watermark");
+      trackToolEvent("pdf_watermark_complete", "pdf-watermark");
     } catch (e) {
       console.error(e);
       setError(

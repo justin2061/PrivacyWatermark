@@ -8,7 +8,7 @@ import { DownloadSuccess } from "@/components/DownloadSuccess";
 import { ToolRecommendations } from "@/components/ToolRecommendations";
 import { UploadZone } from "@/components/UploadZone";
 import { ActionButtons } from "@/components/ActionButtons";
-import { trackToolUseStart } from "@/lib/analytics";
+import { trackToolUseStart, trackToolEvent } from "@/lib/analytics";
 import { setPageSeo, webAppSchema, faqSchema } from "@/lib/seo";
 import {
   applyPdfWatermark,
@@ -271,6 +271,7 @@ export default function PdfWatermarkEnPage() {
   const onPickPdf = (file?: File | null) => {
     if (!file) return;
     trackToolUseStart("pdf-watermark");
+    trackToolEvent("pdf_watermark_start", "pdf-watermark");
     if (file.type !== "application/pdf" && !file.name.toLowerCase().endsWith(".pdf")) {
       alert("Please select a PDF file");
       return;
@@ -319,6 +320,7 @@ export default function PdfWatermarkEnPage() {
         return { url: URL.createObjectURL(blob), size: blob.size, pageCount };
       });
       if (typeof gtag !== "undefined") gtag("event", "apply_pdf_watermark");
+      trackToolEvent("pdf_watermark_complete", "pdf-watermark");
     } catch (e) {
       console.error(e);
       setError(

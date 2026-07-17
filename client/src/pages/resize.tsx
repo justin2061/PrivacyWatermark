@@ -9,7 +9,7 @@ import { ToolRecommendations } from "@/components/ToolRecommendations";
 import { UploadZone } from "@/components/UploadZone";
 import { ActionButtons } from "@/components/ActionButtons";
 import { setPageSeo, webAppSchema } from "@/lib/seo";
-import { trackToolUseStart } from "@/lib/analytics";
+import { trackToolUseStart, trackToolEvent } from "@/lib/analytics";
 import {
   CheckCircle,
   Download,
@@ -193,6 +193,7 @@ export default function ResizePage() {
       return;
     }
     trackToolUseStart("resize");
+    trackToolEvent("resize_start", "resize");
     setResult((prev) => {
       if (prev) URL.revokeObjectURL(prev.url);
       return null;
@@ -245,6 +246,7 @@ export default function ResizePage() {
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
+    trackToolEvent("resize_complete", "resize");
   };
 
   const reset = () => {

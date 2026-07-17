@@ -8,7 +8,7 @@ import { DownloadSuccess } from "@/components/DownloadSuccess";
 import { ToolRecommendations } from "@/components/ToolRecommendations";
 import { UploadZone } from "@/components/UploadZone";
 import { ActionButton } from "@/components/ActionButtons";
-import { trackToolUseStart } from "@/lib/analytics";
+import { trackToolUseStart, trackToolEvent } from "@/lib/analytics";
 import { setPageSeo, webAppSchema } from "@/lib/seo";
 import { useMosaic, type MaskType } from "@/hooks/useMosaic";
 import {
@@ -63,7 +63,10 @@ export default function MosaicEnPage() {
   const hasResult = m.regions.length > 0;
 
   const onPickFile = (file?: File | null) => {
-    if (file) trackToolUseStart("mosaic");
+    if (file) {
+      trackToolUseStart("mosaic");
+      trackToolEvent("mosaic_start", "mosaic");
+    }
     m.onPickFile(file);
   };
 
@@ -284,7 +287,10 @@ export default function MosaicEnPage() {
                 <div className="space-y-3">
                   <ActionButton
                     variant="success"
-                    onClick={m.download}
+                    onClick={() => {
+                      m.download();
+                      trackToolEvent("mosaic_complete", "mosaic");
+                    }}
                     disabled={!hasResult}
                     icon={<Download className="w-4 h-4 mr-2" aria-hidden="true" />}
                   >

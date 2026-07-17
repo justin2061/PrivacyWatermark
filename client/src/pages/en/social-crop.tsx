@@ -8,7 +8,7 @@ import { DownloadSuccess } from "@/components/DownloadSuccess";
 import { ToolRecommendations } from "@/components/ToolRecommendations";
 import { UploadZone } from "@/components/UploadZone";
 import { ActionButtons } from "@/components/ActionButtons";
-import { trackToolUseStart } from "@/lib/analytics";
+import { trackToolUseStart, trackToolEvent } from "@/lib/analytics";
 import { setPageSeo, webAppSchema } from "@/lib/seo";
 import {
   CheckCircle,
@@ -243,6 +243,7 @@ export default function SocialCropEnPage() {
   const onPickFile = (file?: File | null) => {
     if (!file) return;
     trackToolUseStart("social-crop");
+    trackToolEvent("social_crop_start", "social-crop");
     if (!file.type.startsWith("image/")) {
       alert("Please choose an image file (JPG, PNG, WebP, BMP, GIF)");
       return;
@@ -310,6 +311,7 @@ export default function SocialCropEnPage() {
     document.body.removeChild(a);
     setTimeout(() => URL.revokeObjectURL(url), 1000);
     setDownloaded(true);
+    trackToolEvent("social_crop_complete", "social-crop");
   };
 
   const reset = () => {

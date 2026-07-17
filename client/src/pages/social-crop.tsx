@@ -9,7 +9,7 @@ import { ToolRecommendations } from "@/components/ToolRecommendations";
 import { UploadZone } from "@/components/UploadZone";
 import { ActionButtons } from "@/components/ActionButtons";
 import { setPageSeo, webAppSchema } from "@/lib/seo";
-import { trackToolUseStart } from "@/lib/analytics";
+import { trackToolUseStart, trackToolEvent } from "@/lib/analytics";
 import {
   CheckCircle,
   Crop,
@@ -251,6 +251,7 @@ export default function SocialCropPage() {
       return;
     }
     trackToolUseStart("social-crop");
+    trackToolEvent("social_crop_start", "social-crop");
     const url = URL.createObjectURL(file);
     const img = new Image();
     img.onload = () => {
@@ -314,6 +315,7 @@ export default function SocialCropPage() {
     document.body.removeChild(a);
     setTimeout(() => URL.revokeObjectURL(url), 1000);
     setDownloaded(true);
+    trackToolEvent("social_crop_complete", "social-crop");
   };
 
   const reset = () => {

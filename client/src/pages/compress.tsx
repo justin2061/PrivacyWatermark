@@ -9,7 +9,7 @@ import { ToolRecommendations } from "@/components/ToolRecommendations";
 import { UploadZone } from "@/components/UploadZone";
 import { ActionButtons } from "@/components/ActionButtons";
 import { setPageSeo, webAppSchema } from "@/lib/seo";
-import { trackToolUseStart } from "@/lib/analytics";
+import { trackToolUseStart, trackToolEvent } from "@/lib/analytics";
 import {
   CheckCircle,
   Download,
@@ -158,6 +158,7 @@ export default function CompressPage() {
       return;
     }
     trackToolUseStart("compress");
+    trackToolEvent("compress_start", "compress");
     setResult((prev) => {
       if (prev) URL.revokeObjectURL(prev.url);
       return null;
@@ -175,6 +176,7 @@ export default function CompressPage() {
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
+    trackToolEvent("compress_complete", "compress");
   };
 
   const reset = () => {

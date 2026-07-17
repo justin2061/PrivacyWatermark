@@ -10,7 +10,7 @@ import { UploadZone } from "@/components/UploadZone";
 import { ActionButtons } from "@/components/ActionButtons";
 import { useExifCleaner } from "@/hooks/useExifCleaner";
 import { setPageSeo, webAppSchema } from "@/lib/seo";
-import { trackToolUseStart } from "@/lib/analytics";
+import { trackToolUseStart, trackToolEvent } from "@/lib/analytics";
 import {
   AlertTriangle,
   CheckCircle,
@@ -47,6 +47,11 @@ export default function ExifCleanPage() {
     reset,
   } = useExifCleaner();
 
+  // 清除完成（產生乾淨檔案）時送出 complete 事件
+  useEffect(() => {
+    if (cleaned) trackToolEvent("exif_clean_complete", "exif-clean");
+  }, [cleaned]);
+
   useEffect(() => {
     return setPageSeo({
       title: "EXIF 清除器 — 移除照片 GPS 與隱私資訊，100% 本機處理",
@@ -76,6 +81,7 @@ export default function ExifCleanPage() {
       return;
     }
     trackToolUseStart("exif-clean");
+    trackToolEvent("exif_clean_start", "exif-clean");
     handleFileSelect(file);
   };
 

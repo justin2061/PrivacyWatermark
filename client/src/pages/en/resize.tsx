@@ -8,7 +8,7 @@ import { DownloadSuccess } from "@/components/DownloadSuccess";
 import { ToolRecommendations } from "@/components/ToolRecommendations";
 import { UploadZone } from "@/components/UploadZone";
 import { ActionButtons } from "@/components/ActionButtons";
-import { trackToolUseStart } from "@/lib/analytics";
+import { trackToolUseStart, trackToolEvent } from "@/lib/analytics";
 import { setPageSeo, webAppSchema } from "@/lib/seo";
 import {
   CheckCircle,
@@ -189,6 +189,7 @@ export default function ResizeEnPage() {
   const onPickFile = (file?: File | null) => {
     if (!file) return;
     trackToolUseStart("resize");
+    trackToolEvent("resize_start", "resize");
     if (!file.type.startsWith("image/")) {
       alert("Please choose an image file (JPG, PNG, WebP, BMP, GIF)");
       return;
@@ -244,6 +245,7 @@ export default function ResizeEnPage() {
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
+    trackToolEvent("resize_complete", "resize");
   };
 
   const reset = () => {

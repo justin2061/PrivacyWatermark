@@ -9,7 +9,7 @@ import { ToolRecommendations } from "@/components/ToolRecommendations";
 import { UploadZone } from "@/components/UploadZone";
 import { ActionButton } from "@/components/ActionButtons";
 import { setPageSeo, webAppSchema } from "@/lib/seo";
-import { trackToolUseStart } from "@/lib/analytics";
+import { trackToolUseStart, trackToolEvent } from "@/lib/analytics";
 import { useMosaic, type MaskType } from "@/hooks/useMosaic";
 import {
   CheckCircle,
@@ -63,6 +63,7 @@ export default function MosaicPage() {
   const pickFile = (file?: File | null) => {
     if (!file) return;
     trackToolUseStart("mosaic");
+    trackToolEvent("mosaic_start", "mosaic");
     m.onPickFile(file);
   };
 
@@ -284,7 +285,10 @@ export default function MosaicPage() {
                 <div className="space-y-3">
                   <ActionButton
                     variant="success"
-                    onClick={m.download}
+                    onClick={() => {
+                      m.download();
+                      trackToolEvent("mosaic_complete", "mosaic");
+                    }}
                     disabled={!hasResult}
                     icon={<Download className="w-4 h-4 mr-2" aria-hidden="true" />}
                   >

@@ -8,7 +8,7 @@ import { DownloadSuccess } from "@/components/DownloadSuccess";
 import { ToolRecommendations } from "@/components/ToolRecommendations";
 import { UploadZone } from "@/components/UploadZone";
 import { ActionButtons } from "@/components/ActionButtons";
-import { trackToolUseStart } from "@/lib/analytics";
+import { trackToolUseStart, trackToolEvent } from "@/lib/analytics";
 import { useExifCleaner } from "@/hooks/useExifCleaner";
 import { setPageSeo, webAppSchema } from "@/lib/seo";
 import {
@@ -47,6 +47,11 @@ export default function ExifCleanEnPage() {
     reset,
   } = useExifCleaner("en");
 
+  // Fire the complete event once a cleaned file is produced
+  useEffect(() => {
+    if (cleaned) trackToolEvent("exif_clean_complete", "exif-clean");
+  }, [cleaned]);
+
   useEffect(() => {
     return setPageSeo({
       title:
@@ -75,6 +80,7 @@ export default function ExifCleanEnPage() {
   const onPickFile = (file?: File | null) => {
     if (!file) return;
     trackToolUseStart("exif-clean");
+    trackToolEvent("exif_clean_start", "exif-clean");
     if (!ACCEPTED.split(",").includes(file.type)) {
       alert("Only JPG, PNG and WebP formats are supported");
       return;
