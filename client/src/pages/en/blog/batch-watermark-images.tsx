@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { Link } from "wouter";
 import { ReadMoreArrow } from "@/components/read-more-arrow";
+import { SiteFooter } from "@/components/SiteFooter";
 import {
   setPageSeo,
   articleSchema,
@@ -228,6 +229,8 @@ export default function BatchWatermarkImages() {
           </p>
         </article>
       </main>
+
+      <SiteFooter lang="en" />
     </div>
   );
 }
