@@ -1,9 +1,12 @@
 import { useEffect, useRef } from "react";
-import { Link } from "wouter";
 import { Card } from "@/components/ui/card";
 import { SiteHeader } from "@/components/SiteHeader";
+import { SiteFooter } from "@/components/SiteFooter";
 import { PrivacyBanner } from "@/components/PrivacyBanner";
 import { DownloadSuccess } from "@/components/DownloadSuccess";
+import { ToolRecommendations } from "@/components/ToolRecommendations";
+import { UploadZone } from "@/components/UploadZone";
+import { ActionButtons } from "@/components/ActionButtons";
 import { trackToolUseStart } from "@/lib/analytics";
 import { useExifCleaner } from "@/hooks/useExifCleaner";
 import { setPageSeo, webAppSchema } from "@/lib/seo";
@@ -15,7 +18,6 @@ import {
   Lock,
   RefreshCw,
   Shield,
-  Upload,
   Zap,
 } from "lucide-react";
 

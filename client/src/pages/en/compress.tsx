@@ -1,9 +1,12 @@
 import { useEffect, useRef, useState } from "react";
-import { Link } from "wouter";
 import { Card } from "@/components/ui/card";
 import { SiteHeader } from "@/components/SiteHeader";
+import { SiteFooter } from "@/components/SiteFooter";
 import { PrivacyBanner } from "@/components/PrivacyBanner";
 import { DownloadSuccess } from "@/components/DownloadSuccess";
+import { ToolRecommendations } from "@/components/ToolRecommendations";
+import { UploadZone } from "@/components/UploadZone";
+import { ActionButtons } from "@/components/ActionButtons";
 import { trackToolUseStart } from "@/lib/analytics";
 import { setPageSeo, webAppSchema } from "@/lib/seo";
 import {
@@ -12,7 +15,6 @@ import {
   Image as ImageIcon,
   Lock,
   RefreshCw,
-  Upload,
   Zap,
 } from "lucide-react";
 

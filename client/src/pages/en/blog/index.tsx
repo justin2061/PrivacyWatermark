@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { Link } from "wouter";
 import { ReadMoreArrow } from "@/components/read-more-arrow";
+import { SiteFooter } from "@/components/SiteFooter";
 import { setPageSeo, localeAlternates } from "@/lib/seo";
 
 type Category = "Security" | "Photography" | "Tutorial" | "Privacy";
@@ -249,14 +250,7 @@ export default function BlogIndexEn() {
         </ul>
       </main>
 
-      <footer className="border-t mt-8">
-        <div className="max-w-3xl mx-auto px-4 py-8 text-sm text-muted-foreground">
-          <p>© 2026 ImageMarker — Protecting your privacy.</p>
-          <Link href="/en/" className="mt-1 inline-block hover:text-foreground transition-colors">
-            ← Back to the watermark tool
-          </Link>
-        </div>
-      </footer>
+      <SiteFooter lang="en" />
     </div>
   );
 }

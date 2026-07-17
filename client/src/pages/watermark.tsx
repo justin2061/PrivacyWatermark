@@ -3,6 +3,7 @@ import { Link } from "wouter";
 import { ReadMoreArrow } from "@/components/read-more-arrow";
 import { Card } from "@/components/ui/card";
 import { SiteHeader } from "@/components/SiteHeader";
+import { SiteFooter } from "@/components/SiteFooter";
 import { ToolsShowcase } from "@/components/ToolsShowcase";
 import { PrivacyBanner } from "@/components/PrivacyBanner";
 import { FileUploadZone } from "@/components/watermark/FileUploadZone";
@@ -367,25 +368,7 @@ export default function WatermarkPage() {
       </main>
 
       {/* Footer */}
-      <footer className="bg-white border-t border-gray-200 mt-16" role="contentinfo">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <div className="flex flex-col md:flex-row justify-between items-center">
-            <div className="mb-4 md:mb-0">
-              <p className="text-sm text-gray-600">© 2025 證件浮水印工具 - 保護您的隱私安全</p>
-            </div>
-            <div className="flex items-center space-x-4">
-              <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                <span className="mr-1" role="img" aria-label="勾選">✅</span>
-                開源軟體
-              </span>
-              <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
-                <span className="mr-1" role="img" aria-label="地球">🌐</span>
-                PWA 支援
-              </span>
-            </div>
-          </div>
-        </div>
-      </footer>
+      <SiteFooter lang="zh" />
     </div>
   );
 }

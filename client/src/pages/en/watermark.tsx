@@ -3,6 +3,7 @@ import { ReadMoreArrow } from "@/components/read-more-arrow";
 import { useEffect } from "react";
 import { Card } from "@/components/ui/card";
 import { SiteHeader } from "@/components/SiteHeader";
+import { SiteFooter } from "@/components/SiteFooter";
 import { ToolsShowcase } from "@/components/ToolsShowcase";
 import { PrivacyBanner } from "@/components/PrivacyBanner";
 import { FileUploadZone } from "@/components/watermark/FileUploadZone";
@@ -261,25 +262,7 @@ export default function WatermarkEnPage() {
       </main>
 
       {/* Footer */}
-      <footer className="bg-white border-t border-gray-200 mt-16" role="contentinfo">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <div className="flex flex-col md:flex-row justify-between items-center">
-            <div className="mb-4 md:mb-0">
-              <p className="text-sm text-gray-600">© 2026 Image Watermark Tool — Protecting your privacy</p>
-            </div>
-            <div className="flex items-center space-x-4">
-              <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                <span className="mr-1" role="img" aria-label="Check">✅</span>
-                Open Source
-              </span>
-              <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
-                <span className="mr-1" role="img" aria-label="Globe">🌐</span>
-                PWA Ready
-              </span>
-            </div>
-          </div>
-        </div>
-      </footer>
+      <SiteFooter lang="en" />
     </div>
   );
 }
