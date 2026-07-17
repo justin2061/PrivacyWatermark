@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { Link } from "wouter";
 import { Card } from "@/components/ui/card";
 import { SiteHeader } from "@/components/SiteHeader";
+import { SiteFooter } from "@/components/SiteFooter";
 import { DownloadSuccess } from "@/components/DownloadSuccess";
 import { ToolRecommendations } from "@/components/ToolRecommendations";
 import { setPageSeo, webAppSchema, faqSchema } from "@/lib/seo";
@@ -477,33 +478,7 @@ export default function ConvertPairPage({ pair, lang = "zh" }: ConvertPairPagePr
         </section>
       </main>
 
-      <footer className="bg-white border-t border-gray-200 mt-16">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <div className="flex flex-col md:flex-row justify-between items-center">
-            <p className="text-sm text-gray-600 mb-4 md:mb-0">{t.footer}</p>
-            <div className="flex items-center space-x-4">
-              <Link
-                href={en ? "/en/" : "/"}
-                className="text-sm text-primary hover:underline"
-              >
-                {t.footerWatermark}
-              </Link>
-              <Link
-                href={en ? "/en/compress" : "/compress"}
-                className="text-sm text-primary hover:underline"
-              >
-                {t.footerCompress}
-              </Link>
-              <Link
-                href={en ? "/en/resize" : "/resize"}
-                className="text-sm text-primary hover:underline"
-              >
-                {t.footerResize}
-              </Link>
-            </div>
-          </div>
-        </div>
-      </footer>
+      <SiteFooter lang={en ? "en" : "zh"} />
     </div>
   );
 }
