@@ -57,7 +57,8 @@ export function UploadZone({
       <div
         onDrop={(e) => {
           e.preventDefault();
-          onFiles(e.dataTransfer.files);
+          // 只有真的拖進檔案才回呼，空拖放（拖文字/網址）維持 no-op，與各工具原本行為一致
+          if (e.dataTransfer.files.length > 0) onFiles(e.dataTransfer.files);
         }}
         onDragOver={(e) => e.preventDefault()}
         onClick={openPicker}
