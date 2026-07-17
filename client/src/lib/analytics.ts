@@ -77,6 +77,19 @@ export function trackToolUseStart(toolName: string): void {
 }
 
 /**
+ * 各工具頁的基本行為事件（GA4）。用於 start / complete 這類每個工具自己的
+ * 命名事件（如 exif_clean_start、exif_clean_complete），事件名一律 snake_case，
+ * 並帶上 tool_name 參數。gtag 未載入時安靜略過。
+ */
+export function trackToolEvent(eventName: string, toolName: string): void {
+  if (typeof gtag !== "undefined") {
+    gtag("event", eventName, {
+      tool_name: toolName,
+    });
+  }
+}
+
+/**
  * 使用者完成下載時觸發（單張下載或批次 ZIP）。
  * 一併送出 `image_count` 事件，方便單獨分析每次處理張數的分布——
  * 這是驗證「批次上限該設多少、Pro 批次功能有無需求」的關鍵訊號。

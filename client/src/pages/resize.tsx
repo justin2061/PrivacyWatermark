@@ -2,13 +2,14 @@ import { useEffect, useRef, useState } from "react";
 import { Card } from "@/components/ui/card";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
+import { ToolsShowcase } from "@/components/ToolsShowcase";
 import { PrivacyBanner } from "@/components/PrivacyBanner";
 import { DownloadSuccess } from "@/components/DownloadSuccess";
 import { ToolRecommendations } from "@/components/ToolRecommendations";
 import { UploadZone } from "@/components/UploadZone";
 import { ActionButtons } from "@/components/ActionButtons";
 import { setPageSeo, webAppSchema } from "@/lib/seo";
-import { trackToolUseStart } from "@/lib/analytics";
+import { trackToolUseStart, trackToolEvent } from "@/lib/analytics";
 import {
   CheckCircle,
   Download,
@@ -192,6 +193,7 @@ export default function ResizePage() {
       return;
     }
     trackToolUseStart("resize");
+    trackToolEvent("resize_start", "resize");
     setResult((prev) => {
       if (prev) URL.revokeObjectURL(prev.url);
       return null;
@@ -244,6 +246,7 @@ export default function ResizePage() {
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
+    trackToolEvent("resize_complete", "resize");
   };
 
   const reset = () => {
@@ -530,6 +533,10 @@ export default function ResizePage() {
             可點選內建的預設尺寸按鈕一鍵套用，或解鎖比例後自由輸入寬高。
           </p>
         </section>
+
+        {/* 所有工具中心：推廣其他工具 */}
+        <ToolsShowcase lang="zh" exclude="resize" />
+
       </main>
 
       <SiteFooter lang="zh" />

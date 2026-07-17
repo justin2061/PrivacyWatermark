@@ -2,13 +2,14 @@ import { useEffect, useRef, useState } from "react";
 import { Card } from "@/components/ui/card";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
+import { ToolsShowcase } from "@/components/ToolsShowcase";
 import { PrivacyBanner } from "@/components/PrivacyBanner";
 import { DownloadSuccess } from "@/components/DownloadSuccess";
 import { ToolRecommendations } from "@/components/ToolRecommendations";
 import { UploadZone } from "@/components/UploadZone";
 import { ActionButtons } from "@/components/ActionButtons";
 import { setPageSeo, webAppSchema } from "@/lib/seo";
-import { trackToolUseStart } from "@/lib/analytics";
+import { trackToolUseStart, trackToolEvent } from "@/lib/analytics";
 import {
   CheckCircle,
   Download,
@@ -157,6 +158,7 @@ export default function CompressPage() {
       return;
     }
     trackToolUseStart("compress");
+    trackToolEvent("compress_start", "compress");
     setResult((prev) => {
       if (prev) URL.revokeObjectURL(prev.url);
       return null;
@@ -174,6 +176,7 @@ export default function CompressPage() {
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
+    trackToolEvent("compress_complete", "compress");
   };
 
   const reset = () => {
@@ -436,6 +439,10 @@ export default function CompressPage() {
             一般而言，品質設定在 70–85% 之間，多數情況下肉眼難以察覺差異，卻能省下可觀的檔案大小。
           </p>
         </section>
+
+        {/* 所有工具中心：推廣其他工具 */}
+        <ToolsShowcase lang="zh" exclude="compress" />
+
       </main>
 
       <SiteFooter lang="zh" />

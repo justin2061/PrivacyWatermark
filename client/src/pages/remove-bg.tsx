@@ -2,13 +2,14 @@ import { useEffect, useRef, useState } from "react";
 import { Card } from "@/components/ui/card";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
+import { ToolsShowcase } from "@/components/ToolsShowcase";
 import { PrivacyBanner } from "@/components/PrivacyBanner";
 import { DownloadSuccess } from "@/components/DownloadSuccess";
 import { ToolRecommendations } from "@/components/ToolRecommendations";
 import { UploadZone } from "@/components/UploadZone";
 import { ActionButton, ActionButtons } from "@/components/ActionButtons";
 import { setPageSeo, webAppSchema } from "@/lib/seo";
-import { trackToolUseStart } from "@/lib/analytics";
+import { trackToolUseStart, trackToolEvent } from "@/lib/analytics";
 import {
   CheckCircle,
   Download,
@@ -180,6 +181,7 @@ export default function RemoveBgPage() {
       setCutoutBlob(blob);
       setStage("done");
       setPercent(100);
+      trackToolEvent("remove_bg_complete", "remove-bg");
     } catch (e) {
       console.error(e);
       setError(
@@ -198,6 +200,7 @@ export default function RemoveBgPage() {
       return;
     }
     trackToolUseStart("remove-bg");
+    trackToolEvent("remove_bg_start", "remove-bg");
     setResult((prev) => {
       if (prev) URL.revokeObjectURL(prev.url);
       return null;
@@ -557,6 +560,10 @@ export default function RemoveBgPage() {
             或是為照片更換背景顏色。搭配本站的浮水印、壓縮與格式轉換工具，可以一站完成圖片處理。
           </p>
         </section>
+
+        {/* 所有工具中心：推廣其他工具 */}
+        <ToolsShowcase lang="zh" exclude="remove-bg" />
+
       </main>
 
       <SiteFooter lang="zh" />

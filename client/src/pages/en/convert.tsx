@@ -3,12 +3,13 @@ import { Link } from "wouter";
 import { Card } from "@/components/ui/card";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
+import { ToolsShowcase } from "@/components/ToolsShowcase";
 import { PrivacyBanner } from "@/components/PrivacyBanner";
 import { DownloadSuccess } from "@/components/DownloadSuccess";
 import { ToolRecommendations } from "@/components/ToolRecommendations";
 import { UploadZone } from "@/components/UploadZone";
 import { ActionButtons } from "@/components/ActionButtons";
-import { trackToolUseStart } from "@/lib/analytics";
+import { trackToolUseStart, trackToolEvent } from "@/lib/analytics";
 import { setPageSeo, webAppSchema } from "@/lib/seo";
 import { PAIRS } from "@/lib/convertPairs";
 import {
@@ -151,6 +152,7 @@ export default function ConvertEnPage() {
   const onPickFile = (file?: File | null) => {
     if (!file) return;
     trackToolUseStart("convert");
+    trackToolEvent("convert_start", "convert");
     if (!file.type.startsWith("image/")) {
       alert("Please choose an image file (JPG, PNG, WebP, BMP, GIF)");
       return;
@@ -172,6 +174,7 @@ export default function ConvertEnPage() {
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
+    trackToolEvent("convert_complete", "convert");
   };
 
   const reset = () => {
@@ -426,6 +429,10 @@ export default function ConvertEnPage() {
             ))}
           </div>
         </section>
+
+        {/* 所有工具中心：推廣其他工具 */}
+        <ToolsShowcase lang="en" exclude="convert" />
+
       </main>
 
       <SiteFooter lang="en" />

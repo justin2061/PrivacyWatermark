@@ -2,13 +2,14 @@ import { useEffect } from "react";
 import { Card } from "@/components/ui/card";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
+import { ToolsShowcase } from "@/components/ToolsShowcase";
 import { PrivacyBanner } from "@/components/PrivacyBanner";
 import { DownloadSuccess } from "@/components/DownloadSuccess";
 import { ToolRecommendations } from "@/components/ToolRecommendations";
 import { UploadZone } from "@/components/UploadZone";
 import { ActionButton } from "@/components/ActionButtons";
 import { setPageSeo, webAppSchema } from "@/lib/seo";
-import { trackToolUseStart } from "@/lib/analytics";
+import { trackToolUseStart, trackToolEvent } from "@/lib/analytics";
 import { useMosaic, type MaskType } from "@/hooks/useMosaic";
 import {
   CheckCircle,
@@ -62,6 +63,7 @@ export default function MosaicPage() {
   const pickFile = (file?: File | null) => {
     if (!file) return;
     trackToolUseStart("mosaic");
+    trackToolEvent("mosaic_start", "mosaic");
     m.onPickFile(file);
   };
 
@@ -283,7 +285,10 @@ export default function MosaicPage() {
                 <div className="space-y-3">
                   <ActionButton
                     variant="success"
-                    onClick={m.download}
+                    onClick={() => {
+                      m.download();
+                      trackToolEvent("mosaic_complete", "mosaic");
+                    }}
                     disabled={!hasResult}
                     icon={<Download className="w-4 h-4 mr-2" aria-hidden="true" />}
                   >
@@ -359,6 +364,10 @@ export default function MosaicPage() {
             最安全、無法還原，適合證件號碼等絕不能外洩的資訊。可依需求調整馬賽克像素大小與模糊強度。
           </p>
         </section>
+
+        {/* 所有工具中心：推廣其他工具 */}
+        <ToolsShowcase lang="zh" exclude="mosaic" />
+
       </main>
 
       <SiteFooter lang="zh" />

@@ -2,12 +2,13 @@ import { useEffect } from "react";
 import { Card } from "@/components/ui/card";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
+import { ToolsShowcase } from "@/components/ToolsShowcase";
 import { PrivacyBanner } from "@/components/PrivacyBanner";
 import { DownloadSuccess } from "@/components/DownloadSuccess";
 import { ToolRecommendations } from "@/components/ToolRecommendations";
 import { UploadZone } from "@/components/UploadZone";
 import { ActionButton } from "@/components/ActionButtons";
-import { trackToolUseStart } from "@/lib/analytics";
+import { trackToolUseStart, trackToolEvent } from "@/lib/analytics";
 import { setPageSeo, webAppSchema } from "@/lib/seo";
 import { useMosaic, type MaskType } from "@/hooks/useMosaic";
 import {
@@ -62,7 +63,10 @@ export default function MosaicEnPage() {
   const hasResult = m.regions.length > 0;
 
   const onPickFile = (file?: File | null) => {
-    if (file) trackToolUseStart("mosaic");
+    if (file) {
+      trackToolUseStart("mosaic");
+      trackToolEvent("mosaic_start", "mosaic");
+    }
     m.onPickFile(file);
   };
 
@@ -283,7 +287,10 @@ export default function MosaicEnPage() {
                 <div className="space-y-3">
                   <ActionButton
                     variant="success"
-                    onClick={m.download}
+                    onClick={() => {
+                      m.download();
+                      trackToolEvent("mosaic_complete", "mosaic");
+                    }}
                     disabled={!hasResult}
                     icon={<Download className="w-4 h-4 mr-2" aria-hidden="true" />}
                   >
@@ -362,6 +369,10 @@ export default function MosaicEnPage() {
             option for ID numbers and anything that must never leak. Adjust the mosaic block size and blur strength to taste.
           </p>
         </section>
+
+        {/* 所有工具中心：推廣其他工具 */}
+        <ToolsShowcase lang="en" exclude="mosaic" />
+
       </main>
 
       <SiteFooter lang="en" />

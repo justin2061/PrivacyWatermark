@@ -2,12 +2,13 @@ import { useEffect, useRef, useState } from "react";
 import { Card } from "@/components/ui/card";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
+import { ToolsShowcase } from "@/components/ToolsShowcase";
 import { PrivacyBanner } from "@/components/PrivacyBanner";
 import { DownloadSuccess } from "@/components/DownloadSuccess";
 import { ToolRecommendations } from "@/components/ToolRecommendations";
 import { UploadZone } from "@/components/UploadZone";
 import { ActionButton, ActionButtons } from "@/components/ActionButtons";
-import { trackToolUseStart } from "@/lib/analytics";
+import { trackToolUseStart, trackToolEvent } from "@/lib/analytics";
 import { setPageSeo, webAppSchema } from "@/lib/seo";
 import {
   CheckCircle,
@@ -180,6 +181,7 @@ export default function RemoveBgEnPage() {
       setCutoutBlob(blob);
       setStage("done");
       setPercent(100);
+      trackToolEvent("remove_bg_complete", "remove-bg");
     } catch (e) {
       console.error(e);
       setError(
@@ -194,6 +196,7 @@ export default function RemoveBgEnPage() {
   const onPickFile = (file?: File | null) => {
     if (!file) return;
     trackToolUseStart("remove-bg");
+    trackToolEvent("remove_bg_start", "remove-bg");
     if (!ACCEPTED.split(",").includes(file.type)) {
       alert("Only JPG, PNG and WebP formats are supported");
       return;
@@ -592,6 +595,10 @@ export default function RemoveBgEnPage() {
             compression and format-conversion tools to handle images end to end.
           </p>
         </section>
+
+        {/* 所有工具中心：推廣其他工具 */}
+        <ToolsShowcase lang="en" exclude="remove-bg" />
+
       </main>
 
       <SiteFooter lang="en" />

@@ -2,12 +2,13 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { Card } from "@/components/ui/card";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
+import { ToolsShowcase } from "@/components/ToolsShowcase";
 import { PrivacyBanner } from "@/components/PrivacyBanner";
 import { DownloadSuccess } from "@/components/DownloadSuccess";
 import { ToolRecommendations } from "@/components/ToolRecommendations";
 import { UploadZone } from "@/components/UploadZone";
 import { ActionButtons } from "@/components/ActionButtons";
-import { trackToolUseStart } from "@/lib/analytics";
+import { trackToolUseStart, trackToolEvent } from "@/lib/analytics";
 import { setPageSeo, webAppSchema, faqSchema } from "@/lib/seo";
 import {
   applyPdfWatermark,
@@ -270,6 +271,7 @@ export default function PdfWatermarkEnPage() {
   const onPickPdf = (file?: File | null) => {
     if (!file) return;
     trackToolUseStart("pdf-watermark");
+    trackToolEvent("pdf_watermark_start", "pdf-watermark");
     if (file.type !== "application/pdf" && !file.name.toLowerCase().endsWith(".pdf")) {
       alert("Please select a PDF file");
       return;
@@ -318,6 +320,7 @@ export default function PdfWatermarkEnPage() {
         return { url: URL.createObjectURL(blob), size: blob.size, pageCount };
       });
       if (typeof gtag !== "undefined") gtag("event", "apply_pdf_watermark");
+      trackToolEvent("pdf_watermark_complete", "pdf-watermark");
     } catch (e) {
       console.error(e);
       setError(
@@ -672,6 +675,10 @@ export default function PdfWatermarkEnPage() {
             The tiled repeat mode staggers the watermark across the whole page to make it hard to crop out.
           </p>
         </section>
+
+        {/* 所有工具中心：推廣其他工具 */}
+        <ToolsShowcase lang="en" exclude="pdf-watermark" />
+
       </main>
 
       <SiteFooter lang="en" />
