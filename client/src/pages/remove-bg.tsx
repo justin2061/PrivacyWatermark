@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { Card } from "@/components/ui/card";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
+import { ToolsShowcase } from "@/components/ToolsShowcase";
 import { PrivacyBanner } from "@/components/PrivacyBanner";
 import { DownloadSuccess } from "@/components/DownloadSuccess";
 import { ToolRecommendations } from "@/components/ToolRecommendations";
@@ -557,6 +558,10 @@ export default function RemoveBgPage() {
             或是為照片更換背景顏色。搭配本站的浮水印、壓縮與格式轉換工具，可以一站完成圖片處理。
           </p>
         </section>
+
+        {/* 所有工具中心：推廣其他工具 */}
+        <ToolsShowcase lang="zh" exclude="remove-bg" />
+
       </main>
 
       <SiteFooter lang="zh" />

@@ -17,10 +17,12 @@ interface ToolsShowcaseProps {
   lang?: Lang;
   /** 目前頁面的工具（會加上「目前使用中」標記） */
   current?: NavKey;
+  /** 目前頁面的工具（會從清單中排除，只顯示其他工具）。工具頁用來推廣其他工具。 */
+  exclude?: NavKey;
   className?: string;
 }
 
-export function ToolsShowcase({ lang = "zh", current, className = "" }: ToolsShowcaseProps) {
+export function ToolsShowcase({ lang = "zh", current, exclude, className = "" }: ToolsShowcaseProps) {
   const [tab, setTab] = useState<Tab>("all");
 
   const t = {
@@ -34,7 +36,8 @@ export function ToolsShowcase({ lang = "zh", current, className = "" }: ToolsSho
     ...CATEGORIES.map((cat) => ({ id: cat.id as Tab, label: cat.label[lang], icon: cat.icon })),
   ];
 
-  const visible = tab === "all" ? TOOLS : TOOLS.filter((tool) => tool.category === tab);
+  const pool = exclude ? TOOLS.filter((tool) => tool.key !== exclude) : TOOLS;
+  const visible = tab === "all" ? pool : pool.filter((tool) => tool.category === tab);
 
   return (
     <section className={`mt-12 ${className}`} aria-labelledby="tools-showcase-heading">

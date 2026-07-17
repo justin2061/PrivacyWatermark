@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { Card } from "@/components/ui/card";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
+import { ToolsShowcase } from "@/components/ToolsShowcase";
 import { PrivacyBanner } from "@/components/PrivacyBanner";
 import { ProUpsell } from "@/components/ProUpsell";
 import { DownloadSuccess } from "@/components/DownloadSuccess";
@@ -374,6 +375,10 @@ export default function BatchEnPage() {
         {allProcessed && (
           <ToolRecommendations current="batch" lang="en" className="mt-12" />
         )}
+
+        {/* 所有工具中心：推廣其他工具 */}
+        <ToolsShowcase lang="en" exclude="batch" />
+
       </main>
 
       <SiteFooter lang="en" />

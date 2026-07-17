@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { Card } from "@/components/ui/card";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
+import { ToolsShowcase } from "@/components/ToolsShowcase";
 import { PrivacyBanner } from "@/components/PrivacyBanner";
 import { DownloadSuccess } from "@/components/DownloadSuccess";
 import { ToolRecommendations } from "@/components/ToolRecommendations";
@@ -362,6 +363,10 @@ export default function MosaicEnPage() {
             option for ID numbers and anything that must never leak. Adjust the mosaic block size and blur strength to taste.
           </p>
         </section>
+
+        {/* 所有工具中心：推廣其他工具 */}
+        <ToolsShowcase lang="en" exclude="mosaic" />
+
       </main>
 
       <SiteFooter lang="en" />

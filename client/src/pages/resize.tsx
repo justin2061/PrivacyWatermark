@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { Card } from "@/components/ui/card";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
+import { ToolsShowcase } from "@/components/ToolsShowcase";
 import { PrivacyBanner } from "@/components/PrivacyBanner";
 import { DownloadSuccess } from "@/components/DownloadSuccess";
 import { ToolRecommendations } from "@/components/ToolRecommendations";
@@ -530,6 +531,10 @@ export default function ResizePage() {
             可點選內建的預設尺寸按鈕一鍵套用，或解鎖比例後自由輸入寬高。
           </p>
         </section>
+
+        {/* 所有工具中心：推廣其他工具 */}
+        <ToolsShowcase lang="zh" exclude="resize" />
+
       </main>
 
       <SiteFooter lang="zh" />

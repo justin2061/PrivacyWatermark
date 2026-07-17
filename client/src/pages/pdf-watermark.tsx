@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { Card } from "@/components/ui/card";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
+import { ToolsShowcase } from "@/components/ToolsShowcase";
 import { PrivacyBanner } from "@/components/PrivacyBanner";
 import { DownloadSuccess } from "@/components/DownloadSuccess";
 import { ToolRecommendations } from "@/components/ToolRecommendations";
@@ -692,6 +693,10 @@ export default function PdfWatermarkPage() {
             選擇「重複鋪滿」模式時，浮水印會以交錯的方式平鋪整頁，最大程度防止被裁切移除。
           </p>
         </section>
+
+        {/* 所有工具中心：推廣其他工具 */}
+        <ToolsShowcase lang="zh" exclude="pdf-watermark" />
+
       </main>
 
       <SiteFooter lang="zh" />
