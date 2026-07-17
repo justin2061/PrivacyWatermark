@@ -2,8 +2,12 @@ import { useEffect, useRef, useState } from "react";
 import { Link } from "wouter";
 import { Card } from "@/components/ui/card";
 import { SiteHeader } from "@/components/SiteHeader";
+import { SiteFooter } from "@/components/SiteFooter";
 import { PrivacyBanner } from "@/components/PrivacyBanner";
 import { DownloadSuccess } from "@/components/DownloadSuccess";
+import { ToolRecommendations } from "@/components/ToolRecommendations";
+import { UploadZone } from "@/components/UploadZone";
+import { ActionButtons } from "@/components/ActionButtons";
 import { trackToolUseStart } from "@/lib/analytics";
 import { setPageSeo, webAppSchema } from "@/lib/seo";
 import { PAIRS } from "@/lib/convertPairs";
@@ -14,7 +18,6 @@ import {
   Lock,
   RefreshCw,
   Repeat,
-  Upload,
 } from "lucide-react";
 
 const ACCEPTED = "image/jpeg,image/png,image/webp,image/bmp,image/gif";
@@ -194,44 +197,15 @@ export default function ConvertEnPage() {
           <div className="space-y-6">
             <Card className="p-6">
               <h2 className="text-lg font-semibold text-gray-900 mb-4">Upload Image</h2>
-              <div
-                onDrop={(e) => {
-                  e.preventDefault();
-                  onPickFile(e.dataTransfer.files[0]);
-                }}
-                onDragOver={(e) => e.preventDefault()}
-                onClick={() => fileInputRef.current?.click()}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter" || e.key === " ") {
-                    e.preventDefault();
-                    fileInputRef.current?.click();
-                  }
-                }}
-                role="button"
-                tabIndex={0}
-                aria-label="Upload area, click or drag and drop a file"
-                className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-primary hover:bg-blue-50 transition-colors cursor-pointer"
-              >
-                <Upload
-                  className="text-gray-400 w-12 h-12 mb-4 mx-auto"
-                  aria-hidden="true"
-                />
-                <p className="text-gray-600 mb-2">Drag and drop an image here, or click to select</p>
-                <p className="text-sm text-gray-600 mb-4">Supports JPG, PNG, WebP, BMP, GIF</p>
-                <button
-                  type="button"
-                  className="bg-primary text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
-                >
-                  Choose File
-                </button>
-              </div>
-              <input
-                ref={fileInputRef}
-                type="file"
+              <UploadZone
                 accept={ACCEPTED}
-                className="hidden"
-                onChange={(e) => onPickFile(e.target.files?.[0])}
-                aria-label="Select image file"
+                onFiles={(files) => onPickFile(files[0])}
+                title="Drag and drop an image here, or click to select"
+                description="Supports JPG, PNG, WebP, BMP, GIF"
+                buttonLabel="Choose File"
+                ariaLabel="Upload area, click or drag and drop a file"
+                inputAriaLabel="Select image file"
+                inputRef={fileInputRef}
               />
 
               {selectedFile && (
@@ -355,27 +329,27 @@ export default function ConvertEnPage() {
             </Card>
 
             <Card className="p-6">
-              <div className="space-y-3">
-                <button
-                  onClick={downloadResult}
-                  disabled={!result || isConverting}
-                  className="w-full bg-green-600 text-white py-3 px-4 rounded-lg hover:bg-green-700 transition-colors font-medium disabled:bg-gray-400 disabled:cursor-not-allowed flex items-center justify-center"
-                >
-                  <Download className="w-4 h-4 mr-2" aria-hidden="true" />
-                  Download Converted Image
-                </button>
-                <button
-                  onClick={reset}
-                  disabled={!selectedFile}
-                  className="w-full bg-gray-500 text-white py-2.5 min-h-[44px] px-4 rounded-lg hover:bg-gray-600 transition-colors disabled:bg-gray-300 disabled:cursor-not-allowed flex items-center justify-center"
-                >
-                  <RefreshCw className="w-4 h-4 mr-2" aria-hidden="true" />
-                  Start Over
-                </button>
-              </div>
+              <ActionButtons
+                download={{
+                  onClick: downloadResult,
+                  disabled: !result || isConverting,
+                  icon: <Download className="w-4 h-4 mr-2" aria-hidden="true" />,
+                  label: "Download Converted Image",
+                }}
+                reset={{
+                  onClick: reset,
+                  disabled: !selectedFile,
+                  icon: <RefreshCw className="w-4 h-4 mr-2" aria-hidden="true" />,
+                  label: "Start Over",
+                }}
+              />
             </Card>
           </div>
         </div>
+
+        {result && (
+          <ToolRecommendations current="convert" lang="en" className="mt-12" />
+        )}
 
         <section className="mt-12">
           <h2 className="sr-only">Features</h2>
@@ -454,26 +428,7 @@ export default function ConvertEnPage() {
         </section>
       </main>
 
-      <footer className="bg-white border-t border-gray-200 mt-16">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <div className="flex flex-col md:flex-row justify-between items-center">
-            <p className="text-sm text-gray-600 mb-4 md:mb-0">
-              © 2025 ImageMarker — Protect your privacy
-            </p>
-            <div className="flex items-center space-x-4">
-              <Link href="/en/" className="text-sm text-primary hover:underline">
-                Watermark Tool
-              </Link>
-              <Link href="/en/compress" className="text-sm text-primary hover:underline">
-                Image Compressor
-              </Link>
-              <Link href="/en/resize" className="text-sm text-primary hover:underline">
-                Image Resizer
-              </Link>
-            </div>
-          </div>
-        </div>
-      </footer>
+      <SiteFooter lang="en" />
     </div>
   );
 }

@@ -1,11 +1,14 @@
 import { useEffect, useRef, useState } from "react";
-import { Link } from "wouter";
 import { Card } from "@/components/ui/card";
 import { SiteHeader } from "@/components/SiteHeader";
+import { SiteFooter } from "@/components/SiteFooter";
 import { PrivacyBanner } from "@/components/PrivacyBanner";
 import { ProUpsell } from "@/components/ProUpsell";
 import { DownloadSuccess } from "@/components/DownloadSuccess";
+import { ToolRecommendations } from "@/components/ToolRecommendations";
 import { WatermarkControls } from "@/components/watermark/WatermarkControls";
+import { UploadZone } from "@/components/UploadZone";
+import { ActionButton } from "@/components/ActionButtons";
 import { useBatchWatermark, MAX_FILES } from "@/hooks/useBatchWatermark";
 import { setPageSeo, webAppSchema } from "@/lib/seo";
 import { trackToolUseStart } from "@/lib/analytics";
@@ -13,7 +16,6 @@ import { trackToolUseStart } from "@/lib/analytics";
 // Show the Pro prompt past this count (free features stay unrestricted)
 const FREE_IMAGE_LIMIT = 10;
 import {
-  Upload,
   X,
   CheckCircle,
   Eye,
@@ -86,24 +88,6 @@ export default function BatchEnPage() {
     });
   }, []);
 
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.target.files && event.target.files.length > 0) {
-      addFiles(event.target.files);
-    }
-    event.target.value = "";
-  };
-
-  const handleDrop = (event: React.DragEvent) => {
-    event.preventDefault();
-    if (event.dataTransfer.files && event.dataTransfer.files.length > 0) {
-      addFiles(event.dataTransfer.files);
-    }
-  };
-
-  const handleDragOver = (event: React.DragEvent) => {
-    event.preventDefault();
-  };
-
   const hasImages = images.length > 0;
   const progressPercent =
     images.length > 0 ? Math.round((processedCount / images.length) * 100) : 0;
@@ -143,48 +127,17 @@ export default function BatchEnPage() {
                 </span>
               </div>
 
-              <div
-                onDrop={handleDrop}
-                onDragOver={handleDragOver}
-                className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-primary hover:bg-blue-50 transition-colors cursor-pointer"
-                onClick={() => fileInputRef.current?.click()}
-                role="button"
-                tabIndex={0}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter" || e.key === " ") {
-                    e.preventDefault();
-                    fileInputRef.current?.click();
-                  }
-                }}
-                aria-label="Upload area, click or drop multiple files here"
-              >
-                <Upload
-                  className="text-gray-400 text-4xl mb-4 mx-auto w-12 h-12"
-                  aria-hidden="true"
-                />
-                <p className="text-gray-600 mb-2">
-                  Drag and drop multiple images here, or click to select files
-                </p>
-                <p className="text-sm text-gray-600 mb-4">
-                  Supports JPG and PNG, up to {MAX_FILES} files, 10MB each
-                </p>
-                <button
-                  type="button"
-                  aria-label="Select image files"
-                  className="bg-primary text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
-                >
-                  Choose Files
-                </button>
-              </div>
-
-              <input
-                ref={fileInputRef}
-                type="file"
+              <UploadZone
                 accept="image/jpeg,image/png"
                 multiple
-                onChange={handleFileChange}
-                className="hidden"
-                aria-label="Select image files"
+                onFiles={(files) => addFiles(files)}
+                title="Drag and drop multiple images here, or click to select files"
+                description={`Supports JPG and PNG, up to ${MAX_FILES} files, 10MB each`}
+                buttonLabel="Choose Files"
+                ariaLabel="Upload area, click or drop multiple files here"
+                inputAriaLabel="Select image files"
+                buttonAriaLabel="Select image files"
+                inputRef={fileInputRef}
               />
 
               {error && (
@@ -256,19 +209,21 @@ export default function BatchEnPage() {
             {/* Action Buttons */}
             <Card className="p-6">
               <div className="space-y-3">
-                <button
+                <ActionButton
+                  variant="primary"
                   onClick={applyAll}
                   disabled={!hasImages || isProcessing}
-                  aria-label={isProcessing ? "Processing, please wait" : "Apply watermark to all"}
-                  className="w-full bg-primary text-white py-3 px-4 rounded-lg hover:bg-blue-700 transition-colors font-medium disabled:bg-gray-400 disabled:cursor-not-allowed flex items-center justify-center"
+                  ariaLabel={isProcessing ? "Processing, please wait" : "Apply watermark to all"}
+                  icon={
+                    <span className="mr-2" aria-hidden="true">
+                      ✨
+                    </span>
+                  }
                 >
-                  <span className="mr-2" aria-hidden="true">
-                    ✨
-                  </span>
                   {isProcessing
                     ? `Processing... (${processedCount}/${images.length})`
                     : "Apply Watermark to All"}
-                </button>
+                </ActionButton>
 
                 {isProcessing && (
                   <div className="w-full bg-gray-200 rounded-full h-2" aria-hidden="true">
@@ -279,29 +234,33 @@ export default function BatchEnPage() {
                   </div>
                 )}
 
-                <button
+                <ActionButton
+                  variant="success"
                   onClick={downloadZip}
                   disabled={!allProcessed || isProcessing}
-                  aria-label="Download all as ZIP"
-                  className="w-full bg-green-600 text-white py-3 px-4 rounded-lg hover:bg-green-700 transition-colors font-medium disabled:bg-gray-400 disabled:cursor-not-allowed flex items-center justify-center"
+                  ariaLabel="Download all as ZIP"
+                  icon={
+                    <span className="mr-2" aria-hidden="true">
+                      📦
+                    </span>
+                  }
                 >
-                  <span className="mr-2" aria-hidden="true">
-                    📦
-                  </span>
                   Download All (ZIP)
-                </button>
+                </ActionButton>
 
-                <button
+                <ActionButton
+                  variant="neutral"
                   onClick={reset}
                   disabled={!hasImages}
-                  aria-label="Start over and clear all images"
-                  className="w-full bg-gray-500 text-white py-2.5 min-h-[44px] px-4 rounded-lg hover:bg-gray-600 transition-colors disabled:bg-gray-300 disabled:cursor-not-allowed flex items-center justify-center"
+                  ariaLabel="Start over and clear all images"
+                  icon={
+                    <span className="mr-2" aria-hidden="true">
+                      🔄
+                    </span>
+                  }
                 >
-                  <span className="mr-2" aria-hidden="true">
-                    🔄
-                  </span>
                   Start Over
-                </button>
+                </ActionButton>
 
                 {allProcessed && (
                   <DownloadSuccess
@@ -411,26 +370,13 @@ export default function BatchEnPage() {
             </Card>
           </div>
         </div>
+
+        {allProcessed && (
+          <ToolRecommendations current="batch" lang="en" className="mt-12" />
+        )}
       </main>
 
-      {/* Footer */}
-      <footer className="bg-white border-t border-gray-200 mt-16" role="contentinfo">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <div className="flex flex-col md:flex-row justify-between items-center">
-            <div className="mb-4 md:mb-0">
-              <p className="text-sm text-gray-600">
-                © 2026 Image Watermark Tool — Protecting your privacy
-              </p>
-            </div>
-            <Link
-              href="/en"
-              className="text-sm text-primary font-medium hover:underline"
-            >
-              ← Back to single image
-            </Link>
-          </div>
-        </div>
-      </footer>
+      <SiteFooter lang="en" />
     </div>
   );
 }

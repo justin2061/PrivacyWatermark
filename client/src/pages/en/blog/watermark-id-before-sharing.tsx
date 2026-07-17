@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { Link } from "wouter";
 import { ReadMoreArrow } from "@/components/read-more-arrow";
+import { SiteFooter } from "@/components/SiteFooter";
 import {
   setPageSeo,
   articleSchema,
@@ -376,13 +377,7 @@ export default function WatermarkIdBeforeSharingEn() {
         </section>
       </main>
 
-      <footer className="bg-white border-t border-gray-200 mt-16">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <p className="text-sm text-gray-500 text-center">
-            © 2026 ImageMarker — Protect your privacy
-          </p>
-        </div>
-      </footer>
+      <SiteFooter lang="en" />
     </div>
   );
 }

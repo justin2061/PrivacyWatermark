@@ -1,9 +1,12 @@
 import { useEffect } from "react";
-import { Link } from "wouter";
 import { Card } from "@/components/ui/card";
 import { SiteHeader } from "@/components/SiteHeader";
+import { SiteFooter } from "@/components/SiteFooter";
 import { PrivacyBanner } from "@/components/PrivacyBanner";
 import { DownloadSuccess } from "@/components/DownloadSuccess";
+import { ToolRecommendations } from "@/components/ToolRecommendations";
+import { UploadZone } from "@/components/UploadZone";
+import { ActionButton } from "@/components/ActionButtons";
 import { trackToolUseStart } from "@/lib/analytics";
 import { setPageSeo, webAppSchema } from "@/lib/seo";
 import { useMosaic, type MaskType } from "@/hooks/useMosaic";
@@ -16,7 +19,6 @@ import {
   RefreshCw,
   Trash2,
   Undo2,
-  Upload,
 } from "lucide-react";
 
 const ACCEPTED = "image/jpeg,image/png,image/webp,image/bmp,image/gif";
@@ -76,34 +78,17 @@ export default function MosaicEnPage() {
             <h1 className="text-xl font-semibold text-gray-900 mb-4 text-center">
               Image Mosaic / Blur Tool
             </h1>
-            <div
-              onDrop={(e) => {
-                e.preventDefault();
-                onPickFile(e.dataTransfer.files[0]);
-              }}
-              onDragOver={(e) => e.preventDefault()}
-              onClick={() => m.fileInputRef.current?.click()}
-              onKeyDown={(e) => {
-                if (e.key === "Enter" || e.key === " ") {
-                  e.preventDefault();
-                  m.fileInputRef.current?.click();
-                }
-              }}
-              role="button"
-              tabIndex={0}
-              aria-label="Upload area, click or drag and drop a file"
-              className="border-2 border-dashed border-gray-300 rounded-lg p-10 text-center hover:border-primary hover:bg-blue-50 transition-colors cursor-pointer"
-            >
-              <Upload className="text-gray-400 w-12 h-12 mb-4 mx-auto" aria-hidden="true" />
-              <p className="text-gray-600 mb-2">Drag and drop an image here, or click to select</p>
-              <p className="text-sm text-gray-600 mb-4">Supports JPG, PNG, WebP, BMP, GIF</p>
-              <button
-                type="button"
-                className="bg-primary text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
-              >
-                Choose File
-              </button>
-            </div>
+            <UploadZone
+              accept={ACCEPTED}
+              onFiles={(files) => onPickFile(files[0])}
+              title="Drag and drop an image here, or click to select"
+              description="Supports JPG, PNG, WebP, BMP, GIF"
+              buttonLabel="Choose File"
+              ariaLabel="Upload area, click or drag and drop a file"
+              inputAriaLabel="Select image file"
+              inputRef={m.fileInputRef}
+              padding="p-10"
+            />
             <p className="text-sm text-gray-500 mt-4 text-center">
               After uploading, drag on the image to mosaic or blur faces, license plates and IDs. Everything runs in your browser.
             </p>
@@ -296,21 +281,21 @@ export default function MosaicEnPage() {
               {/* Actions */}
               <Card className="p-5">
                 <div className="space-y-3">
-                  <button
+                  <ActionButton
+                    variant="success"
                     onClick={m.download}
                     disabled={!hasResult}
-                    className="w-full bg-green-600 text-white py-3 px-4 rounded-lg hover:bg-green-700 transition-colors font-medium disabled:bg-gray-400 disabled:cursor-not-allowed flex items-center justify-center"
+                    icon={<Download className="w-4 h-4 mr-2" aria-hidden="true" />}
                   >
-                    <Download className="w-4 h-4 mr-2" aria-hidden="true" />
                     Download Image
-                  </button>
-                  <button
+                  </ActionButton>
+                  <ActionButton
+                    variant="neutral"
                     onClick={m.reset}
-                    className="w-full bg-gray-500 text-white py-2.5 min-h-[44px] px-4 rounded-lg hover:bg-gray-600 transition-colors flex items-center justify-center"
+                    icon={<RefreshCw className="w-4 h-4 mr-2" aria-hidden="true" />}
                   >
-                    <RefreshCw className="w-4 h-4 mr-2" aria-hidden="true" />
                     Start Over
-                  </button>
+                  </ActionButton>
                   {hasResult && <DownloadSuccess tool="mosaic" lang="en" imageCount={1} className="mt-1" />}
                 </div>
               </Card>
@@ -318,14 +303,9 @@ export default function MosaicEnPage() {
           </div>
         )}
 
-        <input
-          ref={m.fileInputRef}
-          type="file"
-          accept={ACCEPTED}
-          className="hidden"
-          onChange={(e) => onPickFile(e.target.files?.[0])}
-          aria-label="Select image file"
-        />
+        {hasResult && (
+          <ToolRecommendations current="mosaic" lang="en" className="mt-12" />
+        )}
 
         {/* Features */}
         <section className="mt-12">
@@ -384,26 +364,7 @@ export default function MosaicEnPage() {
         </section>
       </main>
 
-      <footer className="bg-white border-t border-gray-200 mt-16">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <div className="flex flex-col md:flex-row justify-between items-center">
-            <p className="text-sm text-gray-600 mb-4 md:mb-0">
-              © 2025 ImageMarker — Protect your privacy
-            </p>
-            <div className="flex items-center space-x-4">
-              <Link href="/en/" className="text-sm text-primary hover:underline">
-                Watermark Tool
-              </Link>
-              <Link href="/en/exif-clean" className="text-sm text-primary hover:underline">
-                EXIF Cleaner
-              </Link>
-              <Link href="/en/resize" className="text-sm text-primary hover:underline">
-                Image Resizer
-              </Link>
-            </div>
-          </div>
-        </div>
-      </footer>
+      <SiteFooter lang="en" />
     </div>
   );
 }

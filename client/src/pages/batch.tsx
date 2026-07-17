@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
-import { Link } from "wouter";
 import { Card } from "@/components/ui/card";
 import { SiteHeader } from "@/components/SiteHeader";
+import { SiteFooter } from "@/components/SiteFooter";
 import { PrivacyBanner } from "@/components/PrivacyBanner";
 import { ProUpsell } from "@/components/ProUpsell";
 import { DownloadSuccess } from "@/components/DownloadSuccess";
@@ -9,6 +9,8 @@ import { ToolRecommendations } from "@/components/ToolRecommendations";
 import { BotBlockNotice } from "@/components/ProtectionNotice";
 import { detectProtection } from "@/lib/protection";
 import { WatermarkControls } from "@/components/watermark/WatermarkControls";
+import { UploadZone } from "@/components/UploadZone";
+import { ActionButton } from "@/components/ActionButtons";
 import { setPageSeo, webAppSchema } from "@/lib/seo";
 import { trackToolUseStart } from "@/lib/analytics";
 import {
@@ -19,7 +21,6 @@ import {
 // 超過此張數即顯示 Pro 提示（免費功能不受限，只是提示大量處理的 Pro 版）
 const FREE_IMAGE_LIMIT = 10;
 import {
-  Upload,
   X,
   CheckCircle,
   Eye,
@@ -95,25 +96,6 @@ export default function BatchPage() {
     });
   }, []);
 
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.target.files && event.target.files.length > 0) {
-      addFiles(event.target.files);
-    }
-    // reset so selecting the same file again still fires onChange
-    event.target.value = "";
-  };
-
-  const handleDrop = (event: React.DragEvent) => {
-    event.preventDefault();
-    if (event.dataTransfer.files && event.dataTransfer.files.length > 0) {
-      addFiles(event.dataTransfer.files);
-    }
-  };
-
-  const handleDragOver = (event: React.DragEvent) => {
-    event.preventDefault();
-  };
-
   const hasImages = images.length > 0;
   const progressPercent =
     images.length > 0 ? Math.round((processedCount / images.length) * 100) : 0;
@@ -166,46 +148,17 @@ export default function BatchPage() {
                 </span>
               </div>
 
-              <div
-                onDrop={handleDrop}
-                onDragOver={handleDragOver}
-                className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-primary hover:bg-blue-50 transition-colors cursor-pointer"
-                onClick={() => fileInputRef.current?.click()}
-                role="button"
-                tabIndex={0}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter" || e.key === " ") {
-                    e.preventDefault();
-                    fileInputRef.current?.click();
-                  }
-                }}
-                aria-label="上傳圖片區域，點擊或拖放多個檔案到此處"
-              >
-                <Upload
-                  className="text-gray-400 text-4xl mb-4 mx-auto w-12 h-12"
-                  aria-hidden="true"
-                />
-                <p className="text-gray-600 mb-2">將多張圖片拖放到此處，或點擊選擇檔案</p>
-                <p className="text-sm text-gray-600 mb-4">
-                  支援 JPG、PNG 格式，最多 {MAX_FILES} 張，每張最大 10MB
-                </p>
-                <button
-                  type="button"
-                  aria-label="選擇圖片檔案"
-                  className="bg-primary text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
-                >
-                  選擇檔案
-                </button>
-              </div>
-
-              <input
-                ref={fileInputRef}
-                type="file"
+              <UploadZone
                 accept="image/jpeg,image/png"
                 multiple
-                onChange={handleFileChange}
-                className="hidden"
-                aria-label="選擇圖片檔案"
+                onFiles={(files) => addFiles(files)}
+                title="將多張圖片拖放到此處，或點擊選擇檔案"
+                description={`支援 JPG、PNG 格式，最多 ${MAX_FILES} 張，每張最大 10MB`}
+                buttonLabel="選擇檔案"
+                ariaLabel="上傳圖片區域，點擊或拖放多個檔案到此處"
+                inputAriaLabel="選擇圖片檔案"
+                buttonAriaLabel="選擇圖片檔案"
+                inputRef={fileInputRef}
               />
 
               {error && (
@@ -274,23 +227,25 @@ export default function BatchPage() {
             {/* Action Buttons（桌面釘在左欄底部） */}
             <Card className="p-6 lg:flex-shrink-0">
               <div className="space-y-3">
-                <button
+                <ActionButton
+                  variant="primary"
                   onClick={applyAll}
                   disabled={!hasImages || isProcessing}
-                  aria-label={isProcessing ? "處理中，請稍候" : "全部套用浮水印"}
-                  className="w-full bg-primary text-white py-3 px-4 rounded-lg hover:bg-blue-700 transition-colors font-medium disabled:bg-gray-400 disabled:cursor-not-allowed flex items-center justify-center"
+                  ariaLabel={isProcessing ? "處理中，請稍候" : "全部套用浮水印"}
+                  icon={
+                    isProcessing ? (
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" aria-hidden="true" />
+                    ) : (
+                      <span className="mr-2" aria-hidden="true">
+                        ✨
+                      </span>
+                    )
+                  }
                 >
-                  {isProcessing ? (
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" aria-hidden="true" />
-                  ) : (
-                    <span className="mr-2" aria-hidden="true">
-                      ✨
-                    </span>
-                  )}
                   {isProcessing
                     ? `處理中... (${processedCount}/${images.length})`
                     : "全部套用浮水印"}
-                </button>
+                </ActionButton>
 
                 {isProcessing && (
                   <div className="w-full bg-gray-200 rounded-full h-2" aria-hidden="true">
@@ -301,29 +256,33 @@ export default function BatchPage() {
                   </div>
                 )}
 
-                <button
+                <ActionButton
+                  variant="success"
                   onClick={downloadZip}
                   disabled={!allProcessed || isProcessing}
-                  aria-label="下載全部（ZIP）"
-                  className="w-full bg-green-600 text-white py-3 px-4 rounded-lg hover:bg-green-700 transition-colors font-medium disabled:bg-gray-400 disabled:cursor-not-allowed flex items-center justify-center"
+                  ariaLabel="下載全部（ZIP）"
+                  icon={
+                    <span className="mr-2" aria-hidden="true">
+                      📦
+                    </span>
+                  }
                 >
-                  <span className="mr-2" aria-hidden="true">
-                    📦
-                  </span>
                   下載全部（ZIP）
-                </button>
+                </ActionButton>
 
-                <button
+                <ActionButton
+                  variant="neutral"
                   onClick={reset}
                   disabled={!hasImages}
-                  aria-label="重新開始，清除所有圖片"
-                  className="w-full bg-gray-500 text-white py-2.5 px-4 rounded-lg hover:bg-gray-600 transition-colors disabled:bg-gray-300 disabled:cursor-not-allowed flex items-center justify-center min-h-[44px]"
+                  ariaLabel="重新開始，清除所有圖片"
+                  icon={
+                    <span className="mr-2" aria-hidden="true">
+                      🔄
+                    </span>
+                  }
                 >
-                  <span className="mr-2" aria-hidden="true">
-                    🔄
-                  </span>
                   重新開始
-                </button>
+                </ActionButton>
 
                 {allProcessed && (
                   <DownloadSuccess
@@ -426,21 +385,7 @@ export default function BatchPage() {
         )}
       </main>
 
-      {/* Footer */}
-      <footer className="bg-white border-t border-gray-200 mt-16" role="contentinfo">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <div className="flex flex-col md:flex-row justify-between items-center">
-            <div className="mb-4 md:mb-0">
-              <p className="text-sm text-gray-600">
-                © 2025 證件浮水印工具 - 保護您的隱私安全
-              </p>
-            </div>
-            <Link href="/" className="text-sm text-primary font-medium hover:underline">
-              ← 返回單張處理
-            </Link>
-          </div>
-        </div>
-      </footer>
+      <SiteFooter lang="zh" />
     </div>
   );
 }

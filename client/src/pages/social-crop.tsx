@@ -1,10 +1,12 @@
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
-import { Link } from "wouter";
 import { Card } from "@/components/ui/card";
 import { SiteHeader } from "@/components/SiteHeader";
+import { SiteFooter } from "@/components/SiteFooter";
 import { PrivacyBanner } from "@/components/PrivacyBanner";
 import { DownloadSuccess } from "@/components/DownloadSuccess";
 import { ToolRecommendations } from "@/components/ToolRecommendations";
+import { UploadZone } from "@/components/UploadZone";
+import { ActionButtons } from "@/components/ActionButtons";
 import { setPageSeo, webAppSchema } from "@/lib/seo";
 import { trackToolUseStart } from "@/lib/analytics";
 import {
@@ -20,7 +22,6 @@ import {
   RefreshCw,
   Sliders,
   Twitter,
-  Upload,
   Youtube,
   ZoomIn,
   ZoomOut,
@@ -343,45 +344,18 @@ export default function SocialCropPage() {
             <p className="text-sm text-gray-600 mb-4">
               上傳圖片，選擇平台尺寸，拖曳裁切框即可一鍵輸出符合規格的圖片。
             </p>
-            <div
-              onDrop={(e) => {
-                e.preventDefault();
-                onPickFile(e.dataTransfer.files[0]);
-              }}
-              onDragOver={(e) => e.preventDefault()}
-              onClick={() => fileInputRef.current?.click()}
-              onKeyDown={(e) => {
-                if (e.key === "Enter" || e.key === " ") {
-                  e.preventDefault();
-                  fileInputRef.current?.click();
-                }
-              }}
-              role="button"
-              tabIndex={0}
-              aria-label="上傳圖片區域，點擊或拖放檔案"
-              className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-primary hover:bg-blue-50 transition-colors cursor-pointer"
-            >
-              <Upload className="text-gray-400 w-12 h-12 mb-4 mx-auto" aria-hidden="true" />
-              <p className="text-gray-600 mb-2">將圖片拖放到此處，或點擊選擇檔案</p>
-              <p className="text-sm text-gray-600 mb-4">支援 JPG、PNG、WebP、BMP、GIF</p>
-              <button
-                type="button"
-                className="bg-primary text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
-              >
-                選擇檔案
-              </button>
-            </div>
+            <UploadZone
+              accept={ACCEPTED}
+              onFiles={(files) => onPickFile(files[0])}
+              title="將圖片拖放到此處，或點擊選擇檔案"
+              description="支援 JPG、PNG、WebP、BMP、GIF"
+              buttonLabel="選擇檔案"
+              ariaLabel="上傳圖片區域，點擊或拖放檔案"
+              inputAriaLabel="選擇圖片檔案"
+              inputRef={fileInputRef}
+            />
           </Card>
         )}
-
-        <input
-          ref={fileInputRef}
-          type="file"
-          accept={ACCEPTED}
-          className="hidden"
-          onChange={(e) => onPickFile(e.target.files?.[0])}
-          aria-label="選擇圖片檔案"
-        />
 
         {selectedFile && imgUrl && imgSize && (
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -602,23 +576,19 @@ export default function SocialCropPage() {
                   輸出尺寸 {target.w}×{target.h}px
                 </p>
 
-                <div className="space-y-3">
-                  <button
-                    onClick={download}
-                    disabled={target.w < 1 || target.h < 1}
-                    className="w-full bg-green-600 text-white py-3 px-4 rounded-lg hover:bg-green-700 transition-colors font-medium disabled:bg-gray-400 disabled:cursor-not-allowed flex items-center justify-center"
-                  >
-                    <Download className="w-4 h-4 mr-2" aria-hidden="true" />
-                    裁切並下載
-                  </button>
-                  <button
-                    onClick={reset}
-                    className="w-full bg-gray-500 text-white py-2.5 min-h-[44px] px-4 rounded-lg hover:bg-gray-600 transition-colors flex items-center justify-center"
-                  >
-                    <RefreshCw className="w-4 h-4 mr-2" aria-hidden="true" />
-                    重新開始
-                  </button>
-                </div>
+                <ActionButtons
+                  download={{
+                    onClick: download,
+                    disabled: target.w < 1 || target.h < 1,
+                    icon: <Download className="w-4 h-4 mr-2" aria-hidden="true" />,
+                    label: "裁切並下載",
+                  }}
+                  reset={{
+                    onClick: reset,
+                    icon: <RefreshCw className="w-4 h-4 mr-2" aria-hidden="true" />,
+                    label: "重新開始",
+                  }}
+                />
 
                 {/* 下載後：Ko-fi 支持 + 情境式聯盟推薦（含 Canva，帶 GA 追蹤） */}
                 {downloaded && (
@@ -703,29 +673,7 @@ export default function SocialCropPage() {
         </section>
       </main>
 
-      <footer className="bg-white border-t border-gray-200 mt-16">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <div className="flex flex-col md:flex-row justify-between items-center">
-            <p className="text-sm text-gray-600 mb-4 md:mb-0">
-              © 2025 隱私工具集 - 保護您的隱私安全
-            </p>
-            <div className="flex items-center space-x-4">
-              <Link href="/" className="text-sm text-primary hover:underline">
-                浮水印工具
-              </Link>
-              <Link href="/resize" className="text-sm text-primary hover:underline">
-                圖片縮放
-              </Link>
-              <Link href="/compress" className="text-sm text-primary hover:underline">
-                圖片壓縮
-              </Link>
-              <Link href="/blog" className="text-sm text-primary hover:underline">
-                教學文章
-              </Link>
-            </div>
-          </div>
-        </div>
-      </footer>
+      <SiteFooter lang="zh" />
     </div>
   );
 }

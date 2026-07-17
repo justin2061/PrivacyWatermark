@@ -1,10 +1,12 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { Link } from "wouter";
 import { Card } from "@/components/ui/card";
 import { SiteHeader } from "@/components/SiteHeader";
+import { SiteFooter } from "@/components/SiteFooter";
 import { PrivacyBanner } from "@/components/PrivacyBanner";
 import { DownloadSuccess } from "@/components/DownloadSuccess";
 import { ToolRecommendations } from "@/components/ToolRecommendations";
+import { UploadZone } from "@/components/UploadZone";
+import { ActionButtons } from "@/components/ActionButtons";
 import { setPageSeo, webAppSchema, faqSchema } from "@/lib/seo";
 import { trackToolUseStart } from "@/lib/analytics";
 import {
@@ -21,7 +23,6 @@ import {
   Image as ImageIcon,
   Lock,
   RefreshCw,
-  Upload,
 } from "lucide-react";
 
 const POSITIONS: { value: WatermarkPosition; label: string }[] = [
@@ -378,41 +379,15 @@ export default function PdfWatermarkPage() {
           <div className="space-y-6">
             <Card className="p-6">
               <h2 className="text-lg font-semibold text-gray-900 mb-4">上傳 PDF</h2>
-              <div
-                onDrop={(e) => {
-                  e.preventDefault();
-                  onPickPdf(e.dataTransfer.files[0]);
-                }}
-                onDragOver={(e) => e.preventDefault()}
-                onClick={() => fileInputRef.current?.click()}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter" || e.key === " ") {
-                    e.preventDefault();
-                    fileInputRef.current?.click();
-                  }
-                }}
-                role="button"
-                tabIndex={0}
-                aria-label="上傳 PDF 區域，點擊或拖放檔案"
-                className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-primary hover:bg-blue-50 transition-colors cursor-pointer"
-              >
-                <Upload className="text-gray-400 w-12 h-12 mb-4 mx-auto" aria-hidden="true" />
-                <p className="text-gray-600 mb-2">將 PDF 拖放到此處，或點擊選擇檔案</p>
-                <p className="text-sm text-gray-600 mb-4">僅支援 PDF 檔案</p>
-                <button
-                  type="button"
-                  className="bg-primary text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
-                >
-                  選擇 PDF
-                </button>
-              </div>
-              <input
-                ref={fileInputRef}
-                type="file"
+              <UploadZone
                 accept="application/pdf,.pdf"
-                className="hidden"
-                onChange={(e) => onPickPdf(e.target.files?.[0])}
-                aria-label="選擇 PDF 檔案"
+                onFiles={(files) => onPickPdf(files[0])}
+                title="將 PDF 拖放到此處，或點擊選擇檔案"
+                description="僅支援 PDF 檔案"
+                buttonLabel="選擇 PDF"
+                ariaLabel="上傳 PDF 區域，點擊或拖放檔案"
+                inputAriaLabel="選擇 PDF 檔案"
+                inputRef={fileInputRef}
               />
               {selectedFile && (
                 <div className="mt-4 p-3 bg-gray-50 rounded-lg">
@@ -638,32 +613,26 @@ export default function PdfWatermarkPage() {
                   </div>
                 )}
 
-                <button
-                  onClick={apply}
-                  disabled={!selectedFile || isProcessing}
-                  className="w-full bg-primary text-white py-3 px-4 rounded-lg hover:bg-blue-700 transition-colors font-medium disabled:bg-gray-400 disabled:cursor-not-allowed flex items-center justify-center"
-                >
-                  <FileText className="w-4 h-4 mr-2" aria-hidden="true" />
-                  {isProcessing ? "處理中..." : "套用浮水印到 PDF"}
-                </button>
-
-                <button
-                  onClick={download}
-                  disabled={!result}
-                  className="w-full bg-green-600 text-white py-3 px-4 rounded-lg hover:bg-green-700 transition-colors font-medium disabled:bg-gray-400 disabled:cursor-not-allowed flex items-center justify-center"
-                >
-                  <Download className="w-4 h-4 mr-2" aria-hidden="true" />
-                  下載加浮水印的 PDF
-                </button>
-
-                <button
-                  onClick={reset}
-                  disabled={!selectedFile}
-                  className="w-full bg-gray-500 text-white py-2.5 px-4 rounded-lg hover:bg-gray-600 transition-colors disabled:bg-gray-300 disabled:cursor-not-allowed flex items-center justify-center min-h-[44px]"
-                >
-                  <RefreshCw className="w-4 h-4 mr-2" aria-hidden="true" />
-                  重新開始
-                </button>
+                <ActionButtons
+                  apply={{
+                    onClick: apply,
+                    disabled: !selectedFile || isProcessing,
+                    icon: <FileText className="w-4 h-4 mr-2" aria-hidden="true" />,
+                    label: isProcessing ? "處理中..." : "套用浮水印到 PDF",
+                  }}
+                  download={{
+                    onClick: download,
+                    disabled: !result,
+                    icon: <Download className="w-4 h-4 mr-2" aria-hidden="true" />,
+                    label: "下載加浮水印的 PDF",
+                  }}
+                  reset={{
+                    onClick: reset,
+                    disabled: !selectedFile,
+                    icon: <RefreshCw className="w-4 h-4 mr-2" aria-hidden="true" />,
+                    label: "重新開始",
+                  }}
+                />
 
                 {result && (
                   <DownloadSuccess tool="pdf-watermark" lang="zh" imageCount={1} className="mt-4" />
@@ -725,29 +694,7 @@ export default function PdfWatermarkPage() {
         </section>
       </main>
 
-      <footer className="bg-white border-t border-gray-200 mt-16">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <div className="flex flex-col md:flex-row justify-between items-center">
-            <p className="text-sm text-gray-600 mb-4 md:mb-0">
-              © 2025 隱私工具集 - 保護您的隱私安全
-            </p>
-            <div className="flex items-center space-x-4">
-              <Link href="/" className="text-sm text-primary hover:underline">
-                浮水印工具
-              </Link>
-              <Link href="/compress" className="text-sm text-primary hover:underline">
-                圖片壓縮
-              </Link>
-              <Link href="/resize" className="text-sm text-primary hover:underline">
-                圖片縮放
-              </Link>
-              <Link href="/blog" className="text-sm text-primary hover:underline">
-                教學文章
-              </Link>
-            </div>
-          </div>
-        </div>
-      </footer>
+      <SiteFooter lang="zh" />
     </div>
   );
 }
