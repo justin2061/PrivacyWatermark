@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { Link } from "wouter";
+import { SiteFooter } from "@/components/SiteFooter";
 import {
   setPageSeo,
   articleSchema,
@@ -259,6 +260,8 @@ export default function WatermarkPhotosOnline() {
           </p>
         </article>
       </main>
+
+      <SiteFooter lang="en" />
     </div>
   );
 }
