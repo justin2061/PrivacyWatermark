@@ -1,10 +1,12 @@
 import { useEffect } from "react";
-import { Link } from "wouter";
 import { Card } from "@/components/ui/card";
 import { SiteHeader } from "@/components/SiteHeader";
+import { SiteFooter } from "@/components/SiteFooter";
 import { PrivacyBanner } from "@/components/PrivacyBanner";
 import { DownloadSuccess } from "@/components/DownloadSuccess";
 import { ToolRecommendations } from "@/components/ToolRecommendations";
+import { UploadZone } from "@/components/UploadZone";
+import { ActionButton } from "@/components/ActionButtons";
 import { setPageSeo, webAppSchema } from "@/lib/seo";
 import { trackToolUseStart } from "@/lib/analytics";
 import { useMosaic, type MaskType } from "@/hooks/useMosaic";
@@ -17,7 +19,6 @@ import {
   RefreshCw,
   Trash2,
   Undo2,
-  Upload,
 } from "lucide-react";
 
 const ACCEPTED = "image/jpeg,image/png,image/webp,image/bmp,image/gif";
@@ -77,34 +78,17 @@ export default function MosaicPage() {
             <h1 className="text-xl font-semibold text-gray-900 mb-4 text-center">
               圖片馬賽克 / 遮蔽工具
             </h1>
-            <div
-              onDrop={(e) => {
-                e.preventDefault();
-                pickFile(e.dataTransfer.files[0]);
-              }}
-              onDragOver={(e) => e.preventDefault()}
-              onClick={() => m.fileInputRef.current?.click()}
-              onKeyDown={(e) => {
-                if (e.key === "Enter" || e.key === " ") {
-                  e.preventDefault();
-                  m.fileInputRef.current?.click();
-                }
-              }}
-              role="button"
-              tabIndex={0}
-              aria-label="上傳圖片區域，點擊或拖放檔案"
-              className="border-2 border-dashed border-gray-300 rounded-lg p-10 text-center hover:border-primary hover:bg-blue-50 transition-colors cursor-pointer"
-            >
-              <Upload className="text-gray-400 w-12 h-12 mb-4 mx-auto" aria-hidden="true" />
-              <p className="text-gray-600 mb-2">將圖片拖放到此處，或點擊選擇檔案</p>
-              <p className="text-sm text-gray-600 mb-4">支援 JPG、PNG、WebP、BMP、GIF</p>
-              <button
-                type="button"
-                className="bg-primary text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
-              >
-                選擇檔案
-              </button>
-            </div>
+            <UploadZone
+              accept={ACCEPTED}
+              onFiles={(files) => pickFile(files[0])}
+              title="將圖片拖放到此處，或點擊選擇檔案"
+              description="支援 JPG、PNG、WebP、BMP、GIF"
+              buttonLabel="選擇檔案"
+              ariaLabel="上傳圖片區域，點擊或拖放檔案"
+              inputAriaLabel="選擇圖片檔案"
+              inputRef={m.fileInputRef}
+              padding="p-10"
+            />
             <p className="text-sm text-gray-500 mt-4 text-center">
               上傳後在圖片上拖曳，即可為人臉、車牌或證件號碼打馬賽克。所有處理都在你的瀏覽器完成。
             </p>
@@ -297,36 +281,27 @@ export default function MosaicPage() {
               {/* 操作 */}
               <Card className="p-5">
                 <div className="space-y-3">
-                  <button
+                  <ActionButton
+                    variant="success"
                     onClick={m.download}
                     disabled={!hasResult}
-                    className="w-full bg-green-600 text-white py-3 px-4 rounded-lg hover:bg-green-700 transition-colors font-medium disabled:bg-gray-400 disabled:cursor-not-allowed flex items-center justify-center"
+                    icon={<Download className="w-4 h-4 mr-2" aria-hidden="true" />}
                   >
-                    <Download className="w-4 h-4 mr-2" aria-hidden="true" />
                     下載處理後圖片
-                  </button>
-                  <button
+                  </ActionButton>
+                  <ActionButton
+                    variant="neutral"
                     onClick={m.reset}
-                    className="w-full bg-gray-500 text-white py-2.5 min-h-[44px] px-4 rounded-lg hover:bg-gray-600 transition-colors flex items-center justify-center"
+                    icon={<RefreshCw className="w-4 h-4 mr-2" aria-hidden="true" />}
                   >
-                    <RefreshCw className="w-4 h-4 mr-2" aria-hidden="true" />
                     重新開始
-                  </button>
+                  </ActionButton>
                   {hasResult && <DownloadSuccess tool="mosaic" lang="zh" imageCount={1} className="mt-1" />}
                 </div>
               </Card>
             </div>
           </div>
         )}
-
-        <input
-          ref={m.fileInputRef}
-          type="file"
-          accept={ACCEPTED}
-          className="hidden"
-          onChange={(e) => pickFile(e.target.files?.[0])}
-          aria-label="選擇圖片檔案"
-        />
 
         {hasResult && (
           <ToolRecommendations current="mosaic" lang="zh" className="mt-12" />
@@ -386,29 +361,7 @@ export default function MosaicPage() {
         </section>
       </main>
 
-      <footer className="bg-white border-t border-gray-200 mt-16">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <div className="flex flex-col md:flex-row justify-between items-center">
-            <p className="text-sm text-gray-600 mb-4 md:mb-0">
-              © 2025 隱私工具集 - 保護您的隱私安全
-            </p>
-            <div className="flex items-center space-x-4">
-              <Link href="/" className="text-sm text-primary hover:underline">
-                浮水印工具
-              </Link>
-              <Link href="/exif-clean" className="text-sm text-primary hover:underline">
-                EXIF 清除
-              </Link>
-              <Link href="/resize" className="text-sm text-primary hover:underline">
-                圖片縮放
-              </Link>
-              <Link href="/blog" className="text-sm text-primary hover:underline">
-                教學文章
-              </Link>
-            </div>
-          </div>
-        </div>
-      </footer>
+      <SiteFooter lang="zh" />
     </div>
   );
 }
