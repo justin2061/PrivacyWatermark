@@ -182,6 +182,40 @@
     <xhtml:link rel="alternate" hreflang="zh-tw" href="https://imagemarker.app/convert/webp-to-png" />
   </url>
   <url>
+    <loc>https://imagemarker.app/convert/heic-to-jpg</loc>
+    <lastmod>2026-07-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="zh-tw" href="https://imagemarker.app/convert/heic-to-jpg" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://imagemarker.app/convert/heic-to-jpg" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://imagemarker.app/en/convert/heic-to-jpg" />
+  </url>
+  <url>
+    <loc>https://imagemarker.app/en/convert/heic-to-jpg</loc>
+    <lastmod>2026-07-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://imagemarker.app/en/convert/heic-to-jpg" />
+    <xhtml:link rel="alternate" hreflang="zh-tw" href="https://imagemarker.app/convert/heic-to-jpg" />
+  </url>
+  <url>
+    <loc>https://imagemarker.app/convert/heic-to-png</loc>
+    <lastmod>2026-07-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="zh-tw" href="https://imagemarker.app/convert/heic-to-png" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://imagemarker.app/convert/heic-to-png" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://imagemarker.app/en/convert/heic-to-png" />
+  </url>
+  <url>
+    <loc>https://imagemarker.app/en/convert/heic-to-png</loc>
+    <lastmod>2026-07-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://imagemarker.app/en/convert/heic-to-png" />
+    <xhtml:link rel="alternate" hreflang="zh-tw" href="https://imagemarker.app/convert/heic-to-png" />
+  </url>
+  <url>
     <loc>https://imagemarker.app/resize</loc>
     <lastmod>2026-06-28</lastmod>
     <changefreq>weekly</changefreq>
