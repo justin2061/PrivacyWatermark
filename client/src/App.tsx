@@ -4,6 +4,7 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { ProtectionNotice } from "@/components/ProtectionNotice";
+import { PwaInstallPrompt } from "@/components/PwaInstallPrompt";
 import WatermarkPage from "@/pages/watermark";
 import WatermarkEnPage from "@/pages/en/watermark";
 import WatermarkJaPage from "@/pages/ja/watermark";
@@ -177,6 +178,8 @@ function App() {
         <Toaster />
         {/* 全站輕度防護提醒：Electron／非官方來源／機器人（一般瀏覽器 render 為 null） */}
         <ProtectionNotice />
+        {/* 手機版 PWA 安裝提示（桌面版／已安裝／關閉過皆 render 為 null） */}
+        <PwaInstallPrompt />
         <Router />
       </TooltipProvider>
     </QueryClientProvider>

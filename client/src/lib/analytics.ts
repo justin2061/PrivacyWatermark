@@ -225,3 +225,32 @@ export function trackAffiliateClick(
     });
   }
 }
+
+// PWA 安裝提示的觸發方式：
+//   native —— Chrome／Edge 等支援 beforeinstallprompt，可叫出原生安裝對話框
+//   ios    —— iOS Safari 不支援該事件，只能顯示「分享 → 加入主畫面」手動指引
+export type PwaPromptMethod = "native" | "ios";
+
+/**
+ * 手機版 PWA 安裝提示 banner 顯示時觸發（每次顯示一次）。
+ * method 用來分辨是原生安裝對話框或 iOS 手動指引，兩者轉換率差異很大。
+ */
+export function trackPwaInstallPromptShown(method: PwaPromptMethod): void {
+  if (typeof gtag !== "undefined") {
+    gtag("event", "pwa_install_prompt_shown", {
+      method,
+    });
+  }
+}
+
+/**
+ * 使用者在原生安裝對話框選擇「安裝」時觸發（outcome === "accepted"）。
+ * iOS 手動指引無法得知結果，因此不會觸發此事件。
+ */
+export function trackPwaInstallAccepted(method: PwaPromptMethod): void {
+  if (typeof gtag !== "undefined") {
+    gtag("event", "pwa_install_accepted", {
+      method,
+    });
+  }
+}
