@@ -250,6 +250,46 @@ export default function WatermarkPage() {
           </div>
         </section>
 
+        {/* SEO 內容區：浮水印產生器說明 */}
+        <section className="mt-12" aria-labelledby="generator-intro-heading">
+          <Card className="p-6 md:p-8">
+            <h2 id="generator-intro-heading" className="text-xl font-semibold text-gray-900 mb-4">
+              免費線上浮水印產生器，專為證件影本設計
+            </h2>
+            <div className="space-y-4 text-sm text-gray-600 leading-relaxed">
+              <p>
+                ImageMarker 是一款<strong className="text-gray-900">免費、免註冊的線上浮水印產生器</strong>，
+                專門針對身分證、護照、駕照、健保卡等證件影本設計。所有影像處理 100%
+                在你的瀏覽器本地端完成，檔案<strong className="text-gray-900">不會上傳到任何伺服器</strong>——
+                這也是它和多數雲端浮水印產生器最關鍵的差別：處理極敏感的證件時，檔案根本不需要離開你的裝置。
+              </p>
+              <p>
+                使用方式很單純：上傳圖片、輸入浮水印文字（建議依「用途＋對象＋日期」公式撰寫，
+                例如「僅供 OO 銀行開戶使用 2026/07/20」）、調整透明度與位置，即時預覽滿意後直接下載。
+                支援 PWA 安裝到手機桌面，離線也能使用。
+              </p>
+              <p>
+                想知道市面上還有哪些選擇？我們實測比較了 5 款主流工具，整理成{" "}
+                <Link
+                  href="/blog/watermark-generators-recommendation"
+                  className="text-primary font-medium hover:underline"
+                >
+                  浮水印產生器推薦與比較表
+                </Link>
+                ，從隱私安全、是否需註冊、批次處理到 PDF 支援逐項比對；
+                若你想知道浮水印該寫什麼內容，可以參考{" "}
+                <Link
+                  href="/blog/watermark-templates-guide"
+                  className="text-primary font-medium hover:underline"
+                >
+                  身分證影本簽註寫法與 10 種情境範本
+                </Link>
+                。
+              </p>
+            </div>
+          </Card>
+        </section>
+
         {/* EXIF 清除入口 */}
         <section className="mt-12" aria-labelledby="exif-cta-heading">
           <Card className="p-6 md:p-8 bg-blue-50 border-blue-200">

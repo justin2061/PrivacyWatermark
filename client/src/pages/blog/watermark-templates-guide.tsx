@@ -30,7 +30,7 @@ export default function WatermarkTemplatesGuidePage() {
             "身分證影本簽註寫法與證件浮水印範本完整教學：手寫三行簽註正確寫法＋10 種常見情境文字範本。",
           url: URL,
           datePublished: "2026-04-10",
-          dateModified: "2026-07-01",
+          dateModified: "2026-07-20",
         }),
         faqSchema([
           {
@@ -178,7 +178,7 @@ export default function WatermarkTemplatesGuidePage() {
             <div className="flex items-center space-x-4 text-sm text-gray-500">
               <time dateTime="2026-04-10">2026 年 4 月 10 日</time>
               <span>·</span>
-              <span>最後更新 2026/07/01</span>
+              <span>最後更新 2026/07/20</span>
               <span>·</span>
               <span>閱讀約 8 分鐘</span>
             </div>
@@ -206,7 +206,7 @@ export default function WatermarkTemplatesGuidePage() {
               <strong>加註位置</strong>建議寫在證件影像的空白處並跨到影像上，而不是只寫在頁面邊緣，這樣才能和證件內容綁在一起。
             </p>
             <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 my-4 not-prose">
-              <p className="font-semibold text-gray-900 mb-2">身分證影本簽註寫法範例（可直接照抄）</p>
+              <p className="font-semibold text-gray-900 mb-2">手寫三行簽註範例（可直接照抄）</p>
               <ul className="text-sm text-gray-700 space-y-2 pl-1">
                 <li className="flex items-baseline gap-2">
                   <span className="whitespace-nowrap">第一行：僅提供 OO 銀行</span>
@@ -235,25 +235,87 @@ export default function WatermarkTemplatesGuidePage() {
 
             <InlineCTA tool="watermark" position="mid_article" location={SLUG} />
 
-            <h2>身分證影本加註（簽註）寫法範例</h2>
+            <h2>身分證影本簽註寫法範例：8 種情境照著抄</h2>
             <p>
               「加註」和「簽註」指的是同一件事：<strong>用筆手寫</strong>在身分證影本上、限定用途的註記；而浮水印則是用軟體加在<strong>電子檔</strong>上的半透明文字。一個處理紙本、一個處理數位檔，核心原則相同——寫清楚<strong>用途＋對象＋日期</strong>三要素，缺一不可。
             </p>
-            <p>以下 5 個加註範例可以直接照抄，把「OO」換成實際的對象名稱即可：</p>
+
+            {/* 圖例：簽註該寫在影本的哪個位置 */}
+            <figure className="not-prose my-6">
+              <div className="border-2 border-gray-300 rounded-lg bg-white p-4">
+                <p className="text-xs text-gray-500 mb-2">▼ 身分證影本簽註寫法範例：位置示意圖</p>
+                <div className="relative border border-dashed border-gray-400 rounded bg-gray-50 p-4 h-44 overflow-hidden">
+                  {/* 模擬證件欄位 */}
+                  <div className="space-y-2 text-xs text-gray-400">
+                    <p>姓名　王＿＿　　　　<span className="text-gray-300">［照片］</span></p>
+                    <p>統一編號　A1234＊＊＊＊＊</p>
+                    <p>出生年月日　民國 ＿＿ 年 ＿＿ 月 ＿＿ 日</p>
+                    <p>發證日期　　　　　　　　縣市　＿＿＿</p>
+                  </div>
+                  {/* 模擬手寫簽註：斜跨版面、與證件文字交疊 */}
+                  <div className="absolute inset-0 flex flex-col justify-center gap-1 px-6 -rotate-6">
+                    <p className="text-blue-700 text-sm border-b border-blue-700 pb-0.5">1. 僅提供 OO 銀行</p>
+                    <p className="text-blue-700 text-sm border-b border-blue-700 pb-0.5">2. 申辦 OO 信用卡使用</p>
+                    <p className="text-blue-700 text-sm border-b border-blue-700 pb-0.5">3. 2026/07/20，他用無效</p>
+                  </div>
+                </div>
+              </div>
+              <figcaption className="text-sm text-gray-600 mt-2">
+                圖例說明：藍色三行字＝手寫簽註，<strong>斜跨整張證件</strong>並與底下的欄位文字交疊，讓人無法整段挖除；
+                每行結尾的橫線把剩餘空白補滿，防止被補寫其他用途。注意簽註<strong>避開了姓名與統一編號的正上方</strong>，
+                對方仍能辨識，這是簽註與塗黑最大的差別。
+              </figcaption>
+            </figure>
+
+            <p>以下 8 個簽註寫法範例可以直接照抄，把「OO」換成實際的對象名稱、日期改成當天即可：</p>
             <ul>
-              <li><strong>租屋：</strong>「僅供 OO 房東租屋契約使用，不得作為其他用途 2026/07/03」</li>
-              <li><strong>求職：</strong>「僅供 OO 公司徵才審核使用，不得作為其他用途 2026/07/03」</li>
-              <li><strong>開戶：</strong>「僅供 OO 銀行開戶使用，不得作為其他用途 2026/07/03」</li>
-              <li><strong>保險：</strong>「僅供 OO 人壽投保使用，不得作為其他用途 2026/07/03」</li>
-              <li><strong>辦門號：</strong>「僅供 OO 電信申辦門號使用，不得作為其他用途 2026/07/03」</li>
+              <li><strong>租屋：</strong>「僅供 OO 房東租屋契約使用，不得作為其他用途 2026/07/20」</li>
+              <li><strong>求職：</strong>「僅供 OO 公司徵才審核使用，不得作為其他用途 2026/07/20」</li>
+              <li><strong>開戶：</strong>「僅供 OO 銀行開戶使用，不得作為其他用途 2026/07/20」</li>
+              <li><strong>保險：</strong>「僅供 OO 人壽投保使用，不得作為其他用途 2026/07/20」</li>
+              <li><strong>辦門號：</strong>「僅供 OO 電信申辦門號使用，不得作為其他用途 2026/07/20」</li>
+              <li><strong>過戶：</strong>「僅供車牌 OOO-OOOO 過戶使用，不得作為其他用途 2026/07/20」</li>
+              <li><strong>貸款：</strong>「僅供 OO 銀行房貸／信貸審核使用，不得作為其他用途 2026/07/20」</li>
+              <li><strong>機關申辦：</strong>「僅供 OO 戶政事務所申辦使用，不得作為其他用途 2026/07/20」</li>
             </ul>
+            <p>
+              如果對方要求的是「一行寫完」的簡短版本，可以用這個最短公式：
+              <strong>「僅供 ＿＿＿（對象）＿＿＿（用途）使用　YYYY/MM/DD」</strong>，
+              三要素仍然齊全，是最低限度可接受的簽註寫法。
+            </p>
             <p>
               <strong>加註位置</strong>：文字要寫到證件影像上、與證件內容部分交疊——不能只寫在紙張的空白邊緣，否則整段註記很容易被裁掉；但也不可遮住姓名、身分證字號與照片等關鍵欄位。另外<strong>正反面影本都要各自加註</strong>，不要只註記其中一面。
             </p>
+
+            {/* 常見錯誤對照 */}
+            <div className="not-prose grid grid-cols-1 sm:grid-cols-2 gap-4 my-6">
+              <div className="border border-red-200 bg-red-50 rounded-lg p-4">
+                <p className="font-semibold text-red-900 text-sm mb-2">✗ 常見錯誤寫法</p>
+                <ul className="text-sm text-red-800 space-y-1.5">
+                  <li>「影本」——沒有用途、沒有對象、沒有日期</li>
+                  <li>「僅供辦事使用」——用途太籠統，等於沒限定</li>
+                  <li>只寫在紙張最下緣——一刀裁掉就沒了</li>
+                  <li>用鉛筆或淺色筆——可擦除、可覆蓋</li>
+                  <li>整段塗黑身分證字號——對方會退件要求重給</li>
+                </ul>
+              </div>
+              <div className="border border-green-200 bg-green-50 rounded-lg p-4">
+                <p className="font-semibold text-green-900 text-sm mb-2">✓ 正確寫法</p>
+                <ul className="text-sm text-green-800 space-y-1.5">
+                  <li>「僅供 OO 銀行申辦信用卡使用 2026/07/20」</li>
+                  <li>對象寫到具體公司名，不寫「某銀行」</li>
+                  <li>斜跨證件影像、與欄位文字交疊</li>
+                  <li>藍色原子筆，每行結尾補橫線</li>
+                  <li>重要欄位保持可辨識，只限定用途</li>
+                </ul>
+              </div>
+            </div>
             <p>
               要提醒的是，手寫加註只能保護紙本。如果影本是用 LINE、Email 或線上表單傳送，對方拿到的是電子檔，手寫註記可能被裁切或修圖抹除；數位浮水印以半透明文字覆蓋整張證件、與影像像素融合，比手寫加註更難去除。傳電子檔前，先用{" "}
               <a href="https://imagemarker.app">ImageMarker</a>{" "}
-              加上浮水印再送出。
+              加上浮水印再送出。想比較其他工具的話，可以參考我們整理的{" "}
+              <Link href="/blog/watermark-generators-recommendation">浮水印產生器</Link>{" "}
+              推薦與功能比較表——處理身分證這類敏感證件時，務必選擇在瀏覽器本地端處理、不上傳檔案的浮水印產生器。
             </p>
 
             <h2>證件浮水印萬能公式</h2>

@@ -248,6 +248,13 @@ export default function OtherDocumentsWatermark() {
               </a>
               → 上傳證件影本 → 套用範本或自訂浮水印文字 → 預覽下載。整個過程不到一分鐘。
             </p>
+            <p>
+              當然，市面上還有不少其他選擇。若你想先比較再決定，可以看這篇{" "}
+              <Link href="/blog/watermark-generators-recommendation">浮水印產生器</Link>{" "}
+              推薦，裡面實測了 5 款免費線上工具的隱私處理方式、批次與 PDF 支援度。
+              重點只有一個：處理存摺、健保卡這類證件時，請優先選擇在瀏覽器本地端運算的浮水印產生器，
+              不要把檔案交給會上傳伺服器的服務。
+            </p>
 
             <h2>常見問題</h2>
             <p>
