@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { X, Share, Plus } from "lucide-react";
+import { X, Share } from "lucide-react";
 import {
   trackPwaInstallPromptShown,
   trackPwaInstallAccepted,
@@ -86,41 +86,30 @@ const COPY: Record<
     install: string;
     how: string;
     close: string;
-    iosHint: (share: JSX.Element, plus: JSX.Element) => JSX.Element;
+    /** iOS 手動指引：必須短到能與標題一樣塞進同一行，不可換行。 */
+    iosHint: (share: JSX.Element) => JSX.Element;
   }
 > = {
   zh: {
     title: "📱 加入主畫面，離線也能用！",
     install: "安裝",
-    how: "如何安裝",
+    how: "如何裝",
     close: "關閉安裝提示",
-    iosHint: (share, plus) => (
-      <>
-        點下方工具列的分享 {share}，再選「加入主畫面」{plus}。
-      </>
-    ),
+    iosHint: (share) => <>點分享 {share} →「加入主畫面」</>,
   },
   en: {
-    title: "📱 Add to Home Screen — works offline!",
+    title: "📱 Add to Home Screen — offline ready!",
     install: "Install",
-    how: "How to install",
+    how: "How",
     close: "Dismiss install prompt",
-    iosHint: (share, plus) => (
-      <>
-        Tap Share {share} in the toolbar, then choose "Add to Home Screen" {plus}.
-      </>
-    ),
+    iosHint: (share) => <>Tap Share {share} → Add to Home Screen</>,
   },
   ja: {
-    title: "📱 ホーム画面に追加、オフラインでも使えます！",
-    install: "インストール",
-    how: "追加方法",
+    title: "📱 ホーム画面に追加、オフライン対応！",
+    install: "追加",
+    how: "方法",
     close: "インストール案内を閉じる",
-    iosHint: (share, plus) => (
-      <>
-        下部の共有ボタン {share} をタップし、「ホーム画面に追加」{plus} を選択してください。
-      </>
-    ),
+    iosHint: (share) => <>共有 {share} →「ホーム画面に追加」</>,
   },
 };
 
@@ -241,44 +230,41 @@ export function PwaInstallPrompt() {
   const shareIcon = (
     <Share className="inline w-3.5 h-3.5 align-text-bottom" aria-hidden="true" />
   );
-  const plusIcon = (
-    <Plus className="inline w-3.5 h-3.5 align-text-bottom" aria-hidden="true" />
-  );
 
+  // 單行工具列式設計：整條貼齊底部、無外距，高度壓在 52px 以內，
+  // 盡量少擋到底下的上傳區。iOS 指引不另起一行，直接就地替換訊息文字。
   return (
     <div
       role="dialog"
       aria-label={t.title}
-      className="md:hidden fixed inset-x-0 bottom-0 z-50 p-3 pb-[max(0.75rem,env(safe-area-inset-bottom))]"
+      className="md:hidden fixed inset-x-0 bottom-0 z-50 bg-white border-t border-gray-200 shadow-lg pb-[env(safe-area-inset-bottom)]"
     >
-      <div className="bg-white border border-gray-200 rounded-xl shadow-lg p-3">
-        <div className="flex items-center gap-3">
-          <p className="flex-1 text-sm font-medium text-gray-900 leading-snug">
-            {t.title}
-          </p>
-          {!showIosHint && (
-            <button
-              type="button"
-              onClick={install}
-              className="flex-shrink-0 bg-primary text-white text-sm font-medium py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors"
-            >
-              {method === "ios" ? t.how : t.install}
-            </button>
-          )}
+      <div className="flex items-center gap-2 px-3 py-1.5">
+        <p className="flex-1 min-w-0 truncate text-xs font-medium text-gray-900">
+          {showIosHint ? t.iosHint(shareIcon) : t.title}
+        </p>
+        {/*
+          兩顆按鈕都是 36px 高（bar 總高 52px 的上限內），再用 after 偽元素把
+          實際可點範圍往上下各撐 4px 至 44px，符合行動裝置最小觸控目標，
+          又只超出 bar 4px，不至於誤攔到上方頁面內容的點擊。
+        */}
+        {!showIosHint && (
           <button
             type="button"
-            onClick={dismiss}
-            aria-label={t.close}
-            className="flex-shrink-0 p-1 text-gray-400 hover:text-gray-600 transition-colors"
+            onClick={install}
+            className="relative flex-shrink-0 bg-primary text-white text-xs font-medium py-2.5 px-3.5 rounded-md hover:bg-blue-700 transition-colors after:absolute after:content-[''] after:inset-x-0 after:-inset-y-1"
           >
-            <X className="w-4 h-4" aria-hidden="true" />
+            {method === "ios" ? t.how : t.install}
           </button>
-        </div>
-        {showIosHint && (
-          <p className="mt-2 text-xs text-gray-600 leading-relaxed">
-            {t.iosHint(shareIcon, plusIcon)}
-          </p>
         )}
+        <button
+          type="button"
+          onClick={dismiss}
+          aria-label={t.close}
+          className="relative flex-shrink-0 p-2.5 text-gray-400 hover:text-gray-600 transition-colors after:absolute after:content-[''] after:-inset-1"
+        >
+          <X className="w-4 h-4" aria-hidden="true" />
+        </button>
       </div>
     </div>
   );
