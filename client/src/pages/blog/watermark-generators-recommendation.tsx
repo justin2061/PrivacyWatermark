@@ -30,7 +30,7 @@ export default function WatermarkGeneratorsRecommendation() {
             "精選 5 款 2026 年最好用的免費線上浮水印產生器，比較證件、圖片、防盜圖、PDF 加浮水印功能與隱私安全。",
           url: URL,
           datePublished: "2026-04-07",
-          dateModified: "2026-07-01",
+          dateModified: "2026-07-20",
         }),
         {
           "@context": "https://schema.org",
@@ -102,7 +102,7 @@ export default function WatermarkGeneratorsRecommendation() {
               2026-04-07
             </time>
             <span className="text-sm text-muted-foreground">
-              {" "}·　最後更新 2026-07-01
+              {" "}·　最後更新 2026-07-20
             </span>
             <h1 className="text-3xl font-bold mt-2 leading-snug">
               浮水印產生器推薦：5 款免費線上工具比較（2026 最新）
@@ -156,6 +156,17 @@ export default function WatermarkGeneratorsRecommendation() {
               <li>免註冊、免費、無廣告、無檔案大小限制</li>
               <li>繁體中文介面，符合台灣使用習慣</li>
               <li>支援透明度調整、自訂文字、九宮格位置</li>
+              <li>
+                <strong>2026 新增：</strong>
+                <Link href="/batch">批次浮水印</Link>（一次處理多張證件影本）與{" "}
+                <Link href="/pdf-watermark">PDF 浮水印</Link>（逐頁加上浮水印），
+                兩者同樣是本地端處理
+              </li>
+              <li>
+                同站另有 <Link href="/exif-clean">EXIF 清除</Link>、
+                <Link href="/mosaic">馬賽克遮蔽</Link>、
+                <Link href="/compress">圖片壓縮</Link> 等工具可搭配使用
+              </li>
               <li>支援 PWA，可安裝到手機當 App 用</li>
               <li>
                 <strong>適合：</strong>處理敏感證件、租屋/求職/辦業務時交影本
@@ -207,7 +218,11 @@ export default function WatermarkGeneratorsRecommendation() {
 
             <InlineCTA tool="batch" position="mid_article" location={SLUG} />
 
-            <h2>功能比較表</h2>
+            <h2>浮水印產生器比較表（2026 年 7 月更新）</h2>
+            <p>
+              下表是 5 款浮水印產生器的功能對照。<strong>「檔案處理方式」是挑選證件工具時最關鍵的一欄</strong>——
+              本地端代表檔案完全不離開你的裝置，雲端則代表你的證件影本會被上傳到對方伺服器。
+            </p>
             <div className="overflow-x-auto">
               <table>
                 <thead>
@@ -215,7 +230,7 @@ export default function WatermarkGeneratorsRecommendation() {
                     <th>工具</th>
                     <th>免費</th>
                     <th>免註冊</th>
-                    <th>本地處理</th>
+                    <th>檔案處理方式</th>
                     <th>批次</th>
                     <th>PDF</th>
                     <th>繁中</th>
@@ -227,9 +242,9 @@ export default function WatermarkGeneratorsRecommendation() {
                     <td>ImageMarker</td>
                     <td>完全免費</td>
                     <td>✅</td>
+                    <td>✅ 本地端</td>
                     <td>✅</td>
-                    <td>❌</td>
-                    <td>❌</td>
+                    <td>✅</td>
                     <td>✅</td>
                     <td>✅</td>
                   </tr>
@@ -237,7 +252,7 @@ export default function WatermarkGeneratorsRecommendation() {
                     <td>Watermarkly</td>
                     <td>免費受限</td>
                     <td>❌</td>
-                    <td>❌</td>
+                    <td>❌ 需上傳</td>
                     <td>✅</td>
                     <td>❌</td>
                     <td>❌</td>
@@ -247,7 +262,7 @@ export default function WatermarkGeneratorsRecommendation() {
                     <td>Smallpdf</td>
                     <td>免費受限</td>
                     <td>❌</td>
-                    <td>❌</td>
+                    <td>❌ 需上傳</td>
                     <td>✅</td>
                     <td>✅</td>
                     <td>✅</td>
@@ -257,7 +272,7 @@ export default function WatermarkGeneratorsRecommendation() {
                     <td>Watermark.ws</td>
                     <td>免費受限</td>
                     <td>可選</td>
-                    <td>❌</td>
+                    <td>❌ 需上傳</td>
                     <td>✅</td>
                     <td>部分</td>
                     <td>❌</td>
@@ -267,7 +282,7 @@ export default function WatermarkGeneratorsRecommendation() {
                     <td>Canva</td>
                     <td>免費受限</td>
                     <td>❌</td>
-                    <td>❌</td>
+                    <td>❌ 需上傳</td>
                     <td>✅</td>
                     <td>❌</td>
                     <td>✅</td>
@@ -276,6 +291,11 @@ export default function WatermarkGeneratorsRecommendation() {
                 </tbody>
               </table>
             </div>
+            <p className="text-sm">
+              <strong>2026/07 更新說明：</strong>ImageMarker 在 2026 年上半年補上了批次浮水印與 PDF
+              浮水印兩項功能，且都維持本地端處理，因此上表中這兩欄由「❌」更新為「✅」。
+              其餘四款工具的處理方式與免費限制經本次複查後維持不變。
+            </p>
 
             <h2>如何選擇？</h2>
             <ul>
@@ -283,10 +303,16 @@ export default function WatermarkGeneratorsRecommendation() {
                 <strong>處理身分證、護照等證件</strong> → ImageMarker（本地處理最安全）
               </li>
               <li>
-                <strong>批次處理大量照片</strong> → Watermarkly
+                <strong>批次處理多張證件影本</strong> → ImageMarker{" "}
+                <Link href="/batch">批次浮水印</Link>（不需上傳，敏感檔案適用）
               </li>
               <li>
-                <strong>PDF 加浮水印</strong> → Smallpdf
+                <strong>批次處理大量攝影作品、要加 logo 圖片浮水印</strong> → Watermarkly
+              </li>
+              <li>
+                <strong>PDF 加浮水印</strong> → 內容敏感就用 ImageMarker{" "}
+                <Link href="/pdf-watermark">PDF 浮水印</Link>；
+                若同時還要合併、壓縮、轉檔等一整套 PDF 操作則用 Smallpdf
               </li>
               <li>
                 <strong>需要設計感浮水印</strong> → Canva
@@ -295,6 +321,10 @@ export default function WatermarkGeneratorsRecommendation() {
                 <strong>簡單快速</strong> → Watermark.ws
               </li>
             </ul>
+            <p>
+              簡單一句話：<strong>檔案愈敏感，愈該選本地端處理的浮水印產生器</strong>。
+              社群貼圖、作品集這類公開內容，用哪一款差別不大；但只要是身分證、存摺、護照，
+              就沒有理由把檔案上傳到別人的伺服器。</p>
 
             <h2>常見問題 FAQ</h2>
 

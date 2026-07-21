@@ -2,6 +2,9 @@
 // 內容須中英一致的事實正確性：透明度、失真/無損、相容性等描述都針對該格式對撰寫。
 
 export type PairMime = "image/jpeg" | "image/png" | "image/webp";
+// 來源格式可包含 HEIC（瀏覽器無法原生解碼，需先以 heic2any 於本機解碼再進 Canvas）。
+// 輸出格式仍限 Canvas 支援的 JPG／PNG／WebP。
+export type PairSourceMime = PairMime | "image/heic";
 
 export interface PairFaq {
   q: string;
@@ -23,7 +26,7 @@ export interface PairLocaleContent {
 
 export interface ConvertPair {
   slug: string;
-  from: PairMime;
+  from: PairSourceMime;
   to: PairMime;
   fromLabel: string;
   toLabel: string;
@@ -406,6 +409,158 @@ export const PAIRS: ConvertPair[] = [
         {
           q: "Does converting WebP to PNG lose quality?",
           a: "No. PNG stores the decoded image losslessly, so the conversion itself introduces no additional compression artifacts.",
+        },
+      ],
+    },
+  },
+  {
+    slug: "heic-to-jpg",
+    from: "image/heic",
+    to: "image/jpeg",
+    fromLabel: "HEIC",
+    toLabel: "JPG",
+    zh: {
+      title: "HEIC 轉 JPG — 免費線上轉檔工具，100% 本機處理",
+      description:
+        "免費線上 HEIC 轉 JPG 工具。把 iPhone 拍的 HEIC 照片轉成相容性最高的 JPG，Windows、Android 與各種上傳表單都能開。100% 本機解碼與轉換，照片不會上傳。",
+      h1: "HEIC 轉 JPG — 免費線上轉檔，100% 本機處理",
+      intro: [
+        "HEIC 是 iPhone（iOS 11 以後）預設的照片格式，用 HEVC 壓縮，同畫質下檔案約只有 JPG 的一半，很省空間。但問題是相容性：Windows 舊版、部分 Android 手機、許多網站上傳欄位與老舊軟體都打不開 HEIC。把 HEIC 轉成 JPG 之後，幾乎任何裝置與平台都能正常顯示，是最快解決「照片傳出去對方打不開」的方法。",
+        "由於瀏覽器本身無法原生解碼 HEIC，本工具會在你的裝置上以 WebAssembly 解碼器就地解開 HEIC，再用 Canvas 重新編碼成 JPG——全程 100% 在瀏覽器完成，照片不會上傳到任何伺服器。轉出的 JPG 以 92% 品質輸出，一般照片肉眼幾乎看不出差異。",
+        "附帶的隱私好處：轉檔過程只保留畫面像素，原檔 HEIC 內嵌的 GPS 定位、拍攝時間等 EXIF 中繼資料不會寫進輸出的 JPG，等於順手幫照片去掉了位置資訊。",
+      ],
+      faq: [
+        {
+          q: "照片會被上傳嗎？",
+          a: "不會。HEIC 解碼與轉檔完全在你的瀏覽器中執行（WebAssembly 解碼器 + Canvas），100% 本機處理，照片不會上傳到任何伺服器，也不會留下副本。",
+        },
+        {
+          q: "為什麼一定要把 HEIC 轉成 JPG？",
+          a: "HEIC 是 Apple 專屬格式，Windows 舊版、部分 Android 裝置、許多網站上傳欄位與老軟體都無法開啟。轉成 JPG 後相容性最高，幾乎所有裝置、軟體與平台都能顯示。",
+        },
+        {
+          q: "轉成 JPG 後畫質會變差嗎？",
+          a: "JPG 是失真格式，本工具以 92% 品質輸出，一般照片幾乎看不出差異。若你想要無損保存，請改用 HEIC 轉 PNG。",
+        },
+        {
+          q: "HEIC 轉 JPG 後檔案會變大嗎？",
+          a: "通常會略為變大。HEIC 壓縮效率比 JPG 高，同畫質下檔案更小，因此轉成 JPG 後檔案常見會增加。若在意檔案大小，可再用本站的圖片壓縮工具。",
+        },
+        {
+          q: "Live Photo 或連拍的 HEIC 可以轉嗎？",
+          a: "可以上傳，但轉出的 JPG 是靜態照片，只會保留主影格，動態或連拍的其他影格不會保留。",
+        },
+        {
+          q: "轉檔會保留照片的 GPS 位置資訊嗎？",
+          a: "不會。轉檔僅保留畫面像素，原檔的 GPS、拍攝時間等 EXIF 中繼資料不會寫入輸出的 JPG，對隱私反而更安全。",
+        },
+      ],
+    },
+    en: {
+      title: "Convert HEIC to JPG — Free Online Converter, 100% Local",
+      description:
+        "Free online HEIC to JPG converter. Turn iPhone HEIC photos into universally compatible JPG that opens on Windows, Android and any upload form. 100% local decoding, no uploads.",
+      h1: "Convert HEIC to JPG — Free, 100% Local",
+      intro: [
+        "HEIC is the default photo format on iPhone (iOS 11 and later). It uses HEVC compression, so at similar quality the file is roughly half the size of a JPG — great for saving space. The catch is compatibility: older Windows versions, some Android phones, many website upload fields and legacy apps simply can't open HEIC. Converting HEIC to JPG makes the photo display correctly on virtually any device or platform — the fastest fix for \"I sent a photo and they can't open it.\"",
+        "Because browsers can't natively decode HEIC, this tool decodes it on your device with a WebAssembly decoder, then re-encodes to JPG with the Canvas API — 100% in your browser, so your photos are never uploaded to any server. The output JPG is encoded at 92% quality, visually indistinguishable for typical photos.",
+        "A privacy bonus: conversion keeps only the pixels, so the GPS location, capture time and other EXIF metadata embedded in the original HEIC are not written into the output JPG — effectively stripping location data along the way.",
+      ],
+      faq: [
+        {
+          q: "Will my photos be uploaded?",
+          a: "No. HEIC decoding and conversion run entirely in your browser (a WebAssembly decoder plus the Canvas API) — 100% local processing. Your photos are never uploaded to any server and no copies are kept.",
+        },
+        {
+          q: "Why do I need to convert HEIC to JPG?",
+          a: "HEIC is an Apple-specific format that older Windows versions, some Android devices, many upload fields and legacy software can't open. JPG has the broadest compatibility — virtually every device, app and platform can display it.",
+        },
+        {
+          q: "Does converting to JPG reduce quality?",
+          a: "JPG is a lossy format. This tool exports at 92% quality, which is nearly indistinguishable for typical photos. If you want lossless output, use HEIC to PNG instead.",
+        },
+        {
+          q: "Will the JPG be larger than the HEIC?",
+          a: "Usually a bit larger. HEIC compresses more efficiently than JPG, so files are smaller at the same quality — converting to JPG often increases the size. If size matters, run the result through our image compressor.",
+        },
+        {
+          q: "Can I convert a Live Photo or burst HEIC?",
+          a: "You can upload one, but the resulting JPG is a still image containing only the main frame — motion and other burst frames are not preserved.",
+        },
+        {
+          q: "Does conversion keep the photo's GPS location?",
+          a: "No. Conversion keeps only the pixels, so GPS, capture time and other EXIF metadata from the original are not written into the output JPG — which is actually safer for privacy.",
+        },
+      ],
+    },
+  },
+  {
+    slug: "heic-to-png",
+    from: "image/heic",
+    to: "image/png",
+    fromLabel: "HEIC",
+    toLabel: "PNG",
+    zh: {
+      title: "HEIC 轉 PNG — 免費線上轉檔工具，100% 本機處理",
+      description:
+        "免費線上 HEIC 轉 PNG 工具。把 iPhone 的 HEIC 照片轉成無損、相容性極高的 PNG，方便後續編輯或平台要求 PNG 的場合。100% 本機解碼，照片不會上傳。",
+      h1: "HEIC 轉 PNG — 免費線上轉檔，100% 本機處理",
+      intro: [
+        "HEIC 是 iPhone 預設的照片格式，省空間但相容性差，很多軟體與平台打不開。當你需要在不支援 HEIC 的軟體中編輯照片，或對方只接受 PNG 時，把 HEIC 轉成 PNG 是最穩妥的選擇。PNG 為無損格式，之後不管再編輯、再儲存幾次都不會累積壓縮失真，適合需要保留清晰邊緣的截圖、去背圖或設計素材。",
+        "由於瀏覽器無法原生解碼 HEIC，本工具會在你的裝置上以 WebAssembly 解碼器就地解開 HEIC，再用 Canvas 重新編碼成 PNG——全程 100% 在瀏覽器完成，照片不會上傳。要有正確期待：PNG 是無損格式，檔案通常會比原本的 HEIC 大上不少，這是正常現象；若目標是縮小檔案、只是要讓對方能開啟一般照片，改用 HEIC 轉 JPG 會得到更小的檔案。",
+      ],
+      faq: [
+        {
+          q: "照片會被上傳嗎？",
+          a: "不會。HEIC 解碼與轉檔完全在你的瀏覽器中執行（WebAssembly 解碼器 + Canvas），100% 本機處理，照片不會上傳到任何伺服器。",
+        },
+        {
+          q: "HEIC 轉 PNG 和轉 JPG 有什麼差別？",
+          a: "PNG 是無損格式，適合後續編輯或需要清晰邊緣、透明背景的場合，但檔案較大；JPG 是失真格式，檔案小、相容性高，適合一般分享與上傳。看你的用途選擇。",
+        },
+        {
+          q: "為什麼轉出來的 PNG 檔案這麼大？",
+          a: "PNG 是無損格式，會完整保存每個像素，加上 HEIC 原本壓縮效率很高，因此轉成 PNG 後檔案常見會大上數倍，屬正常現象。",
+        },
+        {
+          q: "HEIC 轉 PNG 會損失畫質嗎？",
+          a: "不會。PNG 以無損方式保存解碼後的影像，轉換過程本身不會再產生任何壓縮失真。",
+        },
+        {
+          q: "轉檔會保留 GPS 位置等中繼資料嗎？",
+          a: "不會。轉檔僅保留畫面像素，原檔的 GPS、拍攝時間等 EXIF 中繼資料不會寫入輸出的 PNG，對隱私更安全。",
+        },
+      ],
+    },
+    en: {
+      title: "Convert HEIC to PNG — Free Online Converter, 100% Local",
+      description:
+        "Free online HEIC to PNG converter. Turn iPhone HEIC photos into lossless, widely supported PNG — ideal for editing or platforms that require PNG. 100% local decoding, no uploads.",
+      h1: "Convert HEIC to PNG — Free, 100% Local",
+      intro: [
+        "HEIC is the default photo format on iPhone. It saves space but has poor compatibility — many apps and platforms can't open it. When you need to edit a photo in software that doesn't support HEIC, or a platform only accepts PNG, converting HEIC to PNG is the safest option. PNG is lossless, so no matter how many times you re-edit and re-save afterwards, no additional quality is lost — ideal for screenshots, cut-outs and design assets that need crisp edges.",
+        "Because browsers can't natively decode HEIC, this tool decodes it on your device with a WebAssembly decoder, then re-encodes to PNG with the Canvas API — 100% in your browser, no uploads. Set the right expectation: PNG is lossless, so the file is usually considerably larger than the original HEIC, which is normal. If your goal is a smaller file and you just need an ordinary photo to open, HEIC to JPG gives you a much smaller result.",
+      ],
+      faq: [
+        {
+          q: "Will my photos be uploaded?",
+          a: "No. HEIC decoding and conversion run entirely in your browser (a WebAssembly decoder plus the Canvas API) — 100% local processing. Your photos are never uploaded to any server.",
+        },
+        {
+          q: "What's the difference between HEIC to PNG and HEIC to JPG?",
+          a: "PNG is lossless — best for further editing or when you need crisp edges or transparency — but files are larger. JPG is lossy — smaller and highly compatible — better for everyday sharing and uploads. Choose based on your use case.",
+        },
+        {
+          q: "Why is the resulting PNG so large?",
+          a: "PNG is a lossless format that stores every pixel exactly, and HEIC compresses very efficiently to begin with, so the PNG is often several times larger. That's expected.",
+        },
+        {
+          q: "Does converting HEIC to PNG lose quality?",
+          a: "No. PNG stores the decoded image losslessly, so the conversion itself introduces no additional compression artifacts.",
+        },
+        {
+          q: "Does conversion keep GPS and other metadata?",
+          a: "No. Conversion keeps only the pixels, so GPS, capture time and other EXIF metadata from the original are not written into the output PNG — which is safer for privacy.",
         },
       ],
     },
