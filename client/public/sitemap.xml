@@ -216,6 +216,108 @@
     <xhtml:link rel="alternate" hreflang="zh-tw" href="https://imagemarker.app/convert/heic-to-png" />
   </url>
   <url>
+    <loc>https://imagemarker.app/convert/svg-to-png</loc>
+    <lastmod>2026-07-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="zh-tw" href="https://imagemarker.app/convert/svg-to-png" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://imagemarker.app/convert/svg-to-png" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://imagemarker.app/en/convert/svg-to-png" />
+  </url>
+  <url>
+    <loc>https://imagemarker.app/en/convert/svg-to-png</loc>
+    <lastmod>2026-07-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://imagemarker.app/en/convert/svg-to-png" />
+    <xhtml:link rel="alternate" hreflang="zh-tw" href="https://imagemarker.app/convert/svg-to-png" />
+  </url>
+  <url>
+    <loc>https://imagemarker.app/convert/svg-to-jpg</loc>
+    <lastmod>2026-07-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="zh-tw" href="https://imagemarker.app/convert/svg-to-jpg" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://imagemarker.app/convert/svg-to-jpg" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://imagemarker.app/en/convert/svg-to-jpg" />
+  </url>
+  <url>
+    <loc>https://imagemarker.app/en/convert/svg-to-jpg</loc>
+    <lastmod>2026-07-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://imagemarker.app/en/convert/svg-to-jpg" />
+    <xhtml:link rel="alternate" hreflang="zh-tw" href="https://imagemarker.app/convert/svg-to-jpg" />
+  </url>
+  <url>
+    <loc>https://imagemarker.app/convert/bmp-to-jpg</loc>
+    <lastmod>2026-07-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="zh-tw" href="https://imagemarker.app/convert/bmp-to-jpg" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://imagemarker.app/convert/bmp-to-jpg" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://imagemarker.app/en/convert/bmp-to-jpg" />
+  </url>
+  <url>
+    <loc>https://imagemarker.app/en/convert/bmp-to-jpg</loc>
+    <lastmod>2026-07-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://imagemarker.app/en/convert/bmp-to-jpg" />
+    <xhtml:link rel="alternate" hreflang="zh-tw" href="https://imagemarker.app/convert/bmp-to-jpg" />
+  </url>
+  <url>
+    <loc>https://imagemarker.app/convert/bmp-to-png</loc>
+    <lastmod>2026-07-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="zh-tw" href="https://imagemarker.app/convert/bmp-to-png" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://imagemarker.app/convert/bmp-to-png" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://imagemarker.app/en/convert/bmp-to-png" />
+  </url>
+  <url>
+    <loc>https://imagemarker.app/en/convert/bmp-to-png</loc>
+    <lastmod>2026-07-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://imagemarker.app/en/convert/bmp-to-png" />
+    <xhtml:link rel="alternate" hreflang="zh-tw" href="https://imagemarker.app/convert/bmp-to-png" />
+  </url>
+  <url>
+    <loc>https://imagemarker.app/convert/gif-to-jpg</loc>
+    <lastmod>2026-07-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="zh-tw" href="https://imagemarker.app/convert/gif-to-jpg" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://imagemarker.app/convert/gif-to-jpg" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://imagemarker.app/en/convert/gif-to-jpg" />
+  </url>
+  <url>
+    <loc>https://imagemarker.app/en/convert/gif-to-jpg</loc>
+    <lastmod>2026-07-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://imagemarker.app/en/convert/gif-to-jpg" />
+    <xhtml:link rel="alternate" hreflang="zh-tw" href="https://imagemarker.app/convert/gif-to-jpg" />
+  </url>
+  <url>
+    <loc>https://imagemarker.app/convert/gif-to-png</loc>
+    <lastmod>2026-07-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="zh-tw" href="https://imagemarker.app/convert/gif-to-png" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://imagemarker.app/convert/gif-to-png" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://imagemarker.app/en/convert/gif-to-png" />
+  </url>
+  <url>
+    <loc>https://imagemarker.app/en/convert/gif-to-png</loc>
+    <lastmod>2026-07-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://imagemarker.app/en/convert/gif-to-png" />
+    <xhtml:link rel="alternate" hreflang="zh-tw" href="https://imagemarker.app/convert/gif-to-png" />
+  </url>
+  <url>
     <loc>https://imagemarker.app/resize</loc>
     <lastmod>2026-06-28</lastmod>
     <changefreq>weekly</changefreq>

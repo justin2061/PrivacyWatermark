@@ -8,7 +8,12 @@ import { ToolRecommendations } from "@/components/ToolRecommendations";
 import { ToolsShowcase } from "@/components/ToolsShowcase";
 import { setPageSeo, webAppSchema, faqSchema, localeAlternates } from "@/lib/seo";
 import { trackToolUseStart } from "@/lib/analytics";
-import { PAIRS, type ConvertPair, type PairMime } from "@/lib/convertPairs";
+import {
+  PAIRS,
+  type ConvertPair,
+  type PairMime,
+  type PairSourceMime,
+} from "@/lib/convertPairs";
 import {
   ArrowRight,
   CheckCircle,
@@ -17,10 +22,30 @@ import {
   Upload,
 } from "lucide-react";
 
-const ACCEPTED = "image/jpeg,image/png,image/webp,image/bmp,image/gif";
-// HEIC 來源頁另外接受 .heic/.heif（部分瀏覽器不會替 HEIC 設定 file.type）。
-const ACCEPTED_HEIC =
-  "image/heic,image/heif,.heic,.heif,image/jpeg,image/png,image/webp,image/bmp,image/gif";
+// 瀏覽器 <img> 能原生解碼的格式；輸出端一律走 Canvas，故僅 JPG／PNG／WebP。
+const BASE_ACCEPT = "image/jpeg,image/png,image/webp,image/bmp,image/gif";
+const BASE_FORMATS = ["JPG", "PNG", "WebP", "BMP", "GIF"];
+
+// 這兩種來源格式的 file.type 常常是空的（HEIC 尤其），故一併用副檔名兜底。
+const SOURCE_EXTRAS: Partial<
+  Record<PairSourceMime, { accept: string; formats: string[] }>
+> = {
+  "image/heic": {
+    accept: "image/heic,image/heif,.heic,.heif",
+    formats: ["HEIC", "HEIF"],
+  },
+  "image/svg+xml": { accept: "image/svg+xml,.svg", formats: ["SVG"] },
+};
+
+function acceptFor(from: PairSourceMime) {
+  const extra = SOURCE_EXTRAS[from];
+  return extra ? `${extra.accept},${BASE_ACCEPT}` : BASE_ACCEPT;
+}
+
+function formatsFor(from: PairSourceMime) {
+  const extra = SOURCE_EXTRAS[from];
+  return extra ? [...extra.formats, ...BASE_FORMATS] : BASE_FORMATS;
+}
 
 function formatSize(bytes: number) {
   if (bytes === 0) return "0 B";
@@ -43,6 +68,10 @@ function isHeic(file: File) {
   return /image\/hei[cf]/i.test(file.type) || /\.(heic|heif)$/i.test(file.name);
 }
 
+function isSvg(file: File) {
+  return /image\/svg/i.test(file.type) || /\.svg$/i.test(file.name);
+}
+
 // 原始格式標籤：HEIC 檔可能沒有 file.type，改用副檔名推斷顯示用的格式縮寫。
 function sourceExtLabel(file: File) {
   if (isHeic(file)) return "HEIC";
@@ -52,13 +81,46 @@ function sourceExtLabel(file: File) {
   return m ? m[1].toUpperCase() : "IMG";
 }
 
-// HEIC 無法被瀏覽器原生解碼：先在本機以 heic2any（WebAssembly）解成 PNG blob，
-// 再交給 Canvas 走與其他格式相同的轉檔流程。非 HEIC 檔則原樣回傳。
-async function decodeIfHeic(file: File): Promise<Blob> {
-  if (!isHeic(file)) return file;
-  const heic2any = (await import("heic2any")).default;
-  const out = await heic2any({ blob: file, toType: "image/png" });
-  return Array.isArray(out) ? out[0] : out;
+// 只有 viewBox 而沒有明確 width/height（或用百分比）的 SVG，在 Firefox／Safari 會
+// 回報 naturalWidth = 0，畫進 Canvas 就是一張空白圖。轉檔前先依 viewBox 的長寬比
+// 補上明確尺寸，長邊固定為 SVG_RASTER_SIZE，維持原比例。
+const SVG_RASTER_SIZE = 1024;
+
+async function normalizeSvg(file: File): Promise<Blob> {
+  const doc = new DOMParser().parseFromString(await file.text(), "image/svg+xml");
+  const svg = doc.documentElement;
+  // 解析失敗就原樣回傳，交給 <img> 的 onerror 走既有的錯誤流程。
+  if (svg.nodeName !== "svg" || doc.querySelector("parsererror")) return file;
+
+  const w = svg.getAttribute("width");
+  const h = svg.getAttribute("height");
+  const hasUsableSize = !!w && !!h && !w.includes("%") && !h.includes("%");
+  if (!hasUsableSize) {
+    const vb = (svg.getAttribute("viewBox") || "").trim().split(/[\s,]+/).map(Number);
+    const valid = vb.length === 4 && vb.every((n) => Number.isFinite(n)) && vb[2] > 0 && vb[3] > 0;
+    const vbW = valid ? vb[2] : SVG_RASTER_SIZE;
+    const vbH = valid ? vb[3] : SVG_RASTER_SIZE;
+    if (!valid) svg.setAttribute("viewBox", `0 0 ${vbW} ${vbH}`);
+    const scale = SVG_RASTER_SIZE / Math.max(vbW, vbH);
+    svg.setAttribute("width", String(Math.round(vbW * scale)));
+    svg.setAttribute("height", String(Math.round(vbH * scale)));
+  }
+  return new Blob([new XMLSerializer().serializeToString(svg)], {
+    type: "image/svg+xml",
+  });
+}
+
+// 把來源檔整理成 Canvas 吃得下的 blob：
+// HEIC 瀏覽器無法原生解碼，先以 heic2any（WebAssembly）在本機解成 PNG；
+// SVG 需補尺寸；其餘格式（JPG/PNG/WebP/BMP/GIF）瀏覽器原生可解，原樣回傳。
+async function prepareSource(file: File): Promise<Blob> {
+  if (isHeic(file)) {
+    const heic2any = (await import("heic2any")).default;
+    const out = await heic2any({ blob: file, toType: "image/png" });
+    return Array.isArray(out) ? out[0] : out;
+  }
+  if (isSvg(file)) return normalizeSvg(file);
+  return file;
 }
 
 // 轉檔核心邏輯：用 Canvas 重新編碼成目標格式（轉 JPG 時填白底避免透明區變黑）
@@ -71,6 +133,11 @@ const convertImage = (
     const url = URL.createObjectURL(source);
     img.onload = () => {
       URL.revokeObjectURL(url);
+      // 尺寸為 0 時（例如無法補齊尺寸的異常 SVG）直接報錯，避免產生一張空白圖。
+      if (!img.naturalWidth || !img.naturalHeight) {
+        reject(new Error("Failed to load image"));
+        return;
+      }
       const canvas = document.createElement("canvas");
       canvas.width = img.naturalWidth;
       canvas.height = img.naturalHeight;
@@ -114,7 +181,10 @@ export default function ConvertPairPage({ pair, lang = "zh" }: ConvertPairPagePr
   const content = en ? pair.en : pair.zh;
   const base = en ? "/en" : "";
   const canonical = `https://imagemarker.app${base}/convert/${pair.slug}`;
-  const isHeicPair = pair.from === "image/heic";
+  const accept = acceptFor(pair.from);
+  const formats = formatsFor(pair.from);
+  const formatsZh = formats.join("、");
+  const formatsEn = formats.join(", ");
   const pairName = en
     ? `${pair.fromLabel} to ${pair.toLabel}`
     : `${pair.fromLabel} 轉 ${pair.toLabel}`;
@@ -129,15 +199,11 @@ export default function ConvertPairPage({ pair, lang = "zh" }: ConvertPairPagePr
         switchAria: "切換到中文版",
         upload: `Upload ${pair.fromLabel} Image`,
         dropHint: "Drag and drop an image here, or click to select",
-        supports: isHeicPair
-          ? "Supports HEIC, HEIF, JPG, PNG, WebP"
-          : "Supports JPG, PNG, WebP, BMP, GIF",
+        supports: `Supports ${formatsEn}`,
         chooseFile: "Choose File",
         uploadAria: "Upload area, click or drag and drop a file",
         selectAria: "Select image file",
-        notImage: isHeicPair
-          ? "Please choose an image file (HEIC, HEIF, JPG, PNG, WebP)"
-          : "Please choose an image file (JPG, PNG, WebP, BMP, GIF)",
+        notImage: `Please choose an image file (${formatsEn})`,
         result: "Result",
         resultHint: `Upload an image and it will be converted to ${pair.toLabel} instantly, with a before/after size comparison.`,
         original: "Original",
@@ -166,15 +232,11 @@ export default function ConvertPairPage({ pair, lang = "zh" }: ConvertPairPagePr
         switchAria: "Switch to English",
         upload: `上傳 ${pair.fromLabel} 圖片`,
         dropHint: "將圖片拖放到此處，或點擊選擇檔案",
-        supports: isHeicPair
-          ? "支援 HEIC、HEIF、JPG、PNG、WebP"
-          : "支援 JPG、PNG、WebP、BMP、GIF",
+        supports: `支援 ${formatsZh}`,
         chooseFile: "選擇檔案",
         uploadAria: "上傳圖片區域，點擊或拖放檔案",
         selectAria: "選擇圖片檔案",
-        notImage: isHeicPair
-          ? "請選擇圖片檔案（HEIC、HEIF、JPG、PNG、WebP）"
-          : "請選擇圖片檔案（JPG、PNG、WebP、BMP、GIF）",
+        notImage: `請選擇圖片檔案（${formatsZh}）`,
         result: "轉換結果",
         resultHint: `上傳圖片後會立即轉成 ${pair.toLabel}，並顯示轉換前後的檔案大小比較。`,
         original: "原始",
@@ -227,13 +289,13 @@ export default function ConvertPairPage({ pair, lang = "zh" }: ConvertPairPagePr
             ? [
                 "100% local in-browser processing — no uploads",
                 `Converts ${pair.fromLabel} to ${pair.toLabel} instantly`,
-                "Reads JPG, PNG, WebP, BMP and GIF input",
+                `Reads ${formatsEn} input`,
                 "Before/after file size comparison",
               ]
             : [
                 "100% 瀏覽器本機處理，圖片不上傳",
                 `即時將 ${pair.fromLabel} 轉成 ${pair.toLabel}`,
-                "可上傳 JPG、PNG、WebP、BMP、GIF 格式",
+                `可上傳 ${formatsZh} 格式`,
                 "顯示轉換前後檔案大小比較",
               ],
         }),
@@ -249,7 +311,7 @@ export default function ConvertPairPage({ pair, lang = "zh" }: ConvertPairPagePr
     setIsConverting(true);
     setError(null);
     const timer = setTimeout(() => {
-      decodeIfHeic(selectedFile)
+      prepareSource(selectedFile)
         .then((decoded) => convertImage(decoded, pair.to))
         .then(({ blob, type }) => {
           if (cancelled) return;
@@ -273,8 +335,8 @@ export default function ConvertPairPage({ pair, lang = "zh" }: ConvertPairPagePr
 
   const onPickFile = (file?: File | null) => {
     if (!file) return;
-    // HEIC 常常沒有 file.type，改用副檔名判斷；其他格式維持 image/* 檢查。
-    if (!file.type.startsWith("image/") && !isHeic(file)) {
+    // HEIC／SVG 常常沒有 file.type，改用副檔名判斷；其他格式維持 image/* 檢查。
+    if (!file.type.startsWith("image/") && !isHeic(file) && !isSvg(file)) {
       alert(t.notImage);
       return;
     }
@@ -366,7 +428,7 @@ export default function ConvertPairPage({ pair, lang = "zh" }: ConvertPairPagePr
               <input
                 ref={fileInputRef}
                 type="file"
-                accept={isHeicPair ? ACCEPTED_HEIC : ACCEPTED}
+                accept={accept}
                 className="hidden"
                 onChange={(e) => onPickFile(e.target.files?.[0])}
                 aria-label={t.selectAria}
