@@ -10,7 +10,7 @@ import { ToolsShowcase } from "@/components/ToolsShowcase";
 import { UploadZone } from "@/components/UploadZone";
 import { ActionButtons } from "@/components/ActionButtons";
 import { setPageSeo, webAppSchema } from "@/lib/seo";
-import { trackToolUseStart, trackToolEvent } from "@/lib/analytics";
+import { trackToolUseStart, trackToolEvent, trackDownloadComplete } from "@/lib/analytics";
 import { PAIRS } from "@/lib/convertPairs";
 import {
   CheckCircle,
@@ -334,7 +334,10 @@ export default function ConvertPage() {
             <Card className="p-6">
               <ActionButtons
                 download={{
-                  onClick: downloadResult,
+                  onClick: () => {
+                    trackDownloadComplete("convert", 1);
+                    downloadResult();
+                  },
                   disabled: !result || isConverting,
                   icon: <Download className="w-4 h-4 mr-2" aria-hidden="true" />,
                   label: "下載轉換後圖片",

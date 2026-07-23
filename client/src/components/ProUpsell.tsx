@@ -1,10 +1,11 @@
 import { useEffect, useRef, useState } from "react";
-import { Sparkles, X, Check, Loader2 } from "lucide-react";
+import { Sparkles, X, Check, Loader2, AlertTriangle } from "lucide-react";
 import {
   trackProPromptShown,
   trackProPromptClick,
   trackProWaitlistSignup,
 } from "@/lib/analytics";
+import { submitWaitlist } from "@/lib/waitlist";
 
 interface ProUpsellProps {
   /** 觸發提示的工具（埋點 tool_name），目前僅批次會超過免費張數上限 */
@@ -15,14 +16,6 @@ interface ProUpsellProps {
   /** 使用者關閉提示（不阻擋免費功能，關掉後照常操作） */
   onClose: () => void;
   className?: string;
-}
-
-const NETLIFY_FORM = "pro-waitlist";
-
-function encodeForm(data: Record<string, string>): string {
-  return Object.entries(data)
-    .map(([k, v]) => `${encodeURIComponent(k)}=${encodeURIComponent(v)}`)
-    .join("&");
 }
 
 /**
@@ -40,7 +33,9 @@ export function ProUpsell({
 }: ProUpsellProps) {
   const isEn = lang === "en";
   const [email, setEmail] = useState("");
-  const [status, setStatus] = useState<"idle" | "submitting" | "done">("idle");
+  const [status, setStatus] = useState<
+    "idle" | "submitting" | "done" | "error"
+  >("idle");
   const shownRef = useRef(false);
 
   // 曝光埋點：每次掛載送一次
@@ -70,6 +65,10 @@ export function ProUpsell({
         doneBody: "We'll email you the moment Pro is ready. Thanks for the vote of confidence.",
         dismiss: "Maybe later",
         close: "Close",
+        errorTitle: "Couldn't save your email",
+        errorBody:
+          "Something went wrong on our side — your email was not saved. Please try again.",
+        retry: "Try again",
         keepUsing: "The free tool keeps working — process your first 10 images below.",
       }
     : {
@@ -89,6 +88,9 @@ export function ProUpsell({
         doneBody: "Pro 一上線就會通知你。謝謝你的支持，這對我們很重要。",
         dismiss: "下次再說",
         close: "關閉",
+        errorTitle: "沒有存到你的 Email",
+        errorBody: "我們這邊出了點問題，這次沒有記錄成功。請再試一次。",
+        retry: "再試一次",
         keepUsing: "免費工具照常可用——下方可先處理前 10 張。",
       };
 
@@ -100,20 +102,18 @@ export function ProUpsell({
     trackProPromptClick(tool);
     setStatus("submitting");
 
-    // 有 Email 才嘗試寫入 Netlify Forms；失敗不影響使用者流程
+    // 有留 Email 才需要真的寫進 Netlify Forms。
+    // 送出失敗時一定要顯示錯誤——先前這裡吞掉例外、也沒檢查 response.ok，
+    // Netlify 回 404 時使用者仍看到「已加入候補名單！」，Email 其實整筆掉了。
     if (hasEmail) {
-      try {
-        await fetch("/", {
-          method: "POST",
-          headers: { "Content-Type": "application/x-www-form-urlencoded" },
-          body: encodeForm({
-            "form-name": NETLIFY_FORM,
-            email: email.trim(),
-            tool,
-          }),
-        });
-      } catch {
-        // 忽略：GA 事件仍會記錄這次候補意願
+      const result = await submitWaitlist({
+        email,
+        tool,
+        source: "pro_upsell",
+      });
+      if (!result.ok) {
+        setStatus("error");
+        return;
       }
     }
 
@@ -174,6 +174,24 @@ export function ProUpsell({
 
           <p className="mt-3 text-sm font-medium text-gray-900">{t.price}</p>
 
+          {/* 送出失敗一定要講清楚，不能靜默當成功——否則使用者以為留了 Email，
+              我們也永遠不會發現表單壞掉。 */}
+          {status === "error" && (
+            <div
+              role="alert"
+              className="mt-3 flex items-start gap-2 rounded-lg border border-red-200 bg-red-50 p-3"
+            >
+              <AlertTriangle
+                className="mt-0.5 h-4 w-4 flex-shrink-0 text-red-600"
+                aria-hidden="true"
+              />
+              <div className="min-w-0">
+                <p className="text-sm font-medium text-red-900">{t.errorTitle}</p>
+                <p className="mt-0.5 text-sm text-red-800">{t.errorBody}</p>
+              </div>
+            </div>
+          )}
+
           <form onSubmit={handleSubmit} className="mt-3 flex flex-col gap-2 sm:flex-row">
             <input
               type="email"
@@ -193,7 +211,11 @@ export function ProUpsell({
               ) : (
                 <Sparkles className="h-4 w-4" aria-hidden="true" />
               )}
-              {status === "submitting" ? t.submitting : t.cta}
+              {status === "submitting"
+                ? t.submitting
+                : status === "error"
+                  ? t.retry
+                  : t.cta}
             </button>
           </form>
 

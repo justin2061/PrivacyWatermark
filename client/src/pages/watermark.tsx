@@ -7,14 +7,16 @@ import { SiteFooter } from "@/components/SiteFooter";
 import { ToolsShowcase } from "@/components/ToolsShowcase";
 import { PrivacyBanner } from "@/components/PrivacyBanner";
 import { FileUploadZone } from "@/components/watermark/FileUploadZone";
+import { DocTypeSuggestion } from "@/components/watermark/DocTypeSuggestion";
 import { WatermarkControls } from "@/components/watermark/WatermarkControls";
 import { CanvasPreview } from "@/components/watermark/CanvasPreview";
 import { ProcessingStatus } from "@/components/watermark/ProcessingStatus";
 import { DownloadSuccess } from "@/components/DownloadSuccess";
+import { WaitlistCTA } from "@/components/WaitlistCTA";
 import { BotBlockNotice } from "@/components/ProtectionNotice";
 import { detectProtection } from "@/lib/protection";
 import { useWatermark } from "@/hooks/useWatermark";
-import { trackToolUseStart } from "@/lib/analytics";
+import { trackToolUseStart, trackDownloadComplete } from "@/lib/analytics";
 import { setPageSeo, webAppSchema, faqSchema, localeAlternates } from "@/lib/seo";
 import { Lock, Zap, Eraser, Loader2 } from "lucide-react";
 
@@ -144,6 +146,12 @@ export default function WatermarkPage() {
               onFileSelect={(file) => { if (typeof gtag !== 'undefined') gtag('event', 'upload_image'); trackToolUseStart('watermark'); handleFileSelect(file); }}
             />
 
+            {/* 證件類型自動識別（身分證 vs 護照）：依比例建議，使用者確認後套用對應範本 */}
+            <DocTypeSuggestion
+              file={selectedFile}
+              onApplyTemplate={(text) => updateWatermarkSettings({ text, textEnabled: true, mode: 'text' })}
+            />
+
             <WatermarkControls
               settings={watermarkSettings}
               onSettingsChange={updateWatermarkSettings}
@@ -169,7 +177,7 @@ export default function WatermarkPage() {
                 </button>
 
                 <button
-                  onClick={() => { if (typeof gtag !== 'undefined') gtag('event', 'download_image'); downloadImage(); }}
+                  onClick={() => { if (typeof gtag !== 'undefined') gtag('event', 'download_image'); trackDownloadComplete("watermark", 1); downloadImage(); }}
                   disabled={!processedImage}
                   aria-label="下載處理後的圖片"
                   className="w-full bg-green-600 text-white py-3 px-4 rounded-lg hover:bg-green-700 transition-colors font-medium disabled:bg-gray-400 disabled:cursor-not-allowed flex items-center justify-center"
@@ -225,6 +233,15 @@ export default function WatermarkPage() {
 
         {/* 所有工具中心 */}
         <ToolsShowcase lang="zh" current="watermark" />
+
+        {/* 首頁的被動變現入口：沒上傳圖片、只是來逛的人也看得到候補名單。
+            與完成畫面那個實例分處頁面上下段，不會同時出現在視野內。 */}
+        <WaitlistCTA
+          tool="homepage"
+          lang="zh"
+          location="homepage"
+          className="mt-12"
+        />
 
         {/* Features Section */}
         <section className="mt-12" aria-labelledby="features-heading">

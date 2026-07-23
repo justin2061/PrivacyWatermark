@@ -11,8 +11,9 @@ import { WatermarkControls } from "@/components/watermark/WatermarkControls";
 import { CanvasPreview } from "@/components/watermark/CanvasPreview";
 import { ProcessingStatus } from "@/components/watermark/ProcessingStatus";
 import { DownloadSuccess } from "@/components/DownloadSuccess";
+import { WaitlistCTA } from "@/components/WaitlistCTA";
 import { useWatermark } from "@/hooks/useWatermark";
-import { trackToolUseStart } from "@/lib/analytics";
+import { trackToolUseStart, trackDownloadComplete } from "@/lib/analytics";
 import { setPageSeo, webAppSchema, localeAlternates } from "@/lib/seo";
 import { Lock, Zap, Eraser } from "lucide-react";
 
@@ -96,7 +97,7 @@ export default function WatermarkJaPage() {
                 </button>
 
                 <button
-                  onClick={() => { if (typeof gtag !== 'undefined') gtag('event', 'download_image'); downloadImage(); }}
+                  onClick={() => { if (typeof gtag !== 'undefined') gtag('event', 'download_image'); trackDownloadComplete("watermark", 1); downloadImage(); }}
                   disabled={!processedImage}
                   aria-label="処理した画像をダウンロード"
                   className="w-full bg-green-600 text-white py-3 px-4 rounded-lg hover:bg-green-700 transition-colors font-medium disabled:bg-gray-400 disabled:cursor-not-allowed flex items-center justify-center"
@@ -144,6 +145,14 @@ export default function WatermarkJaPage() {
         </div>
 
         <ToolsShowcase lang="ja" current="watermark" />
+
+        {/* アップロードしない訪問者にも見える、受動的な導線。 */}
+        <WaitlistCTA
+          tool="homepage"
+          lang="ja"
+          location="homepage"
+          className="mt-12"
+        />
 
         <section className="mt-12" aria-labelledby="features-heading">
           <h2 id="features-heading" className="sr-only">特長</h2>

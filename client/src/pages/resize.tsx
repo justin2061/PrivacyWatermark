@@ -9,7 +9,7 @@ import { ToolRecommendations } from "@/components/ToolRecommendations";
 import { UploadZone } from "@/components/UploadZone";
 import { ActionButtons } from "@/components/ActionButtons";
 import { setPageSeo, webAppSchema } from "@/lib/seo";
-import { trackToolUseStart, trackToolEvent } from "@/lib/analytics";
+import { trackToolUseStart, trackToolEvent, trackDownloadComplete } from "@/lib/analytics";
 import {
   CheckCircle,
   Download,
@@ -458,7 +458,10 @@ export default function ResizePage() {
             <Card className="p-6">
               <ActionButtons
                 download={{
-                  onClick: downloadResult,
+                  onClick: () => {
+                    trackDownloadComplete("resize", 1);
+                    downloadResult();
+                  },
                   disabled: !result || isResizing,
                   icon: <Download className="w-4 h-4 mr-2" aria-hidden="true" />,
                   label: "下載縮放後圖片",

@@ -12,7 +12,7 @@ import { UploadZone } from "@/components/UploadZone";
 import { ActionButton } from "@/components/ActionButtons";
 import { useBatchWatermark, MAX_FILES } from "@/hooks/useBatchWatermark";
 import { setPageSeo, webAppSchema } from "@/lib/seo";
-import { trackToolUseStart } from "@/lib/analytics";
+import { trackToolUseStart, trackDownloadComplete } from "@/lib/analytics";
 
 // Show the Pro prompt past this count (free features stay unrestricted)
 const FREE_IMAGE_LIMIT = 10;
@@ -237,7 +237,10 @@ export default function BatchEnPage() {
 
                 <ActionButton
                   variant="success"
-                  onClick={downloadZip}
+                  onClick={() => {
+                    trackDownloadComplete("batch", images.length);
+                    downloadZip();
+                  }}
                   disabled={!allProcessed || isProcessing}
                   ariaLabel="Download all as ZIP"
                   icon={

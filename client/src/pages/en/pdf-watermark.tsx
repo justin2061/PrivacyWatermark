@@ -8,7 +8,7 @@ import { DownloadSuccess } from "@/components/DownloadSuccess";
 import { ToolRecommendations } from "@/components/ToolRecommendations";
 import { UploadZone } from "@/components/UploadZone";
 import { ActionButtons } from "@/components/ActionButtons";
-import { trackToolUseStart, trackToolEvent } from "@/lib/analytics";
+import { trackToolUseStart, trackToolEvent, trackDownloadComplete } from "@/lib/analytics";
 import { setPageSeo, webAppSchema, faqSchema } from "@/lib/seo";
 import {
   applyPdfWatermark,
@@ -608,7 +608,10 @@ export default function PdfWatermarkEnPage() {
                     label: isProcessing ? "Processing..." : "Apply watermark to PDF",
                   }}
                   download={{
-                    onClick: download,
+                    onClick: () => {
+                    trackDownloadComplete("pdf-watermark", 1);
+                    download();
+                  },
                     disabled: !result,
                     icon: <Download className="w-4 h-4 mr-2" aria-hidden="true" />,
                     label: "Download watermarked PDF",

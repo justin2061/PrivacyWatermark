@@ -5,6 +5,20 @@ import { setPageSeo, localeAlternates } from "@/lib/seo";
 
 const articles = [
   {
+    slug: "id-photo-guide",
+    title: "2026 證件照完全攻略：手機自拍、線上裁切、超商列印一次搞定",
+    date: "2026-07-23",
+    summary:
+      "不用花 400 元去相館！教你用手機拍出合格證件照，用免費線上工具裁切成身分證、護照、健保卡尺寸，再到超商印出來。附 2026 最新規定與尺寸對照表，以及交影本前的浮水印保護。",
+  },
+  {
+    slug: "passport-copy-guide",
+    title: "出國護照影本怎麼印？護照影本可以幹嘛？完整實務指南",
+    date: "2026-07-22",
+    summary:
+      "出國護照影本怎麼印、可以幹嘛？一篇看懂超商列印與手機翻拍教學、飯店 check-in 到遺失補辦等 6 種用途、影本與正本的法律效力，以及交件前如何加浮水印保護護照個資。",
+  },
+  {
     slug: "hk-rent-id-copy-watermark",
     title: "香港租屋交身份證副本前，一定要加浮水印",
     date: "2026-07-15",

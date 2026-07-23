@@ -1,6 +1,7 @@
 import { Link } from "wouter";
 import { ArrowRight } from "lucide-react";
 import { TOOLS, toolHref, type Lang, type NavKey } from "@/lib/tools";
+import { WaitlistCTA } from "@/components/WaitlistCTA";
 import { trackInlineCta } from "@/lib/analytics";
 
 type ToolKey = Exclude<NavKey, "blog">;
@@ -94,6 +95,15 @@ export function PopularTools({
           );
         })}
       </div>
+
+      {/* 讀完整篇文章的人是最有意圖的一群，這裡是文章唯一的變現入口。
+          放在工具入口之後：先給免費的下一步，再問願不願意付錢。 */}
+      <WaitlistCTA
+        tool="blog"
+        lang={lang}
+        location="blog_article"
+        className="mt-4 border-primary/30 bg-white"
+      />
     </section>
   );
 }

@@ -33,6 +33,8 @@ import EnBlogIndex from "@/pages/en/blog/index";
 import WatermarkIdBeforeSendingKycEn from "@/pages/en/blog/watermark-id-before-sending-kyc";
 import WatermarkTemplatesGuidePage from "@/pages/blog/watermark-templates-guide";
 import PassportWatermarkGuidePage from "@/pages/blog/passport-watermark-guide";
+import PassportCopyGuidePage from "@/pages/blog/passport-copy-guide";
+import IdPhotoGuidePage from "@/pages/blog/id-photo-guide";
 import MobileWatermarkTutorialPage from "@/pages/blog/mobile-watermark-tutorial";
 import OtherDocumentsWatermarkPage from "@/pages/blog/other-documents-watermark";
 import PassportTravelAgencyWatermarkPage from "@/pages/blog/passport-travel-agency-watermark";
@@ -75,6 +77,7 @@ import IdWatermarkCompleteGuide from "@/pages/blog/id-watermark-complete-guide";
 import HkRentIdCopyWatermark from "@/pages/blog/hk-rent-id-copy-watermark";
 import MalaysiaBankAccountIcWatermark from "@/pages/blog/malaysia-bank-account-ic-watermark";
 import OverseasChinesePassportWatermark from "@/pages/blog/overseas-chinese-passport-watermark";
+import WaitlistPage from "@/pages/waitlist";
 import NotFound from "@/pages/not-found";
 import BlogIndex from "@/pages/blog/index";
 import RentIdWatermark from "@/pages/blog/rent-id-watermark";
@@ -111,11 +114,23 @@ function Router() {
       <Route path="/en/blog/what-is-digital-watermark" component={WhatIsDigitalWatermarkEn} />
       <Route path="/en/blog/social-media-image-sizes" component={SocialMediaImageSizesEn} />
       <Route path="/en/blog/watermark-id-before-sending-kyc" component={WatermarkIdBeforeSendingKycEn} />
+      {/* Pro 候補名單（各工具下載完成後的 CTA 目的地） */}
+      <Route path="/waitlist">
+        <WaitlistPage lang="zh" />
+      </Route>
+      <Route path="/en/waitlist">
+        <WaitlistPage lang="en" />
+      </Route>
+      <Route path="/ja/waitlist">
+        <WaitlistPage lang="ja" />
+      </Route>
       <Route path="/blog" component={BlogIndex} />
       <Route path="/blog/rent-id-watermark" component={RentIdWatermark} />
       <Route path="/blog/watermark-generators-recommendation" component={WatermarkGeneratorsRecommendation} />
       <Route path="/blog/watermark-templates-guide" component={WatermarkTemplatesGuidePage} />
       <Route path="/blog/passport-watermark-guide" component={PassportWatermarkGuidePage} />
+      <Route path="/blog/passport-copy-guide" component={PassportCopyGuidePage} />
+      <Route path="/blog/id-photo-guide" component={IdPhotoGuidePage} />
       <Route path="/blog/mobile-watermark-tutorial" component={MobileWatermarkTutorialPage} />
       <Route path="/blog/other-documents-watermark" component={OtherDocumentsWatermarkPage} />
       <Route path="/blog/passport-travel-agency-watermark" component={PassportTravelAgencyWatermarkPage} />

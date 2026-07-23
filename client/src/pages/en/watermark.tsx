@@ -11,8 +11,9 @@ import { WatermarkControls } from "@/components/watermark/WatermarkControls";
 import { CanvasPreview } from "@/components/watermark/CanvasPreview";
 import { ProcessingStatus } from "@/components/watermark/ProcessingStatus";
 import { DownloadSuccess } from "@/components/DownloadSuccess";
+import { WaitlistCTA } from "@/components/WaitlistCTA";
 import { useWatermark } from "@/hooks/useWatermark";
-import { trackToolUseStart } from "@/lib/analytics";
+import { trackToolUseStart, trackDownloadComplete } from "@/lib/analytics";
 import { setPageSeo, webAppSchema, localeAlternates } from "@/lib/seo";
 import { Lock, Zap, Eraser } from "lucide-react";
 
@@ -104,7 +105,7 @@ export default function WatermarkEnPage() {
                 </button>
 
                 <button
-                  onClick={() => { if (typeof gtag !== 'undefined') gtag('event', 'download_image'); downloadImage(); }}
+                  onClick={() => { if (typeof gtag !== 'undefined') gtag('event', 'download_image'); trackDownloadComplete("watermark", 1); downloadImage(); }}
                   disabled={!processedImage}
                   aria-label="Download processed image"
                   className="w-full bg-green-600 text-white py-3 px-4 rounded-lg hover:bg-green-700 transition-colors font-medium disabled:bg-gray-400 disabled:cursor-not-allowed flex items-center justify-center"
@@ -160,6 +161,14 @@ export default function WatermarkEnPage() {
 
         {/* All tools hub */}
         <ToolsShowcase lang="en" current="watermark" />
+
+        {/* Passive monetization entry point for visitors who never upload anything. */}
+        <WaitlistCTA
+          tool="homepage"
+          lang="en"
+          location="homepage"
+          className="mt-12"
+        />
 
         {/* Features Section */}
         <section className="mt-12" aria-labelledby="features-heading">

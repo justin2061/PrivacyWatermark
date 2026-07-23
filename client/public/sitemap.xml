@@ -414,7 +414,7 @@
   </url>
   <url>
     <loc>https://imagemarker.app/blog/rent-id-watermark</loc>
-    <lastmod>2026-04-06</lastmod>
+    <lastmod>2026-07-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="zh-tw" href="https://imagemarker.app/blog/rent-id-watermark" />
@@ -430,7 +430,7 @@
   </url>
   <url>
     <loc>https://imagemarker.app/blog/watermark-templates-guide</loc>
-    <lastmod>2026-04-16</lastmod>
+    <lastmod>2026-07-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="zh-tw" href="https://imagemarker.app/blog/watermark-templates-guide" />
@@ -443,6 +443,22 @@
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="zh-tw" href="https://imagemarker.app/blog/passport-watermark-guide" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://imagemarker.app/blog/passport-watermark-guide" />
+  </url>
+  <url>
+    <loc>https://imagemarker.app/blog/passport-copy-guide</loc>
+    <lastmod>2026-07-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="zh-tw" href="https://imagemarker.app/blog/passport-copy-guide" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://imagemarker.app/blog/passport-copy-guide" />
+  </url>
+  <url>
+    <loc>https://imagemarker.app/blog/id-photo-guide</loc>
+    <lastmod>2026-07-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="zh-tw" href="https://imagemarker.app/blog/id-photo-guide" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://imagemarker.app/blog/id-photo-guide" />
   </url>
   <url>
     <loc>https://imagemarker.app/blog/mobile-watermark-tutorial</loc>

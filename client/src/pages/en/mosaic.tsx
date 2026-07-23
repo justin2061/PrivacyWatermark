@@ -8,7 +8,7 @@ import { DownloadSuccess } from "@/components/DownloadSuccess";
 import { ToolRecommendations } from "@/components/ToolRecommendations";
 import { UploadZone } from "@/components/UploadZone";
 import { ActionButton } from "@/components/ActionButtons";
-import { trackToolUseStart, trackToolEvent } from "@/lib/analytics";
+import { trackToolUseStart, trackToolEvent, trackDownloadComplete } from "@/lib/analytics";
 import { setPageSeo, webAppSchema } from "@/lib/seo";
 import { useMosaic, type MaskType } from "@/hooks/useMosaic";
 import {
@@ -289,6 +289,7 @@ export default function MosaicEnPage() {
                     variant="success"
                     onClick={() => {
                       m.download();
+                      trackDownloadComplete("mosaic", 1);
                       trackToolEvent("mosaic_complete", "mosaic");
                     }}
                     disabled={!hasResult}

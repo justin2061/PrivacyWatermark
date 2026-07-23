@@ -30,7 +30,7 @@ export default function WatermarkTemplatesGuidePage() {
             "身分證影本簽註寫法與證件浮水印範本完整教學：手寫三行簽註正確寫法＋10 種常見情境文字範本。",
           url: URL,
           datePublished: "2026-04-10",
-          dateModified: "2026-07-20",
+          dateModified: "2026-07-22",
         }),
         faqSchema([
           {
@@ -178,7 +178,7 @@ export default function WatermarkTemplatesGuidePage() {
             <div className="flex items-center space-x-4 text-sm text-gray-500">
               <time dateTime="2026-04-10">2026 年 4 月 10 日</time>
               <span>·</span>
-              <span>最後更新 2026/07/20</span>
+              <span>最後更新 2026/07/22</span>
               <span>·</span>
               <span>閱讀約 8 分鐘</span>
             </div>
@@ -190,6 +190,53 @@ export default function WatermarkTemplatesGuidePage() {
               證件影本交出去後的命運你無法控制。加浮水印最簡單有效，但很多人卡在
               「浮水印到底要寫什麼才夠？」這篇整理 10 種台灣常見情境的實用範本，直接套用就好。
             </p>
+
+            <h2>身分證影本加註 vs 浮水印：差在哪？該選哪個？</h2>
+            <p>
+              保護證件影本有兩種主流做法，很多人分不清楚：<strong>身分證影本加註</strong>是用筆<strong>手寫（或列印）文字直接寫在影本上</strong>，標明用途與日期；<strong>浮水印</strong>則是用軟體在電子檔上疊一層<strong>半透明的覆蓋文字</strong>。兩者目的相同——限定影本只能用在特定用途、防止被冒用——但實作方式與防護力差很多。
+            </p>
+            <div className="not-prose overflow-x-auto my-6">
+              <table className="w-full text-sm border-collapse">
+                <thead>
+                  <tr className="bg-gray-50">
+                    <th className="text-left p-3 border border-gray-200 font-semibold text-gray-700">比較項目</th>
+                    <th className="text-left p-3 border border-gray-200 font-semibold text-gray-700">身分證影本加註（手寫）</th>
+                    <th className="text-left p-3 border border-gray-200 font-semibold text-gray-700">數位浮水印</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td className="p-3 border border-gray-200 font-medium text-gray-800">做法</td>
+                    <td className="p-3 border border-gray-200 text-gray-600">用筆寫在紙本影本上</td>
+                    <td className="p-3 border border-gray-200 text-gray-600">軟體在電子檔疊半透明文字</td>
+                  </tr>
+                  <tr>
+                    <td className="p-3 border border-gray-200 font-medium text-gray-800">會不會遮住證件內容</td>
+                    <td className="p-3 border border-gray-200 text-gray-600">容易寫歪、可能蓋到姓名或號碼</td>
+                    <td className="p-3 border border-gray-200 text-gray-600">可調透明度，看得到浮水印也看得到內容</td>
+                  </tr>
+                  <tr>
+                    <td className="p-3 border border-gray-200 font-medium text-gray-800">大量／重複使用</td>
+                    <td className="p-3 border border-gray-200 text-gray-600">每張都要重寫，無法自動化</td>
+                    <td className="p-3 border border-gray-200 text-gray-600">範本一鍵套用，可批次處理多張</td>
+                  </tr>
+                  <tr>
+                    <td className="p-3 border border-gray-200 font-medium text-gray-800">傳電子檔（LINE／Email）</td>
+                    <td className="p-3 border border-gray-200 text-gray-600">手寫字可能被裁切或修圖抹除</td>
+                    <td className="p-3 border border-gray-200 text-gray-600">與影像像素融合，更難去除</td>
+                  </tr>
+                  <tr>
+                    <td className="p-3 border border-gray-200 font-medium text-gray-800">美觀與辨識度</td>
+                    <td className="p-3 border border-gray-200 text-gray-600">字跡潦草時對方不易辨認</td>
+                    <td className="p-3 border border-gray-200 text-gray-600">字體工整、位置精準，較美觀</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p>
+              <strong>結論：能用數位浮水印就用浮水印。</strong>身分證影本加註在你「當面交付紙本」時仍然管用，但只要影本是用手機拍照、LINE 或 Email 傳送，就一律建議改用數位浮水印——它不會遮擋證件內容、可以一鍵套用範本自動化處理、字體工整更美觀，也更難被裁切或修圖去除。真正萬無一失的做法，是<strong>先在電子檔加好浮水印再列印或傳送</strong>，這樣連印出來的紙本都自帶標記。下面的簽註寫法規則與 10 種範本，手寫加註與數位浮水印都適用。
+            </p>
+            <InlineCTA tool="watermark" position="mid_article" location={SLUG} />
 
             <h2>身分證影本簽註寫法：手寫三行的正確做法</h2>
             <p>
@@ -464,6 +511,10 @@ export default function WatermarkTemplatesGuidePage() {
             <Link href="/blog/other-documents-watermark" className="bg-white rounded-xl shadow-sm p-5 hover:shadow-md transition-shadow block">
               <p className="text-xs text-blue-600 font-medium mb-2">證件保護</p>
               <h3 className="font-semibold text-gray-900 text-sm leading-snug">不只身分證！存摺、健保卡、駕照影本也要加浮水印</h3>
+            </Link>
+            <Link href="/blog/id-photo-guide" className="bg-white rounded-xl shadow-sm p-5 hover:shadow-md transition-shadow block">
+              <p className="text-xs text-blue-600 font-medium mb-2">證件照攻略</p>
+              <h3 className="font-semibold text-gray-900 text-sm leading-snug">2026 證件照完全攻略：手機自拍、線上裁切、超商列印一次搞定</h3>
             </Link>
           </div>
         </section>

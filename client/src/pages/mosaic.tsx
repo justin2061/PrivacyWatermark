@@ -9,7 +9,7 @@ import { ToolRecommendations } from "@/components/ToolRecommendations";
 import { UploadZone } from "@/components/UploadZone";
 import { ActionButton } from "@/components/ActionButtons";
 import { setPageSeo, webAppSchema } from "@/lib/seo";
-import { trackToolUseStart, trackToolEvent } from "@/lib/analytics";
+import { trackToolUseStart, trackToolEvent, trackDownloadComplete } from "@/lib/analytics";
 import { useMosaic, type MaskType } from "@/hooks/useMosaic";
 import {
   CheckCircle,
@@ -287,6 +287,7 @@ export default function MosaicPage() {
                     variant="success"
                     onClick={() => {
                       m.download();
+                      trackDownloadComplete("mosaic", 1);
                       trackToolEvent("mosaic_complete", "mosaic");
                     }}
                     disabled={!hasResult}

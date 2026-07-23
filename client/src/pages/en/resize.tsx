@@ -8,7 +8,7 @@ import { DownloadSuccess } from "@/components/DownloadSuccess";
 import { ToolRecommendations } from "@/components/ToolRecommendations";
 import { UploadZone } from "@/components/UploadZone";
 import { ActionButtons } from "@/components/ActionButtons";
-import { trackToolUseStart, trackToolEvent } from "@/lib/analytics";
+import { trackToolUseStart, trackToolEvent, trackDownloadComplete } from "@/lib/analytics";
 import { setPageSeo, webAppSchema } from "@/lib/seo";
 import {
   CheckCircle,
@@ -455,7 +455,10 @@ export default function ResizeEnPage() {
             <Card className="p-6">
               <ActionButtons
                 download={{
-                  onClick: downloadResult,
+                  onClick: () => {
+                    trackDownloadComplete("resize", 1);
+                    downloadResult();
+                  },
                   disabled: !result || isResizing,
                   icon: <Download className="w-4 h-4 mr-2" aria-hidden="true" />,
                   label: "Download Resized Image",

@@ -9,7 +9,7 @@ import { ToolRecommendations } from "@/components/ToolRecommendations";
 import { UploadZone } from "@/components/UploadZone";
 import { ActionButtons } from "@/components/ActionButtons";
 import { setPageSeo, webAppSchema } from "@/lib/seo";
-import { trackToolUseStart, trackToolEvent } from "@/lib/analytics";
+import { trackToolUseStart, trackToolEvent, trackDownloadComplete } from "@/lib/analytics";
 import {
   CheckCircle,
   Crop,
@@ -581,7 +581,10 @@ export default function SocialCropPage() {
 
                 <ActionButtons
                   download={{
-                    onClick: download,
+                    onClick: () => {
+                    trackDownloadComplete("social-crop", 1);
+                    download();
+                  },
                     disabled: target.w < 1 || target.h < 1,
                     icon: <Download className="w-4 h-4 mr-2" aria-hidden="true" />,
                     label: "裁切並下載",

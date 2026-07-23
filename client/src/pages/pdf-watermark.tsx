@@ -9,7 +9,7 @@ import { ToolRecommendations } from "@/components/ToolRecommendations";
 import { UploadZone } from "@/components/UploadZone";
 import { ActionButtons } from "@/components/ActionButtons";
 import { setPageSeo, webAppSchema, faqSchema } from "@/lib/seo";
-import { trackToolUseStart, trackToolEvent } from "@/lib/analytics";
+import { trackToolUseStart, trackToolEvent, trackDownloadComplete } from "@/lib/analytics";
 import {
   applyPdfWatermark,
   renderTextToPng,
@@ -624,7 +624,10 @@ export default function PdfWatermarkPage() {
                     label: isProcessing ? "處理中..." : "套用浮水印到 PDF",
                   }}
                   download={{
-                    onClick: download,
+                    onClick: () => {
+                    trackDownloadComplete("pdf-watermark", 1);
+                    download();
+                  },
                     disabled: !result,
                     icon: <Download className="w-4 h-4 mr-2" aria-hidden="true" />,
                     label: "下載加浮水印的 PDF",

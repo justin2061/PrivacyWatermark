@@ -7,7 +7,7 @@ import { DownloadSuccess } from "@/components/DownloadSuccess";
 import { ToolRecommendations } from "@/components/ToolRecommendations";
 import { ToolsShowcase } from "@/components/ToolsShowcase";
 import { setPageSeo, webAppSchema, faqSchema, localeAlternates } from "@/lib/seo";
-import { trackToolUseStart } from "@/lib/analytics";
+import { trackToolUseStart, trackDownloadComplete } from "@/lib/analytics";
 import {
   PAIRS,
   type ConvertPair,
@@ -517,7 +517,10 @@ export default function ConvertPairPage({ pair, lang = "zh" }: ConvertPairPagePr
             <Card className="p-6">
               <div className="space-y-3">
                 <button
-                  onClick={downloadResult}
+                  onClick={() => {
+                    trackDownloadComplete("convert", 1);
+                    downloadResult();
+                  }}
                   disabled={!result || isConverting}
                   className="w-full bg-green-600 text-white py-3 px-4 rounded-lg hover:bg-green-700 transition-colors font-medium disabled:bg-gray-400 disabled:cursor-not-allowed flex items-center justify-center"
                 >

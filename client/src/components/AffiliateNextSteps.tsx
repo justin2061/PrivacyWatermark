@@ -8,9 +8,13 @@ interface Affiliate {
   name: string; // GA affiliate_name（穩定英文代號）
   icon: LucideIcon;
   /**
-   * 真實的聯盟行銷追蹤連結。目前尚未申請到任何聯盟，一律為 null——
-   * url 為 null 的項目不會渲染（不放官網首頁假連結、也不放 # 死連結）。
-   * 申請到後把對應的 url 換成帶追蹤參數的聯盟連結即可，UI／GA 事件皆不需改動。
+   * 外部服務連結。
+   *
+   * 沿革：commit 4f61f1e 曾把這些普通官網連結改成 null（理由：沒分潤就不要把流量
+   * 送出去）。2026-07-21 改回填入普通官網連結——先讓區塊能顯示並累積 affiliate_click
+   * 數據，點擊量本身就是日後申請聯盟的籌碼；在那之前這些連結賺不到任何分潤。
+   *
+   * url 為 null 的項目仍然不渲染（保留這條規則，避免出現 # 死連結）。
    */
   url: string | null;
   label: Record<Lang, string>;
@@ -21,7 +25,8 @@ interface Affiliate {
 const CANVA: Affiliate = {
   name: "canva",
   icon: Palette,
-  url: null, // TODO: 換成 Canva 聯盟連結
+  // TODO: 換成 Canva 聯盟追蹤連結（目前是普通官網連結，無分潤）
+  url: "https://www.canva.com/",
   label: { zh: "用 Canva 做社群圖", en: "Design with Canva", ja: "Canva で SNS 画像を作る" },
   blurb: {
     zh: "把處理好的圖片做成貼文、限動或封面",
@@ -33,7 +38,8 @@ const CANVA: Affiliate = {
 const ADOBE: Affiliate = {
   name: "adobe",
   icon: Wand2,
-  url: null, // TODO: 換成 Adobe 聯盟連結
+  // TODO: 換成 Adobe 聯盟追蹤連結（目前是普通官網連結，無分潤）
+  url: "https://www.adobe.com/express/",
   label: { zh: "用 Adobe 進階編輯", en: "Edit further in Adobe", ja: "Adobe でさらに編集する" },
   blurb: {
     zh: "需要修圖、去瑕疵或更細緻的調整",
@@ -45,7 +51,8 @@ const ADOBE: Affiliate = {
 const SHUTTERSTOCK: Affiliate = {
   name: "shutterstock",
   icon: ImageIcon,
-  url: null, // TODO: 換成 Shutterstock 聯盟連結
+  // TODO: 換成 Shutterstock 聯盟追蹤連結（目前是普通官網連結，無分潤）
+  url: "https://www.shutterstock.com/",
   label: { zh: "到 Shutterstock 找素材", en: "Find stock on Shutterstock", ja: "Shutterstock で素材を探す" },
   blurb: {
     zh: "缺背景圖或設計素材？這裡有海量選擇",

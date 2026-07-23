@@ -10,7 +10,7 @@ import { UploadZone } from "@/components/UploadZone";
 import { ActionButtons } from "@/components/ActionButtons";
 import { useExifCleaner } from "@/hooks/useExifCleaner";
 import { setPageSeo, webAppSchema } from "@/lib/seo";
-import { trackToolUseStart, trackToolEvent } from "@/lib/analytics";
+import { trackToolUseStart, trackToolEvent, trackDownloadComplete } from "@/lib/analytics";
 import {
   AlertTriangle,
   CheckCircle,
@@ -129,7 +129,10 @@ export default function ExifCleanPage() {
                   label: isCleaning ? "清除中..." : "清除 metadata",
                 }}
                 download={{
-                  onClick: downloadCleaned,
+                  onClick: () => {
+                    trackDownloadComplete("exif-clean", 1);
+                    downloadCleaned();
+                  },
                   disabled: !cleaned,
                   icon: <Download className="w-4 h-4 mr-2" aria-hidden="true" />,
                   label: "下載乾淨圖片",

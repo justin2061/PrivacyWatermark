@@ -79,9 +79,24 @@
     <!-- Netlify Forms 偵測用的隱藏表單：build 時被 Netlify 掃描以建立 "pro-waitlist"
          表單；實際送出由 React（ProUpsell）以 AJAX POST 到 "/" 完成。零後端收集
          Pro 候補 Email。若帳號未啟用 Netlify Forms，AJAX 會失敗但前端仍記錄 GA 事件。 -->
+    <!-- 欄位必須與 lib/waitlist.ts 送出的鍵名完全一致：Netlify 只會保存這裡
+         宣告過的欄位，未宣告的鍵會被靜默丟棄（不會報錯）。新增欄位時兩邊要一起改。 -->
     <form name="pro-waitlist" data-netlify="true" netlify-honeypot="bot-field" hidden>
       <input type="email" name="email" />
       <input type="text" name="tool" />
+      <input type="text" name="image_count" />
+      <input type="text" name="pricing" />
+      <input type="text" name="source" />
+      <input type="text" name="bot-field" />
+    </form>
+
+    <!-- 同上，/waitlist 候補頁專用的 "waitlist" 表單。欄位需與 pages/waitlist.tsx
+         送出的 key 完全一致，否則 Netlify 會丟掉對不上的欄位。 -->
+    <form name="waitlist" data-netlify="true" netlify-honeypot="bot-field" hidden>
+      <input type="email" name="email" />
+      <input type="text" name="image_count" />
+      <input type="text" name="pricing" />
+      <input type="text" name="lang" />
       <input type="text" name="bot-field" />
     </form>
 

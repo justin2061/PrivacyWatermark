@@ -13,7 +13,7 @@ import { WatermarkControls } from "@/components/watermark/WatermarkControls";
 import { UploadZone } from "@/components/UploadZone";
 import { ActionButton } from "@/components/ActionButtons";
 import { setPageSeo, webAppSchema } from "@/lib/seo";
-import { trackToolUseStart } from "@/lib/analytics";
+import { trackToolUseStart, trackDownloadComplete } from "@/lib/analytics";
 import {
   useBatchWatermark,
   MAX_FILES,
@@ -259,7 +259,10 @@ export default function BatchPage() {
 
                 <ActionButton
                   variant="success"
-                  onClick={downloadZip}
+                  onClick={() => {
+                    trackDownloadComplete("batch", images.length);
+                    downloadZip();
+                  }}
                   disabled={!allProcessed || isProcessing}
                   ariaLabel="下載全部（ZIP）"
                   icon={

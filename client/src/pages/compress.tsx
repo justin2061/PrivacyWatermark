@@ -9,7 +9,7 @@ import { ToolRecommendations } from "@/components/ToolRecommendations";
 import { UploadZone } from "@/components/UploadZone";
 import { ActionButtons } from "@/components/ActionButtons";
 import { setPageSeo, webAppSchema } from "@/lib/seo";
-import { trackToolUseStart, trackToolEvent } from "@/lib/analytics";
+import { trackToolUseStart, trackToolEvent, trackDownloadComplete } from "@/lib/analytics";
 import {
   CheckCircle,
   Download,
@@ -364,7 +364,10 @@ export default function CompressPage() {
             <Card className="p-6">
               <ActionButtons
                 download={{
-                  onClick: downloadResult,
+                  onClick: () => {
+                    trackDownloadComplete("compress", 1);
+                    downloadResult();
+                  },
                   disabled: !result || isCompressing,
                   icon: <Download className="w-4 h-4 mr-2" aria-hidden="true" />,
                   label: "下載壓縮圖片",

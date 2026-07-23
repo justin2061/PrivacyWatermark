@@ -8,7 +8,7 @@ import { DownloadSuccess } from "@/components/DownloadSuccess";
 import { ToolRecommendations } from "@/components/ToolRecommendations";
 import { UploadZone } from "@/components/UploadZone";
 import { ActionButtons } from "@/components/ActionButtons";
-import { trackToolUseStart, trackToolEvent } from "@/lib/analytics";
+import { trackToolUseStart, trackToolEvent, trackDownloadComplete } from "@/lib/analytics";
 import { setPageSeo, webAppSchema } from "@/lib/seo";
 import {
   CheckCircle,
@@ -573,7 +573,10 @@ export default function SocialCropEnPage() {
 
                 <ActionButtons
                   download={{
-                    onClick: download,
+                    onClick: () => {
+                    trackDownloadComplete("social-crop", 1);
+                    download();
+                  },
                     disabled: target.w < 1 || target.h < 1,
                     icon: <Download className="w-4 h-4 mr-2" aria-hidden="true" />,
                     label: "Crop & Download",

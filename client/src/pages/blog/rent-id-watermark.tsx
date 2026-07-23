@@ -19,9 +19,9 @@ export default function RentIdWatermark() {
   useEffect(() => {
     const cleanup = setPageSeo({
       title:
-        "租屋交身分證影本前必做！3 步驟加浮水印保護個資 | ImageMarker",
+        "租屋要給身分證影本？先加浮水印，3 步驟防個資被冒用（2026） | ImageMarker",
       description:
-        "租屋前必看！教你用 ImageMarker 三步驟幫身分證影本加上浮水印，防止個資被冒用。浮水印該寫什麼、怎麼寫，全部一次說清楚。",
+        "房東、仲介要身分證影本，直接給安全嗎？90 秒學會用 ImageMarker 幫影本加浮水印：該寫什麼、放哪最防裁切，附租屋範本一鍵套用。100% 本機處理不上傳，手機也能用。",
       canonical: URL,
       jsonLd: [
         articleSchema({
@@ -30,7 +30,7 @@ export default function RentIdWatermark() {
             "租屋前必看！教你用 ImageMarker 三步驟幫身分證影本加上浮水印，防止個資被冒用。浮水印該寫什麼、怎麼寫，全部一次說清楚。",
           url: URL,
           datePublished: "2026-04-06",
-          dateModified: "2026-04-06",
+          dateModified: "2026-07-22",
         }),
         blogBreadcrumb("租屋交身分證影本前必做！3 步驟加浮水印保護個資", URL),
         faqSchema([
