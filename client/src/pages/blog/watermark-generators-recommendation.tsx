@@ -30,7 +30,7 @@ export default function WatermarkGeneratorsRecommendation() {
             "精選 5 款 2026 年最好用的免費線上浮水印產生器，比較證件、圖片、防盜圖、PDF 加浮水印功能與隱私安全。",
           url: URL,
           datePublished: "2026-04-07",
-          dateModified: "2026-07-20",
+          dateModified: "2026-07-25",
         }),
         {
           "@context": "https://schema.org",
@@ -102,7 +102,7 @@ export default function WatermarkGeneratorsRecommendation() {
               2026-04-07
             </time>
             <span className="text-sm text-muted-foreground">
-              {" "}·　最後更新 2026-07-20
+              {" "}·　最後更新 2026-07-25
             </span>
             <h1 className="text-3xl font-bold mt-2 leading-snug">
               浮水印產生器推薦：5 款免費線上工具比較（2026 最新）
@@ -154,18 +154,29 @@ export default function WatermarkGeneratorsRecommendation() {
               <li>專攻證件（身分證、護照、駕照）浮水印</li>
               <li>100% 瀏覽器本地端處理，檔案不會上傳到任何伺服器</li>
               <li>免註冊、免費、無廣告、無檔案大小限制</li>
-              <li>繁體中文介面，符合台灣使用習慣</li>
+              <li>介面支援繁體中文、英文、日文，符合台灣使用習慣</li>
               <li>支援透明度調整、自訂文字、九宮格位置</li>
               <li>
-                <strong>2026 新增：</strong>
+                <strong>文字與 Logo 圖片浮水印</strong>可分別啟用、也能同時疊加，
+                Logo 圖檔一樣只在本地讀取，不會上傳
+              </li>
+              <li>
+                <strong>證件類型自動識別：</strong>依圖片長寬比例判斷是身分證還是護照，
+                主動建議對應的浮水印文字範本（純比例判斷、不使用 AI，一律等你確認才套用）
+              </li>
+              <li>
                 <Link href="/batch">批次浮水印</Link>（一次處理多張證件影本）與{" "}
-                <Link href="/pdf-watermark">PDF 浮水印</Link>（逐頁加上浮水印），
-                兩者同樣是本地端處理
+                <Link href="/pdf-watermark">PDF 浮水印</Link>（逐頁加上浮水印）
+                皆已上線，兩者同樣是本地端處理
               </li>
               <li>
                 同站另有 <Link href="/exif-clean">EXIF 清除</Link>、
                 <Link href="/mosaic">馬賽克遮蔽</Link>、
-                <Link href="/compress">圖片壓縮</Link> 等工具可搭配使用
+                <Link href="/compress">圖片壓縮</Link>、
+                <Link href="/convert">格式轉換</Link>、
+                <Link href="/remove-bg">去背</Link>、
+                <Link href="/social-crop">社群裁切</Link> 等工具可搭配使用，
+                全部都在瀏覽器本機執行
               </li>
               <li>支援 PWA，可安裝到手機當 App 用</li>
               <li>
@@ -177,7 +188,7 @@ export default function WatermarkGeneratorsRecommendation() {
             <ul>
               <li>通用圖片浮水印工具</li>
               <li>支援批次處理多張圖片</li>
-              <li>可加圖片浮水印（例如 logo）</li>
+              <li>可加圖片浮水印（例如 logo），並可儲存重複使用的範本</li>
               <li>缺點：需要上傳到伺服器、英文介面</li>
               <li>
                 <strong>適合：</strong>攝影師、設計師處理大量作品
@@ -293,7 +304,8 @@ export default function WatermarkGeneratorsRecommendation() {
             </div>
             <p className="text-sm">
               <strong>2026/07 更新說明：</strong>ImageMarker 在 2026 年上半年補上了批次浮水印與 PDF
-              浮水印兩項功能，且都維持本地端處理，因此上表中這兩欄由「❌」更新為「✅」。
+              浮水印兩項功能，且都維持本地端處理，因此上表中這兩欄由「❌」更新為「✅」；
+              同期也新增了 Logo 圖片浮水印與證件類型自動識別。
               其餘四款工具的處理方式與免費限制經本次複查後維持不變。
             </p>
 
@@ -307,7 +319,12 @@ export default function WatermarkGeneratorsRecommendation() {
                 <Link href="/batch">批次浮水印</Link>（不需上傳，敏感檔案適用）
               </li>
               <li>
-                <strong>批次處理大量攝影作品、要加 logo 圖片浮水印</strong> → Watermarkly
+                <strong>要加 logo 圖片浮水印</strong> → 兩者都做得到：ImageMarker
+                可同時疊加文字與 Logo 且不需上傳；Watermarkly 則勝在雲端範本管理
+              </li>
+              <li>
+                <strong>批次處理大量攝影作品</strong> → Watermarkly（作品集非敏感內容，
+                雲端批次的流程較順）
               </li>
               <li>
                 <strong>PDF 加浮水印</strong> → 內容敏感就用 ImageMarker{" "}
@@ -360,7 +377,7 @@ export default function WatermarkGeneratorsRecommendation() {
 
             <h2>結語</h2>
             <p>
-              選擇浮水印工具沒有絕對的標準答案，關鍵在於你的使用情境。如果你最在意的是隱私安全（特別是要處理證件），ImageMarker 是目前市面上最好的選擇。如果你需要批次處理或 PDF 浮水印，其他工具也都有各自的優勢。
+              選擇浮水印工具沒有絕對的標準答案，關鍵在於你的使用情境。如果你最在意的是隱私安全（特別是要處理證件），ImageMarker 是目前市面上最好的選擇——批次處理、PDF 浮水印、Logo 浮水印現在也都補齊了，而且一樣不用上傳檔案。至於雲端範本管理、大量作品集的批次流程，或是精緻的設計感排版，其他工具仍有各自的優勢。
             </p>
             <p>
               不論選擇哪一款，記得養成「交出任何證件影本前先加浮水印」的習慣，這是保護自己個資的簡單卻重要的一步。
