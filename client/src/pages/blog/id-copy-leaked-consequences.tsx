@@ -144,7 +144,11 @@ export default function IdCopyLeakedConsequences() {
 
             <h2>最簡單的自保：交件前加浮水印</h2>
             <p>
-              在所有自保方法裡，加浮水印是門檻最低、效果卻很實在的一招。做法是在影本上打一層半透明文字，明確寫上<strong>用途與日期</strong>，例如「僅供○○租屋使用，2026.07」，並讓文字橫跨身分證字號與照片。
+              在所有自保方法裡，加浮水印是門檻最低、效果卻很實在的一招。做法是在影本上打一層半透明文字，明確寫上<strong>用途與日期</strong>，例如「僅供○○租屋使用，2026.07」，並讓文字橫跨身分證字號與照片。完整的 10 種簽註範本和寫法，請參考{" "}
+              <Link href="/blog/watermark-templates-guide">
+                《身分證影本簽註寫法＋證件浮水印範本：10 種情境怎麼寫》
+              </Link>
+              。
             </p>
             <p>這樣做有三個好處：</p>
             <ul>
@@ -228,10 +232,10 @@ export default function IdCopyLeakedConsequences() {
             <Link href="/blog/id-watermark-complete-guide">
               <article className="block border rounded-xl p-5 hover:border-primary hover:shadow-sm transition-all cursor-pointer">
                 <h3 className="font-medium mb-1">
-                  證件影本加浮水印完整教學：5 種情境、3 步驟搞定
+                  證件影本加浮水印教學：3 步驟完成，手機電腦都適用
                 </h3>
                 <p className="text-sm text-muted-foreground">
-                  從什麼是證件浮水印到 5 種常見情境的完整教學，3 步驟輕鬆完成。
+                  從什麼是證件浮水印到實際動手做，3 步驟輕鬆完成。
                 </p>
                 <span className="inline-block mt-3 text-sm text-primary font-medium">
                   閱讀全文<ReadMoreArrow />

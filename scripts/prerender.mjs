@@ -243,6 +243,43 @@ async function main() {
     `[prerender] done — ${written}/${routes.length} routes written.`
   );
 
+  // Canonical guard. Both /path and /path/ serve a 200 (see netlify.toml — a
+  // trailing-slash 301 is impossible here), so the <link rel="canonical"> tag is
+  // the ONLY thing telling Google the two forms are one page. If a page emits a
+  // canonical that trails a slash, or points somewhere other than its own route,
+  // GSC splits the impressions across two URLs and both rank worse.
+  const canonicalIssues = [];
+  for (const { route, html } of rendered) {
+    const m = html.match(/<link[^>]+rel="canonical"[^>]+href="([^"]+)"/i);
+    if (!m) {
+      canonicalIssues.push(`${route} — no canonical tag`);
+      continue;
+    }
+    let path;
+    try {
+      path = new URL(m[1]).pathname;
+    } catch {
+      canonicalIssues.push(`${route} — malformed canonical "${m[1]}"`);
+      continue;
+    }
+    // "/", "/en/" and "/ja/" are locale roots: sitemap and canonical both keep
+    // their slash, so they are consistent and exempt.
+    const isLocaleRoot = /^\/(?:[a-z]{2}\/)?$/.test(path);
+    if (!isLocaleRoot && path.endsWith("/")) {
+      canonicalIssues.push(`${route} — canonical has a trailing slash: ${path}`);
+    } else if (path.replace(/\/$/, "") !== route.replace(/\/$/, "")) {
+      canonicalIssues.push(`${route} — canonical points elsewhere: ${path}`);
+    }
+  }
+  if (canonicalIssues.length > 0) {
+    console.warn(
+      `[prerender] canonical warnings (${canonicalIssues.length}):\n  ` +
+        canonicalIssues.join("\n  ")
+    );
+  } else {
+    console.log("[prerender] canonical check ✓ — all routes self-canonical, no trailing slashes.");
+  }
+
   // A partial crawl still de-indexes whatever it missed, so hold production to
   // a full render. The threshold is every route: a route that silently stops
   // rendering is exactly the regression this guard exists to catch.

@@ -229,10 +229,22 @@ export function trackToolResultReady(
  * 分析每次處理張數時，報表篩 event_name = tool_download_complete 即可。
  * 這是驗證「批次上限該設多少、Pro 批次功能有無需求」的關鍵訊號。
  */
+/** trackDownloadComplete 廣播的 window 事件名稱。 */
+export const DOWNLOAD_COMPLETE_EVENT = "imagemarker:download-complete";
+
 export function trackDownloadComplete(
   toolName: string,
   imageCount: number,
 ): void {
+  // 同時廣播一個 app 內事件：下載完成畫面靠它判斷「檔案真的下載了」，
+  // 才顯示 Pro 候補 CTA。走事件而非 props，是為了不用把下載狀態穿過每一個工具頁。
+  if (typeof window !== "undefined") {
+    window.dispatchEvent(
+      new CustomEvent(DOWNLOAD_COMPLETE_EVENT, {
+        detail: { toolName, imageCount },
+      }),
+    );
+  }
   if (typeof gtag === "undefined") return;
   gtag("event", "tool_download_complete", {
     tool_name: toolName,
@@ -315,15 +327,20 @@ export function trackWaitlistSubmit(
   }
 }
 
-/** 下載完成頁的候補 CTA 曝光時觸發（漏斗分母）。 */
+/**
+ * 下載完成頁的候補 CTA 曝光時觸發（漏斗分母）。
+ * variant 是文案版本（pain / early），與 click 事件配對就能算各版本 CTR。
+ */
 export function trackWaitlistCtaView(
   toolName: string,
   location = "download_success",
+  variant = "pain",
 ): void {
   if (typeof gtag !== "undefined") {
     gtag("event", "waitlist_cta_view", {
       tool_name: toolName,
       location,
+      variant,
     });
   }
 }
@@ -332,15 +349,18 @@ export function trackWaitlistCtaView(
  * 候補 CTA 被點擊時觸發（漏斗分子）。
  * location 分辨出現位置（download_success / homepage / blog_article），
  * 用來判斷「剛做完事的高意圖時刻」與「純瀏覽」哪個真的會轉換。
+ * variant 分辨文案版本，用來比較 A/B 文案的 CTR。
  */
 export function trackWaitlistCtaClick(
   toolName: string,
   location = "download_success",
+  variant = "pain",
 ): void {
   if (typeof gtag !== "undefined") {
     gtag("event", "waitlist_cta_click", {
       tool_name: toolName,
       location,
+      variant,
     });
   }
 }

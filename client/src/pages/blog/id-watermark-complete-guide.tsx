@@ -18,24 +18,24 @@ export default function IdWatermarkCompleteGuide() {
   useEffect(() => {
     const cleanup = setPageSeo({
       title:
-        "證件影本加浮水印完整教學：5 種情境、3 步驟搞定 | ImageMarker",
+        "證件影本加浮水印教學：3 步驟完成，手機電腦都適用 | ImageMarker",
       description:
-        "證件浮水印怎麼加？本篇完整教學：什麼是證件浮水印、為什麼重要，租屋／求職／開戶／辦卡／簽證 5 種情境的浮水印怎麼寫，3 步驟教你完成，再教 Logo 浮水印與馬賽克遮蔽的進階用法。附常見問題 FAQ。",
+        "證件浮水印怎麼加？本篇教你什麼是證件浮水印、為什麼重要，3 步驟實際動手做一次，再教 Logo 浮水印與馬賽克遮蔽的進階用法。浮水印文字怎麼寫的完整範本另有專文整理。",
       canonical: URL,
       jsonLd: [
         articleSchema({
-          headline: "證件影本加浮水印完整教學：5 種情境、3 步驟搞定",
+          headline: "證件影本加浮水印教學：3 步驟完成，手機電腦都適用",
           description:
-            "證件浮水印完整教學：什麼是證件浮水印、5 種常見情境怎麼寫、3 步驟完成，附 Logo 浮水印與馬賽克遮蔽進階技巧與 FAQ。",
+            "證件浮水印操作教學：什麼是證件浮水印、3 步驟完成，附 Logo 浮水印與馬賽克遮蔽進階技巧與 FAQ。",
           url: URL,
           datePublished: "2026-07-11",
-          dateModified: "2026-07-11",
+          dateModified: "2026-07-25",
         }),
-        blogBreadcrumb("證件影本加浮水印完整教學：5 種情境、3 步驟搞定", URL),
+        blogBreadcrumb("證件影本加浮水印教學：3 步驟完成，手機電腦都適用", URL),
         faqSchema([
           {
-            q: "證件浮水印要寫什麼內容？",
-            a: "建議寫明「用途＋對象＋日期」，例如「僅供○○租屋簽約使用，2026.07」。重點是限定用途，並讓文字橫跨身分證字號與照片，讓影本無法被挪作他用。",
+            q: "手機和電腦的操作步驟一樣嗎？",
+            a: "一樣。ImageMarker 是網頁工具，手機與電腦都是「上傳圖片 → 設定文字 → 下載」三個步驟，介面會自動適應螢幕大小，不需要安裝任何 App。",
           },
           {
             q: "浮水印要放在哪個位置最有效？",
@@ -80,13 +80,20 @@ export default function IdWatermarkCompleteGuide() {
               2026-07-11
             </time>
             <h1 className="text-3xl font-bold mt-2 leading-snug">
-              證件影本加浮水印完整教學：5 種情境、3 步驟搞定
+              證件影本加浮水印教學：3 步驟完成，手機電腦都適用
             </h1>
           </header>
 
           <div className="prose prose-neutral max-w-none">
             <p>
-              交出身分證影本這件事，我們一年要做好幾次，但真正做過「加浮水印」的人卻是少數。這篇是一份完整的入門教學，從<strong>什麼是證件浮水印、為什麼重要</strong>，到<strong>5 種常見情境怎麼寫、3 步驟怎麼做</strong>，再到 Logo 與馬賽克的進階搭配，一次講清楚。看完你就能替所有證件影本建立一道基本防線。
+              交出身分證影本這件事，我們一年要做好幾次，但真正做過「加浮水印」的人卻是少數。這篇是一份操作導向的入門教學，從<strong>什麼是證件浮水印、為什麼重要</strong>，到<strong>3 步驟實際動手做一次</strong>，再到 Logo 與馬賽克的進階搭配，一次講清楚。看完你就能替所有證件影本建立一道基本防線。
+            </p>
+            <p>
+              至於<strong>浮水印文字實際該怎麼寫</strong>（各情境的完整範本、手寫簽註規則、常見錯誤寫法），我們另外整理了一篇專文：
+              <Link href="/blog/watermark-templates-guide">
+                身分證影本簽註寫法＋證件浮水印範本：10 種情境怎麼寫
+              </Link>
+              ，寫法問題請以那篇為準。
             </p>
 
             <h2>什麼是證件浮水印？為什麼重要？</h2>
@@ -111,52 +118,24 @@ export default function IdWatermarkCompleteGuide() {
 
             <InlineCTA tool="watermark" position="mid_article" location={SLUG} />
 
-            <h2>5 種常見情境，浮水印這樣寫</h2>
+            <h2>浮水印文字怎麼寫？記住一個公式</h2>
             <p>
-              浮水印的核心公式是 <strong>「用途 ＋ 對象 ＋ 日期」</strong>。以下是五種最常見情境的寫法範例，可直接套用：
+              寫法只要記住一個核心公式：<strong>「用途 ＋ 對象 ＋ 日期」</strong>，例如「僅供○○租屋簽約使用，2026.07」。三個要素齊全，影本就從「人人可用」變成「只有這件事能用」。
             </p>
-
-            <h3>1. 租屋簽約</h3>
-            <p>
-              範例：<strong>「僅供○○租屋簽約使用，2026.07」</strong>
-              <br />
-              交給房東或仲介前使用。可再遮蔽身分證字號部分位數，簽約核身其實用不到完整號碼。
-            </p>
-
-            <h3>2. 求職入職</h3>
-            <p>
-              範例：<strong>「僅供○○公司到職勞健保使用，2026.07」</strong>
-              <br />
-              確定錄取、辦理報到時使用。切記面試階段不要交證件影本。
-            </p>
-
-            <h3>3. 銀行開戶</h3>
-            <p>
-              範例：<strong>「僅供○○銀行開戶使用，2026.07」</strong>
-              <br />
-              臨櫃或線上開戶補件時使用，明確標註銀行名稱與用途。
-            </p>
-
-            <h3>4. 辦信用卡 / 申辦業務</h3>
-            <p>
-              範例：<strong>「僅供○○銀行信用卡申辦使用，2026.07」</strong>
-              <br />
-              申辦信用卡、電信、保險等業務補件時使用，對象寫清楚是哪一家。
-            </p>
-
-            <h3>5. 出國簽證 / 交旅行社</h3>
-            <p>
-              範例：<strong>「僅供○○簽證申請使用，2026.07」</strong>
-              <br />
-              護照影本交給旅行社或代辦時使用，護照的浮水印可橫跨個人資料頁的號碼與照片。
-            </p>
-            <p>
-              想看更多情境的完整範本，可參考{" "}
-              <Link href="/blog/watermark-templates-guide">
-                證件浮水印內容範本：10 種常見情境怎麼寫
-              </Link>
-              。
-            </p>
+            <div className="not-prose my-6 rounded-lg border border-blue-200 bg-blue-50 p-4">
+              <p className="text-blue-900 text-sm leading-relaxed">
+                <strong>完整範本請看專文：</strong>租屋、求職、開戶、辦門號、保險、貸款等{" "}
+                <strong>10 種情境的簽註範本和寫法</strong>，以及手寫三行簽註的正確規則與常見錯誤對照，
+                我們整理在{" "}
+                <Link
+                  href="/blog/watermark-templates-guide"
+                  className="font-semibold text-blue-700 underline"
+                >
+                  《身分證影本簽註寫法＋證件浮水印範本：10 種情境怎麼寫》
+                </Link>
+                。需要照抄範本時，請以那篇為準——本篇只講操作步驟。
+              </p>
+            </div>
 
             <h2>3 步驟教學：實際動手做一次</h2>
             <p>

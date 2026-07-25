@@ -30,7 +30,7 @@ export default function WatermarkTemplatesGuidePage() {
             "身分證影本簽註寫法與證件浮水印範本完整教學：手寫三行簽註正確寫法＋10 種常見情境文字範本。",
           url: URL,
           datePublished: "2026-04-10",
-          dateModified: "2026-07-22",
+          dateModified: "2026-07-25",
         }),
         faqSchema([
           {
@@ -178,7 +178,7 @@ export default function WatermarkTemplatesGuidePage() {
             <div className="flex items-center space-x-4 text-sm text-gray-500">
               <time dateTime="2026-04-10">2026 年 4 月 10 日</time>
               <span>·</span>
-              <span>最後更新 2026/07/22</span>
+              <span>最後更新 2026/07/25</span>
               <span>·</span>
               <span>閱讀約 8 分鐘</span>
             </div>
@@ -419,6 +419,33 @@ export default function WatermarkTemplatesGuidePage() {
                 <p><strong>小提醒：</strong>{detail.tip}</p>
               </div>
             ))}
+
+            <h2>各情境的延伸閱讀：不只怎麼寫，還有怎麼交</h2>
+            <p>
+              上面 10 種範本解決的是「文字怎麼寫」。如果你正在處理某個特定情境，還想知道<strong>對方憑什麼要、什麼時候該拒絕、交出去之後怎麼留紀錄</strong>，這幾篇是各情境的深入版：
+            </p>
+            <div className="not-prose grid grid-cols-1 sm:grid-cols-2 gap-4 my-6">
+              <Link href="/blog/rent-before-giving-id-3-things" className="border border-gray-200 rounded-lg p-4 hover:border-primary hover:shadow-sm transition-all block">
+                <p className="text-xs text-blue-600 font-medium mb-1">租屋情境</p>
+                <h3 className="font-semibold text-gray-900 text-sm leading-snug mb-1">租屋交身分證影本前，一定要做的 3 件事</h3>
+                <p className="text-xs text-gray-600">房東為何要影本、遮蔽哪些欄位、怎麼保留交件證據。</p>
+              </Link>
+              <Link href="/blog/job-interview-id-copy-safety" className="border border-gray-200 rounded-lg p-4 hover:border-primary hover:shadow-sm transition-all block">
+                <p className="text-xs text-blue-600 font-medium mb-1">求職情境</p>
+                <h3 className="font-semibold text-gray-900 text-sm leading-snug mb-1">面試就要身分證影本？求職者的證件安全指南</h3>
+                <p className="text-xs text-gray-600">哪些索取要求不合理、3 種求職詐騙劇本、何時才該交。</p>
+              </Link>
+              <Link href="/blog/id-watermark-complete-guide" className="border border-gray-200 rounded-lg p-4 hover:border-primary hover:shadow-sm transition-all block">
+                <p className="text-xs text-blue-600 font-medium mb-1">操作教學</p>
+                <h3 className="font-semibold text-gray-900 text-sm leading-snug mb-1">證件影本加浮水印教學：3 步驟完成</h3>
+                <p className="text-xs text-gray-600">範本抄好之後，照這三步實際做出一張安全影本。</p>
+              </Link>
+              <Link href="/blog/id-copy-leaked-consequences" className="border border-gray-200 rounded-lg p-4 hover:border-primary hover:shadow-sm transition-all block">
+                <p className="text-xs text-blue-600 font-medium mb-1">風險認識</p>
+                <h3 className="font-semibold text-gray-900 text-sm leading-snug mb-1">身分證影本外洩後會發生什麼事？</h3>
+                <p className="text-xs text-gray-600">盜辦門號、申貸、人頭帳戶，以及懷疑外洩時的處理步驟。</p>
+              </Link>
+            </div>
 
             <h2>浮水印的最佳設計原則</h2>
             <p>知道寫什麼之後，還要知道怎麼放才有效：</p>

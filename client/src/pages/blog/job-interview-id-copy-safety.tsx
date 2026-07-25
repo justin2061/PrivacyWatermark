@@ -152,7 +152,11 @@ export default function JobInterviewIdCopySafety() {
             <p>
               <strong>1. 加浮水印，寫明用途與日期。</strong>
               <br />
-              在影本上打一層半透明文字，例如「僅供○○公司到職勞健保使用，2026.07」，並讓文字橫跨身分證字號與照片，讓影本無法被挪作他用。
+              在影本上打一層半透明文字，例如「僅供○○公司到職勞健保使用，2026.07」，並讓文字橫跨身分證字號與照片，讓影本無法被挪作他用。完整的 10 種簽註範本和寫法，請參考{" "}
+              <Link href="/blog/watermark-templates-guide">
+                《身分證影本簽註寫法＋證件浮水印範本：10 種情境怎麼寫》
+              </Link>
+              。
             </p>
             <p>
               <strong>2. 遮蔽用不到的敏感資訊。</strong>
@@ -247,10 +251,10 @@ export default function JobInterviewIdCopySafety() {
             <Link href="/blog/id-watermark-complete-guide">
               <article className="block border rounded-xl p-5 hover:border-primary hover:shadow-sm transition-all cursor-pointer">
                 <h3 className="font-medium mb-1">
-                  證件影本加浮水印完整教學：5 種情境、3 步驟搞定
+                  證件影本加浮水印教學：3 步驟完成，手機電腦都適用
                 </h3>
                 <p className="text-sm text-muted-foreground">
-                  從什麼是證件浮水印到 5 種常見情境的完整教學，3 步驟輕鬆完成。
+                  從什麼是證件浮水印到實際動手做，3 步驟輕鬆完成。
                 </p>
                 <span className="inline-block mt-3 text-sm text-primary font-medium">
                   閱讀全文<ReadMoreArrow />
