@@ -131,9 +131,14 @@ export default function ResizeEnPage() {
 
   useEffect(() => {
     return setPageSeo({
-      title: "Image Resizer — Free Online Tool to Resize Images",
+      // Kept indexed (unlike /en/batch) because this page does have body copy.
+      // Its impressions are scattered across head terms it already matched
+      // literally — "image resizer", "resize image online" — at rank 40–80, so
+      // repeating them buys nothing. Leading with the no-upload angle instead:
+      // that's the winnable qualifier the big resizers can't claim.
+      title: "Resize Images Without Uploading — Free Online Image Resizer",
       description:
-        "Free online image resizer. Enter a width and height to resize images, with built-in presets for social media and ID photos. Runs in your browser with Canvas — 100% local processing, no uploads.",
+        "Free online image resizer that never uploads your files. Enter a width and height, or use presets for social media and ID photos. Runs 100% in your browser — private by design.",
       canonical: "https://imagemarker.app/en/resize",
       locale: "en_US",
       jsonLd: webAppSchema({

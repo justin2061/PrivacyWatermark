@@ -21,10 +21,13 @@ import { Lock, Zap, Eraser } from "lucide-react";
 // which is not what the English traffic actually searches for — impressions were
 // healthy but CTR sat near 0.3%. Retitled around the ID/passport intent that the
 // tool is genuinely built for.
+// Kept the ID/passport intent but led with the generic tool phrasing English
+// searchers actually type ("free watermark generator", "online watermark tool"),
+// which the previous title never matched literally.
 const TITLE =
-  "Free ID Document Watermark Tool — Protect Passport & ID Copies Online";
+  "Free Watermark Generator — Online Watermark Tool for ID & Passport";
 const DESCRIPTION =
-  "100% browser-based, no upload, privacy-first. Add watermarks to ID cards, passports, and documents before sharing. Free, fast, and secure.";
+  "Free online watermark tool for ID cards, passports and documents. A watermark generator that runs 100% in your browser — no upload, privacy-first. Fast, free and secure.";
 
 export default function WatermarkEnPage() {
   const {

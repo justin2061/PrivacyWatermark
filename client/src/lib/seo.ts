@@ -39,6 +39,14 @@ interface PageSeoOptions {
   alternates?: Alternate[];
   /** One or more JSON-LD objects (Article, FAQPage, BreadcrumbList, ItemList…). */
   jsonLd?: JsonLd | JsonLd[];
+  /**
+   * Keep the URL out of the index while still letting Google follow its links.
+   * For thin tool pages that only ship a UI with no explanatory copy: they earn
+   * impressions but rank in the 40–80 range, so they dilute the site's crawl
+   * budget instead of adding to it. The shell ships "index, follow"; set this
+   * and the page emits "noindex, follow" instead.
+   */
+  noindex?: boolean;
 }
 
 function setMeta(selector: string, attr: "content" | "href", value: string) {
@@ -54,8 +62,18 @@ export function setPageSeo({
   ogImage,
   alternates,
   jsonLd,
+  noindex,
 }: PageSeoOptions): () => void {
   document.title = title;
+
+  // The shell hard-codes "index, follow", so only touch it when a page opts out.
+  // Left alone otherwise, so navigating away from a noindex page in the SPA
+  // can't leak the directive onto the next route.
+  setMeta(
+    'meta[name="robots"]',
+    "content",
+    noindex ? "noindex, follow" : "index, follow",
+  );
 
   setMeta('meta[name="description"]', "content", description);
   setMeta('meta[name="title"]', "content", title);

@@ -41,8 +41,10 @@ export default function WatermarkPage() {
   useEffect(() => {
     return setPageSeo({
       title: "證件浮水印製作工具｜免費線上浮水印產生器、100% 本機處理 — ImageMarker",
+      // 標題本來就含「免費線上浮水印產生器」，是目前唯一在成長的字群，不動。
+      // 描述補上「免費浮水印工具」「線上浮水印工具」的變體寫法擴大匹配面。
       description:
-        "免費線上浮水印產生器，專為身分證、護照、駕照等證件與機密文件設計。100% 本地端瀏覽器處理，不上傳任何檔案。支援自訂浮水印文字、透明度調整，適用租屋、求職等場景。",
+        "免費線上浮水印工具，專為身分證、護照、駕照等證件與機密文件設計的免費浮水印產生器。100% 本地端瀏覽器處理，不上傳任何檔案。支援自訂浮水印文字、透明度調整，適用租屋、求職等場景。",
       canonical: "https://imagemarker.app/",
       locale: "zh_TW",
       alternates: localeAlternates({ zh: "/", en: "/en/", ja: "/ja/" }),

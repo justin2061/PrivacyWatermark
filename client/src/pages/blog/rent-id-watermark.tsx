@@ -18,10 +18,14 @@ const URL = "https://imagemarker.app/blog/rent-id-watermark";
 export default function RentIdWatermark() {
   useEffect(() => {
     const cleanup = setPageSeo({
+      // 這頁在 GSC 已是「身分證影本加註」「身分證影本加註位置」的接手頁面
+      // （7 天 130 次曝光全部落在這裡、排名 5.4），但舊標題只講「租屋」，
+      // 搜加註的人看不到自己要的字，CTR 從 8% 掉到 3%。標題改成以「加註」開頭，
+      // 同時保留租屋／浮水印字眼，避免影響本來就有點擊的「僅供租屋使用浮水印」。
       title:
-        "租屋要給身分證影本？先加浮水印，3 步驟防個資被冒用（2026） | ImageMarker",
+        "身分證影本加註怎麼寫？加註位置與租屋浮水印範例（2026） | ImageMarker",
       description:
-        "房東、仲介要身分證影本，直接給安全嗎？90 秒學會用 ImageMarker 幫影本加浮水印：該寫什麼、放哪最防裁切，附租屋範本一鍵套用。100% 本機處理不上傳，手機也能用。",
+        "身分證影本加註怎麼寫、加註位置放哪裡才防裁切？教你「用途＋對象＋日期」三行加註格式與「僅供租屋使用」浮水印範例，90 秒用 ImageMarker 幫影本加上加註浮水印。100% 本機處理不上傳，手機也能用。",
       canonical: URL,
       jsonLd: [
         articleSchema({
@@ -30,7 +34,7 @@ export default function RentIdWatermark() {
             "租屋前必看！教你用 ImageMarker 三步驟幫身分證影本加上浮水印，防止個資被冒用。浮水印該寫什麼、怎麼寫，全部一次說清楚。",
           url: URL,
           datePublished: "2026-04-06",
-          dateModified: "2026-07-22",
+          dateModified: "2026-07-27",
         }),
         blogBreadcrumb("租屋交身分證影本前必做！3 步驟加浮水印保護個資", URL),
         faqSchema([

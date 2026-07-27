@@ -96,9 +96,13 @@ export default function ConvertEnPage() {
 
   useEffect(() => {
     return setPageSeo({
-      title: "Image Format Converter — Free Online JPG/PNG/WebP Converter",
+      // Kept indexed: this page has body copy and is the hub linking out to the
+      // /en/convert/<pair> pages. Same reasoning as /en/resize — the generic
+      // converter terms are already matched literally at rank 40–80, so lead
+      // with the no-upload angle rather than repeating them.
+      title: "Convert Images Without Uploading — Free JPG/PNG/WebP Converter",
       description:
-        "Free online image format converter. Convert PNG to JPG, JPG to PNG and WebP right in your browser with Canvas — 100% local processing, no uploads, no size limits.",
+        "Free online image converter that never uploads your files. Convert PNG to JPG, JPG to PNG and WebP right in your browser — 100% local processing, no size limits, private by design.",
       canonical: "https://imagemarker.app/en/convert",
       locale: "en_US",
       jsonLd: webAppSchema({
