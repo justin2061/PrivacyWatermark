@@ -4,7 +4,12 @@ import { ReadMoreArrow } from "@/components/read-more-arrow";
 import { SiteFooter } from "@/components/SiteFooter";
 import { setPageSeo, localeAlternates } from "@/lib/seo";
 
-type Category = "Security" | "Photography" | "Tutorial" | "Privacy";
+type Category =
+  | "Security"
+  | "Photography"
+  | "Tutorial"
+  | "Privacy"
+  | "Business";
 
 interface Article {
   slug: string;
@@ -15,6 +20,33 @@ interface Article {
 }
 
 const articles: Article[] = [
+  {
+    slug: "real-estate-photo-watermarking",
+    title:
+      "Protect Your Listings: How Real Estate Agents Batch Watermark Property Photos in Seconds",
+    excerpt:
+      "Listing photos get scraped, re-listed and used in rental scams — and applicant ID documents carry a whole separate risk. Here's the two-minute workflow for marking an entire shoot, stripping EXIF location data, and handling tenant paperwork without uploading anything.",
+    date: "2026-08-04",
+    category: "Business",
+  },
+  {
+    slug: "watermark-etsy-product-photos",
+    title:
+      "Stop Photo Theft: The Complete Guide to Watermarking Your Etsy Product Photos",
+    excerpt:
+      "Drop-shippers scrape Etsy listings daily and resell your product photos as their own. Which images to watermark, which to deliberately leave clean, and how to mark a 480-photo catalogue in one operation — free, with no upload.",
+    date: "2026-08-04",
+    category: "Business",
+  },
+  {
+    slug: "gdpr-compliant-watermarking",
+    title:
+      "Zero Data Transfer: Why Browser-Based Watermarking Is the Only Truly GDPR-Compliant Option",
+    excerpt:
+      "Uploading an ID scan to a free watermark tool turns a 30-second task into a processor agreement, a transfer assessment and a breach surface. What the upload actually triggers, what client-side processing removes, and how to verify a tool really doesn't upload.",
+    date: "2026-08-04",
+    category: "Privacy",
+  },
   {
     slug: "watermark-id-before-sending-kyc",
     title:
@@ -176,6 +208,7 @@ const categoryStyles: Record<Category, string> = {
   Photography: "bg-purple-100 text-purple-800",
   Tutorial: "bg-blue-100 text-blue-800",
   Privacy: "bg-green-100 text-green-800",
+  Business: "bg-amber-100 text-amber-800",
 };
 
 export default function BlogIndexEn() {

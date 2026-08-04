@@ -48,6 +48,24 @@ const CARDS = [
     title: "Social Media Image Sizes:\nThe Complete 2026 Guide",
     sub: "Every dimension for Instagram, Facebook, LinkedIn and X.",
   },
+  {
+    slug: "real-estate-photo-watermarking",
+    kicker: "Business · Real Estate",
+    title: "Batch Watermark\nProperty Photos",
+    sub: "Protect a whole shoot from scrapers and rental scams in two minutes.",
+  },
+  {
+    slug: "watermark-etsy-product-photos",
+    kicker: "Business · Etsy",
+    title: "Stop Etsy\nPhoto Theft",
+    sub: "Which product photos to mark, which to leave clean, and how to do 480 at once.",
+  },
+  {
+    slug: "gdpr-compliant-watermarking",
+    kicker: "Privacy · GDPR",
+    title: "Zero Data Transfer\nWatermarking",
+    sub: "Why a file that never leaves your browser removes the compliance problem.",
+  },
 ];
 
 function html({ kicker, title, sub }) {

@@ -31,6 +31,9 @@ import WhatIsDigitalWatermarkEn from "@/pages/en/blog/what-is-digital-watermark"
 import SocialMediaImageSizesEn from "@/pages/en/blog/social-media-image-sizes";
 import EnBlogIndex from "@/pages/en/blog/index";
 import WatermarkIdBeforeSendingKycEn from "@/pages/en/blog/watermark-id-before-sending-kyc";
+import RealEstatePhotoWatermarkingEn from "@/pages/en/blog/real-estate-photo-watermarking";
+import WatermarkEtsyProductPhotosEn from "@/pages/en/blog/watermark-etsy-product-photos";
+import GdprCompliantWatermarkingEn from "@/pages/en/blog/gdpr-compliant-watermarking";
 import WatermarkTemplatesGuidePage from "@/pages/blog/watermark-templates-guide";
 import PassportWatermarkGuidePage from "@/pages/blog/passport-watermark-guide";
 import PassportCopyGuidePage from "@/pages/blog/passport-copy-guide";
@@ -117,6 +120,9 @@ function Router() {
       <Route path="/en/blog/what-is-digital-watermark" component={WhatIsDigitalWatermarkEn} />
       <Route path="/en/blog/social-media-image-sizes" component={SocialMediaImageSizesEn} />
       <Route path="/en/blog/watermark-id-before-sending-kyc" component={WatermarkIdBeforeSendingKycEn} />
+      <Route path="/en/blog/real-estate-photo-watermarking" component={RealEstatePhotoWatermarkingEn} />
+      <Route path="/en/blog/watermark-etsy-product-photos" component={WatermarkEtsyProductPhotosEn} />
+      <Route path="/en/blog/gdpr-compliant-watermarking" component={GdprCompliantWatermarkingEn} />
       {/* Pro 候補名單（各工具下載完成後的 CTA 目的地） */}
       <Route path="/waitlist">
         <WaitlistPage lang="zh" />
