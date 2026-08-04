@@ -449,6 +449,30 @@
     <xhtml:link rel="alternate" hreflang="zh" href="https://imagemarker.app/blog/passport-copy-guide" />
   </url>
   <url>
+    <loc>https://imagemarker.app/blog/realtor-id-watermark</loc>
+    <lastmod>2026-08-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="zh-tw" href="https://imagemarker.app/blog/realtor-id-watermark" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://imagemarker.app/blog/realtor-id-watermark" />
+  </url>
+  <url>
+    <loc>https://imagemarker.app/blog/hr-onboarding-watermark-sop</loc>
+    <lastmod>2026-08-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="zh-tw" href="https://imagemarker.app/blog/hr-onboarding-watermark-sop" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://imagemarker.app/blog/hr-onboarding-watermark-sop" />
+  </url>
+  <url>
+    <loc>https://imagemarker.app/blog/business-confidential-watermark</loc>
+    <lastmod>2026-08-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="zh-tw" href="https://imagemarker.app/blog/business-confidential-watermark" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://imagemarker.app/blog/business-confidential-watermark" />
+  </url>
+  <url>
     <loc>https://imagemarker.app/blog/id-photo-guide</loc>
     <lastmod>2026-07-23</lastmod>
     <changefreq>monthly</changefreq>

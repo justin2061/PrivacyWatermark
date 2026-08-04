@@ -35,6 +35,9 @@ import WatermarkTemplatesGuidePage from "@/pages/blog/watermark-templates-guide"
 import PassportWatermarkGuidePage from "@/pages/blog/passport-watermark-guide";
 import PassportCopyGuidePage from "@/pages/blog/passport-copy-guide";
 import IdPhotoGuidePage from "@/pages/blog/id-photo-guide";
+import RealtorIdWatermarkPage from "@/pages/blog/realtor-id-watermark";
+import HrOnboardingWatermarkSopPage from "@/pages/blog/hr-onboarding-watermark-sop";
+import BusinessConfidentialWatermarkPage from "@/pages/blog/business-confidential-watermark";
 import MobileWatermarkTutorialPage from "@/pages/blog/mobile-watermark-tutorial";
 import OtherDocumentsWatermarkPage from "@/pages/blog/other-documents-watermark";
 import PassportTravelAgencyWatermarkPage from "@/pages/blog/passport-travel-agency-watermark";
@@ -131,6 +134,9 @@ function Router() {
       <Route path="/blog/passport-watermark-guide" component={PassportWatermarkGuidePage} />
       <Route path="/blog/passport-copy-guide" component={PassportCopyGuidePage} />
       <Route path="/blog/id-photo-guide" component={IdPhotoGuidePage} />
+      <Route path="/blog/realtor-id-watermark" component={RealtorIdWatermarkPage} />
+      <Route path="/blog/hr-onboarding-watermark-sop" component={HrOnboardingWatermarkSopPage} />
+      <Route path="/blog/business-confidential-watermark" component={BusinessConfidentialWatermarkPage} />
       <Route path="/blog/mobile-watermark-tutorial" component={MobileWatermarkTutorialPage} />
       <Route path="/blog/other-documents-watermark" component={OtherDocumentsWatermarkPage} />
       <Route path="/blog/passport-travel-agency-watermark" component={PassportTravelAgencyWatermarkPage} />

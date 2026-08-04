@@ -5,6 +5,27 @@ import { setPageSeo, localeAlternates } from "@/lib/seo";
 
 const articles = [
   {
+    slug: "realtor-id-watermark",
+    title: "房仲證件浮水印教學：帶看前先幫客戶證件加保護，3 步驟做完",
+    date: "2026-08-04",
+    summary:
+      "房仲每天收身分證影本、戶籍謄本、權狀，一旦外洩就是公司扛。教你 3 步驟幫客戶證件加浮水印，標註用途、對象與案件編號，全程在瀏覽器完成、不上傳雲端。附洗錢防制留存規定與證件保管 SOP。",
+  },
+  {
+    slug: "hr-onboarding-watermark-sop",
+    title: "人資到職文件浮水印 SOP：新人證件影本這樣收，才符合個資保護要求",
+    date: "2026-08-04",
+    summary:
+      "新人報到收身分證影本、存摺封面、學歷證明，HR 一次收好幾份。這篇提供可直接寫進公司規範的到職文件個資保護 SOP：哪些能收、哪些不能收、浮水印怎麼加、保存與銷毀怎麼訂。",
+  },
+  {
+    slug: "business-confidential-watermark",
+    title: "中小企業機密文件浮水印：不用買 DRM，免費幫公司文件加保護",
+    date: "2026-08-04",
+    summary:
+      "報價單、合約、設計稿外流怎麼辦？企業 DRM 動輒數十萬又難導入。教中小企業用免費瀏覽器工具做到「機密標示 + 可追溯」，同時滿足營業秘密法要求的合理保密措施。",
+  },
+  {
     slug: "id-photo-guide",
     title: "2026 證件照完全攻略：手機自拍、線上裁切、超商列印一次搞定",
     date: "2026-07-23",
