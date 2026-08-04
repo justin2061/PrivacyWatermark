@@ -312,35 +312,30 @@ export function trackWaitlistView(lang: string): void {
 
 /**
  * 候補表單送出成功時觸發。
- * 不送 Email 內容（避免 PII），只記錄「處理張數級距」與「定價偏好」——
- * 這兩個參數就是定價決策要的東西。
+ * 不送 Email 也不送建議內容（兩者都可能夾帶 PII），只記錄語系與建議字數——
+ * 字數可以分辨「認真寫」與「隨手打一個字」，實際內容去 Netlify Forms 看。
  */
 export function trackWaitlistSubmit(
-  imageCount: string,
-  pricing: string,
+  lang: string,
+  requestLength: number,
 ): void {
   if (typeof gtag !== "undefined") {
     gtag("event", "waitlist_submit", {
-      image_count_bucket: imageCount,
-      pricing_preference: pricing,
+      lang,
+      request_length: requestLength,
     });
   }
 }
 
-/**
- * 下載完成頁的候補 CTA 曝光時觸發（漏斗分母）。
- * variant 是文案版本（pain / early），與 click 事件配對就能算各版本 CTR。
- */
+/** 下載完成頁的候補 CTA 曝光時觸發（漏斗分母）。 */
 export function trackWaitlistCtaView(
   toolName: string,
   location = "download_success",
-  variant = "pain",
 ): void {
   if (typeof gtag !== "undefined") {
     gtag("event", "waitlist_cta_view", {
       tool_name: toolName,
       location,
-      variant,
     });
   }
 }
@@ -349,18 +344,15 @@ export function trackWaitlistCtaView(
  * 候補 CTA 被點擊時觸發（漏斗分子）。
  * location 分辨出現位置（download_success / homepage / blog_article），
  * 用來判斷「剛做完事的高意圖時刻」與「純瀏覽」哪個真的會轉換。
- * variant 分辨文案版本，用來比較 A/B 文案的 CTR。
  */
 export function trackWaitlistCtaClick(
   toolName: string,
   location = "download_success",
-  variant = "pain",
 ): void {
   if (typeof gtag !== "undefined") {
     gtag("event", "waitlist_cta_click", {
       tool_name: toolName,
       location,
-      variant,
     });
   }
 }
