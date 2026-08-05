@@ -7,6 +7,7 @@ import {
   articleSchema,
   faqSchema,
   blogBreadcrumb,
+  localeAlternates,
 } from "@/lib/seo";
 
 const URL =
@@ -20,6 +21,7 @@ export default function TinypngIloveimgSquooshAlternativesEn() {
       description:
         "TinyPNG and iLoveIMG process your images on their servers. Compare 4 free online image tools by privacy: which ones truly run in your browser, plus batch, watermark and EXIF-removal features.",
       canonical: URL,
+      alternates: localeAlternates({ zh: "/blog/tinypng-iloveimg-squoosh-alternatives", en: "/en/blog/tinypng-iloveimg-squoosh-alternatives" }),
       locale: "en_US",
       jsonLd: [
         articleSchema({

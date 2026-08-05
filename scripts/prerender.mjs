@@ -280,6 +280,38 @@ async function main() {
     console.log("[prerender] canonical check ✓ — all routes self-canonical, no trailing slashes.");
   }
 
+  // hreflang guard. index.html ships the HOMEPAGE's hreflang cluster, so any
+  // route that doesn't replace it inherits tags claiming "/" and "/en/" are its
+  // own translations — e.g. /en/compress used to advertise /en/ as its English
+  // version. Google needs a cluster where every member lists itself, so a page
+  // whose hreflang set omits its own canonical is a broken cluster (and it
+  // contradicts sitemap.xml, which already gets this right).
+  const hreflangIssues = [];
+  for (const { route, html } of rendered) {
+    const alts = [...html.matchAll(
+      /<link[^>]+rel="alternate"[^>]+hreflang="([^"]+)"[^>]+href="([^"]+)"/gi
+    )].map((m) => ({ lang: m[1], href: m[2] }));
+    if (alts.length === 0) continue; // no translations declared — fine
+    const self = html.match(/<link[^>]+rel="canonical"[^>]+href="([^"]+)"/i)?.[1];
+    const hrefs = alts.map((a) => a.href);
+    if (self && !hrefs.includes(self)) {
+      hreflangIssues.push(
+        `${route} — hreflang set omits its own canonical (${self}); ` +
+          `points at ${hrefs.join(", ")}`
+      );
+    }
+  }
+  if (hreflangIssues.length > 0) {
+    console.warn(
+      `[prerender] hreflang warnings (${hreflangIssues.length}):\n  ` +
+        hreflangIssues.join("\n  ")
+    );
+  } else {
+    console.log(
+      "[prerender] hreflang check ✓ — no page inherits the shell's homepage cluster."
+    );
+  }
+
   // A partial crawl still de-indexes whatever it missed, so hold production to
   // a full render. The threshold is every route: a route that silently stops
   // rendering is exactly the regression this guard exists to catch.

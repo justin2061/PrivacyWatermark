@@ -9,7 +9,7 @@ import { ToolRecommendations } from "@/components/ToolRecommendations";
 import { UploadZone } from "@/components/UploadZone";
 import { ActionButtons } from "@/components/ActionButtons";
 import { trackToolUseStart, trackToolEvent, trackDownloadComplete } from "@/lib/analytics";
-import { setPageSeo, webAppSchema } from "@/lib/seo";
+import { setPageSeo, webAppSchema, localeAlternates } from "@/lib/seo";
 import {
   CheckCircle,
   Download,
@@ -140,6 +140,7 @@ export default function ResizeEnPage() {
       description:
         "Free online image resizer that never uploads your files. Enter a width and height, or use presets for social media and ID photos. Runs 100% in your browser — private by design.",
       canonical: "https://imagemarker.app/en/resize",
+      alternates: localeAlternates({ zh: "/resize", en: "/en/resize" }),
       locale: "en_US",
       jsonLd: webAppSchema({
         name: "Image Resizer — ImageMarker",

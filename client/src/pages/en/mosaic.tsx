@@ -9,7 +9,7 @@ import { ToolRecommendations } from "@/components/ToolRecommendations";
 import { UploadZone } from "@/components/UploadZone";
 import { ActionButton } from "@/components/ActionButtons";
 import { trackToolUseStart, trackToolEvent, trackDownloadComplete } from "@/lib/analytics";
-import { setPageSeo, webAppSchema } from "@/lib/seo";
+import { setPageSeo, webAppSchema, localeAlternates } from "@/lib/seo";
 import { useMosaic, type MaskType } from "@/hooks/useMosaic";
 import {
   CheckCircle,
@@ -42,6 +42,7 @@ export default function MosaicEnPage() {
       description:
         "Free online mosaic and blur tool. Drag to select an area and pixelate, blur a face, or add a solid box over license plates, IDs and sensitive info. 100% local in-browser processing — no uploads. Works on mobile with touch.",
       canonical: "https://imagemarker.app/en/mosaic",
+      alternates: localeAlternates({ zh: "/mosaic", en: "/en/mosaic" }),
       locale: "en_US",
       jsonLd: webAppSchema({
         name: "Image Mosaic & Blur Tool — ImageMarker",

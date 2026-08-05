@@ -8,7 +8,7 @@ import { DownloadSuccess } from "@/components/DownloadSuccess";
 import { ToolRecommendations } from "@/components/ToolRecommendations";
 import { UploadZone } from "@/components/UploadZone";
 import { ActionButtons } from "@/components/ActionButtons";
-import { setPageSeo, webAppSchema } from "@/lib/seo";
+import { setPageSeo, webAppSchema, localeAlternates } from "@/lib/seo";
 import { trackToolUseStart, trackToolEvent, trackDownloadComplete } from "@/lib/analytics";
 import {
   CheckCircle,
@@ -104,6 +104,7 @@ export default function CompressPage() {
       description:
         "免費線上圖片壓縮工具，支援 JPG、PNG、WebP。在瀏覽器中以 Canvas 技術壓縮圖片、縮小檔案大小，100% 本機處理，圖片不會上傳到任何伺服器。",
       canonical: "https://imagemarker.app/compress",
+      alternates: localeAlternates({ zh: "/compress", en: "/en/compress" }),
       jsonLd: webAppSchema({
         name: "圖片壓縮工具 — ImageMarker",
         description:

@@ -99,14 +99,21 @@ export function setPageSeo({
     document.documentElement.lang = locale.split(/[_-]/)[0];
   }
 
-  // hreflang: replace the shell's homepage set wholesale, so a page never
-  // advertises the homepage's translations as its own. Google needs every URL in
-  // the set to point back at the others, so callers pass the full cluster.
+  // hreflang: clear the shell's homepage set on EVERY page, not just pages that
+  // supply their own. index.html hard-codes the homepage cluster (zh → "/",
+  // en → "/en/", ja → "/ja/"), so any page that skipped this told Google
+  // "my English version is the English homepage" — e.g. /en/compress claimed
+  // /en/ as its own en alternate while /en/ claimed the same, an inconsistent
+  // cluster that contradicts sitemap.xml and gets discarded.
+  //
+  // A page with no translation should therefore emit NO hreflang at all (a
+  // one-entry cluster says nothing), and a page with translations passes the
+  // whole cluster — Google needs every URL in it to point back at the others.
   const altNodes: HTMLLinkElement[] = [];
+  document
+    .querySelectorAll('link[rel="alternate"][hreflang]')
+    .forEach((el) => el.remove());
   if (alternates) {
-    document
-      .querySelectorAll('link[rel="alternate"][hreflang]')
-      .forEach((el) => el.remove());
     for (const { hreflang, href } of alternates) {
       const link = document.createElement("link");
       link.rel = "alternate";

@@ -9,7 +9,7 @@ import { ToolRecommendations } from "@/components/ToolRecommendations";
 import { UploadZone } from "@/components/UploadZone";
 import { ActionButton, ActionButtons } from "@/components/ActionButtons";
 import { trackToolUseStart, trackToolEvent, trackDownloadComplete } from "@/lib/analytics";
-import { setPageSeo, webAppSchema } from "@/lib/seo";
+import { setPageSeo, webAppSchema, localeAlternates } from "@/lib/seo";
 import {
   CheckCircle,
   Download,
@@ -109,6 +109,7 @@ export default function RemoveBgEnPage() {
       description:
         "Free AI background remover. Remove image backgrounds in one click and download a transparent PNG. The AI model runs entirely in your browser — your images are never uploaded to any server.",
       canonical: "https://imagemarker.app/en/remove-bg",
+      alternates: localeAlternates({ zh: "/remove-bg", en: "/en/remove-bg" }),
       locale: "en_US",
       jsonLd: webAppSchema({
         name: "AI Background Remover — ImageMarker",

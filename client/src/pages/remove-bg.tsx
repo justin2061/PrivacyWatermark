@@ -8,7 +8,7 @@ import { DownloadSuccess } from "@/components/DownloadSuccess";
 import { ToolRecommendations } from "@/components/ToolRecommendations";
 import { UploadZone } from "@/components/UploadZone";
 import { ActionButton, ActionButtons } from "@/components/ActionButtons";
-import { setPageSeo, webAppSchema } from "@/lib/seo";
+import { setPageSeo, webAppSchema, localeAlternates } from "@/lib/seo";
 import { trackToolUseStart, trackToolEvent, trackDownloadComplete } from "@/lib/analytics";
 import {
   CheckCircle,
@@ -113,6 +113,7 @@ export default function RemoveBgPage() {
       description:
         "免費 AI 智能去背工具，一鍵移除圖片背景並下載透明 PNG。AI 模型完全在你的瀏覽器中運作，圖片不會上傳到任何伺服器，適合製作商品圖、大頭照與去背素材。",
       canonical: "https://imagemarker.app/remove-bg",
+      alternates: localeAlternates({ zh: "/remove-bg", en: "/en/remove-bg" }),
       jsonLd: webAppSchema({
         name: "AI 智能去背工具 — ImageMarker",
         description:

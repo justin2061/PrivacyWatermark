@@ -9,7 +9,7 @@ import { ToolRecommendations } from "@/components/ToolRecommendations";
 import { UploadZone } from "@/components/UploadZone";
 import { ActionButtons } from "@/components/ActionButtons";
 import { trackToolUseStart, trackToolEvent, trackDownloadComplete } from "@/lib/analytics";
-import { setPageSeo, webAppSchema } from "@/lib/seo";
+import { setPageSeo, webAppSchema, localeAlternates } from "@/lib/seo";
 import {
   CheckCircle,
   Download,
@@ -101,6 +101,7 @@ export default function CompressEnPage() {
       description:
         "Free online image compressor for JPG, PNG and WebP. Reduce image file size right in your browser with Canvas — 100% local processing, no uploads, no size limits.",
       canonical: "https://imagemarker.app/en/compress",
+      alternates: localeAlternates({ zh: "/compress", en: "/en/compress" }),
       locale: "en_US",
       jsonLd: webAppSchema({
         name: "Image Compressor — ImageMarker",

@@ -9,7 +9,7 @@ import { ToolRecommendations } from "@/components/ToolRecommendations";
 import { UploadZone } from "@/components/UploadZone";
 import { ActionButtons } from "@/components/ActionButtons";
 import { trackToolUseStart, trackToolEvent, trackDownloadComplete } from "@/lib/analytics";
-import { setPageSeo, webAppSchema, faqSchema } from "@/lib/seo";
+import { setPageSeo, webAppSchema, faqSchema, localeAlternates } from "@/lib/seo";
 import {
   applyPdfWatermark,
   renderTextToPng,
@@ -132,6 +132,7 @@ export default function PdfWatermarkEnPage() {
       description:
         "Free online PDF watermark tool. Add text or logo watermarks to every page of a PDF, with opacity, position and tiled repeat. 100% in-browser — your PDF never leaves your device. Perfect for IDs, contracts and confidential documents.",
       canonical: "https://imagemarker.app/en/pdf-watermark",
+      alternates: localeAlternates({ zh: "/pdf-watermark", en: "/en/pdf-watermark" }),
       locale: "en_US",
       jsonLd: [
         webAppSchema({

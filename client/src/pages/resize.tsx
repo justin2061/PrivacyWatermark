@@ -8,7 +8,7 @@ import { DownloadSuccess } from "@/components/DownloadSuccess";
 import { ToolRecommendations } from "@/components/ToolRecommendations";
 import { UploadZone } from "@/components/UploadZone";
 import { ActionButtons } from "@/components/ActionButtons";
-import { setPageSeo, webAppSchema } from "@/lib/seo";
+import { setPageSeo, webAppSchema, localeAlternates } from "@/lib/seo";
 import { trackToolUseStart, trackToolEvent, trackDownloadComplete } from "@/lib/analytics";
 import {
   CheckCircle,
@@ -137,6 +137,7 @@ export default function ResizePage() {
       description:
         "免費線上圖片縮放工具，輸入寬高即可調整圖片大小，內建社群媒體與大頭照常用尺寸。在瀏覽器中以 Canvas 技術即時縮放，100% 本機處理，圖片不會上傳到任何伺服器。",
       canonical: "https://imagemarker.app/resize",
+      alternates: localeAlternates({ zh: "/resize", en: "/en/resize" }),
       jsonLd: webAppSchema({
         name: "圖片縮放工具 — ImageMarker",
         description:

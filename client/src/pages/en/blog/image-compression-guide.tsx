@@ -7,6 +7,7 @@ import {
   articleSchema,
   blogBreadcrumb,
   faqSchema,
+  localeAlternates,
 } from "@/lib/seo";
 
 const URL = "https://imagemarker.app/en/blog/image-compression-guide";
@@ -20,6 +21,7 @@ export default function ImageCompressionGuideEn() {
       description:
         "A practical guide to image compression: how lossy and lossless work, the difference between JPEG, PNG and WebP, and how to shrink files in your browser without visible quality loss.",
       canonical: URL,
+      alternates: localeAlternates({ zh: "/blog/image-compression-guide", en: "/en/blog/image-compression-guide" }),
       locale: "en_US",
       ogImage: OG,
       jsonLd: [

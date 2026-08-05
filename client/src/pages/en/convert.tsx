@@ -10,7 +10,7 @@ import { ToolRecommendations } from "@/components/ToolRecommendations";
 import { UploadZone } from "@/components/UploadZone";
 import { ActionButtons } from "@/components/ActionButtons";
 import { trackToolUseStart, trackToolEvent, trackDownloadComplete } from "@/lib/analytics";
-import { setPageSeo, webAppSchema } from "@/lib/seo";
+import { setPageSeo, webAppSchema, localeAlternates } from "@/lib/seo";
 import { PAIRS } from "@/lib/convertPairs";
 import {
   CheckCircle,
@@ -104,6 +104,7 @@ export default function ConvertEnPage() {
       description:
         "Free online image converter that never uploads your files. Convert PNG to JPG, JPG to PNG and WebP right in your browser — 100% local processing, no size limits, private by design.",
       canonical: "https://imagemarker.app/en/convert",
+      alternates: localeAlternates({ zh: "/convert", en: "/en/convert" }),
       locale: "en_US",
       jsonLd: webAppSchema({
         name: "Image Format Converter — ImageMarker",

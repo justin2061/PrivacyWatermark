@@ -10,7 +10,7 @@ import { UploadZone } from "@/components/UploadZone";
 import { ActionButtons } from "@/components/ActionButtons";
 import { trackToolUseStart, trackToolEvent, trackDownloadComplete } from "@/lib/analytics";
 import { useExifCleaner } from "@/hooks/useExifCleaner";
-import { setPageSeo, webAppSchema } from "@/lib/seo";
+import { setPageSeo, webAppSchema, localeAlternates } from "@/lib/seo";
 import {
   AlertTriangle,
   CheckCircle,
@@ -59,6 +59,7 @@ export default function ExifCleanEnPage() {
       description:
         "Free online EXIF remover. Strip GPS location, camera model, serial number and other hidden metadata from your photos before sharing. 100% browser-based — nothing is uploaded.",
       canonical: "https://imagemarker.app/en/exif-clean",
+      alternates: localeAlternates({ zh: "/exif-clean", en: "/en/exif-clean" }),
       locale: "en_US",
       jsonLd: webAppSchema({
         name: "EXIF Cleaner — ImageMarker",

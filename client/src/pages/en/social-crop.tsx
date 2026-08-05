@@ -9,7 +9,7 @@ import { ToolRecommendations } from "@/components/ToolRecommendations";
 import { UploadZone } from "@/components/UploadZone";
 import { ActionButtons } from "@/components/ActionButtons";
 import { trackToolUseStart, trackToolEvent, trackDownloadComplete } from "@/lib/analytics";
-import { setPageSeo, webAppSchema } from "@/lib/seo";
+import { setPageSeo, webAppSchema, localeAlternates } from "@/lib/seo";
 import {
   CheckCircle,
   Crop,
@@ -108,6 +108,7 @@ export default function SocialCropEnPage() {
       description:
         "Free social media image resizer and cropper. One click to resize image for Instagram, Facebook cover photo size, YouTube thumbnail size, Twitter/X, LinkedIn and Pinterest. Drag to crop with live preview — 100% in-browser, no uploads.",
       canonical: "https://imagemarker.app/en/social-crop",
+      alternates: localeAlternates({ zh: "/social-crop", en: "/en/social-crop" }),
       locale: "en_US",
       jsonLd: webAppSchema({
         name: "Social Media Image Resizer — ImageMarker",

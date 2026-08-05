@@ -8,7 +8,7 @@ import { DownloadSuccess } from "@/components/DownloadSuccess";
 import { ToolRecommendations } from "@/components/ToolRecommendations";
 import { UploadZone } from "@/components/UploadZone";
 import { ActionButton } from "@/components/ActionButtons";
-import { setPageSeo, webAppSchema } from "@/lib/seo";
+import { setPageSeo, webAppSchema, localeAlternates } from "@/lib/seo";
 import { trackToolUseStart, trackToolEvent, trackDownloadComplete } from "@/lib/analytics";
 import { useMosaic, type MaskType } from "@/hooks/useMosaic";
 import {
@@ -42,6 +42,7 @@ export default function MosaicPage() {
       description:
         "免費線上圖片馬賽克工具，拖曳選取即可為人臉、車牌、證件號碼打馬賽克、高斯模糊或加上純色色塊。100% 瀏覽器本機處理，圖片不上傳，隱私安全。支援手機觸控操作。",
       canonical: "https://imagemarker.app/mosaic",
+      alternates: localeAlternates({ zh: "/mosaic", en: "/en/mosaic" }),
       jsonLd: webAppSchema({
         name: "圖片馬賽克工具 — ImageMarker",
         description:

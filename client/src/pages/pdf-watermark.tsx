@@ -8,7 +8,7 @@ import { DownloadSuccess } from "@/components/DownloadSuccess";
 import { ToolRecommendations } from "@/components/ToolRecommendations";
 import { UploadZone } from "@/components/UploadZone";
 import { ActionButtons } from "@/components/ActionButtons";
-import { setPageSeo, webAppSchema, faqSchema } from "@/lib/seo";
+import { setPageSeo, webAppSchema, faqSchema, localeAlternates } from "@/lib/seo";
 import { trackToolUseStart, trackToolEvent, trackDownloadComplete } from "@/lib/analytics";
 import {
   applyPdfWatermark,
@@ -134,6 +134,7 @@ export default function PdfWatermarkPage() {
       description:
         "免費線上 PDF 浮水印工具，可為 PDF 每一頁加上文字或 Logo 浮水印，支援中文、透明度、位置與重複鋪滿。100% 在瀏覽器本機處理，PDF 不會上傳到任何伺服器，適合證件、合約等機密文件。",
       canonical: "https://imagemarker.app/pdf-watermark",
+      alternates: localeAlternates({ zh: "/pdf-watermark", en: "/en/pdf-watermark" }),
       jsonLd: [
         webAppSchema({
           name: "PDF 浮水印工具 — ImageMarker",

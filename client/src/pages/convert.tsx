@@ -9,7 +9,7 @@ import { SiteFooter } from "@/components/SiteFooter";
 import { ToolsShowcase } from "@/components/ToolsShowcase";
 import { UploadZone } from "@/components/UploadZone";
 import { ActionButtons } from "@/components/ActionButtons";
-import { setPageSeo, webAppSchema } from "@/lib/seo";
+import { setPageSeo, webAppSchema, localeAlternates } from "@/lib/seo";
 import { trackToolUseStart, trackToolEvent, trackDownloadComplete } from "@/lib/analytics";
 import { PAIRS } from "@/lib/convertPairs";
 import {
@@ -102,6 +102,7 @@ export default function ConvertPage() {
       description:
         "免費線上圖片格式轉換工具，支援 PNG轉JPG、JPG轉PNG、WebP轉換。在瀏覽器中以 Canvas 技術即時轉換圖片格式，100% 本機處理，圖片不會上傳到任何伺服器。",
       canonical: "https://imagemarker.app/convert",
+      alternates: localeAlternates({ zh: "/convert", en: "/en/convert" }),
       jsonLd: webAppSchema({
         name: "圖片格式轉換工具 — ImageMarker",
         description:

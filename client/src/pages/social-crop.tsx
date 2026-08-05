@@ -8,7 +8,7 @@ import { DownloadSuccess } from "@/components/DownloadSuccess";
 import { ToolRecommendations } from "@/components/ToolRecommendations";
 import { UploadZone } from "@/components/UploadZone";
 import { ActionButtons } from "@/components/ActionButtons";
-import { setPageSeo, webAppSchema } from "@/lib/seo";
+import { setPageSeo, webAppSchema, localeAlternates } from "@/lib/seo";
 import { trackToolUseStart, trackToolEvent, trackDownloadComplete } from "@/lib/analytics";
 import {
   CheckCircle,
@@ -110,6 +110,7 @@ export default function SocialCropPage() {
       description:
         "免費社群圖片尺寸裁切工具，一鍵套用 Instagram 貼文/限動、Facebook 封面、YouTube 縮圖、Twitter/X、LinkedIn、Pinterest 等常用尺寸。拖曳裁切框即時預覽，全程在瀏覽器以 Canvas 處理，圖片不上傳。",
       canonical: "https://imagemarker.app/social-crop",
+      alternates: localeAlternates({ zh: "/social-crop", en: "/en/social-crop" }),
       jsonLd: webAppSchema({
         name: "社群媒體圖片裁切工具 — ImageMarker",
         description:
