@@ -53,18 +53,8 @@
     Content-Security-Policy = "frame-ancestors 'self'"
     X-Frame-Options = "SAMEORIGIN"
 
-# /en/batch 是刻意 noindex 的薄頁（只有工具介面、沒有任何說明文字，
-# 28 天 398 曝光只換到 1 次點擊、排名 40–80）。頁面本身已用 setPageSeo
-# 的 noindex 送出 meta robots，但它同時已從 sitemap.xml 移除，因此不會被
-# prerender —— 原始 HTML 仍是 SPA 殼層的 "index, follow"，得等 Google 執行
-# JS 才看得到。這個標頭讓 noindex 在 HTTP 層就成立，不依賴渲染。
-# 若之後補上實質內容要重新收錄，這段和 batch.tsx 的 noindex 要一起拿掉。
-[[headers]]
-  for = "/en/batch"
-  [headers.values]
-    X-Robots-Tag = "noindex, follow"
-
-[[headers]]
-  for = "/en/batch/*"
-  [headers.values]
-    X-Robots-Tag = "noindex, follow"
+# 這裡曾有一組 /en/batch 的 X-Robots-Tag = "noindex, follow"（559d88b，
+# 2026-07-27）。GSC 回報「在 robots 中繼標記中偵測到 noindex」後決定重新收錄，
+# 已於 2026-08-05 移除，連同 batch.tsx 的 noindex 與 sitemap 的缺漏一起還原。
+# 注意：HTTP 標頭的 noindex 優先權高於 HTML meta，日後若要再 noindex 任何頁面，
+# 這裡和頁面的 setPageSeo 必須同時處理，只改一邊不會生效／不會解除。

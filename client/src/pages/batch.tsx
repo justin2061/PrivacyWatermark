@@ -12,7 +12,7 @@ import { detectProtection } from "@/lib/protection";
 import { WatermarkControls } from "@/components/watermark/WatermarkControls";
 import { UploadZone } from "@/components/UploadZone";
 import { ActionButton } from "@/components/ActionButtons";
-import { setPageSeo, webAppSchema } from "@/lib/seo";
+import { setPageSeo, webAppSchema, localeAlternates } from "@/lib/seo";
 import { trackToolUseStart, trackDownloadComplete } from "@/lib/analytics";
 import {
   useBatchWatermark,
@@ -80,6 +80,7 @@ export default function BatchPage() {
       description:
         "免費線上批次浮水印工具，一次上傳最多 20 張圖片，套用相同的浮水印設定，再打包成 ZIP 一鍵下載。所有圖片 100% 在你的瀏覽器處理，不會上傳到任何伺服器。",
       canonical: "https://imagemarker.app/batch",
+      alternates: localeAlternates({ zh: "/batch", en: "/en/batch" }),
       jsonLd: webAppSchema({
         name: "批次浮水印工具 — ImageMarker",
         description:

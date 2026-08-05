@@ -11,7 +11,7 @@ import { WatermarkControls } from "@/components/watermark/WatermarkControls";
 import { UploadZone } from "@/components/UploadZone";
 import { ActionButton } from "@/components/ActionButtons";
 import { useBatchWatermark, MAX_FILES } from "@/hooks/useBatchWatermark";
-import { setPageSeo, webAppSchema } from "@/lib/seo";
+import { setPageSeo, webAppSchema, localeAlternates } from "@/lib/seo";
 import { trackToolUseStart, trackDownloadComplete } from "@/lib/analytics";
 
 // Show the Pro prompt past this count (free features stay unrestricted)
@@ -72,13 +72,7 @@ export default function BatchEnPage() {
         "Free batch watermark tool. Add the same text or logo watermark to up to 20 images at once and download them as a ZIP. 100% browser-based — nothing is uploaded.",
       canonical: "https://imagemarker.app/en/batch",
       locale: "en_US",
-      // Noindexed on purpose: 398 impressions / 1 click over 28 days on real
-      // intent ("batch watermark", "bulk watermark") but stuck at rank 40–80,
-      // because this page is a bare tool UI with no explanatory copy at all —
-      // unlike /en/convert and /en/resize, which do have body content. Those
-      // queries are better served by /en/blog/batch-watermark-images, so send
-      // the weight there. Revisit if this page ever grows real content.
-      noindex: true,
+      alternates: localeAlternates({ zh: "/batch", en: "/en/batch" }),
       jsonLd: webAppSchema({
         name: "Batch Watermark Tool — ImageMarker",
         description:
