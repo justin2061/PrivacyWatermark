@@ -5,6 +5,13 @@ import { setPageSeo, localeAlternates } from "@/lib/seo";
 
 const articles = [
   {
+    slug: "mosaic-photo-online",
+    title: "線上馬賽克怎麼打？照片遮蔽完整教學：臉部、車牌、身分證字號、門牌",
+    date: "2026-08-10",
+    summary:
+      "要把照片裡的臉、車牌、身分證字號或門牌遮掉，卻不想把原圖上傳到別人的伺服器？四種該遮的資訊、三種常見情境、Redacted 與各家線上工具的上傳風險比較、3 步驟本機遮蔽教學，以及為什麼截圖裁切和疊色塊可能被還原。",
+  },
+  {
     slug: "privacy-protection-toolkit",
     title:
       "2026 個資安全工具箱：浮水印 + 馬賽克 + EXIF 清除，三步保護你的證件照片",

@@ -10,6 +10,7 @@ import {
   faqSchema,
   howToSchema,
   blogBreadcrumb,
+  localeAlternates,
 } from "@/lib/seo";
 
 const URL = "https://imagemarker.app/blog/pdf-watermark-online";
@@ -25,6 +26,10 @@ export default function PdfWatermarkOnline() {
       description:
         "合約、報價單、商業提案這類機密 PDF 要加浮水印，卻不敢上傳到別人的伺服器？這篇比較 Smallpdf、文電通、DeftPDF 與 ImageMarker 四種 PDF 浮水印做法的上傳風險與免費額度，並示範 3 步驟在瀏覽器本機為 PDF 每一頁加上中文浮水印，免費、免註冊、檔案不離開你的電腦。",
       canonical: URL,
+      alternates: localeAlternates({
+        zh: "/blog/pdf-watermark-online",
+        en: "/en/blog/pdf-watermark-online-free",
+      }),
       jsonLd: [
         articleSchema({
           headline: TITLE,
@@ -544,6 +549,12 @@ export default function PdfWatermarkOnline() {
               輸出成扁平的 JPG／PNG，再組成 PDF。
               遮蔽範圍記得比敏感區塊大一圈，
               避免邊緣還留著可辨識的字元。
+              哪些資訊該遮、三種遮蔽方式怎麼選，
+              看
+              <Link href="/blog/mosaic-photo-online">
+                線上馬賽克怎麼打？照片遮蔽完整教學
+              </Link>
+              。
             </p>
 
             <h3>第三道／EXIF 清除 — 管檔案內層</h3>

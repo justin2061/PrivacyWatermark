@@ -21,6 +21,15 @@ interface Article {
 
 const articles: Article[] = [
   {
+    slug: "pdf-watermark-online-free",
+    title:
+      "PDF Watermark Online Free: Mark Contracts and Proposals Without Uploading Them",
+    excerpt:
+      "A quote gets forwarded three times and ends up with your competitors — because nothing on it ever said who it was for. Which documents need watermarking, what the text should actually say, and how Smallpdf, Adobe Acrobat and DeftPDF compare against a tool that never uploads your contract at all.",
+    date: "2026-08-10",
+    category: "Business",
+  },
+  {
     slug: "real-estate-photo-watermarking",
     title:
       "Protect Your Listings: How Real Estate Agents Batch Watermark Property Photos in Seconds",

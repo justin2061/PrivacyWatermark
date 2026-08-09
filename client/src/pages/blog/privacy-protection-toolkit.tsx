@@ -315,6 +315,13 @@ export default function PrivacyProtectionToolkit() {
               另外兩個細節：遮蔽範圍要比敏感區塊大一圈，
               避免邊緣還留著可辨識的字元；
               馬賽克格子不要太細，太細的格子在高解析度下有機會被推測還原。
+              車牌、身分證字號這類格式固定的內容尤其危險，
+              建議直接改用純色色塊，
+              理由與實測細節在
+              <Link href="/blog/mosaic-photo-online">
+                線上馬賽克教學
+              </Link>
+              有完整說明。
             </p>
 
             <h3>ImageMarker 操作</h3>
@@ -334,6 +341,16 @@ export default function PrivacyProtectionToolkit() {
             <p>
               和第一道防線一樣，這個工具也是純瀏覽器本機處理，
               證件不會上傳到任何伺服器。
+            </p>
+            <p>
+              哪些資訊該遮、馬賽克／模糊／色塊三種方式怎麼選、
+              各家線上馬賽克工具的上傳風險比較，
+              以及為什麼裁切和疊色塊可能被還原，
+              完整整理在
+              <Link href="/blog/mosaic-photo-online">
+                線上馬賽克怎麼打？照片遮蔽完整教學
+              </Link>
+              。
             </p>
 
             <InlineCTA tool="mosaic" position="mid_article" location={SLUG} />
@@ -725,6 +742,20 @@ export default function PrivacyProtectionToolkit() {
                 </h3>
                 <p className="text-sm text-muted-foreground">
                   第三道防線的完整版：30 秒確認照片有沒有 GPS，5 種移除方法比較。
+                </p>
+                <span className="inline-block mt-3 text-sm text-primary font-medium">
+                  閱讀全文
+                  <ReadMoreArrow />
+                </span>
+              </article>
+            </Link>
+            <Link href="/blog/mosaic-photo-online">
+              <article className="block border rounded-xl p-5 hover:border-primary hover:shadow-sm transition-all cursor-pointer">
+                <h3 className="font-medium mb-1">
+                  線上馬賽克怎麼打？照片遮蔽完整教學：臉部、車牌、身分證字號、門牌
+                </h3>
+                <p className="text-sm text-muted-foreground">
+                  第二道防線的完整版：哪些資訊該遮、三種遮蔽方式怎麼選、為什麼裁切不算遮蔽。
                 </p>
                 <span className="inline-block mt-3 text-sm text-primary font-medium">
                   閱讀全文

@@ -631,6 +631,12 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://imagemarker.app/blog/mosaic-photo-online</loc>
+    <lastmod>2026-08-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://imagemarker.app/blog/image-compression-guide</loc>
     <lastmod>2026-07-07</lastmod>
     <changefreq>monthly</changefreq>
@@ -881,6 +887,12 @@
   <url>
     <loc>https://imagemarker.app/en/blog/gdpr-compliant-watermarking</loc>
     <lastmod>2026-08-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://imagemarker.app/en/blog/pdf-watermark-online-free</loc>
+    <lastmod>2026-08-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>

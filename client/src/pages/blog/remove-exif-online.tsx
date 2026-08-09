@@ -405,6 +405,12 @@ export default function RemoveExifOnline() {
               螢幕上顯示的姓名與地址，一樣會洩漏位置。
               這些要用<Link href="/mosaic">馬賽克遮蔽工具</Link>
               把敏感區塊蓋掉，兩者是不同層次的保護，不能互相取代。
+              哪些資訊該遮、怎麼遮才不會被還原，
+              整理在
+              <Link href="/blog/mosaic-photo-online">
+                線上馬賽克怎麼打？照片遮蔽完整教學
+              </Link>
+              。
             </p>
 
             <h3>2. 截圖不等於清乾淨</h3>
