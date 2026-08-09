@@ -13,6 +13,13 @@ const articles = [
       "只加浮水印其實只擋掉三分之一。這篇把個資保護工具整理成三道防線——浮水印標記用途、馬賽克遮蔽你根本不需要給的欄位、EXIF 清除移除隱藏的 GPS 與裝置資訊，附租屋、求職、二手交易、旅行社四種情境該做到哪幾道，全部免費且不上傳伺服器。",
   },
   {
+    slug: "pdf-watermark-online",
+    title: "PDF 浮水印怎麼加？合約、報價單線上免費加浮水印（全程不用上傳）",
+    date: "2026-08-09",
+    summary:
+      "合約、報價單這類機密 PDF 要加浮水印，卻不敢上傳到別人的伺服器？比較 Smallpdf、文電通、DeftPDF 與 ImageMarker 的上傳風險與免費額度，並示範 3 步驟在瀏覽器本機為 PDF 每一頁加上中文浮水印。",
+  },
+  {
     slug: "remove-exif-online",
     title:
       "EXIF 刪除線上工具怎麼用？照片 GPS 移除完整教學（iPhone／Android／電腦）",

@@ -77,6 +77,7 @@ import BatchWatermarkGuide from "@/pages/blog/batch-watermark-guide";
 import WhatIsExifData from "@/pages/blog/what-is-exif-data";
 import RemoveExifOnline from "@/pages/blog/remove-exif-online";
 import PrivacyProtectionToolkit from "@/pages/blog/privacy-protection-toolkit";
+import PdfWatermarkOnline from "@/pages/blog/pdf-watermark-online";
 import ImageCompressionGuide from "@/pages/blog/image-compression-guide";
 import IdCopyLeakedConsequences from "@/pages/blog/id-copy-leaked-consequences";
 import RentBeforeGivingId3Things from "@/pages/blog/rent-before-giving-id-3-things";
@@ -191,6 +192,7 @@ function Router() {
         path="/blog/privacy-protection-toolkit"
         component={PrivacyProtectionToolkit}
       />
+      <Route path="/blog/pdf-watermark-online" component={PdfWatermarkOnline} />
       <Route path="/blog/image-compression-guide" component={ImageCompressionGuide} />
       <Route path="/blog/id-copy-leaked-consequences" component={IdCopyLeakedConsequences} />
       <Route path="/blog/rent-before-giving-id-3-things" component={RentBeforeGivingId3Things} />

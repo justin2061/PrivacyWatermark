@@ -253,7 +253,13 @@ export default function PrivacyProtectionToolkit() {
               而且它在瀏覽器裡重新輸出圖片，原始 EXIF 不會被帶進新檔案。
               PDF 格式的合約、報價單則用
               <Link href="/pdf-watermark">PDF 浮水印工具</Link>
-              ，做法一樣。
+              ，浮水印會自動套用到每一頁；
+              哪些文件該加、文字怎麼寫、各家線上工具的上傳風險比較，
+              整理在
+              <Link href="/blog/pdf-watermark-online">
+                PDF 浮水印怎麼加？合約、報價單線上免費加浮水印
+              </Link>
+              。
             </p>
 
             <InlineCTA tool="watermark" position="mid_article" location={SLUG} />
@@ -646,6 +652,9 @@ export default function PrivacyProtectionToolkit() {
               合約、報價單、投標文件建議用
               <Link href="/pdf-watermark">PDF 浮水印工具</Link>
               加上用途標示，需要遮蔽的段落先在來源圖片上做馬賽克再組成 PDF。
+              完整順序與工具比較看
+              <Link href="/blog/pdf-watermark-online">PDF 浮水印完整教學</Link>
+              。
             </p>
 
             <p>
@@ -716,6 +725,20 @@ export default function PrivacyProtectionToolkit() {
                 </h3>
                 <p className="text-sm text-muted-foreground">
                   第三道防線的完整版：30 秒確認照片有沒有 GPS，5 種移除方法比較。
+                </p>
+                <span className="inline-block mt-3 text-sm text-primary font-medium">
+                  閱讀全文
+                  <ReadMoreArrow />
+                </span>
+              </article>
+            </Link>
+            <Link href="/blog/pdf-watermark-online">
+              <article className="block border rounded-xl p-5 hover:border-primary hover:shadow-sm transition-all cursor-pointer">
+                <h3 className="font-medium mb-1">
+                  PDF 浮水印怎麼加？合約、報價單線上免費加浮水印
+                </h3>
+                <p className="text-sm text-muted-foreground">
+                  第一道防線的 PDF 版：機密文件不上傳就能加浮水印，附四款工具比較。
                 </p>
                 <span className="inline-block mt-3 text-sm text-primary font-medium">
                   閱讀全文
