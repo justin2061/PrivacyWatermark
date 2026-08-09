@@ -75,6 +75,7 @@ import RentScamIdFraud from "@/pages/blog/rent-scam-id-fraud";
 import LandlordAsksForId from "@/pages/blog/landlord-asks-for-id";
 import BatchWatermarkGuide from "@/pages/blog/batch-watermark-guide";
 import WhatIsExifData from "@/pages/blog/what-is-exif-data";
+import RemoveExifOnline from "@/pages/blog/remove-exif-online";
 import ImageCompressionGuide from "@/pages/blog/image-compression-guide";
 import IdCopyLeakedConsequences from "@/pages/blog/id-copy-leaked-consequences";
 import RentBeforeGivingId3Things from "@/pages/blog/rent-before-giving-id-3-things";
@@ -184,6 +185,7 @@ function Router() {
       <Route path="/blog/landlord-asks-for-id" component={LandlordAsksForId} />
       <Route path="/blog/batch-watermark-guide" component={BatchWatermarkGuide} />
       <Route path="/blog/what-is-exif-data" component={WhatIsExifData} />
+      <Route path="/blog/remove-exif-online" component={RemoveExifOnline} />
       <Route path="/blog/image-compression-guide" component={ImageCompressionGuide} />
       <Route path="/blog/id-copy-leaked-consequences" component={IdCopyLeakedConsequences} />
       <Route path="/blog/rent-before-giving-id-3-things" component={RentBeforeGivingId3Things} />

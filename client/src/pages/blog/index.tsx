@@ -5,6 +5,14 @@ import { setPageSeo, localeAlternates } from "@/lib/seo";
 
 const articles = [
   {
+    slug: "remove-exif-online",
+    title:
+      "EXIF 刪除線上工具怎麼用？照片 GPS 移除完整教學（iPhone／Android／電腦）",
+    date: "2026-08-09",
+    summary:
+      "照片裡的 GPS 座標可能直接指向你家。教你 30 秒確認照片有沒有定位，比較 iPhone、Android、Windows、Mac 與線上工具 5 種 EXIF 刪除方法，並用不上傳伺服器的免費工具 3 步驟一鍵清除。",
+  },
+  {
     slug: "realtor-id-watermark",
     title: "房仲證件浮水印教學：帶看前先幫客戶證件加保護，3 步驟做完",
     date: "2026-08-04",

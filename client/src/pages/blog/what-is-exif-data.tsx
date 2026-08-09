@@ -176,6 +176,14 @@ export default function WhatIsExifData() {
               關鍵在於：ImageMarker 是 <strong>100% 瀏覽器本機處理</strong>——你的照片從頭到尾不會上傳到任何伺服器。這點對清 EXIF 特別重要：要是為了移除定位資訊，卻把原始照片上傳到雲端工具，等於前門關了後門開。免費、免註冊，斷網也能用。
             </p>
             <p>
+              想比較 iPhone、Android、Windows、Mac 內建方法與線上工具的差異，
+              可以看這篇更完整的
+              <Link href="/blog/remove-exif-online">
+                EXIF 刪除線上教學與各平台方法比較
+              </Link>
+              。
+            </p>
+            <p>
               如果你交出的是<strong>證件影本</strong>，建議兩步都做：先用 <Link href="/exif-clean">EXIF 清除</Link>移除拍攝定位，再用 <Link href="/">浮水印工具</Link>標註用途，雙重保護個資。
             </p>
 
