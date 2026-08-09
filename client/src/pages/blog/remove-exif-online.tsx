@@ -10,6 +10,7 @@ import {
   faqSchema,
   howToSchema,
   blogBreadcrumb,
+  localeAlternates,
 } from "@/lib/seo";
 
 const URL = "https://imagemarker.app/blog/remove-exif-online";
@@ -24,6 +25,10 @@ export default function RemoveExifOnline() {
       description:
         "照片裡的 GPS 座標可能直接指向你家。這篇教你怎麼查看照片的 EXIF、比較 iPhone、Android、Windows、Mac 與線上工具 5 種 EXIF 移除方法的差異，並用不上傳伺服器的免費線上工具 3 步驟一鍵清除照片 GPS 與拍攝時間。",
       canonical: URL,
+      alternates: localeAlternates({
+        zh: "/blog/remove-exif-online",
+        en: "/en/blog/remove-exif-data-guide",
+      }),
       jsonLd: [
         articleSchema({
           headline: TITLE,

@@ -114,10 +114,11 @@ const articles: Article[] = [
   },
   {
     slug: "remove-exif-data-guide",
-    title: "Why You Should Remove EXIF Data Before Uploading Photos",
+    title:
+      "How to Remove EXIF Data Online: Strip GPS and Metadata From Any Photo",
     excerpt:
-      "Every photo can carry hidden EXIF metadata — including the exact GPS location where it was taken. Learn the risks and how to strip EXIF data free in your browser.",
-    date: "2026-07-07",
+      "The photo you just sent may carry the GPS coordinates of your home. How to check for geotags, how iPhone, Android, Windows and Mac compare for stripping metadata, and the one question that separates a safe online EXIF remover from a reckless one.",
+    date: "2026-08-09",
     category: "Privacy",
   },
   {
@@ -147,9 +148,10 @@ const articles: Article[] = [
   },
   {
     slug: "remove-exif-data",
-    title: "Why You Should Remove EXIF Data Before Sharing Photos",
+    title:
+      "What EXIF Data Reveals About You: The Privacy Risks of Photo Metadata",
     excerpt:
-      "Your photos carry hidden EXIF metadata — GPS location, device and timestamps. Learn the risks and how to remove EXIF data free, right in your browser.",
+      "Hidden in every photo you share: GPS coordinates, timestamps, device serial numbers. What the metadata exposes, who reads it, and why platforms can't be trusted to strip it for you.",
     date: "2026-06-28",
     category: "Privacy",
   },

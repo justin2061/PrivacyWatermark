@@ -12,20 +12,22 @@ import {
 export default function RemoveExifData() {
   useEffect(() => {
     return setPageSeo({
-      title: "Why You Should Remove EXIF Data Before Sharing Photos",
-      description: "Your photos carry hidden EXIF metadata — GPS location, device, and timestamps. Learn the privacy risks and how to remove EXIF data for free, right in your browser.",
+      title:
+        "What EXIF Data Reveals About You: Photo Metadata Privacy Risks",
+      description: "Hidden in every photo you share: GPS coordinates, timestamps, device serial numbers. What EXIF metadata actually exposes, who reads it, and why platforms can't be trusted to strip it for you.",
       canonical: "https://imagemarker.app/en/blog/remove-exif-data",
       locale: "en_US",
       jsonLd: [
         articleSchema({
-          headline: "Why You Should Remove EXIF Data Before Sharing Photos",
-          description: "Your photos carry hidden EXIF metadata — GPS location, device, and timestamps. Learn the privacy risks and how to remove EXIF data for free, right in your browser.",
+          headline:
+            "What EXIF Data Reveals About You: The Privacy Risks of Photo Metadata",
+          description: "Hidden in every photo you share: GPS coordinates, timestamps, device serial numbers. What EXIF metadata actually exposes, who reads it, and why platforms can't be trusted to strip it for you.",
           url: "https://imagemarker.app/en/blog/remove-exif-data",
           datePublished: "2026-06-28",
-          dateModified: "2026-06-28",
+          dateModified: "2026-08-09",
         }),
         blogBreadcrumb(
-          "Why You Should Remove EXIF Data",
+          "What EXIF Data Reveals About You",
           "https://imagemarker.app/en/blog/remove-exif-data",
           "en"
         ),
@@ -66,7 +68,8 @@ export default function RemoveExifData() {
               Published June 2026 &middot; 6 min read
             </time>
             <h1 className="text-3xl font-bold mt-2 leading-snug">
-              Why You Should Remove EXIF Data Before Sharing Photos
+              What EXIF Data Reveals About You: The Privacy Risks of Photo
+              Metadata
             </h1>
           </header>
 
@@ -138,39 +141,33 @@ export default function RemoveExifData() {
               before sharing.
             </p>
 
-            <h2>How to Remove EXIF Data for Free</h2>
+            <h2>What to Do About It</h2>
             <p>
               You can clean metadata in seconds with{" "}
-              <Link href="/exif-clean" className="text-primary hover:underline">
+              <Link
+                href="/en/exif-clean"
+                className="text-primary hover:underline"
+              >
                 ImageMarker&apos;s EXIF cleaner
               </Link>
               . Like the watermark tool, it runs entirely in your browser, so your
               photos are <strong>never uploaded</strong> &mdash; which matters a
-              great deal when the whole point is privacy.
+              great deal when the whole point is privacy. Add the photo, review the
+              fields it detects, strip them, and share the clean copy instead of the
+              original.
             </p>
-            <ol>
-              <li>
-                <strong>
-                  Open{" "}
-                  <Link href="/exif-clean" className="text-primary hover:underline">
-                    imagemarker.app/exif-clean
-                  </Link>
-                </strong>{" "}
-                in any modern browser.
-              </li>
-              <li>
-                <strong>Add the photo(s)</strong> you are about to share &mdash; they
-                stay on your device.
-              </li>
-              <li>
-                <strong>Let the tool strip the metadata</strong>, including GPS,
-                timestamps, and device info.
-              </li>
-              <li>
-                <strong>Download the clean copy</strong> and share that one instead
-                of the original.
-              </li>
-            </ol>
+            <p>
+              For the step-by-step version &mdash; including how to check whether a
+              photo is geotagged, and how the built-in options on iPhone, Android,
+              Windows and macOS compare with online tools &mdash; see{" "}
+              <Link
+                href="/en/blog/remove-exif-data-guide"
+                className="text-primary hover:underline"
+              >
+                how to remove EXIF data online
+              </Link>
+              .
+            </p>
 
             <h2>When You Should Always Strip EXIF</h2>
             <ul>
@@ -217,7 +214,7 @@ export default function RemoveExifData() {
               is uploaded.
             </p>
             <Link
-              href="/exif-clean"
+              href="/en/exif-clean"
               className="inline-block px-5 py-2 bg-blue-600 text-white rounded-md font-medium hover:bg-blue-700 transition-colors"
             >
               Clean EXIF Data Free<ReadMoreArrow />
