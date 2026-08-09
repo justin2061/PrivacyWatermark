@@ -138,6 +138,16 @@ export default function RemoveExifOnline() {
               <Link href="/blog/what-is-exif-data">EXIF 是什麼、藏了哪些個資</Link>，
               這篇則專注在「怎麼移除」。
             </p>
+            <p>
+              另外要先說清楚它的定位：清除 EXIF 是個資保護的
+              <strong>第三道防線</strong>，管的是「檔案裡藏了什麼」，
+              但它蓋不住畫面上的身分證字號，也不會限制這份檔案被拿去做什麼。
+              完整的三道防線怎麼搭配，整理在
+              <Link href="/blog/privacy-protection-toolkit">
+                個資安全工具箱：浮水印 + 馬賽克 + EXIF 清除
+              </Link>
+              。
+            </p>
 
             <h2>一、先確認：你的照片現在有沒有 GPS？</h2>
             <p>
@@ -414,6 +424,9 @@ export default function RemoveExifOnline() {
               寫上用途與對象，例如「僅供 OO 租屋簽約使用 2026/08/09」，
               限制這份影本被挪作他用的空間。寫法可以參考
               <Link href="/blog/rent-id-watermark">租屋身分證影本加註範例</Link>
+              ；租屋、求職、二手交易、旅行社等情境各該做到哪幾道防線，
+              則整理在
+              <Link href="/blog/privacy-protection-toolkit">個資安全工具箱總覽</Link>
               。
             </p>
 
@@ -515,6 +528,20 @@ export default function RemoveExifOnline() {
         <section className="mt-12 border-t pt-8">
           <h2 className="text-xl font-semibold mb-4">相關文章</h2>
           <div className="space-y-4">
+            <Link href="/blog/privacy-protection-toolkit">
+              <article className="block border rounded-xl p-5 hover:border-primary hover:shadow-sm transition-all cursor-pointer">
+                <h3 className="font-medium mb-1">
+                  2026 個資安全工具箱：浮水印 + 馬賽克 + EXIF 清除
+                </h3>
+                <p className="text-sm text-muted-foreground">
+                  三道防線各擋什麼、順序怎麼排，四種交件情境該做到哪幾道。
+                </p>
+                <span className="inline-block mt-3 text-sm text-primary font-medium">
+                  閱讀全文
+                  <ReadMoreArrow />
+                </span>
+              </article>
+            </Link>
             <Link href="/blog/what-is-exif-data">
               <article className="block border rounded-xl p-5 hover:border-primary hover:shadow-sm transition-all cursor-pointer">
                 <h3 className="font-medium mb-1">

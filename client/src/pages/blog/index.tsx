@@ -5,6 +5,14 @@ import { setPageSeo, localeAlternates } from "@/lib/seo";
 
 const articles = [
   {
+    slug: "privacy-protection-toolkit",
+    title:
+      "2026 個資安全工具箱：浮水印 + 馬賽克 + EXIF 清除，三步保護你的證件照片",
+    date: "2026-08-09",
+    summary:
+      "只加浮水印其實只擋掉三分之一。這篇把個資保護工具整理成三道防線——浮水印標記用途、馬賽克遮蔽你根本不需要給的欄位、EXIF 清除移除隱藏的 GPS 與裝置資訊，附租屋、求職、二手交易、旅行社四種情境該做到哪幾道，全部免費且不上傳伺服器。",
+  },
+  {
     slug: "remove-exif-online",
     title:
       "EXIF 刪除線上工具怎麼用？照片 GPS 移除完整教學（iPhone／Android／電腦）",
