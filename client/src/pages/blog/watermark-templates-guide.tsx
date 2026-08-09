@@ -13,29 +13,52 @@ import {
 
 const URL = "https://imagemarker.app/blog/watermark-templates-guide";
 const SLUG = "watermark-templates-guide";
+// 標題前綴「身分證影本簽註寫法」不動（該字群目前排名 1.9–4.2，是本頁最大資產），
+// 只改後半：補上「加註位置」承接卡在 7–8 名的位置類查詢，並把「證件浮水印範本」
+// 換成 GSC 實際有排名的「證件浮水印範例」（原本 2.5 名，改成字面完全命中）。
 const TITLE =
-  "身分證影本簽註寫法＋證件浮水印範本：10 種情境怎麼寫（2026 最新）";
+  "身分證影本簽註寫法＋加註位置：10 種情境範本與證件浮水印範例（2026）";
 
 export default function WatermarkTemplatesGuidePage() {
   useEffect(() => {
     const cleanup = setPageSeo({
       title: `${TITLE} | ImageMarker`,
       description:
-        "身分證影本簽註寫法怎麼寫才對？手寫三行簽註正確寫法＋10 種情境的證件浮水印文字範本，2026 最新整理，直接套用保護個資。",
+        "身分證影本簽註寫法怎麼寫才對？手寫三行簽註格式、加註位置該放哪裡才不會被裁掉、正反面要不要各簽一次，全部說清楚，另附 10 種情境的證件浮水印範例可直接照抄（2026 最新）。",
       canonical: URL,
       jsonLd: [
         articleSchema({
           headline: TITLE,
           description:
-            "身分證影本簽註寫法與證件浮水印範本完整教學：手寫三行簽註正確寫法＋10 種常見情境文字範本。",
+            "身分證影本簽註寫法與加註位置完整教學：手寫三行簽註格式、簽註要寫在影本哪個位置、正反面規則，＋10 種常見情境文字範本。",
           url: URL,
           datePublished: "2026-04-10",
-          dateModified: "2026-07-25",
+          dateModified: "2026-08-09",
         }),
         faqSchema([
           {
             q: "身分證影本簽註寫法要怎麼寫才對？",
             a: "手寫簽註要分三行、用藍色原子筆、每行文字後劃一條橫線防止被補寫，部分筆畫與證件文字交叉或接觸，且不可遮蔽姓名與身分證字號等重要欄位。內容用「用途＋對象＋日期」，例如「僅供 OO 銀行申辦信用卡使用 2026/07/01」。",
+          },
+          {
+            q: "簽註要寫什麼內容？",
+            a: "只要三個要素：用途（為什麼交這張影本）、對象（交給誰／哪家公司）、日期（提供當天）。合起來就是「僅供 OO 銀行申辦信用卡使用 2026/08/09」。三者缺一都會讓限制失效——沒有對象等於誰都能用，沒有日期等於永久有效。",
+          },
+          {
+            q: "簽註要寫在影本的哪個位置？",
+            a: "寫在證件影像本身上、與欄位文字部分交疊，最好斜跨版面，不要只寫在紙張上下方的空白邊緣——邊緣的註記一刀就能裁掉。同時要避開姓名、身分證字號與照片的正上方，讓對方仍能辨識，這是簽註和塗黑最大的差別。",
+          },
+          {
+            q: "身分證影本正反面都要簽註嗎？",
+            a: "都要。正反面是兩張獨立的影像，只註記其中一面，另一面就是一張沒有任何限制的乾淨影本，可以單獨被拿去使用。兩面各自寫上完整的「用途＋對象＋日期」。",
+          },
+          {
+            q: "租屋要交身分證影本，簽註怎麼寫？",
+            a: "寫「僅供 OO 房東／OO 仲介租屋契約使用 2026/08/09」，把對象寫到實際的房東姓名或仲介公司名，不要只寫「租屋使用」。若當下還不確定簽約對象，至少要有日期＋租屋用途。",
+          },
+          {
+            q: "護照影本的簽註要寫在哪裡？",
+            a: "護照影本簽註寫在資料頁影像上、跨過底色區域，但要避開姓名、護照號碼、出生日期與機器可判讀區（頁面最下方兩行英數字）。內容同樣是「僅供 OO 旅行社辦理簽證使用 2026/08/09」。",
           },
           {
             q: "對方不接受有浮水印或簽註的影本怎麼辦？",
@@ -58,7 +81,7 @@ export default function WatermarkTemplatesGuidePage() {
             a: "加註（簽註）是用筆手寫在紙本影本上的用途註記，浮水印是用軟體加在電子檔上的半透明文字。兩者都遵守「用途＋對象＋日期」原則，但數位浮水印可以覆蓋整張證件、與影像融合，比手寫加註更難被裁切或修圖去除。紙本親手交付用手寫加註即可，電子檔傳送則務必用數位浮水印，兩者並用防護最完整。",
           },
         ]),
-        blogBreadcrumb("身分證影本簽註寫法＋證件浮水印範本", URL),
+        blogBreadcrumb("身分證影本簽註寫法＋加註位置", URL),
       ],
     });
     return cleanup;
@@ -162,7 +185,7 @@ export default function WatermarkTemplatesGuidePage() {
           <span>›</span>
           <Link href="/blog" className="hover:text-primary">部落格</Link>
           <span>›</span>
-          <span className="text-gray-900">浮水印內容範本</span>
+          <span className="text-gray-900">簽註寫法與加註位置</span>
         </nav>
 
         <article className="bg-white rounded-xl shadow-sm p-8">
@@ -173,22 +196,25 @@ export default function WatermarkTemplatesGuidePage() {
               <span>範本</span>
             </div>
             <h1 className="text-3xl font-bold text-gray-900 mb-4 leading-tight">
-              身分證影本簽註寫法＋證件浮水印範本：10 種情境怎麼寫（2026 最新）
+              身分證影本簽註寫法＋加註位置：10 種情境範本與證件浮水印範例（2026）
             </h1>
             <div className="flex items-center space-x-4 text-sm text-gray-500">
               <time dateTime="2026-04-10">2026 年 4 月 10 日</time>
               <span>·</span>
-              <span>最後更新 2026/07/25</span>
+              <span>最後更新 2026/08/09</span>
               <span>·</span>
-              <span>閱讀約 8 分鐘</span>
+              <span>閱讀約 10 分鐘</span>
             </div>
           </header>
 
           <div className="prose prose-gray max-w-none">
             <h2>前言</h2>
             <p>
-              證件影本交出去後的命運你無法控制。加浮水印最簡單有效，但很多人卡在
-              「浮水印到底要寫什麼才夠？」這篇整理 10 種台灣常見情境的實用範本，直接套用就好。
+              證件影本交出去後的命運你無法控制。在影本上<strong>簽註</strong>（也叫加註）限定用途，
+              是最簡單有效的自保方式，但多數人卡在兩個問題：<strong>簽註寫法要怎麼寫</strong>，
+              以及<strong>加註位置該放在哪</strong>。這篇一次把兩件事講完——手寫三行的正確格式、
+              位置規則與各種證件的建議位置，再附上 10 種台灣常見情境的簽註範本與證件浮水印範例，
+              直接照抄就能用。
             </p>
 
             <h2>身分證影本加註 vs 浮水印：差在哪？該選哪個？</h2>
@@ -239,6 +265,11 @@ export default function WatermarkTemplatesGuidePage() {
             <InlineCTA tool="watermark" position="mid_article" location={SLUG} />
 
             <h2>身分證影本簽註寫法：手寫三行的正確做法</h2>
+            <p>
+              先講最常被問的兩件事：<strong>簽註要寫什麼</strong>——用途、對象、日期三個要素，
+              少一個限制就形同失效；<strong>簽註要寫在哪</strong>——寫在證件影像上並與欄位文字交疊，
+              不要只寫在紙張邊緣。下面把規則、位置與正反面的處理方式一次講完。
+            </p>
             <p>
               最傳統、也最多人問的「簽註寫法」是<strong>手寫在影本上</strong>。正確寫法其實有固定規則，照著做才有防護效果：
             </p>
@@ -331,7 +362,8 @@ export default function WatermarkTemplatesGuidePage() {
               三要素仍然齊全，是最低限度可接受的簽註寫法。
             </p>
             <p>
-              <strong>加註位置</strong>：文字要寫到證件影像上、與證件內容部分交疊——不能只寫在紙張的空白邊緣，否則整段註記很容易被裁掉；但也不可遮住姓名、身分證字號與照片等關鍵欄位。另外<strong>正反面影本都要各自加註</strong>，不要只註記其中一面。
+              範本抄好之後，還有一半的工作是<strong>把它寫對位置</strong>——寫在紙張邊緣的註記一刀就能裁掉，
+              下一節完整說明加註位置的 4 條規則與各種證件的建議位置。
             </p>
 
             {/* 常見錯誤對照 */}
@@ -357,6 +389,80 @@ export default function WatermarkTemplatesGuidePage() {
                 </ul>
               </div>
             </div>
+            <h2>簽註／加註位置怎麼放？4 條規則與各種證件的建議位置</h2>
+            <p>
+              「寫什麼」決定影本被挪用時你站不站得住腳，「<strong>寫在哪</strong>」決定這段字會不會被輕鬆去掉。
+              加註位置寫錯是最常見、也最可惜的失誤——內容寫得再完整，只要位置放在紙張邊緣，一刀裁掉就等於沒加。
+              以下 4 條規則不分手寫加註或數位浮水印都適用：
+            </p>
+            <ol>
+              <li>
+                <strong>寫在證件影像上，不要寫在紙張空白邊緣。</strong>
+                影印出來的 A4 上下通常留有大片空白，很多人習慣把註記寫在那裡——但那塊空白可以整條裁掉、
+                重新影印後就是一張乾淨影本。註記必須落在證件本體的範圍內。
+              </li>
+              <li>
+                <strong>讓筆畫與證件文字交疊。</strong>
+                至少讓部分筆畫壓在底下的欄位文字上。交疊之後想去掉註記就必須連證件內容一起破壞，
+                修圖時也會留下明顯痕跡。最理想的是<strong>斜跨版面</strong>，因為斜線沒辦法靠水平或垂直裁切移除。
+              </li>
+              <li>
+                <strong>避開姓名、證號、照片的正上方。</strong>
+                簽註的目的是限定用途，不是塗黑。關鍵欄位被蓋住，對方會直接退件要你重給一張乾淨的，
+                反而失去保護。壓在欄位「附近」和壓在欄位「正上方」，差別就在這裡。
+              </li>
+              <li>
+                <strong>正反面各寫一次。</strong>
+                正反面是兩張獨立影像。只註記其中一面，另一面就是一張沒有任何限制的乾淨影本，
+                可以被單獨拿去使用。兩面都要有完整的「用途＋對象＋日期」。
+              </li>
+            </ol>
+            <div className="not-prose overflow-x-auto my-6">
+              <table className="w-full text-sm border-collapse">
+                <thead>
+                  <tr className="bg-gray-50">
+                    <th className="text-left p-3 border border-gray-200 font-semibold text-gray-700">證件</th>
+                    <th className="text-left p-3 border border-gray-200 font-semibold text-gray-700">建議加註位置</th>
+                    <th className="text-left p-3 border border-gray-200 font-semibold text-gray-700">絕對要避開</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td className="p-3 border border-gray-200 font-medium text-gray-800 whitespace-nowrap">身分證</td>
+                    <td className="p-3 border border-gray-200 text-gray-600">斜跨中央，壓過出生年月日與發證日期那幾行</td>
+                    <td className="p-3 border border-gray-200 text-gray-600">姓名、統一編號、照片</td>
+                  </tr>
+                  <tr>
+                    <td className="p-3 border border-gray-200 font-medium text-gray-800 whitespace-nowrap">護照</td>
+                    <td className="p-3 border border-gray-200 text-gray-600">資料頁中段，橫跨底色區域</td>
+                    <td className="p-3 border border-gray-200 text-gray-600">護照號碼、姓名、最下方兩行機器可判讀區</td>
+                  </tr>
+                  <tr>
+                    <td className="p-3 border border-gray-200 font-medium text-gray-800 whitespace-nowrap">駕照／行照</td>
+                    <td className="p-3 border border-gray-200 text-gray-600">斜跨中央空白帶</td>
+                    <td className="p-3 border border-gray-200 text-gray-600">駕照號碼、車牌號碼、有效期限</td>
+                  </tr>
+                  <tr>
+                    <td className="p-3 border border-gray-200 font-medium text-gray-800 whitespace-nowrap">健保卡</td>
+                    <td className="p-3 border border-gray-200 text-gray-600">照片以外的下半部，壓過卡號下方留白</td>
+                    <td className="p-3 border border-gray-200 text-gray-600">照片、姓名、卡號</td>
+                  </tr>
+                  <tr>
+                    <td className="p-3 border border-gray-200 font-medium text-gray-800 whitespace-nowrap">存摺封面</td>
+                    <td className="p-3 border border-gray-200 text-gray-600">帳號那一行的上下，斜跨整個封面</td>
+                    <td className="p-3 border border-gray-200 text-gray-600">帳號、戶名（對方需要核對）</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p>
+              各種證件的完整寫法可以參考{" "}
+              <Link href="/blog/other-documents-watermark">存摺、健保卡、駕照影本的浮水印寫法</Link>；
+              護照另有專篇的{" "}
+              <Link href="/blog/passport-watermark-guide">護照影本浮水印教學</Link>。
+              如果你的情境是<strong>租屋交影本給房東或仲介</strong>，交件流程與押金、租約的留存方式可以看{" "}
+              <Link href="/blog/rent-id-watermark">租屋身分證影本加註怎麼寫</Link>。
+            </p>
             <p>
               要提醒的是，手寫加註只能保護紙本。如果影本是用 LINE、Email 或線上表單傳送，對方拿到的是電子檔，手寫註記可能被裁切或修圖抹除；數位浮水印以半透明文字覆蓋整張證件、與影像像素融合，比手寫加註更難去除。傳電子檔前，先用{" "}
               <a href="https://imagemarker.app">ImageMarker</a>{" "}
@@ -503,6 +609,41 @@ export default function WatermarkTemplatesGuidePage() {
               加註（簽註）是用筆手寫在紙本影本上的用途註記，浮水印是用軟體加在電子檔上的半透明文字。兩者都遵守「用途＋對象＋日期」原則，但數位浮水印可以覆蓋整張證件、與影像融合，比手寫加註更難被裁切或修圖去除。紙本親手交付用手寫加註即可，電子檔傳送則務必用數位浮水印，兩者並用防護最完整。
             </p>
 
+            <h3>Q7：簽註到底要寫什麼內容？</h3>
+            <p>
+              只要三個要素：<strong>用途</strong>（為什麼交這張影本）、<strong>對象</strong>（交給誰／哪家公司）、
+              <strong>日期</strong>（提供當天）。合起來就是「僅供 OO 銀行申辦信用卡使用 2026/08/09」。
+              三者缺一都會讓限制失效——沒有對象等於誰都能用，沒有日期等於永久有效。
+            </p>
+
+            <h3>Q8：簽註要寫在影本的哪個位置？</h3>
+            <p>
+              寫在證件影像本身上、與欄位文字部分交疊，最好斜跨版面，不要只寫在紙張上下方的空白邊緣——
+              邊緣的註記一刀就能裁掉。同時要避開姓名、身分證字號與照片的正上方，讓對方仍能辨識，
+              這是簽註和塗黑最大的差別。各種證件的建議位置整理在上面的表格裡。
+            </p>
+
+            <h3>Q9：身分證影本正反面都要簽註嗎？</h3>
+            <p>
+              都要。正反面是兩張獨立的影像，只註記其中一面，另一面就是一張沒有任何限制的乾淨影本，
+              可以單獨被拿去使用。兩面各自寫上完整的「用途＋對象＋日期」。
+            </p>
+
+            <h3>Q10：租屋要交身分證影本，簽註怎麼寫？</h3>
+            <p>
+              寫「僅供 OO 房東／OO 仲介租屋契約使用 2026/08/09」，把對象寫到實際的房東姓名或仲介公司名，
+              不要只寫「租屋使用」。若當下還不確定簽約對象，至少要有日期＋租屋用途。
+              交件前後還要注意什麼，可以看{" "}
+              <Link href="/blog/rent-id-watermark">租屋身分證影本加註怎麼寫</Link>。
+            </p>
+
+            <h3>Q11：護照影本的簽註要寫在哪裡？</h3>
+            <p>
+              護照影本簽註寫在資料頁影像上、跨過底色區域，但要避開姓名、護照號碼、出生日期與
+              <strong>機器可判讀區</strong>（頁面最下方兩行英數字）。內容同樣是
+              「僅供 OO 旅行社辦理簽證使用 2026/08/09」。
+            </p>
+
             <h2>立即套用範本，保護你的證件</h2>
             <p>
               ImageMarker 工具頁提供上述所有情境的一鍵套用按鈕，
@@ -525,7 +666,7 @@ export default function WatermarkTemplatesGuidePage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <Link href="/blog/rent-id-watermark" className="bg-white rounded-xl shadow-sm p-5 hover:shadow-md transition-shadow block">
               <p className="text-xs text-blue-600 font-medium mb-2">隱私保護</p>
-              <h3 className="font-semibold text-gray-900 text-sm leading-snug">租屋交證件影本前必做！3 步驟幫身分證加浮水印</h3>
+              <h3 className="font-semibold text-gray-900 text-sm leading-snug">租屋身分證影本加註怎麼寫？「僅供租屋使用」浮水印範例</h3>
             </Link>
             <Link href="/blog/watermark-generators-recommendation" className="bg-white rounded-xl shadow-sm p-5 hover:shadow-md transition-shadow block">
               <p className="text-xs text-blue-600 font-medium mb-2">工具推薦</p>

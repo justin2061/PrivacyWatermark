@@ -310,7 +310,7 @@ export default function IdPhotoGuide() {
               <strong>100% 在你的瀏覽器本機完成，檔案不會上傳到任何伺服器</strong>
               ，手機也能直接操作。相關情境的浮水印寫法，可以參考{" "}
               <Link href="/blog/rent-id-watermark">
-                租屋交證件影本前必做的浮水印教學
+                租屋身分證影本加註怎麼寫
               </Link>{" "}
               與{" "}
               <Link href="/blog/passport-watermark-guide">護照影本浮水印安全指南</Link>
@@ -366,7 +366,7 @@ export default function IdPhotoGuide() {
             <Link href="/blog/rent-id-watermark">
               <article className="block border rounded-xl p-5 hover:border-primary hover:shadow-sm transition-all cursor-pointer">
                 <h3 className="font-medium mb-1">
-                  租屋交證件影本前必做！3 步驟幫身分證加浮水印
+                  租屋身分證影本加註怎麼寫？「僅供租屋使用」浮水印範例
                 </h3>
                 <p className="text-sm text-muted-foreground">
                   每次提供身分證影本前，花不到一分鐘加上浮水印，大幅降低個資被冒用的風險。
@@ -392,7 +392,7 @@ export default function IdPhotoGuide() {
             <Link href="/blog/watermark-templates-guide">
               <article className="block border rounded-xl p-5 hover:border-primary hover:shadow-sm transition-all cursor-pointer">
                 <h3 className="font-medium mb-1">
-                  證件浮水印內容範本：10 種常見情境怎麼寫
+                  身分證影本簽註寫法＋加註位置：10 種情境範本（2026）
                 </h3>
                 <p className="text-sm text-muted-foreground">
                   租屋、求職、開戶、簽證……每種情境的證件浮水印該寫什麼？完整範本讓你直接套用。

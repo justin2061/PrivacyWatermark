@@ -287,7 +287,7 @@ export default function HkRentIdCopyWatermark() {
             <Link href="/blog/rent-id-watermark">
               <article className="block border rounded-xl p-5 hover:border-primary hover:shadow-sm transition-all cursor-pointer">
                 <h3 className="font-medium mb-1">
-                  租屋交身分證影本前必做！3 步驟加浮水印保護個資
+                  租屋身分證影本加註怎麼寫？「僅供租屋使用」浮水印範例
                 </h3>
                 <p className="text-sm text-muted-foreground">
                   租屋前必看！三步驟幫身分證影本加上浮水印，浮水印該寫什麼一次說清楚。

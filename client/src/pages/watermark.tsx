@@ -341,7 +341,7 @@ export default function WatermarkPage() {
             <Card className="p-5 hover:shadow-md transition-shadow">
               <h3 className="font-semibold text-gray-900 mb-2">
                 <Link href="/blog/rent-id-watermark" className="hover:text-primary transition-colors">
-                  租屋交證件影本前必做！3 步驟幫身分證加浮水印
+                  租屋身分證影本加註怎麼寫？「僅供租屋使用」浮水印範例
                 </Link>
               </h3>
               <p className="text-sm text-gray-600 mb-4">

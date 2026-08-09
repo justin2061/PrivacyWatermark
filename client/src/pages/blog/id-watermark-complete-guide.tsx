@@ -258,7 +258,7 @@ export default function IdWatermarkCompleteGuide() {
             <Link href="/blog/watermark-templates-guide">
               <article className="block border rounded-xl p-5 hover:border-primary hover:shadow-sm transition-all cursor-pointer">
                 <h3 className="font-medium mb-1">
-                  證件浮水印內容範本：10 種常見情境怎麼寫（2026 最新）
+                  身分證影本簽註寫法＋加註位置：10 種情境範本（2026）
                 </h3>
                 <p className="text-sm text-muted-foreground">
                   租屋、求職、開戶、保險……10 種情境的浮水印範本讓你直接套用。

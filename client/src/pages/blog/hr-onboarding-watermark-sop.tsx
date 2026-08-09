@@ -397,7 +397,7 @@ export default function HrOnboardingWatermarkSop() {
             <p>
               其他情境（開戶、保險、監理單位）的寫法可以參考{" "}
               <Link href="/blog/watermark-templates-guide">
-                證件浮水印內容範本：10 種常見情境怎麼寫
+                身分證影本簽註寫法＋加註位置：10 種情境範本（2026）
               </Link>
               ；存摺、健保卡、駕照這類非身分證文件的處理原則，
               整理在{" "}
