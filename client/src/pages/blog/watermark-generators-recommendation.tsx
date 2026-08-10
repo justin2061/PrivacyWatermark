@@ -13,6 +13,7 @@ import {
 
 const URL = "https://imagemarker.app/blog/watermark-generators-recommendation";
 const SLUG = "watermark-generators-recommendation";
+const OG = "https://imagemarker.app/og/zh/watermark-generators-recommendation.png";
 
 export default function WatermarkGeneratorsRecommendation() {
   useEffect(() => {
@@ -22,6 +23,7 @@ export default function WatermarkGeneratorsRecommendation() {
       description:
         "浮水印產生器怎麼選？精選 5 款 2026 年最好用的免費線上浮水印工具，比較證件、圖片、防盜圖、PDF 加浮水印功能，本地端處理 vs 雲端上傳、隱私安全一次看懂。",
       canonical: URL,
+      ogImage: OG,
       jsonLd: [
         articleSchema({
           headline:

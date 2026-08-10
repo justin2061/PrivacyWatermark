@@ -12,15 +12,17 @@ import {
 
 const URL =
   "https://imagemarker.app/en/blog/tinypng-iloveimg-squoosh-alternatives";
+const OG = "https://imagemarker.app/og/tinypng-iloveimg-squoosh-alternatives.png";
 
 export default function TinypngIloveimgSquooshAlternativesEn() {
   useEffect(() => {
     return setPageSeo({
       title:
-        "TinyPNG, iLoveIMG & Squoosh Alternatives That Never Upload Your Images (2026) | ImageMarker",
+        "TinyPNG, iLoveIMG & Squoosh Alternatives | ImageMarker",
       description:
         "TinyPNG and iLoveIMG process your images on their servers. Compare 4 free online image tools by privacy: which ones truly run in your browser, plus batch, watermark and EXIF-removal features.",
       canonical: URL,
+      ogImage: OG,
       alternates: localeAlternates({ zh: "/blog/tinypng-iloveimg-squoosh-alternatives", en: "/en/blog/tinypng-iloveimg-squoosh-alternatives" }),
       locale: "en_US",
       jsonLd: [

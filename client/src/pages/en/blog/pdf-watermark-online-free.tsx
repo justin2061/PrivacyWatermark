@@ -17,16 +17,18 @@ const SLUG = "pdf-watermark-online-free";
 
 const HEADLINE =
   "PDF Watermark Online Free: Mark Contracts and Proposals Without Uploading Them";
+const OG = "https://imagemarker.app/og/pdf-watermark-online-free.png";
 
 export default function PdfWatermarkOnlineFreeEn() {
   useEffect(() => {
     return setPageSeo({
       title:
-        "PDF Watermark Online Free — Add a Watermark Without Uploading | ImageMarker",
+        "PDF Watermark Online Free — No Upload Needed | ImageMarker",
       description:
         "Contracts, quotes and proposals get forwarded. A watermark says who the file was for and what it was for. Compare Smallpdf, Adobe Acrobat, DeftPDF and ImageMarker on upload risk and free limits, then watermark a PDF in three steps with a free tool that never sends your file to a server.",
       canonical: URL,
       locale: "en_US",
+      ogImage: OG,
       alternates: localeAlternates({
         zh: "/blog/pdf-watermark-online",
         en: "/en/blog/pdf-watermark-online-free",

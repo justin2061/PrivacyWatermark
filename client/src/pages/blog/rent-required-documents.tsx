@@ -13,6 +13,7 @@ import {
 
 const URL = "https://imagemarker.app/blog/rent-required-documents";
 const SLUG = "rent-required-documents";
+const OG = "https://imagemarker.app/og/zh/rent-required-documents.png";
 
 export default function RentRequiredDocuments() {
   useEffect(() => {
@@ -22,6 +23,7 @@ export default function RentRequiredDocuments() {
       description:
         "租屋簽約到底要準備哪些文件？房東可以要身分證影本嗎？本篇整理租屋必備文件清單，並教你如何安全交付身分證影本、加浮水印自保，避免個資被冒用。",
       canonical: URL,
+      ogImage: OG,
       jsonLd: [
         articleSchema({
           headline: "租屋簽約要交哪些文件？身分證影本安全交付指南",

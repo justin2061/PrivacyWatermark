@@ -17,6 +17,7 @@ const URL = "https://imagemarker.app/blog/pdf-watermark-online";
 const SLUG = "pdf-watermark-online";
 const TITLE =
   "PDF 浮水印怎麼加？合約、報價單線上免費加浮水印（全程不用上傳）";
+const OG = "https://imagemarker.app/og/zh/pdf-watermark-online.png";
 
 export default function PdfWatermarkOnline() {
   useEffect(() => {
@@ -26,6 +27,7 @@ export default function PdfWatermarkOnline() {
       description:
         "合約、報價單、商業提案這類機密 PDF 要加浮水印，卻不敢上傳到別人的伺服器？這篇比較 Smallpdf、文電通、DeftPDF 與 ImageMarker 四種 PDF 浮水印做法的上傳風險與免費額度，並示範 3 步驟在瀏覽器本機為 PDF 每一頁加上中文浮水印，免費、免註冊、檔案不離開你的電腦。",
       canonical: URL,
+      ogImage: OG,
       alternates: localeAlternates({
         zh: "/blog/pdf-watermark-online",
         en: "/en/blog/pdf-watermark-online-free",

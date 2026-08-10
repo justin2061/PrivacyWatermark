@@ -15,6 +15,7 @@ const URL = "https://imagemarker.app/blog/other-documents-watermark";
 const SLUG = "other-documents-watermark";
 const TITLE =
   "不只身分證！存摺、健保卡、駕照影本也要加浮水印";
+const OG = "https://imagemarker.app/og/zh/other-documents-watermark.png";
 
 export default function OtherDocumentsWatermark() {
   useEffect(() => {
@@ -23,6 +24,7 @@ export default function OtherDocumentsWatermark() {
       description:
         "除了身分證，存摺封面、健保卡、駕照等影本也是詐騙的高危目標。本篇教你 6 種常見證件的浮水印寫法，一次保護所有個資。",
       canonical: URL,
+      ogImage: OG,
       jsonLd: [
         articleSchema({
           headline: TITLE,

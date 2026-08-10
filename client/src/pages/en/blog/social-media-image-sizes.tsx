@@ -16,7 +16,7 @@ export default function SocialMediaImageSizesEn() {
   useEffect(() => {
     return setPageSeo({
       title:
-        "How to Resize Images for Social Media: The Complete 2026 Size Guide | ImageMarker",
+        "Social Media Image Sizes: Complete 2026 Guide | ImageMarker",
       description:
         "Every image size you need for Instagram, Facebook, LinkedIn and X in 2026 — posts, stories, profile and cover photos — plus how to resize your images free in your browser.",
       canonical: URL,

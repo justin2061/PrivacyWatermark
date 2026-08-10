@@ -8,14 +8,17 @@ import {
   blogBreadcrumb,
   faqSchema,
 } from "@/lib/seo";
+const OG = "https://imagemarker.app/og/watermark-id-documents.png";
+
 
 export default function WatermarkIdDocuments() {
   useEffect(() => {
     return setPageSeo({
-      title: "How to Add Watermark to ID Documents — Protect Your Identity Online",
+      title: "How to Watermark ID Documents — Protect Your Identity",
       description: "Sharing a photo of your passport or ID? Add a watermark first. Learn why unprotected ID documents are risky and how to watermark them for free, 100% in your browser.",
       canonical: "https://imagemarker.app/en/blog/watermark-id-documents",
       locale: "en_US",
+      ogImage: OG,
       jsonLd: [
         articleSchema({
           headline: "How to Add Watermark to ID Documents — Protect Your Identity Online",

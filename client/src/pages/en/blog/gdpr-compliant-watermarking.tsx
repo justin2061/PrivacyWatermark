@@ -13,7 +13,7 @@ const URL = "https://imagemarker.app/en/blog/gdpr-compliant-watermarking";
 const OG = "https://imagemarker.app/og/gdpr-compliant-watermarking.png";
 
 const TITLE =
-  "GDPR-Compliant Watermarking: Add Watermarks Without Uploading | ImageMarker";
+  "GDPR-Compliant Watermarking Without Uploading | ImageMarker";
 
 const DESCRIPTION =
   "Most watermark tools upload your files to their servers — which turns a two-minute task into a processor agreement, a transfer assessment and a breach surface. Here's why browser-based watermarking removes the problem, and how to verify a tool really doesn't upload.";

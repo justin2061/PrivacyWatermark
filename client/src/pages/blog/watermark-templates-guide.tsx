@@ -18,6 +18,7 @@ const SLUG = "watermark-templates-guide";
 // 換成 GSC 實際有排名的「證件浮水印範例」（原本 2.5 名，改成字面完全命中）。
 const TITLE =
   "身分證影本簽註寫法＋加註位置：10 種情境範本與證件浮水印範例（2026）";
+const OG = "https://imagemarker.app/og/zh/watermark-templates-guide.png";
 
 export default function WatermarkTemplatesGuidePage() {
   useEffect(() => {
@@ -29,6 +30,7 @@ export default function WatermarkTemplatesGuidePage() {
       description:
         "【2026 最新】10 種情境的身分證影本簽註範例，直接照抄就能用。簽註寫法三行格式、加註位置放哪才不會被裁掉、正反面規則一次講清楚，另附 3 步驟免費做出證件浮水印。",
       canonical: URL,
+      ogImage: OG,
       jsonLd: [
         articleSchema({
           headline: TITLE,

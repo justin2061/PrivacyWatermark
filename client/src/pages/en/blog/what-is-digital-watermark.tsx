@@ -16,7 +16,7 @@ export default function WhatIsDigitalWatermarkEn() {
   useEffect(() => {
     return setPageSeo({
       title:
-        "What Is a Digital Watermark and Why Does It Matter in 2026? | ImageMarker",
+        "What Is a Digital Watermark? 2026 Guide | ImageMarker",
       description:
         "A plain-English guide to digital watermarks: visible vs invisible marks, how they're used to protect images and identity, their limits, and how to add a visible watermark free in your browser.",
       canonical: URL,

@@ -8,14 +8,17 @@ import {
   blogBreadcrumb,
   faqSchema,
 } from "@/lib/seo";
+const OG = "https://imagemarker.app/og/protect-photos-online.png";
+
 
 export default function ProtectPhotosOnline() {
   useEffect(() => {
     return setPageSeo({
-      title: "How to Protect Your Photos Online — Complete Guide for Photographers",
+      title: "How to Protect Your Photos Online — Photographer's Guide",
       description: "A complete guide to protecting your photos online: watermarks vs metadata vs DRM, copyright basics, and a practical workflow for photographers and stock contributors.",
       canonical: "https://imagemarker.app/en/blog/protect-photos-online",
       locale: "en_US",
+      ogImage: OG,
       jsonLd: [
         articleSchema({
           headline: "How to Protect Your Photos Online — Complete Guide for Photographers",

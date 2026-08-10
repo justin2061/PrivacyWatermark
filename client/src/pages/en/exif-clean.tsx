@@ -55,7 +55,7 @@ export default function ExifCleanEnPage() {
   useEffect(() => {
     return setPageSeo({
       title:
-        "Free EXIF Remover — Strip GPS & Metadata From Photos, 100% Local",
+        "Free EXIF Remover — Strip GPS & Metadata, 100% Local",
       description:
         "Free online EXIF remover. Strip GPS location, camera model, serial number and other hidden metadata from your photos before sharing. 100% browser-based — nothing is uploaded.",
       canonical: "https://imagemarker.app/en/exif-clean",

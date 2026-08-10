@@ -13,6 +13,8 @@ import {
 
 const URL = "https://imagemarker.app/blog/rent-before-giving-id-3-things";
 const SLUG = "rent-before-giving-id-3-things";
+const OG = "https://imagemarker.app/og/zh/rent-before-giving-id-3-things.png";
+
 
 export default function RentBeforeGivingId3Things() {
   useEffect(() => {
@@ -22,6 +24,7 @@ export default function RentBeforeGivingId3Things() {
       description:
         "租屋簽約，房東要你的身分證影本合理嗎？交出去前，這 3 件事一定要先做：加浮水印限定用途、遮蔽敏感資訊、保留交件證據。附 step by step 教學，教你安全交付、不怕個資被冒用。",
       canonical: URL,
+      ogImage: OG,
       jsonLd: [
         articleSchema({
           headline: "租屋必看：給房東證件影本前，這 3 件事一定要做",

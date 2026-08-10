@@ -15,6 +15,7 @@ const URL = "https://imagemarker.app/blog/passport-copy-guide";
 const SLUG = "passport-copy-guide";
 const TITLE =
   "出國護照影本怎麼印？護照影本可以幹嘛？完整實務指南（2026）";
+const OG = "https://imagemarker.app/og/zh/passport-copy-guide.png";
 
 export default function PassportCopyGuide() {
   useEffect(() => {
@@ -23,6 +24,7 @@ export default function PassportCopyGuide() {
       description:
         "出國護照影本怎麼印？可以幹嘛？一篇看懂：超商列印、手機翻拍教學，飯店 check-in、遺失補辦、簽證申請等用途，影本與正本的法律效力，以及交出前如何加浮水印保護個資。",
       canonical: URL,
+      ogImage: OG,
       jsonLd: [
         articleSchema({
           headline: TITLE,

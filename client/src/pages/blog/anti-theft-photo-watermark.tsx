@@ -13,6 +13,8 @@ import {
 
 const URL = "https://imagemarker.app/blog/anti-theft-photo-watermark";
 const SLUG = "anti-theft-photo-watermark";
+const OG = "https://imagemarker.app/og/zh/anti-theft-photo-watermark.png";
+
 
 export default function AntiTheftPhotoWatermark() {
   useEffect(() => {
@@ -22,6 +24,7 @@ export default function AntiTheftPhotoWatermark() {
       description:
         "角落的小浮水印裁切、AI 修復幾秒就能移除。這篇教你真正有效的防盜圖浮水印做法：滿版斜向重複、半透明疊主體、字級與帳號網址怎麼設定，並附攝影作品、電商商品圖、插畫、社群貼文的實作建議與免費滿版浮水印產生器教學。",
       canonical: URL,
+      ogImage: OG,
       jsonLd: [
         articleSchema({
           headline:

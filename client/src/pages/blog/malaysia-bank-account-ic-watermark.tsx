@@ -14,6 +14,8 @@ import {
 const SLUG = "malaysia-bank-account-ic-watermark";
 
 const URL = "https://imagemarker.app/blog/malaysia-bank-account-ic-watermark";
+const OG = "https://imagemarker.app/og/zh/malaysia-bank-account-ic-watermark.png";
+
 
 export default function MalaysiaBankAccountIcWatermark() {
   useEffect(() => {
@@ -23,6 +25,7 @@ export default function MalaysiaBankAccountIcWatermark() {
         "在馬來西亞開戶口、辦 SIM 卡、租房都要交 IC 副本。教你浮水印該寫什麼（中文還是馬來文）、3 步驟怎麼做，全程在瀏覽器完成，IC 影像不會上傳。",
       canonical: URL,
       locale: "zh_MY",
+      ogImage: OG,
       jsonLd: [
         articleSchema({
           headline: "馬來西亞開銀行戶口：IC 影本怎麼加浮水印保護",

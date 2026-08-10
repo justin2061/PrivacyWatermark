@@ -16,6 +16,7 @@ const URL = "https://imagemarker.app/blog/mosaic-photo-online";
 const SLUG = "mosaic-photo-online";
 const TITLE =
   "線上馬賽克怎麼打？照片遮蔽完整教學：臉部、車牌、身分證字號、門牌";
+const OG = "https://imagemarker.app/og/zh/mosaic-photo-online.png";
 
 export default function MosaicPhotoOnline() {
   useEffect(() => {
@@ -25,6 +26,7 @@ export default function MosaicPhotoOnline() {
       description:
         "要把照片裡的臉、車牌、身分證字號或門牌遮掉，卻不想把原圖上傳到別人的伺服器？這篇整理四種該打馬賽克的資訊、三種常見情境，比較 Redacted 與各家線上模糊工具的上傳風險，示範 3 步驟在瀏覽器本機打馬賽克，並說明為什麼截圖裁切、疊色塊可能被還原。",
       canonical: URL,
+      ogImage: OG,
       jsonLd: [
         articleSchema({
           headline: TITLE,

@@ -10,16 +10,19 @@ import {
 } from "@/lib/seo";
 
 const URL = "https://imagemarker.app/en/blog/watermark-id-before-sharing";
+const OG = "https://imagemarker.app/og/watermark-id-before-sharing.png";
+
 
 export default function WatermarkIdBeforeSharingEn() {
   useEffect(() => {
     return setPageSeo({
       title:
-        "How to Watermark Your ID Before Sharing It Online | ImageMarker",
+        "Watermark Your ID Before Sharing It Online | ImageMarker",
       description:
         "Renting, a new job, or opening an account often means sending a photo of your ID. Learn why you should add a watermark to your ID document first — and how to do it free, 100% in your browser.",
       canonical: URL,
       locale: "en_US",
+      ogImage: OG,
       jsonLd: [
         articleSchema({
           headline: "How to Watermark Your ID Before Sharing It Online",

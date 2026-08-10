@@ -13,6 +13,7 @@ import {
 
 const URL = "https://imagemarker.app/blog/landlord-asks-for-id";
 const SLUG = "landlord-asks-for-id";
+const OG = "https://imagemarker.app/og/zh/landlord-asks-for-id.png";
 
 export default function LandlordAsksForId() {
   useEffect(() => {
@@ -22,6 +23,7 @@ export default function LandlordAsksForId() {
       description:
         "房東要身分證影本合理嗎？租屋一定要給證件影本嗎？本篇完整分析你的權利、哪些能給哪些能拒絕、如何用浮水印安全交付，並附拒絕與折衷的實用話術。",
       canonical: URL,
+      ogImage: OG,
       jsonLd: [
         articleSchema({
           headline: "房東要求提供證件影本，我該給嗎？完整分析",

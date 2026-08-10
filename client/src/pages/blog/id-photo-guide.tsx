@@ -16,6 +16,7 @@ const URL = "https://imagemarker.app/blog/id-photo-guide";
 const SLUG = "id-photo-guide";
 const TITLE =
   "2026 證件照完全攻略：手機自拍、線上裁切、超商列印一次搞定";
+const OG = "https://imagemarker.app/og/zh/id-photo-guide.png";
 
 export default function IdPhotoGuide() {
   useEffect(() => {
@@ -24,6 +25,7 @@ export default function IdPhotoGuide() {
       description:
         "不用花 400 元去相館！教你用手機拍出合格證件照，線上免費裁切成身分證、護照、健保卡尺寸，再到超商印出來。附 2026 最新規定與尺寸對照表。",
       canonical: URL,
+      ogImage: OG,
       jsonLd: [
         articleSchema({
           headline: TITLE,

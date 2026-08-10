@@ -13,6 +13,7 @@ import {
 
 const URL = "https://imagemarker.app/blog/id-watermark-complete-guide";
 const SLUG = "id-watermark-complete-guide";
+const OG = "https://imagemarker.app/og/zh/id-watermark-complete-guide.png";
 
 export default function IdWatermarkCompleteGuide() {
   useEffect(() => {
@@ -22,6 +23,7 @@ export default function IdWatermarkCompleteGuide() {
       description:
         "證件浮水印怎麼加？本篇教你什麼是證件浮水印、為什麼重要，3 步驟實際動手做一次，再教 Logo 浮水印與馬賽克遮蔽的進階用法。浮水印文字怎麼寫的完整範本另有專文整理。",
       canonical: URL,
+      ogImage: OG,
       jsonLd: [
         articleSchema({
           headline: "證件影本加浮水印教學：3 步驟完成，手機電腦都適用",

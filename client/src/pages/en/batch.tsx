@@ -67,7 +67,7 @@ export default function BatchEnPage() {
   useEffect(() => {
     return setPageSeo({
       title:
-        "Batch Watermark Tool | Add Watermarks to Multiple Photos at Once",
+        "Batch Watermark Tool | Watermark Multiple Photos at Once",
       description:
         "Free batch watermark tool. Add the same text or logo watermark to up to 20 images at once and download them as a ZIP. 100% browser-based — nothing is uploaded.",
       canonical: "https://imagemarker.app/en/batch",

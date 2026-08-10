@@ -12,10 +12,12 @@ import {
 const URL = "https://imagemarker.app/en/blog/watermark-id-before-sending-kyc";
 
 const TITLE =
-  "How to Watermark Your ID Before Sending — Free KYC Document Protection";
+  "Watermark Your ID Before Sending — Free KYC Protection";
 
 const DESCRIPTION =
   "Sending your ID for KYC verification? Learn how to watermark a passport or ID copy before you send it — what text to use, how to keep it accepted, and how to do it free in your browser with zero uploads.";
+const OG = "https://imagemarker.app/og/watermark-id-before-sending-kyc.png";
+
 
 export default function WatermarkIdBeforeSendingKyc() {
   useEffect(() => {
@@ -24,6 +26,7 @@ export default function WatermarkIdBeforeSendingKyc() {
       description: DESCRIPTION,
       canonical: URL,
       locale: "en_US",
+      ogImage: OG,
       jsonLd: [
         articleSchema({
           headline: TITLE,

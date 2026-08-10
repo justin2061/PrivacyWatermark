@@ -17,6 +17,8 @@ const URL = "https://imagemarker.app/ja/blog/my-number-card-copy-safe";
 
 const DESCRIPTION =
   "マイナンバーカードのコピーを提出するときの注意点をまとめました。表面と裏面の違い、番号の取扱い、透かしの入れ方まで解説します。ブラウザだけで完結し、画像のアップロードは一切ありません。";
+const OG = "https://imagemarker.app/og/ja/my-number-card-copy-safe.png";
+
 
 export default function JaMyNumberCardCopySafe() {
   useEffect(() => {
@@ -26,6 +28,7 @@ export default function JaMyNumberCardCopySafe() {
       description: DESCRIPTION,
       canonical: URL,
       locale: "ja_JP",
+      ogImage: OG,
       jsonLd: [
         articleSchema({
           headline: "マイナンバーカードのコピーを安全に送る方法",

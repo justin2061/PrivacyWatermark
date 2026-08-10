@@ -13,6 +13,8 @@ import {
 
 const URL = "https://imagemarker.app/blog/id-copy-leaked-consequences";
 const SLUG = "id-copy-leaked-consequences";
+const OG = "https://imagemarker.app/og/zh/id-copy-leaked-consequences.png";
+
 
 export default function IdCopyLeakedConsequences() {
   useEffect(() => {
@@ -22,6 +24,7 @@ export default function IdCopyLeakedConsequences() {
       description:
         "身分證影本一旦外洩，可能被拿去盜辦門號、申貸、開人頭帳戶，甚至讓你變成詐騙集團的洗錢工具。本篇拆解 2026 最新詐騙手法、外洩後的真實後果，以及最簡單的自保方法——交件前先加浮水印。",
       canonical: URL,
+      ogImage: OG,
       jsonLd: [
         articleSchema({
           headline:

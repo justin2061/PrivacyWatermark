@@ -8,15 +8,18 @@ import {
   blogBreadcrumb,
   faqSchema,
 } from "@/lib/seo";
+const OG = "https://imagemarker.app/og/remove-exif-data.png";
+
 
 export default function RemoveExifData() {
   useEffect(() => {
     return setPageSeo({
       title:
-        "What EXIF Data Reveals About You: Photo Metadata Privacy Risks",
+        "What EXIF Data Reveals: Photo Metadata Privacy Risks",
       description: "Hidden in every photo you share: GPS coordinates, timestamps, device serial numbers. What EXIF metadata actually exposes, who reads it, and why platforms can't be trusted to strip it for you.",
       canonical: "https://imagemarker.app/en/blog/remove-exif-data",
       locale: "en_US",
+      ogImage: OG,
       jsonLd: [
         articleSchema({
           headline:

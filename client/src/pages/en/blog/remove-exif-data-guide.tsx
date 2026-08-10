@@ -15,16 +15,18 @@ const URL = "https://imagemarker.app/en/blog/remove-exif-data-guide";
 
 const HEADLINE =
   "How to Remove EXIF Data Online: Strip GPS and Metadata From Any Photo";
+const OG = "https://imagemarker.app/og/remove-exif-data-guide.png";
 
 export default function RemoveExifDataGuideEn() {
   useEffect(() => {
     return setPageSeo({
       title:
-        "How to Remove EXIF Data Online — Strip GPS From Photos Free | ImageMarker",
+        "Remove EXIF Data Online — Strip Photo GPS | ImageMarker",
       description:
         "The photo you just sent may carry the exact GPS coordinates of your home. Learn how to check for geotags, compare EXIF removal on iPhone, Android, Windows and Mac, and delete photo metadata free with a browser-based EXIF remover that never uploads your files.",
       canonical: URL,
       locale: "en_US",
+      ogImage: OG,
       alternates: localeAlternates({
         zh: "/blog/remove-exif-online",
         en: "/en/blog/remove-exif-data-guide",

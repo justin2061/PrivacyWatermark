@@ -14,6 +14,7 @@ import {
 const SLUG = "hk-rent-id-copy-watermark";
 
 const URL = "https://imagemarker.app/blog/hk-rent-id-copy-watermark";
+const OG = "https://imagemarker.app/og/zh/hk-rent-id-copy-watermark.png";
 
 export default function HkRentIdCopyWatermark() {
   useEffect(() => {
@@ -23,6 +24,7 @@ export default function HkRentIdCopyWatermark() {
         "業主或地產代理開口要香港身份證副本？教你三步驟加浮水印，寫明用途、對象同日期，降低副本被冒用嘅風險。全程喺瀏覽器本機處理，唔會上載。",
       canonical: URL,
       locale: "zh_HK",
+      ogImage: OG,
       jsonLd: [
         articleSchema({
           headline: "香港租屋交身份證副本前，一定要加浮水印",

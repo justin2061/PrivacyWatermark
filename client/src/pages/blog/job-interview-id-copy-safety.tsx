@@ -13,6 +13,8 @@ import {
 
 const URL = "https://imagemarker.app/blog/job-interview-id-copy-safety";
 const SLUG = "job-interview-id-copy-safety";
+const OG = "https://imagemarker.app/og/zh/job-interview-id-copy-safety.png";
+
 
 export default function JobInterviewIdCopySafety() {
   useEffect(() => {
@@ -22,6 +24,7 @@ export default function JobInterviewIdCopySafety() {
       description:
         "面試就要你交身分證影本、存摺影本，合理嗎？本篇教你分辨哪些情況合理（入職手續）、哪些是求職詐騙陷阱，以及安全提交證件的方法：加浮水印、備註用途、遮蔽敏感資訊。",
       canonical: URL,
+      ogImage: OG,
       jsonLd: [
         articleSchema({
           headline:

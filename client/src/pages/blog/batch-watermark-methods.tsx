@@ -13,6 +13,7 @@ import {
 
 const URL = "https://imagemarker.app/blog/batch-watermark-methods";
 const SLUG = "batch-watermark-methods";
+const OG = "https://imagemarker.app/og/zh/batch-watermark-methods.png";
 
 export default function BatchWatermarkMethods() {
   useEffect(() => {
@@ -22,6 +23,7 @@ export default function BatchWatermarkMethods() {
       description:
         "需要一次幫多張證件影本加浮水印？本篇比較 3 種方法的優缺點。",
       canonical: URL,
+      ogImage: OG,
       jsonLd: [
         articleSchema({
           headline: "一次處理多張證件影本！批次加浮水印的 3 種方法",

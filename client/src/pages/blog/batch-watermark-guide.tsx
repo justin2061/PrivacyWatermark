@@ -13,6 +13,8 @@ import {
 
 const URL = "https://imagemarker.app/blog/batch-watermark-guide";
 const SLUG = "batch-watermark-guide";
+const OG = "https://imagemarker.app/og/zh/batch-watermark-guide.png";
+
 
 export default function BatchWatermarkGuide() {
   useEffect(() => {
@@ -22,6 +24,7 @@ export default function BatchWatermarkGuide() {
       description:
         "幾十張照片要一張一張加浮水印太累了。這篇比較 3 種批次浮水印方法：手機修圖 App、Photoshop 動作、線上批次工具，分析各自的速度、學習成本與隱私差異，教你用免費線上工具一次上傳、統一套用、打包下載。",
       canonical: URL,
+      ogImage: OG,
       jsonLd: [
         articleSchema({
           headline:

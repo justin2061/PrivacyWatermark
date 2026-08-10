@@ -17,6 +17,7 @@ const URL = "https://imagemarker.app/blog/remove-exif-online";
 const SLUG = "remove-exif-online";
 const TITLE =
   "EXIF 刪除線上工具怎麼用？照片 GPS 移除完整教學（iPhone／Android／電腦）";
+const OG = "https://imagemarker.app/og/zh/remove-exif-online.png";
 
 export default function RemoveExifOnline() {
   useEffect(() => {
@@ -25,6 +26,7 @@ export default function RemoveExifOnline() {
       description:
         "照片裡的 GPS 座標可能直接指向你家。這篇教你怎麼查看照片的 EXIF、比較 iPhone、Android、Windows、Mac 與線上工具 5 種 EXIF 移除方法的差異，並用不上傳伺服器的免費線上工具 3 步驟一鍵清除照片 GPS 與拍攝時間。",
       canonical: URL,
+      ogImage: OG,
       alternates: localeAlternates({
         zh: "/blog/remove-exif-online",
         en: "/en/blog/remove-exif-data-guide",

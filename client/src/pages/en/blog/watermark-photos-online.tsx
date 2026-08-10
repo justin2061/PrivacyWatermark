@@ -7,6 +7,8 @@ import {
   blogBreadcrumb,
   faqSchema,
 } from "@/lib/seo";
+const OG = "https://imagemarker.app/og/watermark-photos-online.png";
+
 
 export default function WatermarkPhotosOnline() {
   useEffect(() => {
@@ -15,6 +17,7 @@ export default function WatermarkPhotosOnline() {
       description: "Learn how to add watermarks to your photos for free. Protect your photography with text or logo watermarks — no software needed, 100% private browser processing.",
       canonical: "https://imagemarker.app/en/blog/watermark-photos-online",
       locale: "en_US",
+      ogImage: OG,
       jsonLd: [
         articleSchema({
           headline: "How to Add Watermark to Photos Online — Free Tool (2026)",

@@ -15,6 +15,7 @@ import {
 const URL =
   "https://imagemarker.app/blog/tinypng-iloveimg-squoosh-alternatives";
 const SLUG = "tinypng-iloveimg-squoosh-alternatives";
+const OG = "https://imagemarker.app/og/zh/tinypng-iloveimg-squoosh-alternatives.png";
 
 export default function TinypngIloveimgSquooshAlternatives() {
   useEffect(() => {
@@ -24,6 +25,7 @@ export default function TinypngIloveimgSquooshAlternatives() {
       description:
         "TinyPNG 和 iLoveIMG 都會把圖片上傳到雲端伺服器處理。這篇比較 4 款免費線上圖片工具的隱私差異：哪些真正在瀏覽器本機處理、免費限制、批次、浮水印、EXIF 清除功能一次看懂。",
       canonical: URL,
+      ogImage: OG,
       alternates: localeAlternates({ zh: "/blog/tinypng-iloveimg-squoosh-alternatives", en: "/en/blog/tinypng-iloveimg-squoosh-alternatives" }),
       jsonLd: [
         articleSchema({

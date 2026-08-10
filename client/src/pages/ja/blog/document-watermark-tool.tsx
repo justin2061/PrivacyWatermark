@@ -17,6 +17,8 @@ const URL = "https://imagemarker.app/ja/blog/document-watermark-tool";
 
 const DESCRIPTION =
   "書類やスキャン画像に透かしを入れて個人情報を守る方法。ツールの選び方の基準、アップロード不要のブラウザ完結ツールの使い方。";
+const OG = "https://imagemarker.app/og/ja/document-watermark-tool.png";
+
 
 export default function JaDocumentWatermarkTool() {
   useEffect(() => {
@@ -26,6 +28,7 @@ export default function JaDocumentWatermarkTool() {
       description: DESCRIPTION,
       canonical: URL,
       locale: "ja_JP",
+      ogImage: OG,
       jsonLd: [
         articleSchema({
           headline: "個人情報を守る！書類の透かし入れツールの選び方と使い方",

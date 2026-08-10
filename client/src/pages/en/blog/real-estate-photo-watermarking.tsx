@@ -13,7 +13,7 @@ const URL = "https://imagemarker.app/en/blog/real-estate-photo-watermarking";
 const OG = "https://imagemarker.app/og/real-estate-photo-watermarking.png";
 
 const TITLE =
-  "Watermark Photos for Real Estate: Batch-Protect Your Listings | ImageMarker";
+  "Watermark Photos for Real Estate Listings | ImageMarker";
 
 const DESCRIPTION =
   "Listing photos get scraped, re-listed and used in rental scams. Here's how agents batch watermark property photos, strip EXIF and compress an entire shoot in minutes — free, and without uploading a single file.";

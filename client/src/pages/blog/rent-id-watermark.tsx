@@ -14,6 +14,8 @@ import {
 const SLUG = "rent-id-watermark";
 
 const URL = "https://imagemarker.app/blog/rent-id-watermark";
+const OG = "https://imagemarker.app/og/zh/rent-id-watermark.png";
+
 
 export default function RentIdWatermark() {
   useEffect(() => {
@@ -30,6 +32,7 @@ export default function RentIdWatermark() {
       description:
         "房東或仲介要身分證影本，加註怎麼寫才安全？租屋情境的「用途＋對象＋日期」加註格式、房東／仲介／包租代管三種對象的寫法差異，以及「僅供租屋使用」浮水印範例，90 秒用 ImageMarker 完成。100% 本機處理不上傳，手機也能用。",
       canonical: URL,
+      ogImage: OG,
       jsonLd: [
         articleSchema({
           headline: "租屋身分證影本加註怎麼寫？「僅供租屋使用」浮水印範例",

@@ -16,6 +16,7 @@ const URL = "https://imagemarker.app/blog/business-confidential-watermark";
 const SLUG = "business-confidential-watermark";
 const TITLE =
   "中小企業機密文件浮水印：不用買 DRM，免費幫公司文件加保護";
+const OG = "https://imagemarker.app/og/zh/business-confidential-watermark.png";
 
 export default function BusinessConfidentialWatermark() {
   useEffect(() => {
@@ -24,6 +25,7 @@ export default function BusinessConfidentialWatermark() {
       description:
         "報價單、合約、設計稿、內部簡報外流怎麼辦？企業 DRM 動輒數十萬又難導入。這篇教中小企業用免費瀏覽器工具幫機密文件加浮水印，做到「機密標示 + 可追溯」，同時也是營業秘密法要求的合理保密措施。",
       canonical: URL,
+      ogImage: OG,
       jsonLd: [
         articleSchema({
           headline: TITLE,

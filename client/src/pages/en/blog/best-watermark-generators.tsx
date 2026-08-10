@@ -10,6 +10,8 @@ import {
 } from "@/lib/seo";
 
 const URL = "https://imagemarker.app/en/blog/best-watermark-generators";
+const OG = "https://imagemarker.app/og/best-watermark-generators.png";
+
 
 export default function BestWatermarkGeneratorsEn() {
   useEffect(() => {
@@ -19,6 +21,7 @@ export default function BestWatermarkGeneratorsEn() {
         "Looking for the best free watermark generator? We compare 5 top tools — ImageMarker, Watermarkly, Canva, Visual Watermark and iLoveIMG — on price, features and privacy. See which ones upload your photos and which run 100% in your browser.",
       canonical: URL,
       locale: "en_US",
+      ogImage: OG,
       jsonLd: [
         articleSchema({
           headline: "5 Best Free Watermark Generators in 2026",

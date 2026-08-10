@@ -16,7 +16,7 @@ export default function RentingProtectIdDocumentsEn() {
   useEffect(() => {
     return setPageSeo({
       title:
-        "Renting an Apartment? How to Protect Your ID Documents from Fraud | ImageMarker",
+        "Renting? Protect Your ID Documents from Fraud | ImageMarker",
       description:
         "Renting almost anywhere means handing over a copy of your ID, payslips and bank statements. Here's what landlords in different countries actually ask for — and how to share it without handing fraudsters a ready-made identity kit.",
       canonical: URL,

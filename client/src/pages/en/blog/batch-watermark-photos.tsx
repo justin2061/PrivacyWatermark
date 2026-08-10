@@ -16,7 +16,7 @@ export default function BatchWatermarkPhotosEn() {
   useEffect(() => {
     return setPageSeo({
       title:
-        "Batch Watermark: How to Add Watermarks to 100+ Photos in Seconds | ImageMarker",
+        "Batch Watermark 100+ Photos in Seconds | ImageMarker",
       description:
         "Watermarking photos one by one doesn't scale. Compare the manual way with a free batch tool that stamps 100+ images at once, right in your browser — no uploads, no subscription.",
       canonical: URL,

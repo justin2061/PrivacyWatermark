@@ -8,14 +8,17 @@ import {
   blogBreadcrumb,
   faqSchema,
 } from "@/lib/seo";
+const OG = "https://imagemarker.app/og/rental-scam-prevention.png";
+
 
 export default function RentalScamPrevention() {
   useEffect(() => {
     return setPageSeo({
-      title: "Rental Application Safety: How to Watermark Documents Before Sharing",
+      title: "Rental Application Safety: Watermark Your Documents",
       description: "Renting a place means handing over your ID and pay stubs. Learn how rental scammers exploit your documents and how watermarking protects you from identity theft.",
       canonical: "https://imagemarker.app/en/blog/rental-scam-prevention",
       locale: "en_US",
+      ogImage: OG,
       jsonLd: [
         articleSchema({
           headline: "Rental Application Safety: How to Watermark Documents Before Sharing",

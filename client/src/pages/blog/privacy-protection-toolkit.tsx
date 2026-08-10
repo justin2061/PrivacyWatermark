@@ -16,6 +16,7 @@ const URL = "https://imagemarker.app/blog/privacy-protection-toolkit";
 const SLUG = "privacy-protection-toolkit";
 const TITLE =
   "2026 個資安全工具箱：浮水印 + 馬賽克 + EXIF 清除，三步保護你的證件照片";
+const OG = "https://imagemarker.app/og/zh/privacy-protection-toolkit.png";
 
 export default function PrivacyProtectionToolkit() {
   useEffect(() => {
@@ -25,6 +26,7 @@ export default function PrivacyProtectionToolkit() {
       description:
         "交出去的證件照片要防三件事：被挪用、被讀走欄位、被反查地點。這篇把個資保護工具整理成三道防線——浮水印標記用途、馬賽克遮蔽敏感欄位、EXIF 清除移除隱藏的 GPS 與裝置資訊，附租屋、求職、二手交易、旅行社四種情境的操作順序，全部免費且不上傳伺服器。",
       canonical: URL,
+      ogImage: OG,
       jsonLd: [
         articleSchema({
           headline: TITLE,

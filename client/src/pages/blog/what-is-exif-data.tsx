@@ -13,6 +13,7 @@ import {
 
 const URL = "https://imagemarker.app/blog/what-is-exif-data";
 const SLUG = "what-is-exif-data";
+const OG = "https://imagemarker.app/og/zh/what-is-exif-data.png";
 
 export default function WhatIsExifData() {
   useEffect(() => {
@@ -22,6 +23,7 @@ export default function WhatIsExifData() {
       description:
         "每張手機照片都偷偷記錄了 GPS 座標、拍攝時間、手機型號等 EXIF 資訊，上傳到社群或交給別人時可能洩漏你家住址與作息。這篇解釋 EXIF 是什麼、藏了哪些個資、有什麼風險，並教你用免費線上工具一鍵清除。",
       canonical: URL,
+      ogImage: OG,
       jsonLd: [
         articleSchema({
           headline: "你的照片藏了什麼秘密？EXIF 資訊一鍵清除教學（2026）",

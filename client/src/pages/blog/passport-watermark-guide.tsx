@@ -13,6 +13,7 @@ import {
 
 const URL = "https://imagemarker.app/blog/passport-watermark-guide";
 const SLUG = "passport-watermark-guide";
+const OG = "https://imagemarker.app/og/zh/passport-watermark-guide.png";
 
 export default function PassportWatermarkGuide() {
   useEffect(() => {
@@ -22,6 +23,7 @@ export default function PassportWatermarkGuide() {
       description:
         "出國旅遊交護照影本給旅行社前，一定要先加浮水印！本篇教你護照浮水印怎麼寫、放哪個位置最安全，附 5 種常見範本。",
       canonical: URL,
+      ogImage: OG,
       jsonLd: [
         articleSchema({
           headline: "護照影本也要加浮水印！出國前必看的護照安全指南",

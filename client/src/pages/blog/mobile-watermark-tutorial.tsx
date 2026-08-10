@@ -14,6 +14,7 @@ import {
 const URL = "https://imagemarker.app/blog/mobile-watermark-tutorial";
 const SLUG = "mobile-watermark-tutorial";
 const TITLE = "手機怎麼幫身分證加浮水印？免安裝 App 的最快方法";
+const OG = "https://imagemarker.app/og/zh/mobile-watermark-tutorial.png";
 
 export default function MobileWatermarkTutorial() {
   useEffect(() => {
@@ -22,6 +23,7 @@ export default function MobileWatermarkTutorial() {
       description:
         "不用下載 App，用手機瀏覽器就能幫身分證加浮水印。本篇教你 3 分鐘完成，iPhone 和 Android 都適用。",
       canonical: URL,
+      ogImage: OG,
       jsonLd: [
         articleSchema({
           headline: TITLE,

@@ -13,7 +13,7 @@ const URL = "https://imagemarker.app/en/blog/watermark-etsy-product-photos";
 const OG = "https://imagemarker.app/og/watermark-etsy-product-photos.png";
 
 const TITLE =
-  "Watermark Photos for Etsy: Protect Your Product Images Free | ImageMarker";
+  "Watermark Etsy Product Photos Free | ImageMarker";
 
 const DESCRIPTION =
   "Drop-shippers scrape Etsy listings daily and resell your product photos as their own. Here's which images to watermark, which to leave clean, and how to batch-mark a whole catalogue free without uploading anything.";

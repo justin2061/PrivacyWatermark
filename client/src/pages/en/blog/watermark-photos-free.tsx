@@ -8,6 +8,8 @@ import {
   blogBreadcrumb,
   faqSchema,
 } from "@/lib/seo";
+const OG = "https://imagemarker.app/og/watermark-photos-free.png";
+
 
 export default function WatermarkPhotosFree() {
   useEffect(() => {
@@ -16,6 +18,7 @@ export default function WatermarkPhotosFree() {
       description: "Looking for a free watermark tool that doesn't upload your photos? Compare the best client-side watermark tools of 2026 and learn why local processing protects your privacy.",
       canonical: "https://imagemarker.app/en/blog/watermark-photos-free",
       locale: "en_US",
+      ogImage: OG,
       jsonLd: [
         articleSchema({
           headline: "Best Free Online Watermark Tool 2026 — No Upload Required",

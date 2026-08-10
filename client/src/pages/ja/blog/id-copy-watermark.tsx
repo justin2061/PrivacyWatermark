@@ -19,6 +19,8 @@ const TITLE = "身分証のコピーに透かしを入れる方法";
 
 const DESCRIPTION =
   "身分証のコピーは一度渡すと回収できず、なりすましに悪用される恐れがあります。提出先・用途・日付を透かしで入れて悪用を防ぐ方法を解説。ブラウザだけで完結し、画像のアップロードは一切なし、無料で使えます。";
+const OG = "https://imagemarker.app/og/ja/id-copy-watermark.png";
+
 
 export default function JaIdCopyWatermark() {
   useEffect(() => {
@@ -28,6 +30,7 @@ export default function JaIdCopyWatermark() {
       description: DESCRIPTION,
       canonical: URL,
       locale: "ja_JP",
+      ogImage: OG,
       jsonLd: [
         articleSchema({
           headline: TITLE,

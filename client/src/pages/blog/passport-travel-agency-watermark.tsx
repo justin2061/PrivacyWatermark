@@ -14,6 +14,7 @@ import {
 const URL = "https://imagemarker.app/blog/passport-travel-agency-watermark";
 const SLUG = "passport-travel-agency-watermark";
 const TITLE = "護照影本交給旅行社安全嗎？報名旅行團前必做的自保 3 件事（2026）";
+const OG = "https://imagemarker.app/og/zh/passport-travel-agency-watermark.png";
 
 export default function PassportTravelAgencyWatermark() {
   useEffect(() => {
@@ -22,6 +23,7 @@ export default function PassportTravelAgencyWatermark() {
       description:
         "報名旅行團、辦簽證要交護照影本給旅行社，安全嗎？從五福旅行社個資外洩事件，教你護照給旅行社前該做的 3 件自保，以及旅行社護照浮水印怎麼寫最安全。",
       canonical: URL,
+      ogImage: OG,
       jsonLd: [
         articleSchema({
           headline: TITLE,

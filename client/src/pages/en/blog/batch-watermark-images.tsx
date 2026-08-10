@@ -8,6 +8,8 @@ import {
   blogBreadcrumb,
   faqSchema,
 } from "@/lib/seo";
+const OG = "https://imagemarker.app/og/batch-watermark-images.png";
+
 
 export default function BatchWatermarkImages() {
   useEffect(() => {
@@ -16,6 +18,7 @@ export default function BatchWatermarkImages() {
       description: "Need to watermark dozens of photos at once? Learn how to batch watermark multiple images for free in your browser — faster than Photoshop or Lightroom, no upload required.",
       canonical: "https://imagemarker.app/en/blog/batch-watermark-images",
       locale: "en_US",
+      ogImage: OG,
       jsonLd: [
         articleSchema({
           headline: "How to Batch Watermark Multiple Images at Once — Free Tool",

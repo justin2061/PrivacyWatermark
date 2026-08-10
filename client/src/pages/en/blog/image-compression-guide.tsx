@@ -17,7 +17,7 @@ export default function ImageCompressionGuideEn() {
   useEffect(() => {
     return setPageSeo({
       title:
-        "Image Compression: How to Reduce File Size Without Losing Quality | ImageMarker",
+        "Image Compression: Reduce Size, Keep Quality | ImageMarker",
       description:
         "A practical guide to image compression: how lossy and lossless work, the difference between JPEG, PNG and WebP, and how to shrink files in your browser without visible quality loss.",
       canonical: URL,

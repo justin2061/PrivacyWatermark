@@ -14,6 +14,8 @@ import {
 const SLUG = "overseas-chinese-passport-watermark";
 
 const URL = "https://imagemarker.app/blog/overseas-chinese-passport-watermark";
+const OG = "https://imagemarker.app/og/zh/overseas-chinese-passport-watermark.png";
+
 
 export default function OverseasChinesePassportWatermark() {
   useEffect(() => {
@@ -23,6 +25,7 @@ export default function OverseasChinesePassportWatermark() {
         "人在海外，護照就是你唯一的身分證明。租屋、開戶、辦門號、註冊學校都要交護照副本。這篇教你用雙語浮水印限定用途，降低跨境被冒用的風險。",
       canonical: URL,
       locale: "zh_TW",
+      ogImage: OG,
       jsonLd: [
         articleSchema({
           headline: "海外華人必學：護照影本浮水印保護指南",

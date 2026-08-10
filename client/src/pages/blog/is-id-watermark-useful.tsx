@@ -13,6 +13,7 @@ import {
 
 const URL = "https://imagemarker.app/blog/is-id-watermark-useful";
 const SLUG = "is-id-watermark-useful";
+const OG = "https://imagemarker.app/og/zh/is-id-watermark-useful.png";
 
 export default function IsIdWatermarkUseful() {
   useEffect(() => {
@@ -22,6 +23,7 @@ export default function IsIdWatermarkUseful() {
       description:
         "身分證浮水印真的有用，不是心理作用！本篇解析浮水印為何能擋下門號盜辦、假貸款、人頭公司冒用，附 3 個台灣真實案例與個資法依據，教你 1 分鐘正確加浮水印自保。",
       canonical: URL,
+      ogImage: OG,
       jsonLd: [
         articleSchema({
           headline:

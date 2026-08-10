@@ -16,6 +16,7 @@ const URL = "https://imagemarker.app/blog/realtor-id-watermark";
 const SLUG = "realtor-id-watermark";
 const TITLE =
   "房仲證件浮水印教學：帶看前先幫客戶證件加保護，3 步驟做完";
+const OG = "https://imagemarker.app/og/zh/realtor-id-watermark.png";
 
 export default function RealtorIdWatermark() {
   useEffect(() => {
@@ -24,6 +25,7 @@ export default function RealtorIdWatermark() {
       description:
         "房仲每天收身分證影本、戶籍謄本、權狀，一旦外洩就是公司扛。教你 3 步驟幫客戶證件加浮水印，標註用途、對象與案件編號，全程在瀏覽器完成、不上傳雲端。附洗錢防制留存規定與證件保管 SOP。",
       canonical: URL,
+      ogImage: OG,
       jsonLd: [
         articleSchema({
           headline: TITLE,

@@ -8,14 +8,17 @@ import {
   blogBreadcrumb,
   faqSchema,
 } from "@/lib/seo";
+const OG = "https://imagemarker.app/og/digital-identity-protection.png";
+
 
 export default function DigitalIdentityProtection() {
   useEffect(() => {
     return setPageSeo({
-      title: "Digital Identity Protection: 7 Steps to Keep Your Documents Safe",
+      title: "Digital Identity Protection: 7 Steps to Stay Safe",
       description: "A practical 7-step guide to digital identity protection: watermark documents, strip EXIF data, share securely, use passwords and 2FA, and prevent online identity theft.",
       canonical: "https://imagemarker.app/en/blog/digital-identity-protection",
       locale: "en_US",
+      ogImage: OG,
       jsonLd: [
         articleSchema({
           headline: "Digital Identity Protection: 7 Steps to Keep Your Documents Safe",

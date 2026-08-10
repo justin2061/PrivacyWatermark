@@ -25,7 +25,7 @@ import { Lock, Zap, Eraser } from "lucide-react";
 // searchers actually type ("free watermark generator", "online watermark tool"),
 // which the previous title never matched literally.
 const TITLE =
-  "Free Watermark Generator — Online Watermark Tool for ID & Passport";
+  "Free Watermark Generator — Online Tool for ID & Passport";
 const DESCRIPTION =
   "Free online watermark tool for ID cards, passports and documents. A watermark generator that runs 100% in your browser — no upload, privacy-first. Fast, free and secure.";
 

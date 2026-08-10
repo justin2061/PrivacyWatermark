@@ -16,6 +16,7 @@ const URL = "https://imagemarker.app/blog/hr-onboarding-watermark-sop";
 const SLUG = "hr-onboarding-watermark-sop";
 const TITLE =
   "人資到職文件浮水印 SOP：新人證件影本這樣收，才符合個資保護要求";
+const OG = "https://imagemarker.app/og/zh/hr-onboarding-watermark-sop.png";
 
 export default function HrOnboardingWatermarkSop() {
   useEffect(() => {
@@ -24,6 +25,7 @@ export default function HrOnboardingWatermarkSop() {
       description:
         "新人報到收身分證影本、存摺封面、學歷證明，HR 一次收好幾份。這篇提供可直接寫進公司規範的到職文件個資保護 SOP：哪些能收、哪些不能收、浮水印怎麼加、保存與銷毀怎麼訂。免費工具、不上傳、可批次。",
       canonical: URL,
+      ogImage: OG,
       jsonLd: [
         articleSchema({
           headline: TITLE,

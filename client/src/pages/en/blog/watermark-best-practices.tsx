@@ -8,6 +8,8 @@ import {
   blogBreadcrumb,
   faqSchema,
 } from "@/lib/seo";
+const OG = "https://imagemarker.app/og/watermark-best-practices.png";
+
 
 export default function WatermarkBestPractices() {
   useEffect(() => {
@@ -16,6 +18,7 @@ export default function WatermarkBestPractices() {
       description: "Where should a watermark go? What opacity works best? Learn watermark placement, opacity, color, and design tips to protect your images without ruining them.",
       canonical: "https://imagemarker.app/en/blog/watermark-best-practices",
       locale: "en_US",
+      ogImage: OG,
       jsonLd: [
         articleSchema({
           headline: "Watermark Best Practices: Placement, Opacity & Design Tips",

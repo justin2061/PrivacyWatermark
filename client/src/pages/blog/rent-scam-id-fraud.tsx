@@ -13,6 +13,7 @@ import {
 
 const URL = "https://imagemarker.app/blog/rent-scam-id-fraud";
 const SLUG = "rent-scam-id-fraud";
+const OG = "https://imagemarker.app/og/zh/rent-scam-id-fraud.png";
 
 export default function RentScamIdFraud() {
   useEffect(() => {
@@ -22,6 +23,7 @@ export default function RentScamIdFraud() {
       description:
         "假房東、假仲介、要求先交證件影本……租屋詐騙花招百出。本篇拆解 5 種常見租屋詐騙與證件冒用手法，教你如何辨識詐騙、保護身分證影本不被拿去盜辦門號與貸款。",
       canonical: URL,
+      ogImage: OG,
       jsonLd: [
         articleSchema({
           headline: "租屋詐騙手法大公開：如何避免證件被冒用",
