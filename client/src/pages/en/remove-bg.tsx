@@ -255,6 +255,9 @@ export default function RemoveBgEnPage() {
         </div>
 
         {/* Privacy notice */}
+        <h1 className="text-lg sm:text-xl font-semibold text-gray-900 mb-3">
+          AI Background Remover — Free Online, 100% Local Processing
+        </h1>
         <PrivacyBanner lang="en" className="mb-8" />
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">

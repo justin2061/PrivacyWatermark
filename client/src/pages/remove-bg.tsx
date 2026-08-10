@@ -255,6 +255,9 @@ export default function RemoveBgPage() {
         </div>
 
         {/* 隱私提示 — 精簡信任標誌 */}
+        <h1 className="text-lg sm:text-xl font-semibold text-gray-900 mb-3">
+          AI 智能去背工具 — 一鍵移除圖片背景，100% 本機處理
+        </h1>
         <PrivacyBanner lang="zh" className="mb-8" />
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">

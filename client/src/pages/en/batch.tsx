@@ -100,6 +100,9 @@ export default function BatchEnPage() {
 
       <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Privacy Notice — compact trust badge */}
+        <h1 className="text-lg sm:text-xl font-semibold text-gray-900 mb-3">
+          Batch Watermark Tool — Add Watermarks to Multiple Photos at Once
+        </h1>
         <PrivacyBanner lang="en" className="mb-8" />
 
         {/* Past the 11th image: non-blocking Pro prompt (dismissible) */}

@@ -270,6 +270,9 @@ export default function ResizePage() {
 
       <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* 隱私提示 — 精簡信任標誌 */}
+        <h1 className="text-lg sm:text-xl font-semibold text-gray-900 mb-3">
+          圖片縮放工具 — 免費線上調整圖片大小，100% 本機處理
+        </h1>
         <PrivacyBanner lang="zh" className="mb-8" />
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">

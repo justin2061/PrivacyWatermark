@@ -63,6 +63,9 @@ export default function WatermarkJaPage() {
       <SiteHeader lang="ja" current="watermark" />
 
       <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <h1 className="text-lg sm:text-xl font-semibold text-gray-900 mb-3">
+          画像透かしツール — 身分証・書類のコピーに無料でブラウザ内から透かしを追加
+        </h1>
         <PrivacyBanner lang="ja" className="mb-8" />
 
         {/* 版面與中英版一致：手機把預覽 sticky 在最上方，桌面維持左右兩欄。

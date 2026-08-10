@@ -73,6 +73,9 @@ export default function WatermarkEnPage() {
       {/* Main Content */}
       <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Privacy Notice — compact trust badge */}
+        <h1 className="text-lg sm:text-xl font-semibold text-gray-900 mb-3">
+          Free Watermark Generator — Add Watermarks to ID, Passport &amp; Document Photos
+        </h1>
         <PrivacyBanner lang="en" className="mb-8" />
 
         {/* Mobile: preview pinned to the top, settings scroll below; desktop keeps two columns.

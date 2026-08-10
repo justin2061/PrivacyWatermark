@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { Link } from "wouter";
 import { ReadMoreArrow } from "@/components/read-more-arrow";
-import { setPageSeo, localeAlternates } from "@/lib/seo";
+import { setPageSeo, localeAlternates, blogIndexSchema } from "@/lib/seo";
 
 interface Article {
   slug: string;
@@ -50,6 +50,20 @@ export default function JaBlogIndex() {
         zh: "/blog",
         en: "/en/blog",
         ja: "/ja/blog",
+      }),
+      jsonLd: blogIndexSchema({
+        name: "ImageMarker ブログ",
+        description:
+          "身分証や書類のコピーを安全に扱うための実践的な解説記事。",
+        url: "https://imagemarker.app/ja/blog",
+        lang: "ja",
+        postBase: "/ja/blog",
+        posts: articles.map((a) => ({
+          slug: a.slug,
+          title: a.title,
+          date: a.date,
+          summary: a.excerpt,
+        })),
       }),
     });
   }, []);

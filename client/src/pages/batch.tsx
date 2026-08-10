@@ -120,6 +120,9 @@ export default function BatchPage() {
             所有 app 版面樣式一律用 lg: 前綴，手機版完全維持原本排版不受影響。 */}
         {!blocked && (
         <div className="lg:h-[calc(100vh-4rem)] lg:-mt-8 lg:pt-4 lg:flex lg:flex-col lg:overflow-hidden">
+        <h1 className="text-lg sm:text-xl font-semibold text-gray-900 mb-3 lg:mb-2 lg:flex-shrink-0">
+          批次浮水印工具 — 一次處理多張證件影本，100% 本機處理
+        </h1>
         <PrivacyBanner lang="zh" className="mb-8 lg:mb-4 lg:flex-shrink-0" />
 
         {/* 第 11 張以上：非阻斷式 Pro 提示（可關閉，不影響免費操作） */}

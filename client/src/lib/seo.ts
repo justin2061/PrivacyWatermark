@@ -263,6 +263,78 @@ export function articleSchema(opts: {
   };
 }
 
+/**
+ * Schema for a blog index page: a Blog node whose posts are spelled out as
+ * BlogPosting entries, plus the 首頁 › 部落格 breadcrumb.
+ *
+ * The three index pages (/blog, /en/blog, /ja/blog) shipped with no structured
+ * data at all while every article under them had Article + BreadcrumbList — so
+ * the hubs were the only pages in the cluster Google had to infer from markup
+ * alone. `posts` are listed newest-first, matching the on-page order.
+ */
+export function blogIndexSchema(opts: {
+  name: string;
+  description: string;
+  url: string;
+  lang?: "zh" | "en" | "ja";
+  posts: { slug: string; title: string; date: string; summary?: string }[];
+  /** Path prefix for a post URL, e.g. "/blog" or "/en/blog". */
+  postBase: string;
+}): JsonLd[] {
+  const lang = opts.lang ?? "zh";
+  const inLanguage = { zh: "zh-TW", en: "en", ja: "ja" }[lang];
+  const abs = (p: string) => `https://imagemarker.app${p}`;
+
+  return [
+    {
+      "@context": "https://schema.org",
+      "@type": "Blog",
+      name: opts.name,
+      description: opts.description,
+      url: opts.url,
+      inLanguage,
+      publisher: {
+        "@type": "Organization",
+        name: "ImageMarker",
+        logo: {
+          "@type": "ImageObject",
+          url: "https://imagemarker.app/icon.svg",
+        },
+      },
+      blogPost: opts.posts.map((p) => ({
+        "@type": "BlogPosting",
+        headline: p.title,
+        ...(p.summary ? { description: p.summary } : {}),
+        datePublished: p.date,
+        url: abs(`${opts.postBase}/${p.slug}`),
+        mainEntityOfPage: {
+          "@type": "WebPage",
+          "@id": abs(`${opts.postBase}/${p.slug}`),
+        },
+        author: { "@type": "Organization", name: "ImageMarker" },
+      })),
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: BREADCRUMB_LABELS[lang].home,
+          item: abs(BREADCRUMB_LABELS[lang].homeUrl),
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: BREADCRUMB_LABELS[lang].blog,
+          item: opts.url,
+        },
+      ],
+    },
+  ];
+}
+
 /** HowTo schema from an ordered list of steps. */
 export function howToSchema(opts: {
   name: string;

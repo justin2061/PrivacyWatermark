@@ -361,6 +361,9 @@ export default function PdfWatermarkEnPage() {
       <SiteHeader lang="en" current="pdf-watermark" />
 
       <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <h1 className="text-lg sm:text-xl font-semibold text-gray-900 mb-3">
+          PDF Watermark Tool — Add Watermarks to PDF Online Free
+        </h1>
         <PrivacyBanner lang="en" className="mb-8" />
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">

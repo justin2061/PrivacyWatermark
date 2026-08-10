@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { Link } from "wouter";
 import { ReadMoreArrow } from "@/components/read-more-arrow";
-import { setPageSeo, localeAlternates } from "@/lib/seo";
+import { setPageSeo, localeAlternates, blogIndexSchema } from "@/lib/seo";
 
 const articles = [
   {
@@ -252,6 +252,20 @@ export default function BlogIndex() {
         zh: "/blog",
         en: "/en/blog",
         ja: "/ja/blog",
+      }),
+      jsonLd: blogIndexSchema({
+        name: "ImageMarker 部落格",
+        description:
+          "ImageMarker 部落格：分享證件保護、個資安全的實用知識與教學。",
+        url: "https://imagemarker.app/blog",
+        lang: "zh",
+        postBase: "/blog",
+        posts: articles.map((a) => ({
+          slug: a.slug,
+          title: a.title,
+          date: a.date,
+          summary: a.summary,
+        })),
       }),
     });
   }, []);

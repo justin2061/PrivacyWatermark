@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { Link } from "wouter";
 import { ReadMoreArrow } from "@/components/read-more-arrow";
 import { SiteFooter } from "@/components/SiteFooter";
-import { setPageSeo, localeAlternates } from "@/lib/seo";
+import { setPageSeo, localeAlternates, blogIndexSchema } from "@/lib/seo";
 
 type Category =
   | "Security"
@@ -233,6 +233,20 @@ export default function BlogIndexEn() {
         zh: "/blog",
         en: "/en/blog",
         ja: "/ja/blog",
+      }),
+      jsonLd: blogIndexSchema({
+        name: "ImageMarker Blog",
+        description:
+          "Guides on watermarking photos and documents, removing EXIF data, and protecting your privacy online.",
+        url: "https://imagemarker.app/en/blog",
+        lang: "en",
+        postBase: "/en/blog",
+        posts: articles.map((a) => ({
+          slug: a.slug,
+          title: a.title,
+          date: a.date,
+          summary: a.excerpt,
+        })),
       }),
     });
   }, []);

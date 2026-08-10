@@ -376,6 +376,9 @@ export default function PdfWatermarkPage() {
 
       <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Privacy notice — 精簡信任標誌 */}
+        <h1 className="text-lg sm:text-xl font-semibold text-gray-900 mb-3">
+          PDF 浮水印工具 — 免費線上為 PDF 每頁加浮水印，100% 本機處理
+        </h1>
         <PrivacyBanner lang="zh" className="mb-8" />
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">

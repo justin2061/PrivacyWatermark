@@ -273,6 +273,9 @@ export default function ResizeEnPage() {
       <SiteHeader lang="en" current="resize" />
 
       <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <h1 className="text-lg sm:text-xl font-semibold text-gray-900 mb-3">
+          Resize Images Without Uploading — Free Online Image Resizer
+        </h1>
         <PrivacyBanner lang="en" className="mb-8" />
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">

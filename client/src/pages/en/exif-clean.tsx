@@ -94,6 +94,9 @@ export default function ExifCleanEnPage() {
       <SiteHeader lang="en" current="exif-clean" />
 
       <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <h1 className="text-lg sm:text-xl font-semibold text-gray-900 mb-3">
+          Free EXIF Remover — Strip GPS &amp; Metadata From Photos, 100% Local
+        </h1>
         <PrivacyBanner lang="en" className="mb-8" />
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
