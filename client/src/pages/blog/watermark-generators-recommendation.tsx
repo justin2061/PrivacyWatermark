@@ -115,7 +115,9 @@ export default function WatermarkGeneratorsRecommendation() {
               想找一款好用的<strong>浮水印產生器</strong>，卻被搜尋結果一堆工具看得眼花撩亂？現代人每天都在傳送圖片和文件，無論是租屋交證件影本、網路購物提供身分證、把攝影作品發到社群平台做<strong>防盜圖浮水印</strong>，或是幫 PDF 加上浮水印，選對工具都是保護自己的關鍵。
             </p>
             <p>
-              這篇 2026 年最新比較，實測 5 款免費線上浮水印工具，從隱私安全、是否需註冊、支援格式到防盜效果，幫你一次找到最適合自己情境的浮水印產生器。
+              這篇 2026 年最新比較，實測 5 款免費線上浮水印工具，從隱私安全、是否需註冊、支援格式到防盜效果，幫你一次找到最適合自己情境的
+              <Link href="/">浮水印產生器</Link>
+              。
             </p>
 
             <h2>什麼是浮水印產生器？</h2>
@@ -150,6 +152,11 @@ export default function WatermarkGeneratorsRecommendation() {
             <h2>5 款推薦工具</h2>
 
             <h3>#1 ImageMarker（imagemarker.app）⭐ 證件浮水印首選</h3>
+            <p>
+              免安裝、免註冊，開啟
+              <Link href="/">浮水印產生器</Link>
+              就能直接用，主要特點如下：
+            </p>
             <ul>
               <li>專攻證件（身分證、護照、駕照）浮水印</li>
               <li>100% 瀏覽器本地端處理，檔案不會上傳到任何伺服器</li>

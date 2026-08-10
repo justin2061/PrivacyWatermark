@@ -40,8 +40,9 @@ export default function WatermarkPage() {
 
   useEffect(() => {
     return setPageSeo({
-      title: "證件浮水印製作工具｜免費線上浮水印產生器、100% 本機處理 — ImageMarker",
-      // 標題本來就含「免費線上浮水印產生器」，是目前唯一在成長的字群，不動。
+      title: "免費線上浮水印產生器｜證件浮水印製作工具、100% 本機處理 — ImageMarker",
+      // 「免費線上浮水印產生器」原本在標題後半（排名 11.9、曝光 1,499，卡在第二頁第一名），
+      // 這次只把它整段前移到標題開頭提高權重，字串本身一字不動——它是目前唯一在成長的字群。
       // 描述補上「免費浮水印工具」「線上浮水印工具」的變體寫法擴大匹配面。
       description:
         "免費線上浮水印工具，專為身分證、護照、駕照等證件與機密文件設計的免費浮水印產生器。100% 本地端瀏覽器處理，不上傳任何檔案。支援自訂浮水印文字、透明度調整，適用租屋、求職等場景。",
@@ -133,6 +134,12 @@ export default function WatermarkPage() {
             所有 app 版面樣式一律用 lg: 前綴，手機版完全維持原本排版不受影響。 */}
         {!blocked && (
         <div className="lg:h-[calc(100vh-4rem)] lg:-mt-8 lg:pt-4 lg:flex lg:flex-col lg:overflow-hidden">
+        {/* 首頁原本完全沒有 <h1>（工具直接進版面），對「浮水印產生器」這種主字群是硬傷。
+            這行 h1 放在固定高度 app 版面「之內」並設 flex-shrink-0：桌面只會少掉約一行
+            高度給內部可捲動的設定區，不會讓整頁超過一個視窗高度、也不動 sticky 預覽。 */}
+        <h1 className="text-lg sm:text-xl font-semibold text-gray-900 mb-3 lg:mb-2 lg:flex-shrink-0">
+          免費線上浮水印產生器 — 身分證、護照影本加浮水印，100% 本機處理
+        </h1>
         <PrivacyBanner lang="zh" className="mb-8 lg:mb-4 lg:flex-shrink-0" />
 
         {/* 手機版：預覽區固定在上、設定區在下可滾動；桌面版維持左右兩欄。

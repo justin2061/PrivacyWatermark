@@ -108,7 +108,9 @@ export default function PassportTravelAgencyWatermark() {
 
             <h2>自保第 1 件事：加上「限定用途」浮水印</h2>
             <p>
-              最有效、也最簡單的一步，就是在護照影本上加浮水印，把它的「可用範圍」鎖死。核心公式是：
+              最有效、也最簡單的一步，就是用
+              <Link href="/">浮水印產生器</Link>
+              在護照影本上加浮水印，把它的「可用範圍」鎖死。核心公式是：
             </p>
             <p>
               <strong>「僅供【旅行社名稱】辦理【行程／簽證】使用 YYYY/MM/DD」</strong>
