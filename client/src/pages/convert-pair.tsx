@@ -277,6 +277,9 @@ export default function ConvertPairPage({ pair, lang = "zh" }: ConvertPairPagePr
         zh: `/convert/${pair.slug}`,
         en: `/en/convert/${pair.slug}`,
       }),
+      keywords: en
+        ? `${pair.fromLabel} to ${pair.toLabel},convert ${pair.fromLabel} to ${pair.toLabel},${pair.slug},${pair.fromLabel} to ${pair.toLabel} converter,free online image converter,no upload,browser-based`
+        : `${pair.fromLabel} 轉 ${pair.toLabel},${pair.fromLabel} 轉檔,${pair.slug},線上圖片轉檔,免費轉檔工具,不上傳,本機處理`,
       jsonLd: [
         webAppSchema({
           name: en

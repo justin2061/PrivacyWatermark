@@ -24,10 +24,15 @@ import { Lock, Zap, Eraser } from "lucide-react";
 // Kept the ID/passport intent but led with the generic tool phrasing English
 // searchers actually type ("free watermark generator", "online watermark tool"),
 // which the previous title never matched literally.
+// The description used to sell one tool ("watermark, no upload"), but /en/ is
+// the entry point to the whole toolkit — 10+ tools sharing the same local-only
+// engine. Leading with the watermark intent that already ranks, then naming the
+// other tools, so the homepage can win "privacy toolkit"-shaped queries instead
+// of competing only on the crowded watermark head terms.
 const TITLE =
   "Free Watermark Generator — Online Tool for ID & Passport";
 const DESCRIPTION =
-  "Free online watermark tool for ID cards, passports and documents. A watermark generator that runs 100% in your browser — no upload, privacy-first. Fast, free and secure.";
+  "Free watermark generator for ID cards, passports and photos — plus EXIF remover, mosaic/blur, compressor, converter, resizer and PDF watermark. 10+ privacy tools, 100% in your browser, no upload.";
 
 export default function WatermarkEnPage() {
   const {
@@ -59,6 +64,7 @@ export default function WatermarkEnPage() {
         featureList: [
           "100% local in-browser processing — no uploads",
           "Watermark ID cards, passports and documents before sharing",
+          "10+ privacy tools: EXIF remover, mosaic/blur, compressor, converter, resizer, PDF watermark",
           "Live preview with one-click download",
           "Works offline as an installable PWA",
         ],
@@ -72,10 +78,27 @@ export default function WatermarkEnPage() {
 
       {/* Main Content */}
       <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Privacy Notice — compact trust badge */}
-        <h1 className="text-lg sm:text-xl font-semibold text-gray-900 mb-3">
-          Free Watermark Generator — Add Watermarks to ID, Passport &amp; Document Photos
+        {/* H1 keeps the watermark head term it already ranks for, but names the
+            toolkit too — /en/ is the hub for 10+ tools and previously read as a
+            single-purpose watermark page. The subline spells the tools out in
+            body copy so the "all-in-one" claim isn't carried by the H1 alone. */}
+        <h1 className="text-lg sm:text-xl font-semibold text-gray-900 mb-2">
+          Free Watermark Generator for IDs &amp; Passports — All-in-One Privacy Toolkit
         </h1>
+        {/* Kept to one sentence: on a 375px viewport the H1 + subline already sit
+            above the upload zone, and the no-upload claim is right below in the
+            PrivacyBanner, so repeating it here only pushed the tool further down. */}
+        <p className="text-sm text-gray-600 mb-3">
+          10+ free privacy tools in one place:{" "}
+          <Link href="/en/exif-clean" className="text-primary hover:underline">EXIF remover</Link>,{" "}
+          <Link href="/en/mosaic" className="text-primary hover:underline">mosaic &amp; blur</Link>,{" "}
+          <Link href="/en/compress" className="text-primary hover:underline">compressor</Link>,{" "}
+          <Link href="/en/convert" className="text-primary hover:underline">converter</Link>,{" "}
+          <Link href="/en/resize" className="text-primary hover:underline">resizer</Link>,{" "}
+          <Link href="/en/pdf-watermark" className="text-primary hover:underline">PDF watermark</Link> and{" "}
+          <Link href="/en/batch" className="text-primary hover:underline">batch watermarking</Link>.
+        </p>
+        {/* Privacy Notice — compact trust badge */}
         <PrivacyBanner lang="en" className="mb-8" />
 
         {/* Mobile: preview pinned to the top, settings scroll below; desktop keeps two columns.

@@ -142,6 +142,8 @@ export default function ResizeEnPage() {
       canonical: "https://imagemarker.app/en/resize",
       alternates: localeAlternates({ zh: "/resize", en: "/en/resize" }),
       locale: "en_US",
+      keywords:
+        "image resizer,resize image online,change image dimensions,resize photo in pixels,resize without uploading,ID photo size,social media image size,aspect ratio lock,no upload,browser-based",
       jsonLd: webAppSchema({
         name: "Image Resizer — ImageMarker",
         description:

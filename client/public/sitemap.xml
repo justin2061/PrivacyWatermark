@@ -614,9 +614,13 @@
   </url>
   <url>
     <loc>https://imagemarker.app/blog/remove-exif-online</loc>
-    <lastmod>2026-08-09</lastmod>
+    <lastmod>2026-08-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="zh-TW" href="https://imagemarker.app/blog/remove-exif-online" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://imagemarker.app/blog/remove-exif-online" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://imagemarker.app/en/blog/remove-exif-data-guide" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://imagemarker.app/en/blog/remove-exif-data-guide" />
   </url>
   <url>
     <loc>https://imagemarker.app/blog/privacy-protection-toolkit</loc>
@@ -626,9 +630,13 @@
   </url>
   <url>
     <loc>https://imagemarker.app/blog/pdf-watermark-online</loc>
-    <lastmod>2026-08-09</lastmod>
+    <lastmod>2026-08-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="zh-TW" href="https://imagemarker.app/blog/pdf-watermark-online" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://imagemarker.app/blog/pdf-watermark-online" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://imagemarker.app/en/blog/pdf-watermark-online-free" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://imagemarker.app/en/blog/pdf-watermark-online-free" />
   </url>
   <url>
     <loc>https://imagemarker.app/blog/mosaic-photo-online</loc>
@@ -792,9 +800,13 @@
   </url>
   <url>
     <loc>https://imagemarker.app/en/blog/remove-exif-data-guide</loc>
-    <lastmod>2026-08-09</lastmod>
+    <lastmod>2026-08-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="zh-TW" href="https://imagemarker.app/blog/remove-exif-online" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://imagemarker.app/blog/remove-exif-online" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://imagemarker.app/en/blog/remove-exif-data-guide" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://imagemarker.app/en/blog/remove-exif-data-guide" />
   </url>
   <url>
     <loc>https://imagemarker.app/en/blog/renting-protect-id-documents</loc>
@@ -892,8 +904,12 @@
   </url>
   <url>
     <loc>https://imagemarker.app/en/blog/pdf-watermark-online-free</loc>
-    <lastmod>2026-08-10</lastmod>
+    <lastmod>2026-08-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="zh-TW" href="https://imagemarker.app/blog/pdf-watermark-online" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://imagemarker.app/blog/pdf-watermark-online" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://imagemarker.app/en/blog/pdf-watermark-online-free" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://imagemarker.app/en/blog/pdf-watermark-online-free" />
   </url>
 </urlset>

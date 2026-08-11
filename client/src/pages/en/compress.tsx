@@ -103,6 +103,8 @@ export default function CompressEnPage() {
       canonical: "https://imagemarker.app/en/compress",
       alternates: localeAlternates({ zh: "/compress", en: "/en/compress" }),
       locale: "en_US",
+      keywords:
+        "image compressor,compress image online,reduce image file size,compress JPG,compress PNG,compress WebP,shrink photo size,image optimizer,no upload,no size limit,browser-based",
       jsonLd: webAppSchema({
         name: "Image Compressor — ImageMarker",
         description:

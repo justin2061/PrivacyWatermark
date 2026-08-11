@@ -130,10 +130,12 @@ export default function PdfWatermarkEnPage() {
     return setPageSeo({
       title: "PDF Watermark Tool — Add Watermarks to PDF Online Free",
       description:
-        "Free online PDF watermark tool. Add text or logo watermarks to every page of a PDF, with opacity, position and tiled repeat. 100% in-browser — your PDF never leaves your device. Perfect for IDs, contracts and confidential documents.",
+        "Free PDF watermark tool for confidential documents. Stamp text or a logo on every page of a contract, ID scan or report — opacity, position and tiled repeat included. 100% in-browser, your PDF never leaves your device.",
       canonical: "https://imagemarker.app/en/pdf-watermark",
       alternates: localeAlternates({ zh: "/pdf-watermark", en: "/en/pdf-watermark" }),
       locale: "en_US",
+      keywords:
+        "PDF watermark,add watermark to PDF,watermark PDF online,confidential document watermark,stamp PDF confidential,watermark contract PDF,watermark scanned ID PDF,free PDF watermark tool,no upload,browser-based",
       jsonLd: [
         webAppSchema({
           name: "PDF Watermark Tool — ImageMarker",

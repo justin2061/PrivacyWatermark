@@ -69,9 +69,11 @@ export default function BatchEnPage() {
       title:
         "Batch Watermark Tool | Watermark Multiple Photos at Once",
       description:
-        "Free batch watermark tool. Add the same text or logo watermark to up to 20 images at once and download them as a ZIP. 100% browser-based — nothing is uploaded.",
+        "Free batch watermark tool. Add the same text or logo watermark to up to 20 images at once and download them as a ZIP. Batch processing runs 100% in your browser — no upload, no queue, no account.",
       canonical: "https://imagemarker.app/en/batch",
       locale: "en_US",
+      keywords:
+        "batch watermark,bulk watermark,watermark multiple photos,watermark multiple images at once,add watermark to many photos,bulk image watermarking,watermark photos in bulk,ZIP download,no upload,browser-based,privacy tools",
       alternates: localeAlternates({ zh: "/batch", en: "/en/batch" }),
       jsonLd: webAppSchema({
         name: "Batch Watermark Tool — ImageMarker",

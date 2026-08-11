@@ -37,6 +37,12 @@ interface PageSeoOptions {
    * it keep the shell's tags unchanged.
    */
   alternates?: Alternate[];
+  /**
+   * Page-specific meta keywords. Omit and the page gets the default set for its
+   * `locale` (see KEYWORDS below) — which is what every page wants unless it
+   * targets terms the language-wide list doesn't cover.
+   */
+  keywords?: string | string[];
   /** One or more JSON-LD objects (Article, FAQPage, BreadcrumbList, ItemList…). */
   jsonLd?: JsonLd | JsonLd[];
   /**
@@ -54,6 +60,25 @@ function setMeta(selector: string, attr: "content" | "href", value: string) {
   if (el) el.setAttribute(attr, value);
 }
 
+/**
+ * meta keywords, one set per language.
+ *
+ * index.html hard-codes the Chinese list, and nothing ever overwrote it — so
+ * every /en/ and /ja/ URL shipped a page of English (or Japanese) copy carrying
+ * "身分證浮水印,護照影本浮水印,…". That's a mixed-language signal on a site whose
+ * whole international setup rests on hreflang, and it's the one tag that
+ * contradicted the locale the page otherwise declares everywhere else.
+ *
+ * Keyed by the primary subtag of `locale`, which every non-Chinese page already
+ * passes ("en_US" / "ja_JP") — so a single default here fixes all of them at
+ * once instead of 40+ per-page edits, and pages added later inherit the fix.
+ */
+const KEYWORDS = {
+  zh: "浮水印工具,圖片浮水印,證件浮水印,身分證浮水印,護照浮水印,駕照浮水印,護照影本浮水印,健保卡浮水印,证件水印,护照水印,驾照水印,线上水印,線上浮水印,免費浮水印,隱私保護,個資保護,本地處理,PWA,離線工具,圖片編輯,文件保護,租屋證件,求職證件",
+  en: "watermark generator,online watermark tool,free watermark maker,watermark ID card,passport watermark,document watermark,PDF watermark,batch watermark,EXIF remover,remove GPS from photo,image metadata removal,mosaic tool,blur sensitive info,image compressor,image converter,image resizer,privacy tools,no upload,browser-based,client-side image editor",
+  ja: "透かし,ウォーターマーク,画像 透かし,無料 透かし,本人確認書類 透かし,マイナンバーカード コピー,運転免許証 コピー 透かし,パスポート コピー 透かし,PDF 透かし,EXIF 削除,GPS 情報 削除,画像 圧縮,オンライン 無料,アップロード不要,ブラウザ処理,プライバシー保護",
+} as const;
+
 export function setPageSeo({
   title,
   description,
@@ -61,6 +86,7 @@ export function setPageSeo({
   locale,
   ogImage,
   alternates,
+  keywords,
   jsonLd,
   noindex,
 }: PageSeoOptions): () => void {
@@ -79,6 +105,18 @@ export function setPageSeo({
   setMeta('meta[name="title"]', "content", title);
   setMeta('link[rel="canonical"]', "href", canonical);
 
+  // Always written, never left to the shell's value: in the SPA the tag is
+  // shared state, so a page that skipped it would keep whatever the previously
+  // visited route left behind (e.g. English keywords after /en/ → /blog).
+  const lang = (locale ?? "zh").split(/[_-]/)[0] as keyof typeof KEYWORDS;
+  setMeta(
+    'meta[name="keywords"]',
+    "content",
+    (Array.isArray(keywords) ? keywords.join(",") : keywords) ??
+      KEYWORDS[lang] ??
+      KEYWORDS.zh,
+  );
+
   // Open Graph / Twitter — keep social previews in sync with the page.
   setMeta('meta[property="og:title"]', "content", title);
   setMeta('meta[property="og:description"]', "content", description);
@@ -94,10 +132,11 @@ export function setPageSeo({
   }
 
   // Language signals: og:locale for social crawlers, <html lang> for a11y/SEO.
-  if (locale) {
-    setMeta('meta[property="og:locale"]', "content", locale);
-    document.documentElement.lang = locale.split(/[_-]/)[0];
-  }
+  // Both are shared SPA state like the keywords tag above, so the no-locale case
+  // has to restore the shell's Chinese defaults rather than leave them alone —
+  // otherwise /en/ → /mosaic left Chinese copy sitting under <html lang="en">.
+  setMeta('meta[property="og:locale"]', "content", locale ?? "zh_TW");
+  document.documentElement.lang = locale ? locale.split(/[_-]/)[0] : "zh-TW";
 
   // hreflang: clear the shell's homepage set on EVERY page, not just pages that
   // supply their own. index.html hard-codes the homepage cluster (zh → "/",

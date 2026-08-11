@@ -111,6 +111,8 @@ export default function RemoveBgEnPage() {
       canonical: "https://imagemarker.app/en/remove-bg",
       alternates: localeAlternates({ zh: "/remove-bg", en: "/en/remove-bg" }),
       locale: "en_US",
+      keywords:
+        "background remover,remove background from image,AI background removal,transparent PNG,cut out image background,free background eraser,no upload,runs offline,browser-based",
       jsonLd: webAppSchema({
         name: "AI Background Remover — ImageMarker",
         description:

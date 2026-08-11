@@ -61,6 +61,8 @@ export default function ExifCleanEnPage() {
       canonical: "https://imagemarker.app/en/exif-clean",
       alternates: localeAlternates({ zh: "/exif-clean", en: "/en/exif-clean" }),
       locale: "en_US",
+      keywords:
+        "EXIF remover,remove EXIF data,strip EXIF,remove GPS from photo,remove location data from photos,photo metadata remover,image metadata removal,clear EXIF online,privacy,protect location privacy,no upload,browser-based",
       jsonLd: webAppSchema({
         name: "EXIF Cleaner — ImageMarker",
         description:

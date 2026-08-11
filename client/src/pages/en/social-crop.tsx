@@ -110,6 +110,8 @@ export default function SocialCropEnPage() {
       canonical: "https://imagemarker.app/en/social-crop",
       alternates: localeAlternates({ zh: "/social-crop", en: "/en/social-crop" }),
       locale: "en_US",
+      keywords:
+        "social media image resizer,Instagram post size,Facebook cover photo size,YouTube thumbnail size,Twitter header size,LinkedIn banner size,Pinterest pin size,crop image online,no upload,browser-based",
       jsonLd: webAppSchema({
         name: "Social Media Image Resizer — ImageMarker",
         description:
