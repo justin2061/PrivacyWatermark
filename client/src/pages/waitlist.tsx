@@ -4,17 +4,9 @@ import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { setPageSeo } from "@/lib/seo";
 import { trackWaitlistView, trackWaitlistSubmit } from "@/lib/analytics";
+import { isValidEmail, submitFeatureRequest } from "@/lib/waitlist";
 import type { Lang } from "@/lib/tools";
 import { AlertTriangle, CheckCircle, Loader2, Lock, Send } from "lucide-react";
-
-/** Netlify Forms 表單名稱，需與 client/index.html 的隱藏偵測表單一致。 */
-const NETLIFY_FORM = "waitlist";
-
-function encodeForm(data: Record<string, string>): string {
-  return Object.entries(data)
-    .map(([k, v]) => `${encodeURIComponent(k)}=${encodeURIComponent(v)}`)
-    .join("&");
-}
 
 const COPY: Record<
   Lang,
@@ -116,7 +108,9 @@ interface WaitlistPageProps {
 }
 
 /**
- * 功能許願頁。全站工具的下載完成 CTA（DownloadSuccess → WaitlistCTA）都導向這裡。
+ * 功能許願頁。獨立入口（可分享、可從搜尋進來）——站上的 WaitlistCTA 自 2026-08-12
+ * 起改成就地展開表單，不再導向這裡，但兩邊送的是同一張 Netlify 表單
+ * （lib/waitlist.ts 的 submitFeatureRequest），只靠 source 欄位分辨來源。
  *
  * 刻意只留兩個欄位：Email ＋ 一個開放式問題。前一版問了張數、定價偏好與語言，
  * 7 位高意圖訪客只有 1 人開始填、0 人送出——剛解決完問題的人不想填商業表單。
@@ -160,7 +154,7 @@ export default function WaitlistPage({ lang = "zh" }: WaitlistPageProps) {
     e.preventDefault();
     if (status === "submitting") return;
 
-    if (!/\S+@\S+\.\S+/.test(email.trim())) {
+    if (!isValidEmail(email)) {
       setValidation(t.emailInvalid);
       return;
     }
@@ -172,27 +166,19 @@ export default function WaitlistPage({ lang = "zh" }: WaitlistPageProps) {
     setValidation("");
     setStatus("submitting");
 
-    try {
-      const res = await fetch("/", {
-        method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: encodeForm({
-          "form-name": NETLIFY_FORM,
-          email: email.trim(),
-          feature_request: request,
-          lang,
-          // 蜜罐欄位：真人不會填，留空即可。Netlify 靠 netlify-honeypot 判定。
-          "bot-field": "",
-        }),
-      });
-      // Netlify Forms 成功時回 200/302；非 2xx 一律視為失敗並讓使用者知道
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      // 不送出建議內容本身（可能夾帶個資），只記錄語系與長度
-      trackWaitlistSubmit(lang, request.length);
-      setStatus("done");
-    } catch {
+    const result = await submitFeatureRequest({
+      email,
+      featureRequest: request,
+      lang,
+      source: "waitlist_page",
+    });
+    if (!result.ok) {
       setStatus("error");
+      return;
     }
+    // 不送出建議內容本身（可能夾帶個資），只記錄語系與長度
+    trackWaitlistSubmit(lang, request.length, "waitlist_page");
+    setStatus("done");
   };
 
   return (

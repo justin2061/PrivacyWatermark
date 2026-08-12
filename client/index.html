@@ -90,12 +90,15 @@
       <input type="text" name="bot-field" />
     </form>
 
-    <!-- 同上，/waitlist 候補頁專用的 "waitlist" 表單。欄位需與 pages/waitlist.tsx
-         送出的 key 完全一致，否則 Netlify 會丟掉對不上的欄位。 -->
+    <!-- 同上，功能許願用的 "waitlist" 表單。/waitlist 頁與站上三處 inline CTA
+         （下載完成／首頁底部／文章底部）共用，送出一律走 lib/waitlist.ts 的
+         submitFeatureRequest。欄位需與該函式送出的 key 完全一致，否則 Netlify
+         會丟掉對不上的欄位。source 用來分辨是哪個位置送出的。 -->
     <form name="waitlist" data-netlify="true" netlify-honeypot="bot-field" hidden>
       <input type="email" name="email" />
       <textarea name="feature_request"></textarea>
       <input type="text" name="lang" />
+      <input type="text" name="source" />
       <input type="text" name="bot-field" />
     </form>
 

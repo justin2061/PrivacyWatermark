@@ -12,6 +12,9 @@
 /** Netlify Forms 的表單名稱，需與 client/index.html 的隱藏偵測表單一致。 */
 const NETLIFY_FORM = "pro-waitlist";
 
+/** 功能許願表單（/waitlist 頁與各處 inline CTA 共用）。同樣需與 index.html 一致。 */
+const FEATURE_REQUEST_FORM = "waitlist";
+
 /** 使用者偏好的定價方案。空字串代表沒選（此欄非必填）。 */
 export type PricingChoice = "" | "one-off-99" | "annual-590";
 
@@ -60,6 +63,55 @@ export async function submitWaitlist(
     image_count: payload.imageCount?.trim() ?? "",
     pricing: payload.pricing ?? "",
     source: payload.source ?? "",
+    // 蜜罐欄位：真人不會填，留空即可。Netlify 靠 netlify-honeypot 判定。
+    "bot-field": "",
+  });
+
+  let response: Response;
+  try {
+    response = await fetch("/", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body,
+    });
+  } catch {
+    return { ok: false, reason: "network" };
+  }
+
+  if (!response.ok) return { ok: false, reason: "rejected" };
+  return { ok: true };
+}
+
+export interface FeatureRequestPayload {
+  /** 必填。呼叫端應先以 isValidEmail 擋掉空值／格式錯誤。 */
+  email: string;
+  /** 必填。使用者想要的功能，自由書寫。 */
+  featureRequest: string;
+  /** 路由語系，直接取自頁面而非再問使用者。 */
+  lang: string;
+  /**
+   * 送出位置：download_success / homepage / blog_article / waitlist_page。
+   * 三個 inline CTA 共用同一張表單，沒有這欄就分不出哪個位置真的有效。
+   */
+  source: string;
+}
+
+/**
+ * 送出功能許願。/waitlist 頁與 WaitlistCTA 的 inline 表單共用這支，
+ * 確保兩邊的 form-name 與欄位鍵名永遠一致（Netlify 只保存 index.html
+ * 隱藏表單宣告過的欄位，對不上的鍵會被靜默丟棄）。
+ *
+ * 失敗原因同 submitWaitlist：呼叫端必須顯示錯誤，不得假裝成功。
+ */
+export async function submitFeatureRequest(
+  payload: FeatureRequestPayload,
+): Promise<WaitlistResult> {
+  const body = encodeForm({
+    "form-name": FEATURE_REQUEST_FORM,
+    email: payload.email.trim(),
+    feature_request: payload.featureRequest.trim(),
+    lang: payload.lang,
+    source: payload.source,
     // 蜜罐欄位：真人不會填，留空即可。Netlify 靠 netlify-honeypot 判定。
     "bot-field": "",
   });

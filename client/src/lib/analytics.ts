@@ -314,45 +314,59 @@ export function trackWaitlistView(lang: string): void {
  * 候補表單送出成功時觸發。
  * 不送 Email 也不送建議內容（兩者都可能夾帶 PII），只記錄語系與建議字數——
  * 字數可以分辨「認真寫」與「隨手打一個字」，實際內容去 Netlify Forms 看。
+ *
+ * location 分辨送出位置：inline 表單改版後三個 CTA 都能就地送出，
+ * 少了這個參數就無法把 view → click → submit 串成同一條漏斗。
  */
 export function trackWaitlistSubmit(
   lang: string,
   requestLength: number,
+  location = "waitlist_page",
 ): void {
   if (typeof gtag !== "undefined") {
     gtag("event", "waitlist_submit", {
       lang,
       request_length: requestLength,
-    });
-  }
-}
-
-/** 下載完成頁的候補 CTA 曝光時觸發（漏斗分母）。 */
-export function trackWaitlistCtaView(
-  toolName: string,
-  location = "download_success",
-): void {
-  if (typeof gtag !== "undefined") {
-    gtag("event", "waitlist_cta_view", {
-      tool_name: toolName,
       location,
     });
   }
 }
 
 /**
- * 候補 CTA 被點擊時觸發（漏斗分子）。
+ * 候補 CTA 曝光時觸發（漏斗分母）。
+ * 注意：2026-08-12 起改由 IntersectionObserver 觸發（原本是掛載即送）。
+ * 首頁／文章底部的 CTA 掛載時多半在螢幕外，舊定義會高估分母；
+ * 比較改版前後的曝光數時要記得這件事，數字下降不代表流量掉了。
+ */
+export function trackWaitlistCtaView(
+  toolName: string,
+  location = "download_success",
+  lang = "zh",
+): void {
+  if (typeof gtag !== "undefined") {
+    gtag("event", "waitlist_cta_view", {
+      tool_name: toolName,
+      location,
+      lang,
+    });
+  }
+}
+
+/**
+ * 候補 CTA 被點擊（＝就地展開表單）時觸發（漏斗分子）。
  * location 分辨出現位置（download_success / homepage / blog_article），
  * 用來判斷「剛做完事的高意圖時刻」與「純瀏覽」哪個真的會轉換。
  */
 export function trackWaitlistCtaClick(
   toolName: string,
   location = "download_success",
+  lang = "zh",
 ): void {
   if (typeof gtag !== "undefined") {
     gtag("event", "waitlist_cta_click", {
       tool_name: toolName,
       location,
+      lang,
     });
   }
 }
