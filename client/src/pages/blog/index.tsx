@@ -5,6 +5,13 @@ import { setPageSeo, localeAlternates, blogIndexSchema } from "@/lib/seo";
 
 const articles = [
   {
+    slug: "watermark-hkid",
+    title: "身份證副本加水印完全指南：保護你的香港身份證",
+    date: "2026-08-17",
+    summary:
+      "香港身份證上那幾個英文字母和三粒星，其實講出你的居留身份——對方只想核對姓名的話，這一欄根本不用交。開戶口、租樓、搵工、電訊商合約四個場景各自要交到什麼程度，水印應該寫什麼，以及 PDPO 與私隱專員公署實務守則給了你什麼談判空間。",
+  },
+  {
     slug: "mosaic-photo-online",
     title: "線上馬賽克怎麼打？照片遮蔽完整教學：臉部、車牌、身分證字號、門牌",
     date: "2026-08-10",

@@ -182,6 +182,19 @@ const CARDS = [
     sub: "The fastest free way to mark a photo in 2026 — nothing to install.",
   },
 
+  {
+    slug: "watermark-mykad-malaysia",
+    kicker: "Privacy · Malaysia",
+    title: "Watermark Your\nMyKad Copy",
+    sub: "What to write, which fields to mask, and why the NRIC leaks more than you think.",
+  },
+  {
+    slug: "watermark-aadhaar-card-india",
+    kicker: "Privacy · India",
+    title: "Protect Your\nAadhaar Card Copy",
+    sub: "Masked Aadhaar, Virtual ID and a purpose-bound watermark, before you share.",
+  },
+
   // ── 繁體中文 ──────────────────────────────────────────────────────────────
   {
     locale: "zh",
@@ -413,6 +426,14 @@ const CARDS = [
     kicker: "隱私 · EXIF",
     title: "你的照片\n藏了什麼秘密",
     sub: "EXIF 資訊一鍵清除教學。",
+  },
+
+  {
+    locale: "zh",
+    slug: "watermark-hkid",
+    kicker: "隱私 · 香港",
+    title: "香港身份證副本\n加水印完全指南",
+    sub: "開戶口、租樓、搵工、電訊合約，四個場景各交到咩程度。",
   },
 
   // ── 日本語 ────────────────────────────────────────────────────────────────

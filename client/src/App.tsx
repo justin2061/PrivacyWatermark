@@ -27,6 +27,8 @@ import WatermarkIdBeforeSharingEn from "@/pages/en/blog/watermark-id-before-shar
 import BestWatermarkGeneratorsEn from "@/pages/en/blog/best-watermark-generators";
 import RemoveExifDataGuideEn from "@/pages/en/blog/remove-exif-data-guide";
 import PdfWatermarkOnlineFreeEn from "@/pages/en/blog/pdf-watermark-online-free";
+import WatermarkMyKadMalaysiaEn from "@/pages/en/blog/watermark-mykad-malaysia";
+import WatermarkAadhaarCardIndiaEn from "@/pages/en/blog/watermark-aadhaar-card-india";
 import RentingProtectIdDocumentsEn from "@/pages/en/blog/renting-protect-id-documents";
 import BatchWatermarkPhotosEn from "@/pages/en/blog/batch-watermark-photos";
 import ImageCompressionGuideEn from "@/pages/en/blog/image-compression-guide";
@@ -82,6 +84,7 @@ import RemoveExifOnline from "@/pages/blog/remove-exif-online";
 import PrivacyProtectionToolkit from "@/pages/blog/privacy-protection-toolkit";
 import PdfWatermarkOnline from "@/pages/blog/pdf-watermark-online";
 import MosaicPhotoOnline from "@/pages/blog/mosaic-photo-online";
+import WatermarkHkid from "@/pages/blog/watermark-hkid";
 import ImageCompressionGuide from "@/pages/blog/image-compression-guide";
 import IdCopyLeakedConsequences from "@/pages/blog/id-copy-leaked-consequences";
 import RentBeforeGivingId3Things from "@/pages/blog/rent-before-giving-id-3-things";
@@ -133,6 +136,8 @@ function Router() {
       <Route path="/en/blog/watermark-etsy-product-photos" component={WatermarkEtsyProductPhotosEn} />
       <Route path="/en/blog/gdpr-compliant-watermarking" component={GdprCompliantWatermarkingEn} />
       <Route path="/en/blog/pdf-watermark-online-free" component={PdfWatermarkOnlineFreeEn} />
+      <Route path="/en/blog/watermark-mykad-malaysia" component={WatermarkMyKadMalaysiaEn} />
+      <Route path="/en/blog/watermark-aadhaar-card-india" component={WatermarkAadhaarCardIndiaEn} />
       {/* Pro 候補名單（各工具下載完成後的 CTA 目的地） */}
       <Route path="/waitlist">
         <WaitlistPage lang="zh" />
@@ -201,6 +206,7 @@ function Router() {
       />
       <Route path="/blog/pdf-watermark-online" component={PdfWatermarkOnline} />
       <Route path="/blog/mosaic-photo-online" component={MosaicPhotoOnline} />
+      <Route path="/blog/watermark-hkid" component={WatermarkHkid} />
       <Route path="/blog/image-compression-guide" component={ImageCompressionGuide} />
       <Route path="/blog/id-copy-leaked-consequences" component={IdCopyLeakedConsequences} />
       <Route path="/blog/rent-before-giving-id-3-things" component={RentBeforeGivingId3Things} />

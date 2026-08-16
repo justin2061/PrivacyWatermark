@@ -21,6 +21,23 @@ interface Article {
 
 const articles: Article[] = [
   {
+    slug: "watermark-mykad-malaysia",
+    title: "How to Watermark Your MyKad Copy Before You Submit It",
+    excerpt:
+      "Your NRIC number is not a random serial — the first six digits are your date of birth and the next two your birth state, so masking the last four protects almost nothing. What to write on the watermark, which fields to mask, and how banks, telcos, landlords and employers each differ.",
+    date: "2026-08-17",
+    category: "Privacy",
+  },
+  {
+    slug: "watermark-aadhaar-card-india",
+    title:
+      "How to Watermark Your Aadhaar Card Copy and Prevent Identity Fraud",
+    excerpt:
+      "UIDAI already gives you Masked Aadhaar, a Virtual ID and a biometric lock — almost nobody uses them. What each one is for, what the withdrawn 2022 advisory actually said, and how to add a purpose-bound watermark before sharing a copy for KYC, a SIM, a bank account or a rental.",
+    date: "2026-08-17",
+    category: "Privacy",
+  },
+  {
     slug: "pdf-watermark-online-free",
     title:
       "PDF Watermark Online Free: Mark Contracts and Proposals Without Uploading Them",
