@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { Card } from "@/components/ui/card";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
-import { setPageSeo } from "@/lib/seo";
+import { localeAlternates, setPageSeo } from "@/lib/seo";
 import { trackWaitlistView, trackWaitlistSubmit } from "@/lib/analytics";
 import { isValidEmail, submitFeatureRequest } from "@/lib/waitlist";
 import type { Lang } from "@/lib/tools";
@@ -141,12 +141,14 @@ export default function WaitlistPage({ lang = "zh" }: WaitlistPageProps) {
       description: t.seoDescription,
       canonical: t.canonical,
       locale: lang === "zh" ? "zh_TW" : lang === "ja" ? "ja_JP" : "en_US",
-      alternates: [
-        { hreflang: "zh-TW", href: "https://imagemarker.app/waitlist" },
-        { hreflang: "en", href: "https://imagemarker.app/en/waitlist" },
-        { hreflang: "ja", href: "https://imagemarker.app/ja/waitlist" },
-        { hreflang: "x-default", href: "https://imagemarker.app/en/waitlist" },
-      ],
+      // 手寫的那版漏了 hreflang="zh"，全站其他 108 個 URL 都有——同一個 cluster
+      // 在 sitemap 與 HTML 兩邊必須逐條一致，少一條就是不對稱的 cluster。
+      // 改走 localeAlternates 就不會再各寫各的。
+      alternates: localeAlternates({
+        zh: "/waitlist",
+        en: "/en/waitlist",
+        ja: "/ja/waitlist",
+      }),
     });
   }, [lang, t]);
 

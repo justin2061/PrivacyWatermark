@@ -53,6 +53,24 @@ function getRoutes() {
   return Array.from(new Set(routes));
 }
 
+// Every route the app answers but the sitemap doesn't list. Such a route is
+// never prerendered, so Netlify falls through to the SPA redirect and serves
+// dist/index.html — i.e. the Chinese homepage's title, canonical and hreflang —
+// at a 200. That is how /waitlist, /en/waitlist and /ja/waitlist spent their
+// whole life advertising themselves to Google as duplicates of "/".
+// Warning only: excluding a route can be deliberate, but it has to be a choice.
+function routesMissingFromSitemap(sitemapRoutes) {
+  const appTsx = join(projectRoot, "client/src/App.tsx");
+  if (!existsSync(appTsx)) return [];
+  const src = readFileSync(appTsx, "utf-8");
+  // Only literal paths; the convert-pair routes are template literals built from
+  // PAIRS and are listed in the sitemap by their generator.
+  const declared = [...src.matchAll(/path="([^"]+)"/g)].map((m) => m[1]);
+  const norm = (r) => r.replace(/\/$/, "") || "/";
+  const known = new Set(sitemapRoutes.map(norm));
+  return [...new Set(declared.map(norm))].filter((r) => !known.has(r));
+}
+
 function outPathFor(route) {
   if (route === "/" || route === "") return join(distDir, "index.html");
   const clean = route.replace(/^\//, "").replace(/\/$/, "");
@@ -103,6 +121,16 @@ async function main() {
     bail("no routes found in dist/sitemap.xml");
   }
   console.log(`[prerender] prerendering ${routes.length} routes…`);
+
+  const orphans = routesMissingFromSitemap(routes);
+  if (orphans.length > 0) {
+    console.warn(
+      `[prerender] routes not in sitemap.xml (${orphans.length}) — these serve ` +
+        `the homepage shell verbatim:\n  ` + orphans.join("\n  ")
+    );
+  } else {
+    console.log("[prerender] sitemap coverage ✓ — every declared route is listed.");
+  }
 
   const server = await preview({ preview: { port: 4183, strictPort: false } });
   const base = (server.resolvedUrls?.local?.[0] || "http://localhost:4183").replace(
