@@ -437,6 +437,20 @@ const CARDS = [
     title: "マイナンバーカードの\nコピーを安全に送る",
     sub: "送る前にやっておきたい対策をまとめました。",
   },
+  {
+    locale: "ja",
+    slug: "my-number-card-watermark",
+    kicker: "チュートリアル · マイナンバー",
+    title: "マイナンバーカードの\nコピーに透かしを入れる",
+    sub: "口座開設・携帯契約・不動産、提出シーン別の3ステップ。",
+  },
+  {
+    locale: "ja",
+    slug: "passport-copy-privacy-guide",
+    kicker: "プライバシー · パスポート",
+    title: "パスポートコピーの\n個人情報保護ガイド",
+    sub: "旅券番号・自署・MRZ を守る、渡す前の4つの対策。",
+  },
 ];
 
 const esc = (s) =>

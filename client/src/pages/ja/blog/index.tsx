@@ -13,6 +13,22 @@ interface Article {
 
 const articles: Article[] = [
   {
+    slug: "my-number-card-watermark",
+    title: "マイナンバーカードのコピーに透かしを入れる方法",
+    excerpt:
+      "銀行の口座開設、携帯電話の契約、不動産の手続き。提出先・用途・日付を透かしで書き込む手順と、シーンごとに「どの面を出すか」「番号まで要るのか」の判断を整理しました。",
+    date: "2026-08-17",
+    category: "使い方",
+  },
+  {
+    slug: "passport-copy-privacy-guide",
+    title: "パスポートコピーの個人情報保護ガイド",
+    excerpt:
+      "旅券番号だけではありません。自署とMRZ（下2行）まで写り込むのがパスポートのコピーです。マスキング・透かし・EXIF削除の手順と、海外滞在中の扱い方をまとめます。",
+    date: "2026-08-17",
+    category: "プライバシー",
+  },
+  {
     slug: "id-copy-watermark",
     title: "身分証のコピーに透かしを入れる方法",
     excerpt:

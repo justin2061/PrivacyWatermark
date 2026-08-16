@@ -12,6 +12,8 @@ import JaBlogIndex from "@/pages/ja/blog/index";
 import JaIdCopyWatermark from "@/pages/ja/blog/id-copy-watermark";
 import JaMyNumberCardCopySafe from "@/pages/ja/blog/my-number-card-copy-safe";
 import JaDocumentWatermarkTool from "@/pages/ja/blog/document-watermark-tool";
+import JaMyNumberCardWatermark from "@/pages/ja/blog/my-number-card-watermark";
+import JaPassportCopyPrivacyGuide from "@/pages/ja/blog/passport-copy-privacy-guide";
 import WatermarkPhotosOnlineEn from "@/pages/en/blog/watermark-photos-online";
 import WatermarkIdDocumentsEn from "@/pages/en/blog/watermark-id-documents";
 import WatermarkPhotosFreeEn from "@/pages/en/blog/watermark-photos-free";
@@ -106,6 +108,8 @@ function Router() {
       <Route path="/ja/blog/id-copy-watermark" component={JaIdCopyWatermark} />
       <Route path="/ja/blog/my-number-card-copy-safe" component={JaMyNumberCardCopySafe} />
       <Route path="/ja/blog/document-watermark-tool" component={JaDocumentWatermarkTool} />
+      <Route path="/ja/blog/my-number-card-watermark" component={JaMyNumberCardWatermark} />
+      <Route path="/ja/blog/passport-copy-privacy-guide" component={JaPassportCopyPrivacyGuide} />
       <Route path="/en/blog" component={EnBlogIndex} />
       <Route path="/en/blog/watermark-photos-online" component={WatermarkPhotosOnlineEn} />
       <Route path="/en/blog/watermark-id-documents" component={WatermarkIdDocumentsEn} />

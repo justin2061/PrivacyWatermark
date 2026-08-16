@@ -239,13 +239,15 @@ const SYMMETRIC_PATHS = new Set<string>([
   ...TOOLS.filter((tool) => tool.slug !== "").map((tool) => `/${tool.slug}`),
 ]);
 
-/** 日文版目前只翻譯了首頁工具與部落格（含 3 篇文章）。 */
+/** 日文版目前只翻譯了首頁工具與部落格（含 5 篇文章）。 */
 const JA_PATHS = new Set([
   "/",
   "/blog",
   "/blog/id-copy-watermark",
   "/blog/my-number-card-copy-safe",
   "/blog/document-watermark-tool",
+  "/blog/my-number-card-watermark",
+  "/blog/passport-copy-privacy-guide",
 ]);
 
 function existsIn(base: string, lang: Lang): boolean {
