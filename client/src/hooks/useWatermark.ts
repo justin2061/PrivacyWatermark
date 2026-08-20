@@ -1,5 +1,8 @@
 import { useState, useRef, useCallback } from "react";
-import { WatermarkSettings } from "@/components/watermark/WatermarkControls";
+import {
+  WatermarkSettings,
+  DEFAULT_DIAGONAL_FONT_SIZE,
+} from "@/components/watermark/WatermarkControls";
 import { WatermarkProcessor } from "@/lib/watermarkProcessor";
 
 export function useWatermark() {
@@ -21,6 +24,8 @@ export function useWatermark() {
     text: "僅供參考",
     textOpacity: 50,
     textPosition: "center",
+    textLayout: "tiled",
+    diagonalFontSize: DEFAULT_DIAGONAL_FONT_SIZE,
     fontSize: "medium",
     color: "#000000",
     logoSrc: null,

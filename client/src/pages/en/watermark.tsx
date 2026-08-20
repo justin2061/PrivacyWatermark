@@ -13,7 +13,7 @@ import { ProcessingStatus } from "@/components/watermark/ProcessingStatus";
 import { DownloadSuccess } from "@/components/DownloadSuccess";
 import { WaitlistCTA } from "@/components/WaitlistCTA";
 import { useWatermark } from "@/hooks/useWatermark";
-import { trackToolUseStart, trackDownloadComplete } from "@/lib/analytics";
+import { trackToolUseStart, trackDownloadComplete, trackWatermarkLayoutMode } from "@/lib/analytics";
 import { setPageSeo, webAppSchema, localeAlternates } from "@/lib/seo";
 import { Lock, Zap, Eraser } from "lucide-react";
 
@@ -134,7 +134,7 @@ export default function WatermarkEnPage() {
                 </button>
 
                 <button
-                  onClick={() => { if (typeof gtag !== 'undefined') gtag('event', 'download_image'); trackDownloadComplete("watermark", 1); downloadImage(); }}
+                  onClick={() => { if (typeof gtag !== 'undefined') gtag('event', 'download_image'); trackDownloadComplete("watermark", 1); trackWatermarkLayoutMode(watermarkSettings.textLayout, "watermark"); downloadImage(); }}
                   disabled={!processedImage}
                   aria-label="Download processed image"
                   className="w-full bg-green-600 text-white py-3 px-4 rounded-lg hover:bg-green-700 transition-colors font-medium disabled:bg-gray-400 disabled:cursor-not-allowed flex items-center justify-center"

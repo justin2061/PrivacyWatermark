@@ -253,6 +253,23 @@ export function trackDownloadComplete(
 }
 
 /**
+ * 下載時記錄浮水印的排列方式（tiled／diagonal）。
+ * 用來判斷「斜放」這個新選項有多少人真的會用，以及要不要把它變成預設。
+ * 只送排列方式與工具名，不送浮水印文字（可能夾帶姓名、公司等 PII）。
+ */
+export function trackWatermarkLayoutMode(
+  layout: "tiled" | "diagonal",
+  toolName: string,
+): void {
+  if (typeof gtag !== "undefined") {
+    gtag("event", "watermark_layout_mode", {
+      layout,
+      tool_name: toolName,
+    });
+  }
+}
+
+/**
  * Pro 提示（第 11 張以上批次上限提示）被顯示時觸發。
  */
 export function trackProPromptShown(

@@ -1,6 +1,9 @@
 import { useState, useRef, useCallback, useEffect } from "react";
 import JSZip from "jszip";
-import { WatermarkSettings } from "@/components/watermark/WatermarkControls";
+import {
+  WatermarkSettings,
+  DEFAULT_DIAGONAL_FONT_SIZE,
+} from "@/components/watermark/WatermarkControls";
 import { WatermarkProcessor } from "@/lib/watermarkProcessor";
 
 export interface BatchImage {
@@ -66,6 +69,8 @@ export function useBatchWatermark(lang: Lang = "zh") {
     text: COPY[lang].defaultText,
     textOpacity: 50,
     textPosition: "center",
+    textLayout: "tiled",
+    diagonalFontSize: DEFAULT_DIAGONAL_FONT_SIZE,
     fontSize: "medium",
     color: "#000000",
     logoSrc: null,

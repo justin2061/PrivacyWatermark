@@ -13,7 +13,7 @@ import { WatermarkControls } from "@/components/watermark/WatermarkControls";
 import { UploadZone } from "@/components/UploadZone";
 import { ActionButton } from "@/components/ActionButtons";
 import { setPageSeo, webAppSchema, localeAlternates } from "@/lib/seo";
-import { trackToolUseStart, trackDownloadComplete } from "@/lib/analytics";
+import { trackToolUseStart, trackDownloadComplete, trackWatermarkLayoutMode } from "@/lib/analytics";
 import {
   useBatchWatermark,
   MAX_FILES,
@@ -265,6 +265,7 @@ export default function BatchPage() {
                   variant="success"
                   onClick={() => {
                     trackDownloadComplete("batch", images.length);
+                    trackWatermarkLayoutMode(watermarkSettings.textLayout, "batch");
                     downloadZip();
                   }}
                   disabled={!allProcessed || isProcessing}

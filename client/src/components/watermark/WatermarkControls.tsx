@@ -16,6 +16,16 @@ export type WatermarkPosition =
   | 'bottom-left' | 'bottom-center' | 'bottom-right'
   | 'repeat';
 
+// How a repeating text watermark is laid out:
+//   tiled    —— 舖滿整張圖的斜向 pattern（原本「重複」的行為）
+//   diagonal —— 正中央只放一行斜字，適合不想蓋住證件內容的情境
+export type WatermarkLayout = 'tiled' | 'diagonal';
+
+// 斜放模式的字級（px，以 600px 預覽寬為基準；見 watermarkProcessor 的換算）
+export const DIAGONAL_FONT_SIZE_MIN = 16;
+export const DIAGONAL_FONT_SIZE_MAX = 72;
+export const DEFAULT_DIAGONAL_FONT_SIZE = 36;
+
 export interface WatermarkSettings {
   mode: 'text' | 'image'; // which settings tab is currently being edited (UI state)
   // Text and logo watermarks can be enabled independently and used together
@@ -26,6 +36,8 @@ export interface WatermarkSettings {
   text: string;
   textOpacity: number; // 0-100
   textPosition: WatermarkPosition;
+  textLayout: WatermarkLayout; // 只在 textPosition === 'repeat' 時生效，預設 'tiled'（＝原行為）
+  diagonalFontSize: number; // 斜放模式的字級（16-72），單條文字需要自己調大小
   fontSize: 'small' | 'medium' | 'large' | 'xlarge';
   color: string; // text watermark color as hex
 
@@ -87,6 +99,11 @@ export function WatermarkControls({ settings, onSettingsChange, disabled, lang =
       alertType: '僅支援 PNG、JPG、SVG 格式的 Logo 圖片',
       alertSize: 'Logo 圖片請小於 5MB',
       positionAria: (l: string) => `浮水印位置: ${l}`,
+      layout: '排列方式',
+      layoutTiled: '平鋪',
+      layoutDiagonal: '斜放',
+      diagonalSize: (n: number) => `大小: ${n}px`,
+      tiledSaferHint: '平鋪模式較難移除，建議用於敏感文件',
     },
     en: {
       settings: 'Watermark Settings',
@@ -122,6 +139,11 @@ export function WatermarkControls({ settings, onSettingsChange, disabled, lang =
       alertType: 'Only PNG, JPG and SVG logos are supported',
       alertSize: 'Logo must be smaller than 5MB',
       positionAria: (l: string) => `Watermark position: ${l}`,
+      layout: 'Layout',
+      layoutTiled: 'Tiled',
+      layoutDiagonal: 'Diagonal',
+      diagonalSize: (n: number) => `Size: ${n}px`,
+      tiledSaferHint: 'Tiled mode is harder to remove. Recommended for sensitive documents.',
     },
     ja: {
       settings: '透かしの設定',
@@ -157,6 +179,11 @@ export function WatermarkControls({ settings, onSettingsChange, disabled, lang =
       alertType: 'ロゴは PNG・JPG・SVG 形式のみ対応しています',
       alertSize: 'ロゴ画像は 5MB 未満にしてください',
       positionAria: (l: string) => `透かしの位置: ${l}`,
+      layout: '配置',
+      layoutTiled: 'タイル',
+      layoutDiagonal: '斜め',
+      diagonalSize: (n: number) => `大きさ: ${n}px`,
+      tiledSaferHint: 'タイルモードは除去が困難です。機密書類にはタイルモードを推奨します。',
     },
   }[lang];
 
@@ -288,11 +315,68 @@ export function WatermarkControls({ settings, onSettingsChange, disabled, lang =
 
   const repeatLabel = { zh: '重複', en: 'Repeat', ja: '繰り返し' }[lang];
 
+  const layoutOptions: { value: WatermarkLayout; label: string }[] = [
+    { value: 'tiled', label: t.layoutTiled },
+    { value: 'diagonal', label: t.layoutDiagonal },
+  ];
+
+  // 排列方式（平鋪／斜放）＋ 斜放專用的大小滑桿。只掛在文字浮水印的「重複」
+  // 底下：平鋪就是原本的 pattern 填滿，斜放則是正中央一行斜字，因為只有一條
+  // 文字，得自己調字級才看得清楚。
+  const renderTextLayoutControl = () => (
+    <div className="mt-3">
+      <Label className="block text-sm font-medium text-gray-700 mb-2">{t.layout}</Label>
+      {/* flex-1 讓兩顆按鈕各撐一半寬度，手機版一行就放得下 */}
+      <div className="flex gap-1 p-1 bg-gray-100 rounded-lg" role="group" aria-label={t.layout}>
+        {layoutOptions.map((option) => (
+          <button
+            key={option.value}
+            type="button"
+            onClick={() => onSettingsChange({ textLayout: option.value })}
+            disabled={textControlsDisabled}
+            aria-pressed={settings.textLayout === option.value}
+            className={`flex-1 py-2 px-3 text-sm font-medium rounded-md transition-colors ${
+              settings.textLayout === option.value
+                ? 'bg-white text-primary shadow-sm'
+                : 'text-gray-600 hover:text-gray-900'
+            } ${textControlsDisabled ? 'opacity-50 cursor-not-allowed' : ''}`}
+          >
+            {option.label}
+          </button>
+        ))}
+      </div>
+
+      {settings.textLayout === 'diagonal' && (
+        <>
+          <div className="mt-3">
+            <Label htmlFor="diagonalSizeSlider" className="block text-sm font-medium text-gray-700 mb-2">
+              {t.diagonalSize(settings.diagonalFontSize)}
+            </Label>
+            <Slider
+              id="diagonalSizeSlider"
+              value={[settings.diagonalFontSize]}
+              onValueChange={(value) => onSettingsChange({ diagonalFontSize: value[0] })}
+              min={DIAGONAL_FONT_SIZE_MIN}
+              max={DIAGONAL_FONT_SIZE_MAX}
+              step={2}
+              disabled={textControlsDisabled}
+              className="w-full"
+              aria-label={t.diagonalSize(settings.diagonalFontSize)}
+            />
+          </div>
+          {/* 斜放比較容易被裁掉／塗掉，順手把平鋪的好處講清楚 */}
+          <p className="mt-2 text-xs text-amber-600">{t.tiledSaferHint}</p>
+        </>
+      )}
+    </div>
+  );
+
   // Shared 9-grid + repeat position picker (used by both text and logo panels)
   const renderPositionGrid = (
     current: WatermarkPosition,
     onChange: (p: WatermarkPosition) => void,
     controlDisabled: boolean,
+    extra?: React.ReactNode,
   ) => (
     <div>
       <Label className="block text-sm font-medium text-gray-700 mb-2">{t.position}</Label>
@@ -332,6 +416,7 @@ export function WatermarkControls({ settings, onSettingsChange, disabled, lang =
         <Repeat className="w-4 h-4" aria-hidden="true" />
         <span>{repeatLabel}</span>
       </button>
+      {current === 'repeat' && extra}
     </div>
   );
 
@@ -341,6 +426,8 @@ export function WatermarkControls({ settings, onSettingsChange, disabled, lang =
   ] as const;
 
   const textControlsDisabled = disabled || !settings.textEnabled;
+  // 斜放時字級改由「大小」滑桿決定，字體大小下拉就不再有作用
+  const isDiagonalText = settings.textPosition === 'repeat' && settings.textLayout === 'diagonal';
   const logoControlsDisabled = disabled || !settings.logoEnabled;
 
   return (
@@ -504,6 +591,7 @@ export function WatermarkControls({ settings, onSettingsChange, disabled, lang =
           settings.textPosition,
           (p) => onSettingsChange({ textPosition: p }),
           textControlsDisabled,
+          renderTextLayoutControl(),
         )}
 
         {/* Font Size — 使用原生 <select>：手機上採用系統原生選單，避免 Radix Select
@@ -515,7 +603,7 @@ export function WatermarkControls({ settings, onSettingsChange, disabled, lang =
             id="fontSizeSelect"
             value={settings.fontSize}
             onChange={(e) => onSettingsChange({ fontSize: e.target.value as WatermarkSettings['fontSize'] })}
-            disabled={textControlsDisabled}
+            disabled={textControlsDisabled || isDiagonalText}
             aria-label={t.fontSize}
             className="flex h-10 w-full items-center rounded-md border border-input bg-background px-3 py-2 text-base sm:text-sm ring-offset-background focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
           >

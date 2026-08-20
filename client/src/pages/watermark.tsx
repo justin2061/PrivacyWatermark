@@ -16,7 +16,7 @@ import { WaitlistCTA } from "@/components/WaitlistCTA";
 import { BotBlockNotice } from "@/components/ProtectionNotice";
 import { detectProtection } from "@/lib/protection";
 import { useWatermark } from "@/hooks/useWatermark";
-import { trackToolUseStart, trackDownloadComplete } from "@/lib/analytics";
+import { trackToolUseStart, trackDownloadComplete, trackWatermarkLayoutMode } from "@/lib/analytics";
 import { setPageSeo, webAppSchema, faqSchema, localeAlternates } from "@/lib/seo";
 import { Lock, Zap, Eraser, Loader2 } from "lucide-react";
 
@@ -186,7 +186,7 @@ export default function WatermarkPage() {
                 </button>
 
                 <button
-                  onClick={() => { if (typeof gtag !== 'undefined') gtag('event', 'download_image'); trackDownloadComplete("watermark", 1); downloadImage(); }}
+                  onClick={() => { if (typeof gtag !== 'undefined') gtag('event', 'download_image'); trackDownloadComplete("watermark", 1); trackWatermarkLayoutMode(watermarkSettings.textLayout, "watermark"); downloadImage(); }}
                   disabled={!processedImage}
                   aria-label="下載處理後的圖片"
                   className="w-full bg-green-600 text-white py-3 px-4 rounded-lg hover:bg-green-700 transition-colors font-medium disabled:bg-gray-400 disabled:cursor-not-allowed flex items-center justify-center"

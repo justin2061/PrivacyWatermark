@@ -1,4 +1,14 @@
-import { WatermarkSettings, WatermarkPosition } from "@/components/watermark/WatermarkControls";
+import {
+  WatermarkSettings,
+  WatermarkPosition,
+  DEFAULT_DIAGONAL_FONT_SIZE,
+  DIAGONAL_FONT_SIZE_MIN,
+  DIAGONAL_FONT_SIZE_MAX,
+} from "@/components/watermark/WatermarkControls";
+
+// 預覽畫布的基準寬度（loadImageToCanvas 的 maxWidth）。斜放的「大小」滑桿是
+// 以這個寬度為準的 px 值，實際畫的時候按畫布寬等比放大，預覽與原尺寸輸出才會一致。
+const DIAGONAL_REFERENCE_WIDTH = 600;
 
 export class WatermarkProcessor {
   // Cache the most recently loaded logo so we don't decode it on every render
@@ -182,7 +192,10 @@ export class WatermarkProcessor {
     settings: WatermarkSettings,
     fullRes: boolean
   ) {
-    const fontSize = this.getFontSize(settings.fontSize, width);
+    const isDiagonal = settings.textPosition === 'repeat' && settings.textLayout === 'diagonal';
+    const fontSize = isDiagonal
+      ? this.getDiagonalFontSize(settings.diagonalFontSize, width)
+      : this.getFontSize(settings.fontSize, width);
     ctx.font = `bold ${fontSize}px Inter, sans-serif`;
     const { r, g, b } = this.hexToRgb(settings.color);
     ctx.fillStyle = `rgba(${r}, ${g}, ${b}, ${settings.textOpacity / 100})`;
@@ -196,9 +209,13 @@ export class WatermarkProcessor {
     ctx.shadowOffsetX = fullRes ? Math.max(1, Math.floor(width / 600)) : 1;
     ctx.shadowOffsetY = fullRes ? Math.max(1, Math.floor(width / 600)) : 1;
 
-    // Tiled / repeated pattern across the whole image
+    // Tiled pattern across the whole image, or a single diagonal line at its centre
     if (settings.textPosition === 'repeat') {
-      this.drawTextRepeat(ctx, width, height, settings, fontSize);
+      if (isDiagonal) {
+        this.drawTextDiagonal(ctx, width, height, settings);
+      } else {
+        this.drawTextRepeat(ctx, width, height, settings, fontSize);
+      }
       this.resetShadow(ctx);
       return;
     }
@@ -249,11 +266,40 @@ export class WatermarkProcessor {
     ctx.restore();
   }
 
+  // Draw a single line of text across the centre of the image, tilted -30°
+  private drawTextDiagonal(
+    ctx: CanvasRenderingContext2D,
+    width: number,
+    height: number,
+    settings: WatermarkSettings
+  ) {
+    const text = settings.text || '';
+    if (!text) return;
+
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    const angle = (-30 * Math.PI) / 180;
+
+    ctx.save();
+    ctx.translate(width / 2, height / 2);
+    ctx.rotate(angle);
+    ctx.fillText(text, 0, 0);
+    ctx.restore();
+  }
+
   private resetShadow(ctx: CanvasRenderingContext2D) {
     ctx.shadowColor = 'transparent';
     ctx.shadowBlur = 0;
     ctx.shadowOffsetX = 0;
     ctx.shadowOffsetY = 0;
+  }
+
+  // 斜放模式的字級：滑桿的 px 值是相對 600px 預覽寬，按實際畫布寬等比縮放，
+  // 讓預覽看到的比例＝下載後原尺寸圖片上的比例。
+  private getDiagonalFontSize(size: number | undefined, canvasWidth: number): number {
+    const raw = size ?? DEFAULT_DIAGONAL_FONT_SIZE;
+    const clamped = Math.min(DIAGONAL_FONT_SIZE_MAX, Math.max(DIAGONAL_FONT_SIZE_MIN, raw));
+    return Math.max(8, (clamped * canvasWidth) / DIAGONAL_REFERENCE_WIDTH);
   }
 
   private getFontSize(size: WatermarkSettings['fontSize'], canvasWidth: number): number {
