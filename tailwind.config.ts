@@ -79,10 +79,22 @@ export default {
             height: "0",
           },
         },
+        "fade-in": {
+          from: {
+            opacity: "0",
+          },
+          to: {
+            opacity: "1",
+          },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        // 掛載即淡入。刻意用 animation 而非 transition：transition 需要先畫過一幀
+        // opacity-0 才會生效（要靠 rAF 翻 class），而背景分頁的 rAF 不會執行，
+        // 使用者切回來時那行字會卡在全透明。animation 沒有這個相依。
+        "fade-in": "fade-in 0.3s ease-in-out both",
       },
     },
   },

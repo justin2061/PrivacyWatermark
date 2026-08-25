@@ -6,6 +6,7 @@ import { ToolsShowcase } from "@/components/ToolsShowcase";
 import { PrivacyBanner } from "@/components/PrivacyBanner";
 import { ProUpsell } from "@/components/ProUpsell";
 import { DownloadSuccess } from "@/components/DownloadSuccess";
+import { PostDownloadHint } from "@/components/PostDownloadHint";
 import { ToolRecommendations } from "@/components/ToolRecommendations";
 import { BotBlockNotice } from "@/components/ProtectionNotice";
 import { detectProtection } from "@/lib/protection";
@@ -278,6 +279,8 @@ export default function BatchPage() {
                 >
                   下載全部（ZIP）
                 </ActionButton>
+
+                <PostDownloadHint tool="batch" lang="zh" />
 
                 <ActionButton
                   variant="neutral"

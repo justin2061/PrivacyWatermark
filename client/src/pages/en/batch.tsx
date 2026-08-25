@@ -6,6 +6,7 @@ import { ToolsShowcase } from "@/components/ToolsShowcase";
 import { PrivacyBanner } from "@/components/PrivacyBanner";
 import { ProUpsell } from "@/components/ProUpsell";
 import { DownloadSuccess } from "@/components/DownloadSuccess";
+import { PostDownloadHint } from "@/components/PostDownloadHint";
 import { ToolRecommendations } from "@/components/ToolRecommendations";
 import { WatermarkControls } from "@/components/watermark/WatermarkControls";
 import { UploadZone } from "@/components/UploadZone";
@@ -258,6 +259,8 @@ export default function BatchEnPage() {
                 >
                   Download All (ZIP)
                 </ActionButton>
+
+                <PostDownloadHint tool="batch" lang="en" />
 
                 <ActionButton
                   variant="neutral"

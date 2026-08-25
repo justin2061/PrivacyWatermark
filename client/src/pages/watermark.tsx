@@ -13,6 +13,7 @@ import { CanvasPreview } from "@/components/watermark/CanvasPreview";
 import { ProcessingStatus } from "@/components/watermark/ProcessingStatus";
 import { DownloadSuccess } from "@/components/DownloadSuccess";
 import { WaitlistCTA } from "@/components/WaitlistCTA";
+import { PostDownloadHint } from "@/components/PostDownloadHint";
 import { BotBlockNotice } from "@/components/ProtectionNotice";
 import { detectProtection } from "@/lib/protection";
 import { useWatermark } from "@/hooks/useWatermark";
@@ -194,6 +195,8 @@ export default function WatermarkPage() {
                   <span className="mr-2" aria-hidden="true">📥</span>
                   下載圖片
                 </button>
+
+                <PostDownloadHint tool="watermark" lang="zh" />
 
                 <button
                   onClick={resetCanvas}

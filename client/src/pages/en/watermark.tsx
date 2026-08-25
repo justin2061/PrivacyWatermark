@@ -12,6 +12,7 @@ import { CanvasPreview } from "@/components/watermark/CanvasPreview";
 import { ProcessingStatus } from "@/components/watermark/ProcessingStatus";
 import { DownloadSuccess } from "@/components/DownloadSuccess";
 import { WaitlistCTA } from "@/components/WaitlistCTA";
+import { PostDownloadHint } from "@/components/PostDownloadHint";
 import { useWatermark } from "@/hooks/useWatermark";
 import { trackToolUseStart, trackDownloadComplete, trackWatermarkLayoutMode } from "@/lib/analytics";
 import { setPageSeo, webAppSchema, localeAlternates } from "@/lib/seo";
@@ -142,6 +143,8 @@ export default function WatermarkEnPage() {
                   <span className="mr-2" aria-hidden="true">📥</span>
                   Download Image
                 </button>
+
+                <PostDownloadHint tool="watermark" lang="en" />
 
                 <button
                   onClick={resetCanvas}
