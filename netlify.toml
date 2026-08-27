@@ -29,11 +29,80 @@
 #
 # pretty_urls = false keeps Netlify from injecting its own trailing-slash redirects,
 # so both forms stay a plain 200.
+#
+# 2026-08-27 複查：GSC 從 7/25 起把 /en/blog/watermark-best-practices、
+# /en/blog/batch-watermark-images、/en/blog/watermark-id-documents 與
+# /blog/watermark-templates-guide 列為「網頁會重新導向」，但以 Googlebot UA 實測
+# 四個網址都是 200、canonical 皆自我指向、標題正確，斜線版也回同一份 HTML 與同一個
+# 無斜線 canonical——線上狀態已經是對的，報告落後於索引現況，等重新驗證通過即可。
+# 這四頁都還在 sitemap.xml，且應該留著（它們是有效頁面，不是待移除的舊網址）。
+# 千萬不要為了「擇一」而在這裡加斜線 301，理由見上面那段：一定會變成無限迴圈。
 [build.processing]
   skip_processing = false
 
 [build.processing.html]
   pretty_urls = false
+
+# /ja/<tool> — 轉址式 404（GSC「網頁會重新導向」）。
+#
+# 日文版目前只有首頁工具＋/ja/blog，其餘工具一律退回英文版（見 lib/tools 的
+# ja → en fallback）。但 /ja/exif-clean 這類路徑在 App.tsx 沒有 route，也不在
+# sitemap 裡，於是掉進下面的 SPA fallback、以 200 回傳 dist/index.html——
+# 也就是中文首頁的 title 與 canonical="https://imagemarker.app/"。Google 看到
+# 的就是「這個網址自稱是首頁」，因此判定為重新導向／軟性 404。
+#
+# 修法是明確 301 到對應的英文工具頁（該頁確實存在且回 200）。
+# 注意三件事：
+#   1. 這些規則必須排在下面的 /* fallback 之前，Netlify 先比對到的先贏。
+#   2. 不使用 force = true，也不使用 /ja/* 萬用字元——靜態檔優先於非 force
+#      的 redirect，所以未來若真的補上日文版工具頁並進 sitemap，prerender 產出的
+#      dist/ja/<tool>/index.html 會自動蓋過這裡，不必回來刪規則；萬用字元則會
+#      誤傷 /ja/blog/* 與 /ja/waitlist。
+#   3. Netlify 比對時會忽略結尾斜線，所以 /ja/exif-clean/ 也一併涵蓋。
+[[redirects]]
+  from = "/ja/exif-clean"
+  to = "/en/exif-clean"
+  status = 301
+
+[[redirects]]
+  from = "/ja/batch"
+  to = "/en/batch"
+  status = 301
+
+[[redirects]]
+  from = "/ja/compress"
+  to = "/en/compress"
+  status = 301
+
+[[redirects]]
+  from = "/ja/convert"
+  to = "/en/convert"
+  status = 301
+
+[[redirects]]
+  from = "/ja/mosaic"
+  to = "/en/mosaic"
+  status = 301
+
+[[redirects]]
+  from = "/ja/pdf-watermark"
+  to = "/en/pdf-watermark"
+  status = 301
+
+[[redirects]]
+  from = "/ja/remove-bg"
+  to = "/en/remove-bg"
+  status = 301
+
+[[redirects]]
+  from = "/ja/resize"
+  to = "/en/resize"
+  status = 301
+
+[[redirects]]
+  from = "/ja/social-crop"
+  to = "/en/social-crop"
+  status = 301
 
 # Static prerendered files (dist/**/index.html) are served automatically and
 # take precedence over this SPA fallback, so crawlers get full HTML. This
