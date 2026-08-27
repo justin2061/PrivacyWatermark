@@ -415,6 +415,13 @@ const CARDS = [
   },
   {
     locale: "zh",
+    slug: "id-copy-annotation-templates",
+    kicker: "範本 · 簽註",
+    title: "身分證影本\n簽註範本 20 組",
+    sub: "常見場景寫好的簽註文字，一鍵複製直接用。",
+  },
+  {
+    locale: "zh",
     slug: "watermark-templates-guide",
     kicker: "範例 · 簽註",
     title: "身分證影本\n簽註寫法與位置",
