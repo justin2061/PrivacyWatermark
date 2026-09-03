@@ -8,8 +8,16 @@ import {
 } from "@/lib/analytics";
 import type { Lang } from "@/lib/tools";
 
-/** 這個觸發點的埋點 location，用來與其他位置的 CTA 分開比較轉換率。 */
-const LOCATION = "post-download";
+/**
+ * 這個觸發點的埋點 location，用來與其他位置的 CTA 分開比較轉換率。
+ *
+ * 用 snake_case 與其他 location 一致（download_success / homepage / blog_article /
+ * waitlist_page）。原本寫成 "post-download"，是全站唯一用連字號的值——在 GA4 裡
+ * 按 location 分組或寫篩選條件時很容易漏掉它，而漏掉它就等於把「剛下載完的高意圖
+ * 時刻」混進純瀏覽的分母裡，算出來的 CTR 直接失真。
+ * 2026-09-03 改名，此日之前的資料仍記為 "post-download"，跨日比較時要把兩個值一起選。
+ */
+const LOCATION = "post_download";
 
 /** 下載完成到淡入之間的間隔：讓「檔案存好了」先落地，再出現這行字。 */
 const APPEAR_DELAY_MS = 1000;
@@ -61,7 +69,7 @@ interface PostDownloadHintProps {
  * 只在桌面版掛載：手機螢幕小，任何多出來的一行都更接近干擾，先不動（沿用全站 768px 斷點）。
  * 也只掛在浮水印與批次浮水印兩種頁面（見 HintTool），文案分工具問下一個天花板。
  *
- * 埋點：waitlist_cta_view / waitlist_cta_click，location 皆為 post-download。
+ * 埋點：waitlist_cta_view / waitlist_cta_click，location 皆為 post_download。
  * 曝光同樣走 IntersectionObserver，與其他位置的曝光定義一致，數字才能直接比。
  */
 export function PostDownloadHint({ tool, lang = "zh", className = "" }: PostDownloadHintProps) {
@@ -131,7 +139,7 @@ export function PostDownloadHint({ tool, lang = "zh", className = "" }: PostDown
     return () => observer.disconnect();
   }, [mounted, tool, lang]);
 
-  // 手機版暫時不加這個觸發點——連事件監聽都不掛，不會產生 post-download 的曝光數。
+  // 手機版暫時不加這個觸發點——連事件監聽都不掛，不會產生 post_download 的曝光數。
   if (isMobile || !c || !mounted) return null;
 
   return (

@@ -313,16 +313,40 @@ export function trackProWaitlistSignup(
 }
 
 /* -------------------------------------------------------------------------- */
-/*  /waitlist 候補頁漏斗                                                        */
-/*  下載完成 CTA 曝光 → 點擊 → 到達候補頁 → 送出表單。四個事件串起來才能算出       */
-/*  「處理完的人裡有多少對付費有興趣」，也是決定定價（單次 vs 年費）的唯一訊號。   */
+/*  功能許願漏斗（候補名單）                                                    */
+/*                                                                            */
+/*  這裡是兩條彼此獨立的漏斗，不是一條四步驟的鏈。不要把它們相除：              */
+/*                                                                            */
+/*    A. 站上 inline CTA（絕大多數的量都在這裡）                                */
+/*       waitlist_cta_view → waitlist_cta_click → waitlist_submit             */
+/*       自 2026-08-12 起 CTA 一律就地展開表單，全程不離開當前頁面。            */
+/*       三個事件都帶 location，且必須先按 location 拆開才能算轉換率：          */
+/*       blog_article 是純瀏覽、post_download 是剛下載完的高意圖時刻，          */
+/*       意圖天差地遠，加總後的 CTR 沒有任何意義。                              */
+/*                                                                            */
+/*    B. /waitlist 獨立頁（量極少）                                             */
+/*       waitlist_view → waitlist_submit（location = "waitlist_page"）         */
+/*       這頁只能由直接輸入網址、搜尋或分享連結進入——全站沒有任何 CTA 連到這裡。 */
+/*                                                                            */
+/*  所以 waitlist_view 不是 waitlist_cta_click 的下一步。用 cta_click 除以      */
+/*  waitlist_view 算出來的「掉落率」是假的：分子與分母來自兩條不同的動線。      */
+/*  要看 inline CTA 的轉換，分母用 waitlist_cta_view、分子用同一個 location     */
+/*  的 waitlist_submit，兩邊 location 必須一致。                                */
 /* -------------------------------------------------------------------------- */
 
-/** 候補頁被瀏覽時觸發（每次掛載一次）。lang 用來分辨語系版本的轉換差異。 */
+/**
+ * /waitlist 獨立頁被瀏覽時觸發（每次掛載一次）。lang 用來分辨語系版本的轉換差異。
+ *
+ * 這不是 waitlist_cta_click 的下一步。站上的 CTA 自 2026-08-12 起就地展開表單，
+ * 沒有任何一個 CTA 會導到這頁，因此這個數字永遠遠小於 cta_click 是預期行為，
+ * 不是「點了卻沒到達表單頁」。帶 location 是為了讓事件在 GA4 裡自己講清楚來源，
+ * 不要再被當成 CTA 的落地頁。詳見上方兩條漏斗的說明。
+ */
 export function trackWaitlistView(lang: string): void {
   if (typeof gtag !== "undefined") {
     gtag("event", "waitlist_view", {
       lang,
+      location: "waitlist_page",
     });
   }
 }
