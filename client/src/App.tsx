@@ -28,6 +28,7 @@ import BestWatermarkGeneratorsEn from "@/pages/en/blog/best-watermark-generators
 import RemoveExifDataGuideEn from "@/pages/en/blog/remove-exif-data-guide";
 import PdfWatermarkOnlineFreeEn from "@/pages/en/blog/pdf-watermark-online-free";
 import WatermarkMyKadMalaysiaEn from "@/pages/en/blog/watermark-mykad-malaysia";
+import SendIcCopyLandlordMalaysiaEn from "@/pages/en/blog/send-ic-copy-landlord-malaysia";
 import WatermarkAadhaarCardIndiaEn from "@/pages/en/blog/watermark-aadhaar-card-india";
 import RentingProtectIdDocumentsEn from "@/pages/en/blog/renting-protect-id-documents";
 import BatchWatermarkPhotosEn from "@/pages/en/blog/batch-watermark-photos";
@@ -138,6 +139,7 @@ function Router() {
       <Route path="/en/blog/gdpr-compliant-watermarking" component={GdprCompliantWatermarkingEn} />
       <Route path="/en/blog/pdf-watermark-online-free" component={PdfWatermarkOnlineFreeEn} />
       <Route path="/en/blog/watermark-mykad-malaysia" component={WatermarkMyKadMalaysiaEn} />
+      <Route path="/en/blog/send-ic-copy-landlord-malaysia" component={SendIcCopyLandlordMalaysiaEn} />
       <Route path="/en/blog/watermark-aadhaar-card-india" component={WatermarkAadhaarCardIndiaEn} />
       {/* Pro 候補名單（各工具下載完成後的 CTA 目的地） */}
       <Route path="/waitlist">

@@ -21,6 +21,15 @@ interface Article {
 
 const articles: Article[] = [
   {
+    slug: "send-ic-copy-landlord-malaysia",
+    title:
+      "Is It Safe to Send Your IC Copy to a Malaysian Landlord? How to Watermark It First",
+    excerpt:
+      "A landlord asks for your MyKad copy on WhatsApp before you have even seen the unit. Which rental stage actually needs a copy, what the PDPA says about individual landlords (it surprises most people), the rental-scam patterns that use IC copies, and how to watermark the copy before you send it.",
+    date: "2026-09-06",
+    category: "Security",
+  },
+  {
     slug: "watermark-mykad-malaysia",
     title: "How to Watermark Your MyKad Copy Before You Submit It",
     excerpt:

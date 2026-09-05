@@ -892,7 +892,13 @@
   </url>
   <url>
     <loc>https://imagemarker.app/en/blog/watermark-mykad-malaysia</loc>
-    <lastmod>2026-08-17</lastmod>
+    <lastmod>2026-09-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://imagemarker.app/en/blog/send-ic-copy-landlord-malaysia</loc>
+    <lastmod>2026-09-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -910,13 +916,13 @@
   </url>
   <url>
     <loc>https://imagemarker.app/ja/blog/my-number-card-watermark</loc>
-    <lastmod>2026-08-17</lastmod>
+    <lastmod>2026-09-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://imagemarker.app/ja/blog/passport-copy-privacy-guide</loc>
-    <lastmod>2026-08-17</lastmod>
+    <lastmod>2026-09-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>

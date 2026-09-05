@@ -400,7 +400,16 @@ export default function WatermarkMyKadMalaysiaEn() {
               Watermark with the landlord or agency name, &quot;tenancy agreement
               only&quot;, and the date. If the unit address is on the agreement
               anyway, there is no reason for the copy to travel further than
-              that. For the wider picture on rental paperwork, see{" "}
+              that. For a full walk-through of every rental stage — viewing,
+              booking fee, tenancy signing, renewals and deposit refund — plus
+              the specific rental-scam patterns that use IC copies, see{" "}
+              <Link
+                href="/en/blog/send-ic-copy-landlord-malaysia"
+                className="text-primary hover:underline"
+              >
+                is it safe to send your IC copy to a Malaysian landlord?
+              </Link>{" "}
+              For the wider picture on rental paperwork across countries, see{" "}
               <Link
                 href="/en/blog/renting-protect-id-documents"
                 className="text-primary hover:underline"
