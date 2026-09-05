@@ -21,7 +21,16 @@ interface Article {
 
 const articles: Article[] = [
   {
-    slug: "send-ic-copy-landlord-malaysia",
+    slug: "watermark-id-before-kyc-upload",
+    title:
+      "Watermark Your ID Before Uploading to Apps — What Actually Happens to the File After You Hit Submit",
+    excerpt:
+      "A crypto exchange, neobank, gig app or dating platform asks you to upload a photo of your ID. It never sits only on the app's own server — Sumsub, Onfido, Persona, Jumio and Veriff are usually in the loop. What actually happens after you hit submit, which watermark opacity survives the OCR, and which upload requests to defer.",
+    date: "2026-09-06",
+    category: "Security",
+  },
+  {
+    slug: "watermark-mykad-rental",
     title:
       "Is It Safe to Send Your IC Copy to a Malaysian Landlord? How to Watermark It First",
     excerpt:

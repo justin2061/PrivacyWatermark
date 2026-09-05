@@ -59,6 +59,14 @@
 #      dist/ja/<tool>/index.html 會自動蓋過這裡，不必回來刪規則；萬用字元則會
 #      誤傷 /ja/blog/* 與 /ja/waitlist。
 #   3. Netlify 比對時會忽略結尾斜線，所以 /ja/exif-clean/ 也一併涵蓋。
+# 2026-09-06: renamed the MyKad rental article slug shortly after its first push.
+# Google may already have crawled the old URL from sitemap.xml before the
+# rename hit main, so redirect it to the new slug.
+[[redirects]]
+  from = "/en/blog/send-ic-copy-landlord-malaysia"
+  to = "/en/blog/watermark-mykad-rental"
+  status = 301
+
 [[redirects]]
   from = "/ja/exif-clean"
   to = "/en/exif-clean"

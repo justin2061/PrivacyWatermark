@@ -11,18 +11,18 @@ import {
   howToSchema,
 } from "@/lib/seo";
 
-const SLUG = "send-ic-copy-landlord-malaysia";
+const SLUG = "watermark-mykad-rental";
 
-const URL = "https://imagemarker.app/en/blog/send-ic-copy-landlord-malaysia";
+const URL = "https://imagemarker.app/en/blog/watermark-mykad-rental";
 
 const HEADLINE =
   "Is It Safe to Send Your IC Copy to a Malaysian Landlord? How to Watermark It First";
 
 const DESCRIPTION =
   "A landlord or agent asked for your MyKad copy on WhatsApp — before you have even seen the unit. When it is reasonable, when it is a red flag, what the PDPA actually says about individual landlords, and how to watermark the copy before you send it.";
-const OG = "https://imagemarker.app/og/send-ic-copy-landlord-malaysia.png";
+const OG = "https://imagemarker.app/og/watermark-mykad-rental.png";
 
-export default function SendIcCopyLandlordMalaysiaEn() {
+export default function WatermarkMyKadRentalEn() {
   useEffect(() => {
     return setPageSeo({
       title:

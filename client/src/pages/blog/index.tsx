@@ -5,6 +5,13 @@ import { setPageSeo, localeAlternates, blogIndexSchema } from "@/lib/seo";
 
 const articles = [
   {
+    slug: "watermark-hkid-copy",
+    title: "香港身份證副本水印教學：網上上載前的實用做法",
+    date: "2026-09-06",
+    summary:
+      "虛擬銀行、加密貨幣、電子錢包、移民 KYC，全部要你上載香港身份證副本。網上場景同傳統遞交有三大分別——副本會俾多過一間機構睇、你冇辦法追回、OCR 對水印挑剔。呢篇整理咗虛擬銀行、加密貨幣、移民、網上求職各自嘅收得緊定鬆，水印透明度應該調到幾多，以及副本流出咗嘅四步善後做法。",
+  },
+  {
     slug: "watermark-hkid",
     title: "身份證副本加水印完全指南：保護你的香港身份證",
     date: "2026-08-17",

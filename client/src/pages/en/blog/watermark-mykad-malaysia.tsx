@@ -404,7 +404,7 @@ export default function WatermarkMyKadMalaysiaEn() {
               booking fee, tenancy signing, renewals and deposit refund — plus
               the specific rental-scam patterns that use IC copies, see{" "}
               <Link
-                href="/en/blog/send-ic-copy-landlord-malaysia"
+                href="/en/blog/watermark-mykad-rental"
                 className="text-primary hover:underline"
               >
                 is it safe to send your IC copy to a Malaysian landlord?

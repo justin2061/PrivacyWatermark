@@ -28,7 +28,9 @@ import BestWatermarkGeneratorsEn from "@/pages/en/blog/best-watermark-generators
 import RemoveExifDataGuideEn from "@/pages/en/blog/remove-exif-data-guide";
 import PdfWatermarkOnlineFreeEn from "@/pages/en/blog/pdf-watermark-online-free";
 import WatermarkMyKadMalaysiaEn from "@/pages/en/blog/watermark-mykad-malaysia";
-import SendIcCopyLandlordMalaysiaEn from "@/pages/en/blog/send-ic-copy-landlord-malaysia";
+import WatermarkMyKadRentalEn from "@/pages/en/blog/watermark-mykad-rental";
+import WatermarkIdBeforeKycUploadEn from "@/pages/en/blog/watermark-id-before-kyc-upload";
+import WatermarkHkidCopy from "@/pages/blog/watermark-hkid-copy";
 import WatermarkAadhaarCardIndiaEn from "@/pages/en/blog/watermark-aadhaar-card-india";
 import RentingProtectIdDocumentsEn from "@/pages/en/blog/renting-protect-id-documents";
 import BatchWatermarkPhotosEn from "@/pages/en/blog/batch-watermark-photos";
@@ -139,7 +141,8 @@ function Router() {
       <Route path="/en/blog/gdpr-compliant-watermarking" component={GdprCompliantWatermarkingEn} />
       <Route path="/en/blog/pdf-watermark-online-free" component={PdfWatermarkOnlineFreeEn} />
       <Route path="/en/blog/watermark-mykad-malaysia" component={WatermarkMyKadMalaysiaEn} />
-      <Route path="/en/blog/send-ic-copy-landlord-malaysia" component={SendIcCopyLandlordMalaysiaEn} />
+      <Route path="/en/blog/watermark-mykad-rental" component={WatermarkMyKadRentalEn} />
+      <Route path="/en/blog/watermark-id-before-kyc-upload" component={WatermarkIdBeforeKycUploadEn} />
       <Route path="/en/blog/watermark-aadhaar-card-india" component={WatermarkAadhaarCardIndiaEn} />
       {/* Pro 候補名單（各工具下載完成後的 CTA 目的地） */}
       <Route path="/waitlist">
@@ -211,6 +214,7 @@ function Router() {
       <Route path="/blog/pdf-watermark-online" component={PdfWatermarkOnline} />
       <Route path="/blog/mosaic-photo-online" component={MosaicPhotoOnline} />
       <Route path="/blog/watermark-hkid" component={WatermarkHkid} />
+      <Route path="/blog/watermark-hkid-copy" component={WatermarkHkidCopy} />
       <Route path="/blog/image-compression-guide" component={ImageCompressionGuide} />
       <Route path="/blog/id-copy-leaked-consequences" component={IdCopyLeakedConsequences} />
       <Route path="/blog/rent-before-giving-id-3-things" component={RentBeforeGivingId3Things} />
