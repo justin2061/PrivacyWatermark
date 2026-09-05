@@ -10,7 +10,7 @@ import { ToolRecommendations } from "@/components/ToolRecommendations";
 import { UploadZone } from "@/components/UploadZone";
 import { ActionButtons } from "@/components/ActionButtons";
 import { trackToolUseStart, trackToolEvent, trackDownloadComplete } from "@/lib/analytics";
-import { setPageSeo, webAppSchema, localeAlternates } from "@/lib/seo";
+import { setPageSeo, webAppSchema, faqSchema, localeAlternates } from "@/lib/seo";
 import { PAIRS } from "@/lib/convertPairs";
 import {
   CheckCircle,
@@ -108,7 +108,7 @@ export default function ConvertEnPage() {
       locale: "en_US",
       keywords:
         "image converter,convert image online,PNG to JPG,JPG to PNG,convert to WebP,WebP to JPG,HEIC to JPG,image format converter,no upload,no size limit,browser-based",
-      jsonLd: webAppSchema({
+      jsonLd: [webAppSchema({
         name: "Image Format Converter — ImageMarker",
         description:
           "Free online image format converter. Convert PNG to JPG, JPG to PNG and WebP right in your browser with Canvas — 100% local processing, no uploads, no size limits.",
@@ -121,7 +121,14 @@ export default function ConvertEnPage() {
           "Instant preview with before/after size comparison",
           "No file size limits",
         ],
-      }),
+      }), faqSchema([
+        { q: "Which format conversions are supported?", a: "Input: JPG, PNG, WebP, BMP, GIF, SVG and HEIC. Output: JPG, PNG or WebP. GIF, BMP and TIFF cannot be exported because browser Canvas doesn't encode them; that's a limitation of the web platform, not the tool." },
+        { q: "Does converting PNG to JPG lose transparency?", a: "Yes — JPG doesn't support transparency, so any transparent pixels are filled with white (or a solid color you choose) during conversion. If you need to keep transparency, convert to WebP instead, which supports it and produces smaller files than PNG." },
+        { q: "What happens to HEIC files?", a: "HEIC is decoded in the browser using a WebAssembly decoder, then re-encoded to your chosen output format. HEIC files come out of iPhones by default; converting to JPG or WebP makes them shareable with almost any device or platform." },
+        { q: "Is my image uploaded anywhere?", a: "No. All decoding, re-encoding and download happen inside your browser. This matters especially for HEIC, which many online converters upload to their servers just to run the decode step." },
+        { q: "Are there any file size limits?", a: "No. Because processing runs locally, the only limit is your device's memory. Files up to several hundred megabytes convert fine on most laptops." },
+        { q: "Can I convert to modern formats like AVIF?", a: "Not currently — AVIF encoding requires a browser Canvas API that only some browsers support and only recently. WebP is the practical modern-format choice: nearly as small as AVIF, universally supported by browsers built after 2020, and produced by the same one-click flow." },
+      ])],
     });
   }, []);
 

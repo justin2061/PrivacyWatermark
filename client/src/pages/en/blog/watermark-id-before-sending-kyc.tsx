@@ -7,6 +7,7 @@ import {
   articleSchema,
   blogBreadcrumb,
   faqSchema,
+  howToSchema,
 } from "@/lib/seo";
 
 const URL = "https://imagemarker.app/en/blog/watermark-id-before-sending-kyc";
@@ -40,6 +41,16 @@ export default function WatermarkIdBeforeSendingKyc() {
           URL,
           "en"
         ),
+        howToSchema({
+          name: "How to watermark an ID before KYC upload",
+          description: "Every step runs inside your browser — nothing is uploaded to a server. Add a watermark, remove EXIF, compress, resize or crop in about a minute.",
+          steps: [
+            { name: "Open the tool", text: "Open imagemarker.app/en/ in any modern browser on your phone or laptop. No install, no account — the tool loads directly." },
+            { name: "Add your image", text: "Drop or select the image you want to process. Every step runs inside your browser, so the file never uploads and there is no server-side copy afterwards." },
+            { name: "Adjust the settings", text: "Use the live preview to dial the tool-specific options — watermark text, opacity, quality slider, crop overlay, mosaic region — until the output matches what you need." },
+            { name: "Download the result", text: "Save the processed image to your device. For anything sensitive, delete the clean original from your gallery once the marked or cleaned version has been sent." },
+          ],
+        }),
         faqSchema([
           {
             q: "Will a watermark get my KYC application rejected?",

@@ -9,7 +9,7 @@ import { ToolRecommendations } from "@/components/ToolRecommendations";
 import { UploadZone } from "@/components/UploadZone";
 import { ActionButtons } from "@/components/ActionButtons";
 import { trackToolUseStart, trackToolEvent, trackDownloadComplete } from "@/lib/analytics";
-import { setPageSeo, webAppSchema, localeAlternates } from "@/lib/seo";
+import { setPageSeo, webAppSchema, faqSchema, localeAlternates } from "@/lib/seo";
 import {
   CheckCircle,
   Download,
@@ -144,7 +144,7 @@ export default function ResizeEnPage() {
       locale: "en_US",
       keywords:
         "image resizer,resize image online,change image dimensions,resize photo in pixels,resize without uploading,ID photo size,social media image size,aspect ratio lock,no upload,browser-based",
-      jsonLd: webAppSchema({
+      jsonLd: [webAppSchema({
         name: "Image Resizer — ImageMarker",
         description:
           "Free online image resizer. Enter a width and height to resize images, with built-in presets for social media and ID photos. Runs in your browser with Canvas — 100% local processing, no uploads.",
@@ -157,7 +157,14 @@ export default function ResizeEnPage() {
           "Aspect ratio lock to prevent distortion",
           "Instant preview with output file size",
         ],
-      }),
+      }), faqSchema([
+        { q: "Can I resize by exact pixel dimensions or by percentage?", a: "Both. Use pixel dimensions when a form or platform gives you a specific size (Instagram post at 1080x1080, ID photo at 600x600), and percentage when you just need something smaller than the original. The two inputs update each other automatically." },
+        { q: "Does resize keep the aspect ratio?", a: "Yes by default. Aspect ratio lock is on, so changing the width updates the height proportionally and vice versa. Unlock it only when you deliberately want to stretch or squash — most of the time that produces visibly wrong-looking photos." },
+        { q: "Will resizing reduce file size?", a: "Yes, usually significantly. A 4000x3000 photo resized to 1200x900 is one-tenth the pixel count, which tends to translate to roughly one-fifth to one-tenth of the file size depending on format. For very large uploads, resize before compress." },
+        { q: "Are photos uploaded to a server?", a: "No. All resizing happens inside your browser using Canvas, so the image never leaves your device. This matters for private photos where a smaller version is being made for sharing." },
+        { q: "Which formats are supported?", a: "JPG, PNG and WebP for both input and output. You can also change the output format at the same time as resizing — useful for converting a large PNG down to a small WebP in one step." },
+        { q: "What's the maximum resolution I can resize?", a: "There is no hard cap — the practical limit is your device's memory. A modern laptop handles images up to several hundred megapixels; a mid-range phone typically manages up to 100 megapixels before things slow down." },
+      ])],
     });
   }, []);
 

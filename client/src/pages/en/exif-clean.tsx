@@ -10,7 +10,7 @@ import { UploadZone } from "@/components/UploadZone";
 import { ActionButtons } from "@/components/ActionButtons";
 import { trackToolUseStart, trackToolEvent, trackDownloadComplete } from "@/lib/analytics";
 import { useExifCleaner } from "@/hooks/useExifCleaner";
-import { setPageSeo, webAppSchema, localeAlternates } from "@/lib/seo";
+import { setPageSeo, webAppSchema, faqSchema, localeAlternates } from "@/lib/seo";
 import {
   AlertTriangle,
   CheckCircle,
@@ -63,7 +63,7 @@ export default function ExifCleanEnPage() {
       locale: "en_US",
       keywords:
         "EXIF remover,remove EXIF data,strip EXIF,remove GPS from photo,remove location data from photos,photo metadata remover,image metadata removal,clear EXIF online,privacy,protect location privacy,no upload,browser-based",
-      jsonLd: webAppSchema({
+      jsonLd: [webAppSchema({
         name: "EXIF Cleaner — ImageMarker",
         description:
           "Free online EXIF remover. Strip GPS location, camera model, serial number and other hidden metadata from your photos before sharing. 100% browser-based — nothing is uploaded.",
@@ -76,7 +76,14 @@ export default function ExifCleanEnPage() {
           "Lossless JPEG cleaning — metadata removed without re-encoding",
           "Supports JPG, PNG and WebP",
         ],
-      }),
+      }), faqSchema([
+        { q: "What is EXIF data and why should I remove it?", a: "EXIF is metadata embedded in every phone or camera photo — GPS coordinates, timestamps, camera model, and sometimes the device serial number. If you share a phone photo taken at home, the GPS coordinates in that file can point directly to your address. Removing EXIF strips those hidden fields so only the picture itself remains." },
+        { q: "Does removing EXIF change the image quality or file size?", a: "For JPGs, ImageMarker uses a lossless EXIF cleaner that removes metadata without re-encoding the pixels, so image quality is identical to the original. PNG and WebP are re-saved without their metadata chunks; the visual result is unchanged. File size drops slightly because the metadata is gone." },
+        { q: "Does this tool upload my photo to a server?", a: "No. ImageMarker reads and rewrites the file entirely inside your browser. Your photo never leaves your device — which is the whole point of a client-side cleaner for a task that is fundamentally about privacy." },
+        { q: "Which file formats are supported?", a: "JPG (and JPEG), PNG and WebP. HEIC is not supported directly; convert HEIC to JPG first in the converter, then clean the resulting JPG." },
+        { q: "Will social media platforms strip EXIF for me automatically?", a: "Facebook, Instagram, Twitter/X and LinkedIn strip most EXIF on upload, but not always for every image size. WhatsApp attachments, direct email, iMessage 'send as file', cloud shares and forums preserve EXIF completely. If the destination is anything other than a big social platform's compressed upload path, assume the metadata travels with the file." },
+        { q: "Can I keep camera settings but remove only the GPS?", a: "This cleaner strips all EXIF fields, because GPS is the field that matters most for privacy and picking subsets requires a full metadata editor. For per-field control, a local tool like ExifTool works well." },
+      ])],
     });
   }, []);
 

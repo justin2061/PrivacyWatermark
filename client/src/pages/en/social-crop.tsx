@@ -9,7 +9,7 @@ import { ToolRecommendations } from "@/components/ToolRecommendations";
 import { UploadZone } from "@/components/UploadZone";
 import { ActionButtons } from "@/components/ActionButtons";
 import { trackToolUseStart, trackToolEvent, trackDownloadComplete } from "@/lib/analytics";
-import { setPageSeo, webAppSchema, localeAlternates } from "@/lib/seo";
+import { setPageSeo, webAppSchema, faqSchema, localeAlternates } from "@/lib/seo";
 import {
   CheckCircle,
   Crop,
@@ -112,7 +112,7 @@ export default function SocialCropEnPage() {
       locale: "en_US",
       keywords:
         "social media image resizer,Instagram post size,Facebook cover photo size,YouTube thumbnail size,Twitter header size,LinkedIn banner size,Pinterest pin size,crop image online,no upload,browser-based",
-      jsonLd: webAppSchema({
+      jsonLd: [webAppSchema({
         name: "Social Media Image Resizer — ImageMarker",
         description:
           "Free social media image resizer and cropper with built-in Instagram, Facebook, YouTube, Twitter/X, LinkedIn and Pinterest sizes. Drag the crop box, preview live and download in one click. 100% local in-browser processing.",
@@ -125,7 +125,14 @@ export default function SocialCropEnPage() {
           "Custom size support",
           "100% local in-browser processing — no uploads",
         ],
-      }),
+      }), faqSchema([
+        { q: "Which social media aspect ratios are supported?", a: "Every current standard: Instagram square (1:1), portrait (4:5) and story (9:16); TikTok and Reels (9:16); YouTube thumbnails (16:9); Twitter/X, Facebook and LinkedIn feed sizes; Pinterest 2:3; plus 1:1 for profile photos across every platform. Custom pixel dimensions are supported too." },
+        { q: "Does this include Instagram Reels and TikTok sizes?", a: "Yes — both use 1080x1920 at 9:16, and that preset is one click. The preview shows exactly what will be cropped, so you can position the subject inside the safe area rather than getting a face cut in half by the platform." },
+        { q: "Is my image uploaded to any server?", a: "No. All cropping happens inside your browser with Canvas, so the source image never leaves your device. Useful when the photo is a screenshot with personal information, or a design mock you don't want to leak." },
+        { q: "Can I crop for multiple platforms at once?", a: "The current flow is one crop per download. For posting the same photo across Instagram, TikTok, X and LinkedIn, run through the presets one at a time — each takes a few seconds because there is no upload roundtrip." },
+        { q: "Does it work on mobile?", a: "Yes. Drag-to-position the crop area works on touch as well as mouse, so cropping for a Story or Reel on the phone that shot the photo is the most direct path." },
+        { q: "Can I use a custom aspect ratio?", a: "Yes. Switch to custom and enter the width and height in pixels; the crop overlay updates immediately. Useful for banner ads, blog hero images, or platforms whose ratios aren't in the presets." },
+      ])],
     });
   }, []);
 

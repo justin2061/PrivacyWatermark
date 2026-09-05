@@ -21,6 +21,32 @@ interface Article {
 
 const articles: Article[] = [
   {
+    slug: "watermark-drivers-license-usa",
+    title:
+      "How to Watermark Your US Driver's License Before You Send It",
+    excerpt:
+      "Landlords, delivery apps, rideshare, marketplaces and crypto exchanges all ask for a US DL copy. What actually leaks (front and back), what the DPPA vs state privacy laws give you, how to keep an Uber or DoorDash driver check from rejecting a watermarked scan, and the four-step recovery if a leak already happened.",
+    date: "2026-09-06",
+    category: "Security",
+  },
+  {
+    slug: "watermark-uk-passport-copy",
+    title: "How to Watermark a UK Passport Copy Before Sending It",
+    excerpt:
+      "Letting agents, Right to Work checks, banks and crypto exchanges all ask for the biographical page. What the MRZ gives away (and why blurring it doesn't work), what UK GDPR and the 2024 amendments give you, and how to pass an IDSP check with a light purpose-bound watermark.",
+    date: "2026-09-06",
+    category: "Security",
+  },
+  {
+    slug: "watermark-australian-id-documents",
+    title:
+      "How to Watermark Australian ID Documents Before Sending Them",
+    excerpt:
+      "Rental applications, AUSTRAC-registered banks and crypto exchanges, TFN onboarding. What the 100-point check actually requires (and why a light watermark passes), what the Privacy Act 1988's 2024 amendments give you, why the Medicare card doesn't belong outside health contexts, and the IDCARE-first recovery flow.",
+    date: "2026-09-06",
+    category: "Security",
+  },
+  {
     slug: "watermark-id-before-kyc-upload",
     title:
       "Watermark Your ID Before Uploading to Apps — What Actually Happens to the File After You Hit Submit",

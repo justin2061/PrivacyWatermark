@@ -9,7 +9,7 @@ import { ToolRecommendations } from "@/components/ToolRecommendations";
 import { UploadZone } from "@/components/UploadZone";
 import { ActionButtons } from "@/components/ActionButtons";
 import { trackToolUseStart, trackToolEvent, trackDownloadComplete } from "@/lib/analytics";
-import { setPageSeo, webAppSchema, localeAlternates } from "@/lib/seo";
+import { setPageSeo, webAppSchema, faqSchema, localeAlternates } from "@/lib/seo";
 import {
   CheckCircle,
   Download,
@@ -105,7 +105,7 @@ export default function CompressEnPage() {
       locale: "en_US",
       keywords:
         "image compressor,compress image online,reduce image file size,compress JPG,compress PNG,compress WebP,shrink photo size,image optimizer,no upload,no size limit,browser-based",
-      jsonLd: webAppSchema({
+      jsonLd: [webAppSchema({
         name: "Image Compressor — ImageMarker",
         description:
           "Free online image compressor for JPG, PNG and WebP. Reduce image file size right in your browser with Canvas — 100% local processing, no uploads, no size limits.",
@@ -118,7 +118,14 @@ export default function CompressEnPage() {
           "Optional conversion to JPG or WebP output",
           "No file size limits",
         ],
-      }),
+      }), faqSchema([
+        { q: "Does compressing lose quality?", a: "Any lossy compression (JPG or WebP at less than 100%) discards some detail, but at 70-85% quality the difference is essentially invisible while file size drops dramatically. Lossless is only possible with PNG, which usually compresses less. For photos, 80% JPG or WebP is the standard sweet spot." },
+        { q: "Is there a file size limit?", a: "No. Because compression runs on your own device rather than through a server, the only limit is your device's memory. Files up to several hundred megabytes work on most laptops." },
+        { q: "Which format compresses best?", a: "WebP typically produces the smallest file at the same visual quality — around 25-35% smaller than JPG. JPG is the safest choice for maximum compatibility (email, older devices, printers). PNG is only smaller when the image has large flat areas of colour, like screenshots." },
+        { q: "Is my image uploaded to a server?", a: "No. ImageMarker uses the browser's Canvas API to compress locally, so your photo never leaves your device. This matters for images containing personal information like IDs, contracts, or medical scans." },
+        { q: "Can I compress a batch of images?", a: "The main compressor handles one image at a time with a live quality slider. For high-volume compression across a folder of photos, the batch watermark tool re-exports each image and lets you set a target format and quality, which effectively compresses them in one operation." },
+        { q: "What's a good quality setting?", a: "80% is the default for a reason — for photographs it looks identical to the original at roughly one-third the size. Drop to 65-70% for backgrounds or thumbnails, push to 85-90% for hero images or portrait detail." },
+      ])],
     });
   }, []);
 

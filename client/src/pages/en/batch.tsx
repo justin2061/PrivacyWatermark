@@ -12,7 +12,7 @@ import { WatermarkControls } from "@/components/watermark/WatermarkControls";
 import { UploadZone } from "@/components/UploadZone";
 import { ActionButton } from "@/components/ActionButtons";
 import { useBatchWatermark, MAX_FILES } from "@/hooks/useBatchWatermark";
-import { setPageSeo, webAppSchema, localeAlternates } from "@/lib/seo";
+import { setPageSeo, webAppSchema, faqSchema, localeAlternates } from "@/lib/seo";
 import { trackToolUseStart, trackDownloadComplete, trackWatermarkLayoutMode } from "@/lib/analytics";
 
 // Show the Pro prompt past this count (free features stay unrestricted)
@@ -76,7 +76,7 @@ export default function BatchEnPage() {
       keywords:
         "batch watermark,bulk watermark,watermark multiple photos,watermark multiple images at once,add watermark to many photos,bulk image watermarking,watermark photos in bulk,ZIP download,no upload,browser-based,privacy tools",
       alternates: localeAlternates({ zh: "/batch", en: "/en/batch" }),
-      jsonLd: webAppSchema({
+      jsonLd: [webAppSchema({
         name: "Batch Watermark Tool — ImageMarker",
         description:
           "Free batch watermark tool. Add the same text or logo watermark to up to 20 images at once and download them as a ZIP. 100% browser-based — nothing is uploaded.",
@@ -89,7 +89,14 @@ export default function BatchEnPage() {
           "Download all processed images as a ZIP",
           "Live per-image preview with thumbnails",
         ],
-      }),
+      }), faqSchema([
+        { q: "How many photos can I batch watermark at once?", a: "Practical throughput is bounded by your device's memory rather than by the tool — most laptops and mid-range phones handle 100 to 200 photos comfortably in one batch. Very large batches (500+) work but take longer to finish and briefly use more memory during export." },
+        { q: "Are my photos uploaded?", a: "No. Every image in the batch is processed inside your browser using Canvas. Nothing is sent to a server, which is what makes batch watermarking safe for a full shoot of client-facing photos or a stack of ID copies." },
+        { q: "Do I get one ZIP file or individual downloads?", a: "One ZIP by default, built in the browser so nothing hits the network. Individual per-image download is also possible if you prefer to save them one at a time." },
+        { q: "Can I use different watermark text on different photos?", a: "The current batch mode applies one shared watermark to all photos in the batch, which is what most photography and real-estate workflows need. For per-image customisation, process photos one at a time on the main watermark page." },
+        { q: "What formats does batch support?", a: "JPG, PNG and WebP for both input and output. Mixed batches work — the exports keep each photo's original format unless you explicitly convert." },
+        { q: "How long does 100 photos take?", a: "Under a minute on a modern laptop, a couple of minutes on a mid-range phone. Because everything runs locally, larger batches simply take proportionally longer without upload or server queue delays." },
+      ])],
     });
   }, []);
 

@@ -15,7 +15,7 @@ import { WaitlistCTA } from "@/components/WaitlistCTA";
 import { PostDownloadHint } from "@/components/PostDownloadHint";
 import { useWatermark } from "@/hooks/useWatermark";
 import { trackToolUseStart, trackDownloadComplete, trackWatermarkLayoutMode } from "@/lib/analytics";
-import { setPageSeo, webAppSchema, localeAlternates } from "@/lib/seo";
+import { setPageSeo, webAppSchema, faqSchema, localeAlternates } from "@/lib/seo";
 import { Lock, Zap, Eraser } from "lucide-react";
 
 // The homepage was previously pitched at photographers ("watermark your photos"),
@@ -31,7 +31,7 @@ import { Lock, Zap, Eraser } from "lucide-react";
 // other tools, so the homepage can win "privacy toolkit"-shaped queries instead
 // of competing only on the crowded watermark head terms.
 const TITLE =
-  "Free Watermark Generator — Online Tool for ID & Passport";
+  "Add Watermark to Photos Online Free | ImageMarker";
 const DESCRIPTION =
   "Free watermark generator for ID cards, passports and photos — plus EXIF remover, mosaic/blur, compressor, converter, resizer and PDF watermark. 10+ privacy tools, 100% in your browser, no upload.";
 
@@ -57,7 +57,7 @@ export default function WatermarkEnPage() {
       canonical: "https://imagemarker.app/en/",
       locale: "en_US",
       alternates: localeAlternates({ zh: "/", en: "/en/", ja: "/ja/" }),
-      jsonLd: webAppSchema({
+      jsonLd: [webAppSchema({
         name: "ID Document Watermark Tool — ImageMarker",
         description: DESCRIPTION,
         url: "https://imagemarker.app/en/",
@@ -69,7 +69,14 @@ export default function WatermarkEnPage() {
           "Live preview with one-click download",
           "Works offline as an installable PWA",
         ],
-      }),
+      }), faqSchema([
+        { q: "Is my photo uploaded when I add a watermark here?", a: "No — ImageMarker runs entirely inside your browser using the Canvas API, so your original photo never leaves your device. There is nothing on our side to store, log or leak. Switch on flight mode and the tool still works, which is the simplest way to prove it to yourself before you use it on a sensitive document." },
+        { q: "What text should I put in the watermark?", a: "Three things: the recipient, the purpose, and the date. For example, 'For Bank of America account opening only — 6 Sep 2026'. A generic 'COPY' or 'CONFIDENTIAL' names nobody and limits nothing, so it deters very little. Naming one recipient and one purpose is what makes the file hard to reuse somewhere else." },
+        { q: "Can I add a logo image as a watermark instead of text?", a: "Yes. Switch the watermark type to image, upload a PNG (transparent background works best), then position it on the photo and adjust its opacity. Text and image watermarks can be combined on the same photo." },
+        { q: "Will the watermark stay if the photo is later compressed or resized?", a: "Yes — the watermark is baked into the pixels of the exported image, so any later compression, resizing or conversion preserves it. It is not a separate metadata layer and cannot be stripped by uploading to a platform that removes metadata." },
+        { q: "Does this work on my phone?", a: "Yes. ImageMarker runs in any modern mobile browser (Safari on iOS, Chrome on Android), so you can photograph a document, watermark it and send the marked copy without ever leaving the phone. No app install, no account." },
+        { q: "Is a semi-transparent watermark on my own ID legal?", a: "Adding a semi-transparent purpose note across a photocopy of your own document is a labelling step, not tampering with the document itself — the identifying details stay readable and your physical card is untouched. What is prohibited in most jurisdictions is defacing the original card, which is a completely different act." },
+      ])],
     });
   }, []);
 
@@ -84,7 +91,7 @@ export default function WatermarkEnPage() {
             single-purpose watermark page. The subline spells the tools out in
             body copy so the "all-in-one" claim isn't carried by the H1 alone. */}
         <h1 className="text-lg sm:text-xl font-semibold text-gray-900 mb-2">
-          Free Watermark Generator for IDs &amp; Passports — All-in-One Privacy Toolkit
+          Add a Watermark to Photos Online Free — All-in-One Privacy Toolkit
         </h1>
         {/* Kept to one sentence: on a 375px viewport the H1 + subline already sit
             above the upload zone, and the no-upload claim is right below in the

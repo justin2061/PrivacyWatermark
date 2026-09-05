@@ -31,6 +31,17 @@ import WatermarkMyKadMalaysiaEn from "@/pages/en/blog/watermark-mykad-malaysia";
 import WatermarkMyKadRentalEn from "@/pages/en/blog/watermark-mykad-rental";
 import WatermarkIdBeforeKycUploadEn from "@/pages/en/blog/watermark-id-before-kyc-upload";
 import WatermarkHkidCopy from "@/pages/blog/watermark-hkid-copy";
+import CompressTo200kbEn from "@/pages/en/compress-to-200kb";
+import CompressTo100kbEn from "@/pages/en/compress-to-100kb";
+import ConvertHeicToJpgEn from "@/pages/en/convert-heic-to-jpg";
+import ConvertPngToJpgEn from "@/pages/en/convert-png-to-jpg";
+import ConvertWebpToJpgEn from "@/pages/en/convert-webp-to-jpg";
+import ResizeJpgEn from "@/pages/en/resize-jpg";
+import CropPhotoEn from "@/pages/en/crop-photo";
+import BlurFaceEn from "@/pages/en/blur-face";
+import WatermarkDriversLicenseUsaEn from "@/pages/en/blog/watermark-drivers-license-usa";
+import WatermarkUkPassportCopyEn from "@/pages/en/blog/watermark-uk-passport-copy";
+import WatermarkAustralianIdDocumentsEn from "@/pages/en/blog/watermark-australian-id-documents";
 import WatermarkAadhaarCardIndiaEn from "@/pages/en/blog/watermark-aadhaar-card-india";
 import RentingProtectIdDocumentsEn from "@/pages/en/blog/renting-protect-id-documents";
 import BatchWatermarkPhotosEn from "@/pages/en/blog/batch-watermark-photos";
@@ -144,6 +155,9 @@ function Router() {
       <Route path="/en/blog/watermark-mykad-rental" component={WatermarkMyKadRentalEn} />
       <Route path="/en/blog/watermark-id-before-kyc-upload" component={WatermarkIdBeforeKycUploadEn} />
       <Route path="/en/blog/watermark-aadhaar-card-india" component={WatermarkAadhaarCardIndiaEn} />
+      <Route path="/en/blog/watermark-drivers-license-usa" component={WatermarkDriversLicenseUsaEn} />
+      <Route path="/en/blog/watermark-uk-passport-copy" component={WatermarkUkPassportCopyEn} />
+      <Route path="/en/blog/watermark-australian-id-documents" component={WatermarkAustralianIdDocumentsEn} />
       {/* Pro 候補名單（各工具下載完成後的 CTA 目的地） */}
       <Route path="/waitlist">
         <WaitlistPage lang="zh" />
@@ -197,6 +211,16 @@ function Router() {
       <Route path="/en/pdf-watermark" component={PdfWatermarkEnPage} />
       <Route path="/mosaic" component={MosaicPage} />
       <Route path="/en/mosaic" component={MosaicEnPage} />
+      {/* Programmatic SEO landing pages: long-tail queries funnel into
+          the existing tools rather than duplicating tool logic. */}
+      <Route path="/en/compress-to-200kb" component={CompressTo200kbEn} />
+      <Route path="/en/compress-to-100kb" component={CompressTo100kbEn} />
+      <Route path="/en/convert-heic-to-jpg" component={ConvertHeicToJpgEn} />
+      <Route path="/en/convert-png-to-jpg" component={ConvertPngToJpgEn} />
+      <Route path="/en/convert-webp-to-jpg" component={ConvertWebpToJpgEn} />
+      <Route path="/en/resize-jpg" component={ResizeJpgEn} />
+      <Route path="/en/crop-photo" component={CropPhotoEn} />
+      <Route path="/en/blur-face" component={BlurFaceEn} />
       <Route path="/blog/is-id-watermark-useful" component={IsIdWatermarkUsefulPage} />
       <Route path="/blog/batch-watermark-methods" component={BatchWatermarkMethodsPage} />
       <Route path="/blog/tinypng-iloveimg-squoosh-alternatives" component={TinypngIloveimgSquooshAlternatives} />

@@ -9,7 +9,7 @@ import { ToolRecommendations } from "@/components/ToolRecommendations";
 import { UploadZone } from "@/components/UploadZone";
 import { ActionButton, ActionButtons } from "@/components/ActionButtons";
 import { trackToolUseStart, trackToolEvent, trackDownloadComplete } from "@/lib/analytics";
-import { setPageSeo, webAppSchema, localeAlternates } from "@/lib/seo";
+import { setPageSeo, webAppSchema, faqSchema, localeAlternates } from "@/lib/seo";
 import {
   CheckCircle,
   Download,
@@ -113,7 +113,7 @@ export default function RemoveBgEnPage() {
       locale: "en_US",
       keywords:
         "background remover,remove background from image,AI background removal,transparent PNG,cut out image background,free background eraser,no upload,runs offline,browser-based",
-      jsonLd: webAppSchema({
+      jsonLd: [webAppSchema({
         name: "AI Background Remover — ImageMarker",
         description:
           "Free AI background remover. Remove image backgrounds in one click and download a transparent PNG. The AI model runs entirely in your browser — your images are never uploaded to any server.",
@@ -126,7 +126,14 @@ export default function RemoveBgEnPage() {
           "Model cached after first use — works offline",
           "Supports JPG, PNG and WebP",
         ],
-      }),
+      }), faqSchema([
+        { q: "How accurate is the background removal?", a: "Very good on clearly separated subjects (people against plain backgrounds, product shots on neutral surfaces, portraits with soft light). It struggles at hair-fine detail against busy backgrounds and translucent subjects like glass or ice. The model is the same class that powers most commercial background removers, but running locally rather than on a server." },
+        { q: "Does this upload my photo to a server?", a: "No. The AI model runs entirely inside your browser — it downloads once, gets cached, and then runs on your device with WebAssembly. Your photo never leaves the browser tab, which is what makes this safe for private photos, employee headshots, or client work under NDA." },
+        { q: "Does it work on people, products and objects?", a: "Yes to all three. The underlying model was trained on a broad category set, so portraits, e-commerce product shots, animal photos and everyday objects all work. It is optimised for the general 'foreground versus background' case rather than a specific niche." },
+        { q: "What file formats work?", a: "Input: JPG, PNG and WebP. Output: PNG with a transparent background (the standard for e-commerce and design work) or PNG/JPG/WebP with a solid color if you set a replacement background." },
+        { q: "Does the model run on my device or in the cloud?", a: "On your device, in the browser. The first time you use the tool it downloads the model file (about 40MB) and caches it locally. After that, background removal works even with the network turned off, which is a good way to verify nothing is being sent anywhere." },
+        { q: "Can I use it offline after the first run?", a: "Yes. The model gets cached in your browser storage the first time you run it, so subsequent uses work offline. Air-gapped photo editing for privacy-sensitive material is exactly this tool's use case." },
+      ])],
     });
   }, []);
 
