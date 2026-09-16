@@ -225,7 +225,7 @@ export default function MosaicPhotoOnline() {
               留下姓名和照片就足以完成核對。
               遮完之後最好再加一層浮水印寫上用途，
               寫法可以直接套用
-              <Link href="/blog/watermark-templates-guide">
+              <Link href="/blog/id-copy-annotation-templates">
                 浮水印範本與寫法大全
               </Link>
               裡的句型。

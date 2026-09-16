@@ -27,6 +27,8 @@ export default function RentIdWatermark() {
       // 這次把泛用的「簽註寫法／加註位置」整合回 templates-guide（那邊已補上位置章節
       // 與各證件位置表），本頁收斂成「租屋情境」專頁：保留加註字眼維持 SERP 命中，
       // 但用「租屋」限定，不再宣稱通用範本。
+      // 2026-09-16：templates-guide 已整篇併入 /blog/id-copy-annotation-templates，
+      // 上面說的「泛用字群歸屬」現在指向那頁；本頁的租屋收斂策略不變。
       title:
         "租屋身分證影本加註怎麼寫？「僅供租屋使用」浮水印範例（2026） | ImageMarker",
       description:
@@ -170,10 +172,10 @@ export default function RentIdWatermark() {
                 其他情境（求職、開戶、保險、貸款、過戶……）的完整寫法、手寫三行格式，
                 以及<strong>加註位置該放在證件的哪個部位</strong>才不會被裁掉，整理在{" "}
                 <Link
-                  href="/blog/watermark-templates-guide"
+                  href="/blog/id-copy-annotation-templates"
                   className="text-primary font-medium hover:underline"
                 >
-                  《身分證影本簽註寫法＋加註位置：10 種情境範本》
+                  《身分證影本簽註寫法＋加註位置：20 組範本》
                 </Link>
                 ，這裡就不重複了。
               </p>
@@ -329,13 +331,13 @@ export default function RentIdWatermark() {
                 </span>
               </article>
             </Link>
-            <Link href="/blog/watermark-templates-guide">
+            <Link href="/blog/id-copy-annotation-templates">
               <article className="block border rounded-xl p-5 hover:border-primary hover:shadow-sm transition-all cursor-pointer">
                 <h3 className="font-medium mb-1">
-                  身分證影本簽註寫法＋加註位置：10 種情境範本與證件浮水印範例
+                  身分證影本簽註寫法＋加註位置：20 組範本與證件浮水印範例
                 </h3>
                 <p className="text-sm text-muted-foreground">
-                  簽註要寫什麼、加註位置放在證件哪裡才不會被裁掉、正反面規則，＋10 種情境範本直接照抄。
+                  簽註要寫什麼、加註位置放在證件哪裡才不會被裁掉、正反面規則，＋20 組範本可一鍵複製。
                 </p>
                 <span className="inline-block mt-3 text-sm text-primary font-medium">
                   閱讀全文<ReadMoreArrow />

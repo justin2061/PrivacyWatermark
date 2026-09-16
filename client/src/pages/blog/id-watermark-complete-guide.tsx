@@ -92,8 +92,8 @@ export default function IdWatermarkCompleteGuide() {
             </p>
             <p>
               至於<strong>浮水印文字實際該怎麼寫</strong>（各情境的完整範本、手寫簽註規則、常見錯誤寫法），我們另外整理了一篇專文：
-              <Link href="/blog/watermark-templates-guide">
-                身分證影本簽註寫法＋證件浮水印範本：10 種情境怎麼寫
+              <Link href="/blog/id-copy-annotation-templates">
+                身分證影本簽註寫法＋加註位置：20 組範本與證件浮水印範例
               </Link>
               ，寫法問題請以那篇為準。
             </p>
@@ -130,10 +130,10 @@ export default function IdWatermarkCompleteGuide() {
                 <strong>10 種情境的簽註範本和寫法</strong>，以及手寫三行簽註的正確規則與常見錯誤對照，
                 我們整理在{" "}
                 <Link
-                  href="/blog/watermark-templates-guide"
+                  href="/blog/id-copy-annotation-templates"
                   className="font-semibold text-blue-700 underline"
                 >
-                  《身分證影本簽註寫法＋證件浮水印範本：10 種情境怎麼寫》
+                  《身分證影本簽註寫法＋加註位置：20 組範本與證件浮水印範例》
                 </Link>
                 。需要照抄範本時，請以那篇為準——本篇只講操作步驟。
               </p>
@@ -257,10 +257,10 @@ export default function IdWatermarkCompleteGuide() {
         <section className="mt-12 border-t pt-8">
           <h2 className="text-xl font-semibold mb-4">相關文章</h2>
           <div className="space-y-4">
-            <Link href="/blog/watermark-templates-guide">
+            <Link href="/blog/id-copy-annotation-templates">
               <article className="block border rounded-xl p-5 hover:border-primary hover:shadow-sm transition-all cursor-pointer">
                 <h3 className="font-medium mb-1">
-                  身分證影本簽註寫法＋加註位置：10 種情境範本（2026）
+                  身分證影本簽註寫法＋加註位置：20 組範本與證件浮水印範例（2026）
                 </h3>
                 <p className="text-sm text-muted-foreground">
                   租屋、求職、開戶、保險……10 種情境的浮水印範本讓你直接套用。

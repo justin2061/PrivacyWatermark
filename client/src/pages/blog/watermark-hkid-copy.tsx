@@ -19,7 +19,7 @@ const URL = "https://imagemarker.app/blog/watermark-hkid-copy";
 const HEADLINE = "香港身份證副本水印教學：網上上載前的實用做法";
 
 const DESCRIPTION =
-  "虛擬銀行開戶、加密貨幣交易所 KYC、網上求職、BNO 移民文件提交，全部要交香港身份證副本。教你水印應該寫什麼、透明度調到幾多、KYC 系統會唔會 reject，以及副本流出之後可以點處理。全程喺瀏覽器完成，不會上載。";
+  "虛擬銀行開戶、加密貨幣交易所 KYC、網上求職、BNO 移民文件提交，全部要交香港身份證副本。教你「COPY」字樣要蓋喺邊個位置、水印應該寫什麼、透明度調到幾多、KYC 系統會唔會 reject，以及副本流出之後可以點處理。全程喺瀏覽器完成，不會上載。";
 const OG = "https://imagemarker.app/og/zh/watermark-hkid-copy.png";
 
 export default function WatermarkHkidCopy() {
@@ -37,7 +37,7 @@ export default function WatermarkHkidCopy() {
           description: DESCRIPTION,
           url: URL,
           datePublished: "2026-09-06",
-          dateModified: "2026-09-06",
+          dateModified: "2026-09-16",
           image: OG,
         }),
         blogBreadcrumb(HEADLINE, URL, "zh"),
@@ -72,6 +72,10 @@ export default function WatermarkHkidCopy() {
           {
             q: "加咗水印會唔會被 KYC 系統 reject？",
             a: "有可能，如果水印太深或者遮住重要欄位。虛擬銀行、加密貨幣交易所嘅 KYC 系統會自動用 OCR 讀身份證號碼、姓名同 A/U/R/C 等符號代碼，透明度超過 50% 或者用深色都容易觸發重交。實務上，先用 30 至 45% 透明度、淺色文字試一次；被 reject 先再交一次乾淨版本。切勿倒轉次序——一份未加水印嘅乾淨副本上載到 KYC 供應商嘅伺服器之後，你就冇辦法追返。",
+          },
+          {
+            q: "「COPY」字樣應該蓋喺身份證副本嘅邊個位置？",
+            a: "斜跨證件中段，壓住中文電碼同出生／簽發日期嗰幾行，避開身份證號碼、中英文姓名、符號代碼同相片——呢四項係 KYC 系統一定要 OCR 讀到嘅欄位，壓親就會被要求重交。唔好淨係擺喺相片四邊嘅白邊或者一個角：白邊一裁就冇，角落嘅字用修圖 app 兩下就移除得到。另外單獨一個 COPY 字冇乜限制力，應該寫成「COPY — 僅供 [對象] [用途] 之用 [日期]」，保留對方一眼識得嘅標記之餘，補返真正有用嘅三個元素。透明度用 30 至 45%，開啟重複（平鋪）模式鋪滿成張效果最好。",
           },
           {
             q: "香港身份證副本被人拎到手，實際會用嚟做啲乜？",
@@ -226,6 +230,94 @@ export default function WatermarkHkidCopy() {
               </li>
             </ul>
 
+            {/* GSC：「身份證副本copy位置」70 曝光、CTR 4.3%——曝光夠但冇一段文字
+                直接答「COPY 兩個字要蓋喺邊」，所以點擊拿唔到。呢節就係直接答嗰一題。
+                （「COPY」一詞喺 /blog/watermark-hkid 只係當反面教材舉例，冇搶字。） */}
+            <h2>「COPY」字樣要蓋喺邊個位置？</h2>
+            <p>
+              好多人問嘅其實唔係寫乜，而係
+              <strong>蓋喺邊</strong>
+              ——尤其係最常見嘅「COPY」兩個字。呢一題有三個答案要分開講：先講 COPY 呢個字本身夠唔夠，再講位置點揀，最後講香港身份證有邊幾個位置一定唔可以壓。
+            </p>
+            <p>
+              <strong>先講結論：單獨一個「COPY」幾乎冇用。</strong>
+              「COPY」只係話俾人聽「呢張唔係正本」，但冇講明係邊個嘅、做乜用、幾時交——副本流去第二間平台時，一個 COPY 字樣唔會令任何人停手。正確做法係
+              <strong>用 COPY 開頭，後面立即駁上對象、用途同日期</strong>
+              ，例如「COPY — 僅供 ZA Bank 開戶 KYC 之用 2026年9月6日」。呢樣寫法保留咗 COPY 呢個對方一眼識得嘅標記，同時補返真正有限制力嘅三個元素。
+            </p>
+            <p>
+              <strong>位置嘅三條規則：</strong>
+            </p>
+            <ol>
+              <li>
+                <strong>要壓喺身份證影像本身，唔好擺喺相片邊緣嘅白邊。</strong>
+                手機影出嚟嘅副本通常四邊都有枱面或者紙邊，好多人順手將 COPY 擺喺嗰度——但嗰條邊一裁就冇，裁完就係一張乾淨副本。字一定要落喺證件範圍之內。
+              </li>
+              <li>
+                <strong>斜跨成張證，唔好淨係擺一個角。</strong>
+                擺喺角落嘅字，用修圖 app 嘅移除工具兩下就冇。斜跨嘅文字冇辦法靠水平或者垂直裁切移除，要 P 走就要連證件內容一齊破壞，會留低好明顯嘅痕跡。實務上用
+                <strong>重複（平鋪）模式</strong>
+                鋪滿成張，效果最好。
+              </li>
+              <li>
+                <strong>壓喺「可以壓」嗰幾行上面。</strong>
+                香港身份證有幾個欄位係 KYC 系統一定要 OCR 讀到嘅，壓親就會被退。可以壓嘅係中文姓名同英文姓名之間嘅留白、中文電碼嗰行、出生日期同簽發日期之間嘅橫帶，以及右下角嘅底紋區。
+              </li>
+            </ol>
+            <div className="not-prose overflow-x-auto my-6">
+              <table className="w-full text-sm border-collapse">
+                <thead>
+                  <tr className="bg-gray-50">
+                    <th className="text-left p-3 border border-gray-200 font-semibold text-gray-700">香港身份證位置</th>
+                    <th className="text-left p-3 border border-gray-200 font-semibold text-gray-700">可唔可以壓</th>
+                    <th className="text-left p-3 border border-gray-200 font-semibold text-gray-700">原因</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td className="p-3 border border-gray-200 font-medium text-gray-800 whitespace-nowrap">中文電碼嗰行</td>
+                    <td className="p-3 border border-gray-200 text-green-700 font-medium whitespace-nowrap">可以，最建議</td>
+                    <td className="p-3 border border-gray-200 text-gray-600">KYC 流程極少 OCR 呢行，位置又啱啱喺證件中段</td>
+                  </tr>
+                  <tr>
+                    <td className="p-3 border border-gray-200 font-medium text-gray-800 whitespace-nowrap">出生日期／簽發日期之間</td>
+                    <td className="p-3 border border-gray-200 text-green-700 font-medium whitespace-nowrap">可以</td>
+                    <td className="p-3 border border-gray-200 text-gray-600">留白夠闊，斜跨落去唔會蓋到數字本身</td>
+                  </tr>
+                  <tr>
+                    <td className="p-3 border border-gray-200 font-medium text-gray-800 whitespace-nowrap">右下角底紋區</td>
+                    <td className="p-3 border border-gray-200 text-green-700 font-medium whitespace-nowrap">可以</td>
+                    <td className="p-3 border border-gray-200 text-gray-600">冇文字欄位，但記住淨係擺呢度等於擺角落，要配合斜跨</td>
+                  </tr>
+                  <tr>
+                    <td className="p-3 border border-gray-200 font-medium text-gray-800 whitespace-nowrap">身份證號碼（括號檢查碼）</td>
+                    <td className="p-3 border border-gray-200 text-red-700 font-medium whitespace-nowrap">唔好壓</td>
+                    <td className="p-3 border border-gray-200 text-gray-600">OCR 第一個讀嘅欄位，讀唔到即刻要求重交</td>
+                  </tr>
+                  <tr>
+                    <td className="p-3 border border-gray-200 font-medium text-gray-800 whitespace-nowrap">中英文姓名</td>
+                    <td className="p-3 border border-gray-200 text-red-700 font-medium whitespace-nowrap">唔好壓</td>
+                    <td className="p-3 border border-gray-200 text-gray-600">要同開戶申請表上嘅名逐字比對</td>
+                  </tr>
+                  <tr>
+                    <td className="p-3 border border-gray-200 font-medium text-gray-800 whitespace-nowrap">符號代碼（A／U／R／C 等）</td>
+                    <td className="p-3 border border-gray-200 text-red-700 font-medium whitespace-nowrap">唔好壓</td>
+                    <td className="p-3 border border-gray-200 text-gray-600">決定居留同工作身分，金融機構一定要睇</td>
+                  </tr>
+                  <tr>
+                    <td className="p-3 border border-gray-200 font-medium text-gray-800 whitespace-nowrap">相片</td>
+                    <td className="p-3 border border-gray-200 text-red-700 font-medium whitespace-nowrap">唔好壓</td>
+                    <td className="p-3 border border-gray-200 text-gray-600">要同活體檢測嘅自拍做人臉比對</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p>
+              一句講晒：
+              <strong>COPY 字樣要斜跨證件中段、壓住中文電碼同日期嗰幾行，避開號碼、姓名、代碼同相片</strong>
+              ，透明度 30 至 45%。加完之後放大到 200% 逐個欄位睇一次，四個唔可以壓嘅欄位全部清楚可讀，先至上載。
+            </p>
+
             <h2>上載前嘅檢查清單</h2>
             <ol>
               <li>
@@ -358,6 +450,11 @@ export default function WatermarkHkidCopy() {
               <strong>Q：移民 KYC 可唔可以加水印？</strong>
               <br />
               A：可以。移民局同大使館嘅遞交系統一般接受加咗適度水印嘅副本，只要姓名、身份證號碼、相片依然清晰可讀。如果係代辦公司幫你處理申請，佢哋可能會要求乾淨副本；呢種情況下，水印寫明「僅供 [代辦公司名稱] [簽證類別] 申請之用 [日期]」，令副本流出時只會對應嗰一次申請。
+            </p>
+            <p>
+              <strong>Q：「COPY」字樣應該蓋喺身份證副本嘅邊個位置？</strong>
+              <br />
+              A：斜跨證件中段，壓住中文電碼同出生／簽發日期嗰幾行，避開身份證號碼、中英文姓名、符號代碼同相片——呢四項係 KYC 系統一定要 OCR 讀到嘅欄位，壓親就會被要求重交。唔好淨係擺喺相片四邊嘅白邊或者一個角：白邊一裁就冇，角落嘅字用修圖 app 兩下就移除得到。另外單獨一個 COPY 字冇乜限制力，應該寫成「COPY — 僅供 [對象] [用途] 之用 [日期]」。透明度用 30 至 45%，開啟重複（平鋪）模式鋪滿成張效果最好。
             </p>
             <p>
               <strong>Q：香港身份證副本被人拎到手，實際會用嚟做啲乜？</strong>

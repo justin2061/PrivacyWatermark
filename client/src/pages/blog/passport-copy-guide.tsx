@@ -262,10 +262,10 @@ export default function PassportCopyGuide() {
                 </span>
               </article>
             </Link>
-            <Link href="/blog/watermark-templates-guide">
+            <Link href="/blog/id-copy-annotation-templates">
               <article className="block border rounded-xl p-5 hover:border-primary hover:shadow-sm transition-all cursor-pointer">
                 <h3 className="font-medium mb-1">
-                  身分證影本簽註寫法＋證件浮水印範本：10 種情境怎麼寫
+                  身分證影本簽註寫法＋加註位置：20 組範本與證件浮水印範例
                 </h3>
                 <p className="text-sm text-muted-foreground">
                   租屋、求職、開戶、簽證……每種情境的證件浮水印該寫什麼？完整範本讓你直接套用。

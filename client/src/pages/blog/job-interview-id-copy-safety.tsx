@@ -155,9 +155,9 @@ export default function JobInterviewIdCopySafety() {
             <p>
               <strong>1. 加浮水印，寫明用途與日期。</strong>
               <br />
-              在影本上打一層半透明文字，例如「僅供○○公司到職勞健保使用，2026.07」，並讓文字橫跨身分證字號與照片，讓影本無法被挪作他用。完整的 10 種簽註範本和寫法，請參考{" "}
-              <Link href="/blog/watermark-templates-guide">
-                《身分證影本簽註寫法＋證件浮水印範本：10 種情境怎麼寫》
+              在影本上打一層半透明文字，例如「僅供○○公司到職勞健保使用，2026.07」，並讓文字橫跨身分證字號與照片，讓影本無法被挪作他用。完整的 20 組簽註範本和寫法，請參考{" "}
+              <Link href="/blog/id-copy-annotation-templates">
+                《身分證影本簽註寫法＋加註位置：20 組範本與證件浮水印範例》
               </Link>
               。
             </p>

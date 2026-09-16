@@ -209,10 +209,10 @@ export default function BatchWatermarkMethods() {
         <section className="mt-12 border-t pt-8">
           <h2 className="text-xl font-semibold mb-4">相關文章</h2>
           <div className="space-y-4">
-            <Link href="/blog/watermark-templates-guide">
+            <Link href="/blog/id-copy-annotation-templates">
               <article className="block border rounded-xl p-5 hover:border-primary hover:shadow-sm transition-all cursor-pointer">
                 <h3 className="font-medium mb-1">
-                  身分證影本簽註寫法＋加註位置：10 種情境範本（2026）
+                  身分證影本簽註寫法＋加註位置：20 組範本與證件浮水印範例（2026）
                 </h3>
                 <p className="text-sm text-muted-foreground">
                   租屋、求職、開戶、保險……每種情境的證件浮水印該寫什麼？完整 10 種範本讓你直接套用。

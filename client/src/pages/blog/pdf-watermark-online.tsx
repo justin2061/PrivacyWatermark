@@ -213,7 +213,7 @@ export default function PdfWatermarkOnline() {
               這類檔案的風險比商業文件更高，因為外洩後被冒名申辦的是你本人。
               寫法和圖片版的證件浮水印一樣，
               可以直接沿用
-              <Link href="/blog/watermark-templates-guide">浮水印範本與寫法大全</Link>
+              <Link href="/blog/id-copy-annotation-templates">浮水印範本與寫法大全</Link>
               的句型。
             </p>
 
@@ -747,10 +747,10 @@ export default function PdfWatermarkOnline() {
                 </span>
               </article>
             </Link>
-            <Link href="/blog/watermark-templates-guide">
+            <Link href="/blog/id-copy-annotation-templates">
               <article className="block border rounded-xl p-5 hover:border-primary hover:shadow-sm transition-all cursor-pointer">
                 <h3 className="font-medium mb-1">
-                  身分證影本簽註寫法＋加註位置：10 種情境範本與證件浮水印範例
+                  身分證影本簽註寫法＋加註位置：20 組範本與證件浮水印範例
                 </h3>
                 <p className="text-sm text-muted-foreground">
                   用途、對象、日期怎麼組合，10 種情境的浮水印文字範本直接套用。

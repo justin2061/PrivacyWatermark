@@ -41,9 +41,12 @@ export default function WatermarkPage() {
 
   useEffect(() => {
     return setPageSeo({
-      title: "免費線上浮水印產生器｜證件浮水印製作工具、100% 本機處理 — ImageMarker",
-      // 「免費線上浮水印產生器」原本在標題後半（排名 11.9、曝光 1,499，卡在第二頁第一名），
-      // 這次只把它整段前移到標題開頭提高權重，字串本身一字不動——它是目前唯一在成長的字群。
+      // 「免費線上浮水印產生器」（曝光 330）留在開頭一字不動——它是目前唯一在成長的
+      // 字群，位置不能動。這次只在它後面補一個獨立的「浮水印製作」（曝光 384，是本站
+      // 目前曝光最高、卻沒有任何一頁把它當成主字串的查詢）。原本它只以子字串的形式藏在
+      // 後半的「證件浮水印製作工具」裡，Google 很難判斷本頁在打這個字；拉成分隔號後的
+      // 獨立詞組才是字面命中。後半同步改成「證件浮水印工具」避免「浮水印製作」重複兩次。
+      title: "免費線上浮水印產生器・浮水印製作｜證件浮水印工具、100% 本機處理 — ImageMarker",
       // 描述補上「免費浮水印工具」「線上浮水印工具」的變體寫法擴大匹配面。
       description:
         "免費線上浮水印工具，專為身分證、護照、駕照等證件與機密文件設計的免費浮水印產生器。100% 本地端瀏覽器處理，不上傳任何檔案。支援自訂浮水印文字、透明度調整，適用租屋、求職等場景。",
@@ -308,10 +311,10 @@ export default function WatermarkPage() {
                 ，從隱私安全、是否需註冊、批次處理到 PDF 支援逐項比對；
                 若你想知道浮水印該寫什麼內容，可以參考{" "}
                 <Link
-                  href="/blog/watermark-templates-guide"
+                  href="/blog/id-copy-annotation-templates"
                   className="text-primary font-medium hover:underline"
                 >
-                  身分證影本簽註寫法與 10 種情境範本
+                  身分證影本簽註寫法＋加註位置與 20 組範本
                 </Link>
                 。
               </p>
@@ -384,15 +387,15 @@ export default function WatermarkPage() {
 
             <Card className="p-5 hover:shadow-md transition-shadow">
               <h3 className="font-semibold text-gray-900 mb-2">
-                <Link href="/blog/watermark-templates-guide" className="hover:text-primary transition-colors">
-                  身分證影本簽註寫法＋證件浮水印範本：10 種情境怎麼寫（2026 最新）
+                <Link href="/blog/id-copy-annotation-templates" className="hover:text-primary transition-colors">
+                  身分證影本簽註寫法＋加註位置：20 組範本與證件浮水印範例（2026）
                 </Link>
               </h3>
               <p className="text-sm text-gray-600 mb-4">
-                租屋、求職、開戶、保險……每種情境的證件浮水印該寫什麼？完整 10 種範本讓你直接套用。
+                租屋、求職、開戶、保險……每種情境的證件浮水印該寫什麼、加註位置放哪才不會被裁掉？20 組範本一鍵複製直接套用。
               </p>
               <Link
-                href="/blog/watermark-templates-guide"
+                href="/blog/id-copy-annotation-templates"
                 className="inline-block text-sm text-primary font-medium hover:underline"
               >
                 閱讀全文<ReadMoreArrow />

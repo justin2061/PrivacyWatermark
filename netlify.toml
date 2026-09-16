@@ -35,7 +35,9 @@
 # /blog/watermark-templates-guide 列為「網頁會重新導向」，但以 Googlebot UA 實測
 # 四個網址都是 200、canonical 皆自我指向、標題正確，斜線版也回同一份 HTML 與同一個
 # 無斜線 canonical——線上狀態已經是對的，報告落後於索引現況，等重新驗證通過即可。
-# 這四頁都還在 sitemap.xml，且應該留著（它們是有效頁面，不是待移除的舊網址）。
+# 前三頁都還在 sitemap.xml，且應該留著（它們是有效頁面，不是待移除的舊網址）。
+# （2026-09-16 更新：第四頁 /blog/watermark-templates-guide 已併入
+# /blog/id-copy-annotation-templates，現在是真的 301，見下方 redirect。）
 # 千萬不要為了「擇一」而在這裡加斜線 301，理由見上面那段：一定會變成無限迴圈。
 [build.processing]
   skip_processing = false
@@ -59,6 +61,21 @@
 #      dist/ja/<tool>/index.html 會自動蓋過這裡，不必回來刪規則；萬用字元則會
 #      誤傷 /ja/blog/* 與 /ja/waitlist。
 #   3. Netlify 比對時會忽略結尾斜線，所以 /ja/exif-clean/ 也一併涵蓋。
+# 2026-09-16: /blog/watermark-templates-guide 整篇併入
+# /blog/id-copy-annotation-templates（規則與範本本來分兩頁寫，結果互相蠶食同一批
+# 「簽註寫法／加註位置」查詢，templates-guide 連續 5 週沒有被重新檢索）。
+# 舊網址有外部連結與既有排名，所以 301 而不是留空頁或 410。
+#
+# 這條規則要能生效，前提是 dist/blog/watermark-templates-guide/index.html 不再存在
+# ——非 force 的 redirect 會被靜態檔壓過。所以同一次變更裡 App.tsx 的 route、
+# sitemap.xml 的 <url> 與頁面檔案三者都必須一起移除（prerender 是照 sitemap 跑的）。
+# 不加 force = true：維持全站慣例，日後若真的重新開一頁同名文章，prerender 產出的
+# 靜態檔會自動蓋過這條規則，不必回來刪。
+[[redirects]]
+  from = "/blog/watermark-templates-guide"
+  to = "/blog/id-copy-annotation-templates"
+  status = 301
+
 # 2026-09-06: renamed the MyKad rental article slug shortly after its first push.
 # Google may already have crawled the old URL from sitemap.xml before the
 # rename hit main, so redirect it to the new slug.

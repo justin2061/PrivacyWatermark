@@ -422,13 +422,6 @@ const CARDS = [
   },
   {
     locale: "zh",
-    slug: "watermark-templates-guide",
-    kicker: "範例 · 簽註",
-    title: "身分證影本\n簽註寫法與位置",
-    sub: "10 種情境範本與證件浮水印範例。",
-  },
-  {
-    locale: "zh",
     slug: "what-is-exif-data",
     kicker: "隱私 · EXIF",
     title: "你的照片\n藏了什麼秘密",

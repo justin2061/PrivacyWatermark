@@ -230,7 +230,7 @@ export default function PrivacyProtectionToolkit() {
               正確做法是斜向壓過證件主體與人像區域，
               透明度大約設在能看清底下欄位、但文字明顯到無法忽略的程度。
               更多寫法範例整理在
-              <Link href="/blog/watermark-templates-guide">
+              <Link href="/blog/id-copy-annotation-templates">
                 浮水印範本與寫法大全
               </Link>
               。

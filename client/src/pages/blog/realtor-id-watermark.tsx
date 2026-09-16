@@ -378,8 +378,8 @@ export default function RealtorIdWatermark() {
 
             <p>
               更多情境的寫法（開戶、保險、監理站等）整理在{" "}
-              <Link href="/blog/watermark-templates-guide">
-                身分證影本簽註寫法＋加註位置：10 種情境範本（2026）
+              <Link href="/blog/id-copy-annotation-templates">
+                身分證影本簽註寫法＋加註位置：20 組範本與證件浮水印範例（2026）
               </Link>
               ，客戶問你「這樣寫對嗎」的時候可以直接把連結丟給他。
             </p>
@@ -532,10 +532,10 @@ export default function RealtorIdWatermark() {
                 </span>
               </article>
             </Link>
-            <Link href="/blog/watermark-templates-guide">
+            <Link href="/blog/id-copy-annotation-templates">
               <article className="block border rounded-xl p-5 hover:border-primary hover:shadow-sm transition-all cursor-pointer">
                 <h3 className="font-medium mb-1">
-                  身分證影本簽註寫法＋加註位置：10 種情境範本（2026）
+                  身分證影本簽註寫法＋加註位置：20 組範本與證件浮水印範例（2026）
                 </h3>
                 <p className="text-sm text-muted-foreground">
                   租屋、求職、開戶、簽證……每種情境的證件浮水印該寫什麼？完整範本直接套用。

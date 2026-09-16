@@ -30,8 +30,27 @@ import { Lock, Zap, Eraser } from "lucide-react";
 // engine. Leading with the watermark intent that already ranks, then naming the
 // other tools, so the homepage can win "privacy toolkit"-shaped queries instead
 // of competing only on the crowded watermark head terms.
+//
+// 2026-09-16 — reverting the 2026-09-06 title experiment.
+// That commit changed this to "Add Watermark to Photos Online Free | ImageMarker",
+// and /en/ then lost 33 clicks / 242 impressions week-on-week. Two things went
+// wrong at once and both point the same way:
+//   1. It dropped every term this page actually owned — "generator", "ID",
+//      "passport", "online" — while the description below still sells exactly
+//      those. Title and description stopped agreeing with each other.
+//   2. "Add Watermark to Photos Online" is already the title of
+//      /en/blog/watermark-photos-online ("How to Add Watermark to Photos Online
+//      — Free Tool (2026)"). The homepage was pointed at a phrase an existing
+//      article was built for, so the two now compete for the same query while
+//      the homepage's own ID/passport base went unclaimed. Same self-
+//      cannibalisation shape as /blog/watermark-templates-guide.
+// So: put the head terms back, keep "photos" (the one thing the experiment
+// added that is worth keeping), and stay under 60 chars. The H1 below still
+// carries the literal "Add a Watermark to Photos Online Free" wording, so the
+// phrase is not lost from the page — only from the title, where it was
+// colliding with the blog article.
 const TITLE =
-  "Add Watermark to Photos Online Free | ImageMarker";
+  "Free Online Watermark Generator for Photos, ID & Passport";
 const DESCRIPTION =
   "Free watermark generator for ID cards, passports and photos — plus EXIF remover, mosaic/blur, compressor, converter, resizer and PDF watermark. 10+ privacy tools, 100% in your browser, no upload.";
 

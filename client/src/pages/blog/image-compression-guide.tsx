@@ -269,6 +269,15 @@ export default function ImageCompressionGuide() {
               如果照片是為了上傳網頁或當附件，往往不需要原始的超高解析度。先把長邊<Link href="/resize">縮放</Link>到 1600～2000px，再做壓縮，檔案會小得更漂亮，而在螢幕上看幾乎沒差。這比單純狂調壓縮強度、把畫質壓爛更聰明。
             </p>
 
+            <h2>如果來源是 BMP：先轉檔，比壓縮更有效</h2>
+            <p>
+              有一種「檔案太大」不是壓縮能解決的：<strong>BMP</strong>。掃描器、小畫家與部分監控軟體輸出的 BMP 幾乎不做任何壓縮，一張全螢幕截圖動輒好幾 MB，這時候調壓縮強度沒什麼用——格式本身就是問題。直接用{" "}
+              <Link href="/convert/bmp-to-jpg">BMP 轉 JPG</Link>{" "}
+              通常一步就縮小九成以上；如果畫面裡有大量細小文字、必須無損，改用{" "}
+              <Link href="/convert/bmp-to-png">BMP 轉 PNG</Link>{" "}
+              會更適合。轉完再依上面的做法壓縮，效果才疊得上去。
+            </p>
+
             <h2>用 ImageMarker 壓縮圖片（不上傳、免費）</h2>
             <ol>
               <li>

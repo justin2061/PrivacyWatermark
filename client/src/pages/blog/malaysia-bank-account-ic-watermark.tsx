@@ -276,7 +276,7 @@ export default function MalaysiaBankAccountIcWatermark() {
                 </span>
               </article>
             </Link>
-            <Link href="/blog/watermark-templates-guide">
+            <Link href="/blog/id-copy-annotation-templates">
               <article className="block border rounded-xl p-5 hover:border-primary hover:shadow-sm transition-all cursor-pointer">
                 <h3 className="font-medium mb-1">
                   證件浮水印範本怎麼寫？常用文字範例與注意事項

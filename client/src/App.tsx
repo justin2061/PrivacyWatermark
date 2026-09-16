@@ -53,7 +53,6 @@ import WatermarkIdBeforeSendingKycEn from "@/pages/en/blog/watermark-id-before-s
 import RealEstatePhotoWatermarkingEn from "@/pages/en/blog/real-estate-photo-watermarking";
 import WatermarkEtsyProductPhotosEn from "@/pages/en/blog/watermark-etsy-product-photos";
 import GdprCompliantWatermarkingEn from "@/pages/en/blog/gdpr-compliant-watermarking";
-import WatermarkTemplatesGuidePage from "@/pages/blog/watermark-templates-guide";
 import IdCopyAnnotationTemplatesPage from "@/pages/blog/id-copy-annotation-templates";
 import PassportWatermarkGuidePage from "@/pages/blog/passport-watermark-guide";
 import PassportCopyGuidePage from "@/pages/blog/passport-copy-guide";
@@ -171,7 +170,6 @@ function Router() {
       <Route path="/blog" component={BlogIndex} />
       <Route path="/blog/rent-id-watermark" component={RentIdWatermark} />
       <Route path="/blog/watermark-generators-recommendation" component={WatermarkGeneratorsRecommendation} />
-      <Route path="/blog/watermark-templates-guide" component={WatermarkTemplatesGuidePage} />
       <Route path="/blog/id-copy-annotation-templates" component={IdCopyAnnotationTemplatesPage} />
       <Route path="/blog/passport-watermark-guide" component={PassportWatermarkGuidePage} />
       <Route path="/blog/passport-copy-guide" component={PassportCopyGuidePage} />

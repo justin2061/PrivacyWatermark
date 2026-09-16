@@ -105,9 +105,9 @@ export default function RentBeforeGivingId3Things() {
               這是最關鍵的一步。在影本上打一層半透明文字，標註<strong>用途＋對象＋日期</strong>（例如「僅供○○租屋簽約使用，2026.07」），並讓文字<strong>橫跨身分證字號與照片</strong>，而不是縮在角落——關鍵欄位上蓋著洗不掉的用途宣告，別人就很難把它 P 成一張「乾淨」的證件拿去辦門號、申貸。
             </p>
             <p>
-              完整的 10 種簽註範本和寫法（含手寫三行簽註的正確規則、常見錯誤對照），請參考{" "}
-              <Link href="/blog/watermark-templates-guide">
-                《身分證影本簽註寫法＋證件浮水印範本：10 種情境怎麼寫》
+              完整的 20 組簽註範本和寫法（含手寫三行簽註的正確規則、常見錯誤對照），請參考{" "}
+              <Link href="/blog/id-copy-annotation-templates">
+                《身分證影本簽註寫法＋加註位置：20 組範本與證件浮水印範例》
               </Link>
               。
             </p>
