@@ -9,6 +9,24 @@
 
 import type { PDFImage, PDFPage } from "pdf-lib";
 
+// pdf-lib 約 180 kB（gzip），不放進頁面首次載入；但也不能等到按下「套用」才載：
+// 那時若剛好部署換版，抓舊 chunk 失敗會觸發 main.tsx 的自動重整，使用者已上傳的
+// PDF 與設定會全部消失。所以頁面載入完、瀏覽器空閒時就先載好——換版失敗會發生在
+// 剛開頁、還沒上傳任何東西的時候。預渲染時跳過，免得 modulepreload 被寫進靜態 HTML。
+const loadPdfLib = () => import("pdf-lib");
+if (
+  typeof window !== "undefined" &&
+  !(window as unknown as { __PRERENDER__?: boolean }).__PRERENDER__
+) {
+  const run = () => void loadPdfLib().catch(() => {});
+  const schedule = () =>
+    "requestIdleCallback" in window
+      ? requestIdleCallback(run, { timeout: 3000 })
+      : setTimeout(run, 1000);
+  if (document.readyState === "complete") schedule();
+  else window.addEventListener("load", schedule, { once: true });
+}
+
 export type WatermarkPosition =
   | "top-left"
   | "top-center"
@@ -193,8 +211,8 @@ export async function applyPdfWatermark(
   pdfBytes: ArrayBuffer,
   settings: PdfWatermarkSettings
 ): Promise<ProcessResult> {
-  // pdf-lib 很大，只在真的處理 PDF 時才載入，不拖慢頁面首次開啟。
-  const { PDFDocument } = await import("pdf-lib");
+  // 通常已在頁面空閒時載好（見檔案開頭），這裡只是取回同一個模組
+  const { PDFDocument } = await loadPdfLib();
   const pdfDoc = await PDFDocument.load(pdfBytes, { ignoreEncryption: true });
   const pages = pdfDoc.getPages();
 

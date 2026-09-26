@@ -1,4 +1,5 @@
 import { useState, useRef, useCallback, useEffect } from "react";
+import JSZip from "jszip";
 import {
   WatermarkSettings,
   DEFAULT_DIAGONAL_FONT_SIZE,
@@ -213,8 +214,6 @@ export function useBatchWatermark(lang: Lang = "zh") {
     const processedImages = images.filter((i) => i.processed);
     if (processedImages.length === 0) return;
 
-    // 只在下載 ZIP 時才載入 jszip
-    const { default: JSZip } = await import("jszip");
     const zip = new JSZip();
     for (let i = 0; i < processedImages.length; i++) {
       const item = processedImages[i];

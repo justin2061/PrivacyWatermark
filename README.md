@@ -39,7 +39,7 @@ ImageMarker 是一套完全免費、**100% 在瀏覽器本地處理**的圖片�
 - 圖片處理：HTML5 Canvas；PDF 使用 `pdf-lib`；HEIC 使用 `heic2any`
 - **預渲染（SSG）**：`scripts/prerender.mjs` 會在 build 後用 Puppeteer 逐一渲染 sitemap 上的所有路由，
   輸出靜態 HTML，並檢查 canonical 與 hreflang
-- **路由層級 code splitting**：每個頁面各自一個 chunk，`pdf-lib`、`jszip` 等大型套件只在使用時載入。
+- **路由層級 code splitting**：每個頁面各自一個 chunk；`pdf-lib` 不進首次載入，而是 PDF 浮水印頁載入完成、瀏覽器空閒時才預先下載。
   新增頁面時在 `client/src/routes.tsx` 加一行即可
 - 部署：Netlify（設定見 `netlify.toml`，包含轉址與標頭）
 - CI：GitHub Actions（`.github/workflows/ci.yml`）在 PR 與 main 上跑型別檢查、build 與預渲染 SEO 檢查
