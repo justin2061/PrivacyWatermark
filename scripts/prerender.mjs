@@ -87,9 +87,12 @@ const DEFAULT_TITLE_HINT = "證件浮水印製作工具";
 // the whole site drops out of the index. That is far worse than a failed deploy,
 // which merely keeps the previous good one live. So bail LOUDLY here and let the
 // build go red, instead of silently shipping an unindexable site.
-// Locally / in dev the old safe no-op still applies.
+// Locally / in dev the old safe no-op still applies. CI opts in with
+// PRERENDER_REQUIRED=1 so a Chromium that can't launch fails the check instead
+// of passing as a silent skip.
 const PRERENDER_REQUIRED =
-  process.env.NETLIFY === "true" && process.env.CONTEXT === "production";
+  process.env.PRERENDER_REQUIRED === "1" ||
+  (process.env.NETLIFY === "true" && process.env.CONTEXT === "production");
 
 function bail(message) {
   if (PRERENDER_REQUIRED) {
@@ -185,11 +188,20 @@ async function main() {
         waitUntil: "domcontentloaded",
         timeout: 30000,
       });
-      // Wait until React has actually mounted content into #root.
+      // Wait until React has actually mounted content into #root — and the
+      // route's page, not the Suspense fallback. Pages are code-split
+      // (client/src/lib/lazyPage.tsx); main.tsx preloads the current route's
+      // chunk before mounting so this shouldn't suspend, but if it ever does,
+      // "#root has children" alone would bake the empty placeholder into the
+      // static HTML.
       await page.waitForFunction(
         () => {
           const root = document.querySelector("#root");
-          return !!root && root.children.length > 0;
+          return (
+            !!root &&
+            root.children.length > 0 &&
+            !root.querySelector("[data-route-loading]")
+          );
         },
         { timeout: 15000 }
       );

@@ -7,7 +7,7 @@
 // which are WinAnsi-only and cannot encode CJK (Chinese/Japanese/Korean) — the
 // browser's canvas renders any text the system can, so 中文浮水印 just works.
 
-import { PDFDocument, type PDFImage, type PDFPage } from "pdf-lib";
+import type { PDFImage, PDFPage } from "pdf-lib";
 
 export type WatermarkPosition =
   | "top-left"
@@ -193,6 +193,8 @@ export async function applyPdfWatermark(
   pdfBytes: ArrayBuffer,
   settings: PdfWatermarkSettings
 ): Promise<ProcessResult> {
+  // pdf-lib 很大，只在真的處理 PDF 時才載入，不拖慢頁面首次開啟。
+  const { PDFDocument } = await import("pdf-lib");
   const pdfDoc = await PDFDocument.load(pdfBytes, { ignoreEncryption: true });
   const pages = pdfDoc.getPages();
 

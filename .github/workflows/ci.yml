@@ -1,0 +1,45 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      # 用 runner 內建的 Chrome，不另外下載 Puppeteer 的 Chromium
+      PUPPETEER_SKIP_DOWNLOAD: "true"
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: Type check
+        run: pnpm check
+
+      - name: Vite build
+        run: pnpm build:spa
+
+      # 與 Netlify 正式部署相同的預渲染；內含 sitemap coverage、canonical、
+      # hreflang 檢查，任何一項失敗都會讓 CI 變紅。
+      - name: Prerender + SEO checks
+        run: pnpm prerender
+        env:
+          PRERENDER_REQUIRED: "1"
+          PUPPETEER_EXECUTABLE_PATH: /usr/bin/google-chrome

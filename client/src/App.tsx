@@ -1,253 +1,66 @@
-import { Switch, Route } from "wouter";
+import { Component, Suspense, type ReactNode } from "react";
+import { Switch, Route, useLocation } from "wouter";
 import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { ProtectionNotice } from "@/components/ProtectionNotice";
 import { PwaInstallPrompt } from "@/components/PwaInstallPrompt";
-import WatermarkPage from "@/pages/watermark";
-import WatermarkEnPage from "@/pages/en/watermark";
-import WatermarkJaPage from "@/pages/ja/watermark";
-import JaBlogIndex from "@/pages/ja/blog/index";
-import JaIdCopyWatermark from "@/pages/ja/blog/id-copy-watermark";
-import JaMyNumberCardCopySafe from "@/pages/ja/blog/my-number-card-copy-safe";
-import JaDocumentWatermarkTool from "@/pages/ja/blog/document-watermark-tool";
-import JaMyNumberCardWatermark from "@/pages/ja/blog/my-number-card-watermark";
-import JaPassportCopyPrivacyGuide from "@/pages/ja/blog/passport-copy-privacy-guide";
-import WatermarkPhotosOnlineEn from "@/pages/en/blog/watermark-photos-online";
-import WatermarkIdDocumentsEn from "@/pages/en/blog/watermark-id-documents";
-import WatermarkPhotosFreeEn from "@/pages/en/blog/watermark-photos-free";
-import ProtectPhotosOnlineEn from "@/pages/en/blog/protect-photos-online";
-import RentalScamPreventionEn from "@/pages/en/blog/rental-scam-prevention";
-import BatchWatermarkImagesEn from "@/pages/en/blog/batch-watermark-images";
-import RemoveExifDataEn from "@/pages/en/blog/remove-exif-data";
-import WatermarkBestPracticesEn from "@/pages/en/blog/watermark-best-practices";
-import DigitalIdentityProtectionEn from "@/pages/en/blog/digital-identity-protection";
-import WatermarkIdBeforeSharingEn from "@/pages/en/blog/watermark-id-before-sharing";
-import BestWatermarkGeneratorsEn from "@/pages/en/blog/best-watermark-generators";
-import RemoveExifDataGuideEn from "@/pages/en/blog/remove-exif-data-guide";
-import PdfWatermarkOnlineFreeEn from "@/pages/en/blog/pdf-watermark-online-free";
-import WatermarkMyKadMalaysiaEn from "@/pages/en/blog/watermark-mykad-malaysia";
-import WatermarkMyKadRentalEn from "@/pages/en/blog/watermark-mykad-rental";
-import WatermarkIdBeforeKycUploadEn from "@/pages/en/blog/watermark-id-before-kyc-upload";
-import WatermarkHkidCopy from "@/pages/blog/watermark-hkid-copy";
-import CompressTo200kbEn from "@/pages/en/compress-to-200kb";
-import CompressTo100kbEn from "@/pages/en/compress-to-100kb";
-import ConvertHeicToJpgEn from "@/pages/en/convert-heic-to-jpg";
-import ConvertPngToJpgEn from "@/pages/en/convert-png-to-jpg";
-import ConvertWebpToJpgEn from "@/pages/en/convert-webp-to-jpg";
-import ResizeJpgEn from "@/pages/en/resize-jpg";
-import CropPhotoEn from "@/pages/en/crop-photo";
-import BlurFaceEn from "@/pages/en/blur-face";
-import WatermarkDriversLicenseUsaEn from "@/pages/en/blog/watermark-drivers-license-usa";
-import WatermarkUkPassportCopyEn from "@/pages/en/blog/watermark-uk-passport-copy";
-import WatermarkAustralianIdDocumentsEn from "@/pages/en/blog/watermark-australian-id-documents";
-import WatermarkAadhaarCardIndiaEn from "@/pages/en/blog/watermark-aadhaar-card-india";
-import RentingProtectIdDocumentsEn from "@/pages/en/blog/renting-protect-id-documents";
-import BatchWatermarkPhotosEn from "@/pages/en/blog/batch-watermark-photos";
-import ImageCompressionGuideEn from "@/pages/en/blog/image-compression-guide";
-import WhatIsDigitalWatermarkEn from "@/pages/en/blog/what-is-digital-watermark";
-import SocialMediaImageSizesEn from "@/pages/en/blog/social-media-image-sizes";
-import EnBlogIndex from "@/pages/en/blog/index";
-import WatermarkIdBeforeSendingKycEn from "@/pages/en/blog/watermark-id-before-sending-kyc";
-import RealEstatePhotoWatermarkingEn from "@/pages/en/blog/real-estate-photo-watermarking";
-import WatermarkEtsyProductPhotosEn from "@/pages/en/blog/watermark-etsy-product-photos";
-import GdprCompliantWatermarkingEn from "@/pages/en/blog/gdpr-compliant-watermarking";
-import IdCopyAnnotationTemplatesPage from "@/pages/blog/id-copy-annotation-templates";
-import PassportWatermarkGuidePage from "@/pages/blog/passport-watermark-guide";
-import PassportCopyGuidePage from "@/pages/blog/passport-copy-guide";
-import IdPhotoGuidePage from "@/pages/blog/id-photo-guide";
-import RealtorIdWatermarkPage from "@/pages/blog/realtor-id-watermark";
-import HrOnboardingWatermarkSopPage from "@/pages/blog/hr-onboarding-watermark-sop";
-import BusinessConfidentialWatermarkPage from "@/pages/blog/business-confidential-watermark";
-import MobileWatermarkTutorialPage from "@/pages/blog/mobile-watermark-tutorial";
-import OtherDocumentsWatermarkPage from "@/pages/blog/other-documents-watermark";
-import PassportTravelAgencyWatermarkPage from "@/pages/blog/passport-travel-agency-watermark";
-import ExifCleanPage from "@/pages/exif-clean";
-import ExifCleanEnPage from "@/pages/en/exif-clean";
-import BatchPage from "@/pages/batch";
-import BatchEnPage from "@/pages/en/batch";
-import CompressPage from "@/pages/compress";
-import CompressEnPage from "@/pages/en/compress";
-import ConvertPage from "@/pages/convert";
-import ConvertEnPage from "@/pages/en/convert";
-import ConvertPairPage from "@/pages/convert-pair";
-import ConvertPairEnPage from "@/pages/en/convert-pair";
-import { PAIRS } from "@/lib/convertPairs";
-import ResizePage from "@/pages/resize";
-import ResizeEnPage from "@/pages/en/resize";
-import SocialCropPage from "@/pages/social-crop";
-import SocialCropEnPage from "@/pages/en/social-crop";
-import RemoveBgPage from "@/pages/remove-bg";
-import RemoveBgEnPage from "@/pages/en/remove-bg";
-import PdfWatermarkPage from "@/pages/pdf-watermark";
-import PdfWatermarkEnPage from "@/pages/en/pdf-watermark";
-import MosaicPage from "@/pages/mosaic";
-import MosaicEnPage from "@/pages/en/mosaic";
-import IsIdWatermarkUsefulPage from "@/pages/blog/is-id-watermark-useful";
-import TinypngIloveimgSquooshAlternatives from "@/pages/blog/tinypng-iloveimg-squoosh-alternatives";
-import TinypngIloveimgSquooshAlternativesEn from "@/pages/en/blog/tinypng-iloveimg-squoosh-alternatives";
-import BatchWatermarkMethodsPage from "@/pages/blog/batch-watermark-methods";
-import AntiTheftPhotoWatermark from "@/pages/blog/anti-theft-photo-watermark";
-import RentRequiredDocuments from "@/pages/blog/rent-required-documents";
-import RentScamIdFraud from "@/pages/blog/rent-scam-id-fraud";
-import LandlordAsksForId from "@/pages/blog/landlord-asks-for-id";
-import BatchWatermarkGuide from "@/pages/blog/batch-watermark-guide";
-import WhatIsExifData from "@/pages/blog/what-is-exif-data";
-import RemoveExifOnline from "@/pages/blog/remove-exif-online";
-import PrivacyProtectionToolkit from "@/pages/blog/privacy-protection-toolkit";
-import PdfWatermarkOnline from "@/pages/blog/pdf-watermark-online";
-import MosaicPhotoOnline from "@/pages/blog/mosaic-photo-online";
-import WatermarkHkid from "@/pages/blog/watermark-hkid";
-import ImageCompressionGuide from "@/pages/blog/image-compression-guide";
-import IdCopyLeakedConsequences from "@/pages/blog/id-copy-leaked-consequences";
-import RentBeforeGivingId3Things from "@/pages/blog/rent-before-giving-id-3-things";
-import JobInterviewIdCopySafety from "@/pages/blog/job-interview-id-copy-safety";
-import IdWatermarkCompleteGuide from "@/pages/blog/id-watermark-complete-guide";
-import HkRentIdCopyWatermark from "@/pages/blog/hk-rent-id-copy-watermark";
-import MalaysiaBankAccountIcWatermark from "@/pages/blog/malaysia-bank-account-ic-watermark";
-import OverseasChinesePassportWatermark from "@/pages/blog/overseas-chinese-passport-watermark";
-import WaitlistPage from "@/pages/waitlist";
-import NotFound from "@/pages/not-found";
-import BlogIndex from "@/pages/blog/index";
-import RentIdWatermark from "@/pages/blog/rent-id-watermark";
-import WatermarkGeneratorsRecommendation from "@/pages/blog/watermark-generators-recommendation";
+import { ROUTES, NotFound } from "@/routes";
+
+/** 站內換頁、chunk 還沒載入時的佔位：保留高度避免 footer 跳上來。 */
+function RouteFallback() {
+  return <div className="min-h-screen" data-route-loading="" aria-busy="true" />;
+}
+
+/**
+ * 站內換頁時頁面 chunk 載入失敗（離線、部署換版後重整也救不回來）的最後防線；
+ * 沒有它 React 會把整個畫面清成空白。換頁時以 key 重設，回上一頁即可恢復。
+ */
+class RouteErrorBoundary extends Component<{ children: ReactNode }, { failed: boolean }> {
+  state = { failed: false };
+
+  static getDerivedStateFromError() {
+    return { failed: true };
+  }
+
+  render() {
+    if (!this.state.failed) return this.props.children;
+    return (
+      <div className="min-h-screen flex flex-col items-center justify-center gap-4 p-6 text-center">
+        <p className="text-lg font-medium">頁面載入失敗，請檢查網路後重新整理。</p>
+        <p className="text-sm text-muted-foreground">
+          This page failed to load. Please check your connection and reload.
+        </p>
+        <button
+          type="button"
+          className="rounded-md border px-4 py-2 text-sm"
+          onClick={() => window.location.reload()}
+        >
+          重新整理 / Reload
+        </button>
+      </div>
+    );
+  }
+}
 
 function Router() {
+  const [location] = useLocation();
   return (
-    <Switch>
-      <Route path="/" component={WatermarkPage} />
-      <Route path="/en" component={WatermarkEnPage} />
-      <Route path="/en/" component={WatermarkEnPage} />
-      <Route path="/ja" component={WatermarkJaPage} />
-      <Route path="/ja/" component={WatermarkJaPage} />
-      <Route path="/ja/blog" component={JaBlogIndex} />
-      <Route path="/ja/blog/id-copy-watermark" component={JaIdCopyWatermark} />
-      <Route path="/ja/blog/my-number-card-copy-safe" component={JaMyNumberCardCopySafe} />
-      <Route path="/ja/blog/document-watermark-tool" component={JaDocumentWatermarkTool} />
-      <Route path="/ja/blog/my-number-card-watermark" component={JaMyNumberCardWatermark} />
-      <Route path="/ja/blog/passport-copy-privacy-guide" component={JaPassportCopyPrivacyGuide} />
-      <Route path="/en/blog" component={EnBlogIndex} />
-      <Route path="/en/blog/watermark-photos-online" component={WatermarkPhotosOnlineEn} />
-      <Route path="/en/blog/watermark-id-documents" component={WatermarkIdDocumentsEn} />
-      <Route path="/en/blog/watermark-photos-free" component={WatermarkPhotosFreeEn} />
-      <Route path="/en/blog/protect-photos-online" component={ProtectPhotosOnlineEn} />
-      <Route path="/en/blog/rental-scam-prevention" component={RentalScamPreventionEn} />
-      <Route path="/en/blog/batch-watermark-images" component={BatchWatermarkImagesEn} />
-      <Route path="/en/blog/remove-exif-data" component={RemoveExifDataEn} />
-      <Route path="/en/blog/watermark-best-practices" component={WatermarkBestPracticesEn} />
-      <Route path="/en/blog/digital-identity-protection" component={DigitalIdentityProtectionEn} />
-      <Route path="/en/blog/watermark-id-before-sharing" component={WatermarkIdBeforeSharingEn} />
-      <Route path="/en/blog/best-watermark-generators" component={BestWatermarkGeneratorsEn} />
-      <Route path="/en/blog/remove-exif-data-guide" component={RemoveExifDataGuideEn} />
-      <Route path="/en/blog/renting-protect-id-documents" component={RentingProtectIdDocumentsEn} />
-      <Route path="/en/blog/batch-watermark-photos" component={BatchWatermarkPhotosEn} />
-      <Route path="/en/blog/image-compression-guide" component={ImageCompressionGuideEn} />
-      <Route path="/en/blog/what-is-digital-watermark" component={WhatIsDigitalWatermarkEn} />
-      <Route path="/en/blog/social-media-image-sizes" component={SocialMediaImageSizesEn} />
-      <Route path="/en/blog/watermark-id-before-sending-kyc" component={WatermarkIdBeforeSendingKycEn} />
-      <Route path="/en/blog/real-estate-photo-watermarking" component={RealEstatePhotoWatermarkingEn} />
-      <Route path="/en/blog/watermark-etsy-product-photos" component={WatermarkEtsyProductPhotosEn} />
-      <Route path="/en/blog/gdpr-compliant-watermarking" component={GdprCompliantWatermarkingEn} />
-      <Route path="/en/blog/pdf-watermark-online-free" component={PdfWatermarkOnlineFreeEn} />
-      <Route path="/en/blog/watermark-mykad-malaysia" component={WatermarkMyKadMalaysiaEn} />
-      <Route path="/en/blog/watermark-mykad-rental" component={WatermarkMyKadRentalEn} />
-      <Route path="/en/blog/watermark-id-before-kyc-upload" component={WatermarkIdBeforeKycUploadEn} />
-      <Route path="/en/blog/watermark-aadhaar-card-india" component={WatermarkAadhaarCardIndiaEn} />
-      <Route path="/en/blog/watermark-drivers-license-usa" component={WatermarkDriversLicenseUsaEn} />
-      <Route path="/en/blog/watermark-uk-passport-copy" component={WatermarkUkPassportCopyEn} />
-      <Route path="/en/blog/watermark-australian-id-documents" component={WatermarkAustralianIdDocumentsEn} />
-      {/* Pro 候補名單（各工具下載完成後的 CTA 目的地） */}
-      <Route path="/waitlist">
-        <WaitlistPage lang="zh" />
-      </Route>
-      <Route path="/en/waitlist">
-        <WaitlistPage lang="en" />
-      </Route>
-      <Route path="/ja/waitlist">
-        <WaitlistPage lang="ja" />
-      </Route>
-      <Route path="/blog" component={BlogIndex} />
-      <Route path="/blog/rent-id-watermark" component={RentIdWatermark} />
-      <Route path="/blog/watermark-generators-recommendation" component={WatermarkGeneratorsRecommendation} />
-      <Route path="/blog/id-copy-annotation-templates" component={IdCopyAnnotationTemplatesPage} />
-      <Route path="/blog/passport-watermark-guide" component={PassportWatermarkGuidePage} />
-      <Route path="/blog/passport-copy-guide" component={PassportCopyGuidePage} />
-      <Route path="/blog/id-photo-guide" component={IdPhotoGuidePage} />
-      <Route path="/blog/realtor-id-watermark" component={RealtorIdWatermarkPage} />
-      <Route path="/blog/hr-onboarding-watermark-sop" component={HrOnboardingWatermarkSopPage} />
-      <Route path="/blog/business-confidential-watermark" component={BusinessConfidentialWatermarkPage} />
-      <Route path="/blog/mobile-watermark-tutorial" component={MobileWatermarkTutorialPage} />
-      <Route path="/blog/other-documents-watermark" component={OtherDocumentsWatermarkPage} />
-      <Route path="/blog/passport-travel-agency-watermark" component={PassportTravelAgencyWatermarkPage} />
-      <Route path="/exif-clean" component={ExifCleanPage} />
-      <Route path="/en/exif-clean" component={ExifCleanEnPage} />
-      <Route path="/batch" component={BatchPage} />
-      <Route path="/en/batch" component={BatchEnPage} />
-      <Route path="/compress" component={CompressPage} />
-      <Route path="/en/compress" component={CompressEnPage} />
-      <Route path="/convert" component={ConvertPage} />
-      <Route path="/en/convert" component={ConvertEnPage} />
-      {/* 格式對長尾頁：/convert/<slug> 與 /en/convert/<slug>（不影響上方精確路由） */}
-      {PAIRS.map((pair) => (
-        <Route key={`convert-${pair.slug}`} path={`/convert/${pair.slug}`}>
-          <ConvertPairPage pair={pair} />
-        </Route>
-      ))}
-      {PAIRS.map((pair) => (
-        <Route key={`en-convert-${pair.slug}`} path={`/en/convert/${pair.slug}`}>
-          <ConvertPairEnPage pair={pair} />
-        </Route>
-      ))}
-      <Route path="/resize" component={ResizePage} />
-      <Route path="/en/resize" component={ResizeEnPage} />
-      <Route path="/social-crop" component={SocialCropPage} />
-      <Route path="/en/social-crop" component={SocialCropEnPage} />
-      <Route path="/remove-bg" component={RemoveBgPage} />
-      <Route path="/en/remove-bg" component={RemoveBgEnPage} />
-      <Route path="/pdf-watermark" component={PdfWatermarkPage} />
-      <Route path="/en/pdf-watermark" component={PdfWatermarkEnPage} />
-      <Route path="/mosaic" component={MosaicPage} />
-      <Route path="/en/mosaic" component={MosaicEnPage} />
-      {/* Programmatic SEO landing pages: long-tail queries funnel into
-          the existing tools rather than duplicating tool logic. */}
-      <Route path="/en/compress-to-200kb" component={CompressTo200kbEn} />
-      <Route path="/en/compress-to-100kb" component={CompressTo100kbEn} />
-      <Route path="/en/convert-heic-to-jpg" component={ConvertHeicToJpgEn} />
-      <Route path="/en/convert-png-to-jpg" component={ConvertPngToJpgEn} />
-      <Route path="/en/convert-webp-to-jpg" component={ConvertWebpToJpgEn} />
-      <Route path="/en/resize-jpg" component={ResizeJpgEn} />
-      <Route path="/en/crop-photo" component={CropPhotoEn} />
-      <Route path="/en/blur-face" component={BlurFaceEn} />
-      <Route path="/blog/is-id-watermark-useful" component={IsIdWatermarkUsefulPage} />
-      <Route path="/blog/batch-watermark-methods" component={BatchWatermarkMethodsPage} />
-      <Route path="/blog/tinypng-iloveimg-squoosh-alternatives" component={TinypngIloveimgSquooshAlternatives} />
-      <Route path="/blog/anti-theft-photo-watermark" component={AntiTheftPhotoWatermark} />
-      <Route path="/blog/rent-required-documents" component={RentRequiredDocuments} />
-      <Route path="/blog/rent-scam-id-fraud" component={RentScamIdFraud} />
-      <Route path="/blog/landlord-asks-for-id" component={LandlordAsksForId} />
-      <Route path="/blog/batch-watermark-guide" component={BatchWatermarkGuide} />
-      <Route path="/blog/what-is-exif-data" component={WhatIsExifData} />
-      <Route path="/blog/remove-exif-online" component={RemoveExifOnline} />
-      <Route
-        path="/blog/privacy-protection-toolkit"
-        component={PrivacyProtectionToolkit}
-      />
-      <Route path="/blog/pdf-watermark-online" component={PdfWatermarkOnline} />
-      <Route path="/blog/mosaic-photo-online" component={MosaicPhotoOnline} />
-      <Route path="/blog/watermark-hkid" component={WatermarkHkid} />
-      <Route path="/blog/watermark-hkid-copy" component={WatermarkHkidCopy} />
-      <Route path="/blog/image-compression-guide" component={ImageCompressionGuide} />
-      <Route path="/blog/id-copy-leaked-consequences" component={IdCopyLeakedConsequences} />
-      <Route path="/blog/rent-before-giving-id-3-things" component={RentBeforeGivingId3Things} />
-      <Route path="/blog/job-interview-id-copy-safety" component={JobInterviewIdCopySafety} />
-      <Route path="/blog/id-watermark-complete-guide" component={IdWatermarkCompleteGuide} />
-      <Route path="/blog/hk-rent-id-copy-watermark" component={HkRentIdCopyWatermark} />
-      <Route path="/blog/malaysia-bank-account-ic-watermark" component={MalaysiaBankAccountIcWatermark} />
-      <Route path="/blog/overseas-chinese-passport-watermark" component={OverseasChinesePassportWatermark} />
-      <Route path="/en/blog/tinypng-iloveimg-squoosh-alternatives" component={TinypngIloveimgSquooshAlternativesEn} />
-      <Route component={NotFound} />
-    </Switch>
+    <RouteErrorBoundary key={location}>
+      <Suspense fallback={<RouteFallback />}>
+        <Switch>
+          {ROUTES.map(({ path, page: Page, props }) => (
+            <Route key={path} path={path}>
+              <Page {...props} />
+            </Route>
+          ))}
+          <Route>
+            <NotFound />
+          </Route>
+        </Switch>
+      </Suspense>
+    </RouteErrorBoundary>
   );
 }
 

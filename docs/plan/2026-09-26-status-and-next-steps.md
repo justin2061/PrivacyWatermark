@@ -8,7 +8,7 @@
 | 型別檢查 `pnpm check` | ✅ 通過 |
 | 完整 build（Vite + 預渲染） | ✅ 133/133 路由，canonical／hreflang 檢查通過 |
 | 開著的 PR／issue | 無 |
-| CI | ❌ 沒有，只能靠 Netlify 部署失敗才會發現壞掉 |
+| CI | ✅ 已加入（見下方 P1） |
 | 測試 | ❌ 沒有 |
 
 內容規模：工具 10 種（中英雙語完整、日文僅浮水印首頁），部落格中文 35 篇、英文 30 篇、日文 5 篇。
@@ -43,7 +43,20 @@ dist/assets/index-*.js   2,794.68 kB │ gzip: 806.77 kB
 
 ## 三、建議的下一步（依優先順序）
 
-### P1 — 效能：路由層級 code splitting
+### ✅ P1 — 效能：路由層級 code splitting（2026-09-26 完成）
+
+結果：入口 JS gzip 807 kB → 110 kB；模擬慢速網路（150ms 延遲、200 KB/s）下，
+React 可互動時間從約 4.5 秒降到約 1.3 秒，首頁傳輸量 809 kB → 191 kB。
+133 頁預渲染的 title／H1／description／canonical／hreflang／JSON-LD／內文與改動前逐頁比對零差異。
+
+實作重點（與原規劃的差異）：
+
+- 首頁沒有保留靜態載入，而是由 `main.tsx` 在掛載前 preload 目前網址的 chunk，
+  預渲染時 Vite 插入的 `modulepreload` 會一起寫進靜態 HTML，瀏覽器與入口檔並行下載，不會串行等待。
+- 部署換版後舊分頁抓不到舊 chunk：監聽 `vite:preloadError` 自動重整一次（10 秒內限一次）；
+  仍失敗時站內換頁顯示「載入失敗」畫面，首次載入則保留預渲染的靜態內容，不會變空白。
+
+原規劃：
 
 1. `App.tsx` 的頁面改成 `React.lazy(() => import(...))`，外層包 `<Suspense>`。
    首頁（`/`、`/en/`、`/ja/`）可以保留靜態載入，避免首屏多一次請求。
@@ -54,7 +67,11 @@ dist/assets/index-*.js   2,794.68 kB │ gzip: 806.77 kB
    預渲染改等這個旗標。
 4. 驗收：主 bundle gzip 目標 < 200 kB；預渲染 133 路由的 title／H1 與改動前逐頁比對一致。
 
-### P1 — 基礎：加上 CI
+### ✅ P1 — 基礎：加上 CI（2026-09-26 完成）
+
+`.github/workflows/ci.yml`；預渲染以 `PRERENDER_REQUIRED=1` 執行，Chrome 起不來也會讓 CI 變紅。
+
+原規劃：
 
 GitHub Actions：`pnpm install --frozen-lockfile` → `pnpm check` → `pnpm build:spa`。
 預渲染可選擇性加入（runner 內建 Chrome，設定 `PUPPETEER_EXECUTABLE_PATH` 即可），

@@ -39,7 +39,10 @@ ImageMarker 是一套完全免費、**100% 在瀏覽器本地處理**的圖片�
 - 圖片處理：HTML5 Canvas；PDF 使用 `pdf-lib`；HEIC 使用 `heic2any`
 - **預渲染（SSG）**：`scripts/prerender.mjs` 會在 build 後用 Puppeteer 逐一渲染 sitemap 上的所有路由，
   輸出靜態 HTML，並檢查 canonical 與 hreflang
+- **路由層級 code splitting**：每個頁面各自一個 chunk，`pdf-lib`、`jszip` 等大型套件只在使用時載入。
+  新增頁面時在 `client/src/routes.tsx` 加一行即可
 - 部署：Netlify（設定見 `netlify.toml`，包含轉址與標頭）
+- CI：GitHub Actions（`.github/workflows/ci.yml`）在 PR 與 main 上跑型別檢查、build 與預渲染 SEO 檢查
 
 ## 🚀 本機開發
 
@@ -76,7 +79,9 @@ client/
   index.html            # 殼層 HTML（GA4、Netlify Forms 偵測表單）
   public/               # 靜態資源、sitemap、manifest
   src/
-    App.tsx             # 所有路由
+    main.tsx            # 進入點：先 preload 目前網址的頁面 chunk 再掛載 React
+    routes.tsx          # 路由表（每頁各自一個 chunk，見 lib/lazyPage.tsx）
+    App.tsx             # 依路由表 render，含 Suspense 與載入失敗畫面
     pages/              # 中文頁；en/、ja/ 為各語系；blog/ 為文章
     components/         # 共用元件（Header/Footer、上傳區、CTA 等）
     hooks/              # 各工具的處理 hook
