@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { KofiSupport } from "@/components/KofiSupport";
-import { AffiliateNextSteps } from "@/components/AffiliateNextSteps";
+import { NextSteps } from "@/components/NextSteps";
 import { WaitlistCTA } from "@/components/WaitlistCTA";
 import { DOWNLOAD_COMPLETE_EVENT, trackToolResultReady } from "@/lib/analytics";
 import type { Lang, NavKey } from "@/lib/tools";
@@ -8,7 +8,7 @@ import type { Lang, NavKey } from "@/lib/tools";
 type ToolKey = Exclude<NavKey, "blog">;
 
 interface DownloadSuccessProps {
-  /** 目前工具（決定聯盟推薦與埋點的 tool_name） */
+  /** 目前工具（決定「下一步」推薦與埋點的 tool_name） */
   tool: ToolKey;
   lang?: Lang;
   /** 本次處理／下載的圖片張數（批次為實際張數，單張工具為 1） */
@@ -17,7 +17,7 @@ interface DownloadSuccessProps {
 }
 
 /**
- * 下載成功畫面的統一 CTA 區塊：Ko-fi 贊助 ＋ 情境式聯盟「下一步」，
+ * 下載成功畫面的統一 CTA 區塊：Ko-fi 贊助 ＋ 情境式站內「下一步」，
  * 以及在使用者「真的按下下載」之後才出現的 Pro 候補 CTA。
  *
  * 為什麼要等下載：這個區塊在成果算完的當下就掛載，但那時使用者還沒把事情做完，
@@ -59,7 +59,7 @@ export function DownloadSuccess({
         <WaitlistCTA tool={tool} lang={lang} location="download_success" />
       )}
       <KofiSupport variant="success" lang={lang} location="download_success" />
-      <AffiliateNextSteps current={tool} lang={lang} />
+      <NextSteps current={tool} lang={lang} />
     </div>
   );
 }
