@@ -30,3 +30,26 @@
 
 7 天下降但 28 天沒下降時，明確寫成「單週回歸，非趨勢性下降」，
 不要只寫「流量下降 X%」——那會讓人誤判要動手修。
+
+## 去背失敗率（remove_bg_failed）
+
+**算法**：`remove_bg_failed ÷ (remove_bg_complete + remove_bg_failed)`。
+
+不要用 `remove_bg_start` 當分母：它和其他工具的 `*_start` 一樣在「上傳」時就送出，
+包含上傳後沒按去背就離開的人，相減得到的不是失敗數。
+
+參數（都是固定分類，不含原始錯誤訊息或檔名）：
+
+| 參數 | 值 | 用途 |
+| --- | --- | --- |
+| `stage` | `loading-library`／`loading-model`／`processing` | 卡在哪一步。`loading-model` 多為網路、CDN 或擋廣告；`processing` 多為裝置能力 |
+| `error_type` | `network`／`memory`／`unsupported`／`decode`／`other` | 依錯誤訊息粗分，套件升級後可能失準，以 `stage` 為主 |
+| `size_bucket` | `<1MB`／`1-3MB`／`3-8MB`／`8MB+` | 看失敗是否集中在大檔（手機記憶體不足） |
+
+**上線後要到 GA4 後台手動設定一次**，否則報表只看得到事件數、看不到參數：
+管理 → 自訂定義 → 建立自訂維度，範圍選「事件」，事件參數分別填
+`stage`、`error_type`、`size_bucket`。註冊前送出的資料不會回溯。
+
+判讀時同樣套用上面的 7 天／28 天規則；另外注意預覽網址
+（`deploy-preview-*--privacywatermark.netlify.app`）的測試流量也會進同一個資源，
+以主機名稱篩掉。
