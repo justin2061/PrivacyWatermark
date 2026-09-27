@@ -1,4 +1,5 @@
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { Link } from "wouter";
 import { Card } from "@/components/ui/card";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
@@ -30,7 +31,6 @@ import {
 } from "lucide-react";
 
 const ACCEPTED = "image/jpeg,image/png,image/webp,image/bmp,image/gif";
-const CANVA_URL = "https://www.canva.com";
 
 type Platform = {
   key: string;
@@ -364,10 +364,10 @@ export default function SocialCropPage() {
         {selectedFile && imgUrl && imgSize && (
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {/* 左：裁切編輯區（手機置頂 sticky，選平台/縮放時仍看得到裁切預覽） */}
-            <div className="lg:col-span-2 space-y-6 sticky top-16 z-30 -mx-4 px-4 pt-2 bg-gray-50 shadow-sm sm:-mx-6 sm:px-6 lg:static lg:z-auto lg:mx-0 lg:px-0 lg:pt-0 lg:bg-transparent lg:shadow-none">
-              <Card className="p-3 sm:p-6">
+            <div className="lg:col-span-2 space-y-6 sticky top-16 z-30 [@media(max-height:640px)]:static -mx-4 px-4 pt-2 bg-gray-50 shadow-sm sm:-mx-6 sm:px-6 lg:static lg:z-auto lg:mx-0 lg:px-0 lg:pt-0 lg:bg-transparent lg:shadow-none">
+              <Card className="p-3 lg:p-6">
                 {/* 標題列在手機隱藏，讓 sticky 裁切區更精簡 */}
-                <div className="hidden sm:flex items-center justify-between mb-4">
+                <div className="hidden lg:flex items-center justify-between mb-4">
                   <h2 className="text-lg font-semibold text-gray-900">
                     裁切預覽
                     {selectedPlatform && (
@@ -465,7 +465,7 @@ export default function SocialCropPage() {
                       <ZoomIn className="w-4 h-4" aria-hidden="true" />
                     </button>
                   </div>
-                  <p className="mt-2 text-xs text-gray-500 hidden sm:block">
+                  <p className="mt-2 text-xs text-gray-500 hidden lg:block">
                     拖曳白色裁切框可調整位置；使用滑桿放大取景以裁切更小範圍。
                   </p>
                 </div>
@@ -664,18 +664,13 @@ export default function SocialCropPage() {
             和許多需要把圖片上傳到伺服器的線上裁切服務不同，本工具完全在你的瀏覽器中以 Canvas API
             運作。你的圖片不會被上傳、儲存或傳送給任何第三方，適合處理含個人資訊的照片或商業素材。
           </p>
-          <h2 className="text-xl font-semibold text-gray-900 mb-3 mt-6">裁切後想再加設計？</h2>
+          <h2 className="text-xl font-semibold text-gray-900 mb-3 mt-6">裁切好之後，發文前還可以做什麼？</h2>
           <p>
-            裁切好尺寸後，如果還想為貼文加上文字、貼紙或版面設計，可以搭配{" "}
-            <a
-              href={CANVA_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-primary hover:underline"
-            >
-              Canva
-            </a>{" "}
-            的免費模板，快速做出更完整的社群貼文。
+            要公開貼出的作品或商品圖，可以先用{" "}
+            <Link href="/" className="text-primary hover:underline">浮水印工具</Link>
+            加上名稱或帳號，降低被盜圖的機會；若平台或表單有檔案大小限制，再用{" "}
+            <Link href="/compress" className="text-primary hover:underline">圖片壓縮</Link>
+            把檔案縮小。兩者一樣在瀏覽器本機處理，圖片不會上傳。
           </p>
         </section>
 

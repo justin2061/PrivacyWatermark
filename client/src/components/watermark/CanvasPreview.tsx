@@ -57,10 +57,10 @@ export function CanvasPreview({ canvasRef, selectedFile, processedImage, lang = 
   }, [selectedFile]);
 
   return (
-    <Card className="p-3 sm:p-6">
-      {/* 標題列在手機隱藏，讓 sticky 預覽保持精簡 */}
-      <div className="hidden sm:flex items-center justify-between mb-4">
-        <h2 className="text-base sm:text-lg font-semibold text-gray-900">{t.title}</h2>
+    <Card className="p-3 lg:p-6">
+      {/* 標題列在 lg 以下（預覽 sticky 的範圍）隱藏，讓 sticky 預覽保持精簡 */}
+      <div className="hidden lg:flex items-center justify-between mb-4">
+        <h2 className="text-base lg:text-lg font-semibold text-gray-900">{t.title}</h2>
         <div className="flex items-center space-x-2 text-sm text-gray-500">
           <Eye className="w-4 h-4" />
           <span>{t.live}</span>
@@ -70,17 +70,17 @@ export function CanvasPreview({ canvasRef, selectedFile, processedImage, lang = 
       {/* Canvas Container — 手機用固定 px 高度（與 /batch 完全一致），不用 vh。
           固定 px 高度在捲動中恆定，sticky 穩定固定；且預覽精簡，下方設定區留白足夠。
           尺寸對齊 batch：container h-[120px] / canvas max-h-[104px]。 */}
-      <div className="border border-gray-200 rounded-lg p-2 sm:p-4 bg-gray-50 h-[120px] sm:h-auto sm:min-h-[400px] flex items-center justify-center">
+      <div className="border border-gray-200 rounded-lg p-2 lg:p-4 bg-gray-50 h-[120px] lg:h-auto lg:min-h-[400px] flex items-center justify-center">
         {!selectedFile ? (
           <div className="text-center">
-            <span className="text-gray-400 text-3xl sm:text-6xl sm:mb-4 block">📷</span>
-            <p className="text-gray-500 mb-2 hidden sm:block">{t.emptyMain}</p>
-            <p className="text-sm text-gray-400 hidden sm:block">{t.emptySub}</p>
+            <span className="text-gray-400 text-3xl lg:text-6xl lg:mb-4 block">📷</span>
+            <p className="text-gray-500 mb-2 hidden lg:block">{t.emptyMain}</p>
+            <p className="text-sm text-gray-400 hidden lg:block">{t.emptySub}</p>
           </div>
         ) : (
           <canvas
             ref={canvasRef}
-            className="max-w-full max-h-[104px] sm:max-h-[400px] object-contain"
+            className="max-w-full max-h-[104px] lg:max-h-[400px] object-contain"
             style={{ display: selectedFile ? 'block' : 'none' }}
           />
         )}
@@ -88,7 +88,7 @@ export function CanvasPreview({ canvasRef, selectedFile, processedImage, lang = 
 
       {/* Canvas Info（手機隱藏，節省 sticky 高度） */}
       {selectedFile && (
-        <div className="mt-4 hidden sm:flex justify-between text-xs sm:text-sm text-gray-500">
+        <div className="mt-4 hidden lg:flex justify-between text-xs lg:text-sm text-gray-500">
           <span>{t.format}: {selectedFile.type.split('/')[1].toUpperCase()}</span>
           <span>{t.size}: {imageDimensions ? `${imageDimensions.width}×${imageDimensions.height}` : t.loading}</span>
         </div>

@@ -102,7 +102,15 @@ GitHub Actions：`pnpm install --frozen-lockfile` → `pnpm check` → `pnpm bui
 若 GSC 的日文查詢（マイナンバー、パスポート コピー）持續成長，
 優先翻譯 EXIF 清除與馬賽克兩個工具頁——跟證件隱私的搜尋意圖最接近。
 
-### P3 — 清理
+### ✅ P3 — 清理（2026-09-27 完成）
 
-- 改寫或刪除 `replit.md`
-- 補 `LICENSE`
+- `replit.md` 改寫成現況（已無後端），完整說明以 README 為準；保留 Changelog 與 User Preferences。
+- 補上 `LICENSE`（MIT）。
+- 修正預渲染的 sitemap coverage 檢查：#11 把路由搬到 `routes.tsx` 後，它仍讀 `App.tsx`、
+  永遠回報 ✓；改讀 `routes.tsx`，找不到任何路由時直接失敗。
+
+### ✅ 其他修正（2026-09-27）
+
+- 固定在頂端的預覽區在 640–1023px 寬、或矮視窗會蓋住整個畫面（手機橫放 166–188%）：
+  精簡樣式延伸到 lg 以下，視窗高度 ≤ 640px 時不固定。手機直放與桌面截圖逐像素不變。
+- 社群裁切頁內文的 Canva 外連改為推薦站內浮水印與壓縮工具。
