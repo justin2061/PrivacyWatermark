@@ -597,7 +597,7 @@ export default function SocialCropPage() {
                   }}
                 />
 
-                {/* 下載後：Ko-fi 支持 + 情境式聯盟推薦（含 Canva，帶 GA 追蹤） */}
+                {/* 下載後：Ko-fi 支持 + 情境式站內「下一步」（帶 GA 追蹤） */}
                 {downloaded && (
                   <DownloadSuccess tool="social-crop" lang="zh" imageCount={1} className="mt-4" />
                 )}

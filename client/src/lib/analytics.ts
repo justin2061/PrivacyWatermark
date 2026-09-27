@@ -471,17 +471,16 @@ export function trackBotDetected(userAgent: string): void {
 }
 
 /**
- * 情境式聯盟行銷（Canva／Adobe／Shutterstock）推薦被點擊時觸發。
- * affiliate_name：外站名稱；tool_name：從哪個工具的完成頁點出去。
+ * 下載完成頁「下一步」（站內工具情境推薦，NextSteps）被點擊時觸發。
+ * from_tool：目前所在工具；to_tool：點擊的下一步工具。
+ * 與 tool_recommendation_click（頁面下方「你可能也需要」）分開，才看得出哪個位置有效。
+ * 取代 2026-09 之前的 affiliate_click（外部聯盟連結，已移除）。
  */
-export function trackAffiliateClick(
-  affiliateName: string,
-  toolName: string,
-): void {
+export function trackNextStepClick(fromTool: string, toTool: string): void {
   if (typeof gtag !== "undefined") {
-    gtag("event", "affiliate_click", {
-      affiliate_name: affiliateName,
-      tool_name: toolName,
+    gtag("event", "next_step_click", {
+      from_tool: fromTool,
+      to_tool: toTool,
     });
   }
 }

@@ -598,7 +598,7 @@ export default function SocialCropEnPage() {
                   }}
                 />
 
-                {/* After download: Ko-fi support + contextual affiliate next-steps (incl. Canva, GA-tracked) */}
+                {/* After download: Ko-fi support + contextual on-site next steps (GA-tracked) */}
                 {downloaded && (
                   <DownloadSuccess tool="social-crop" lang="en" imageCount={1} className="mt-4" />
                 )}
