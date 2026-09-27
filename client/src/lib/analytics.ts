@@ -206,6 +206,61 @@ export function trackToolEvent(eventName: string, toolName: string): void {
   }
 }
 
+/** 去背失敗時卡在哪一步。 */
+export type RemoveBgStage = "loading-library" | "loading-model" | "processing";
+
+/**
+ * 把去背錯誤歸成固定幾類。刻意不送原始錯誤訊息：本站主打圖片不離開裝置，
+ * 送出任何自由文字都與這個承諾不一致，而且會讓 GA 報表的值爆量成 (other)。
+ * 訊息格式來自 @imgly/background-removal／onnxruntime，可能隨版本改變，
+ * 所以分析時以 stage（我們自己的狀態）為主、error_type 為輔。
+ */
+function classifyRemoveBgError(err: unknown): string {
+  const name = err instanceof Error ? err.name : "";
+  const msg = (err instanceof Error ? err.message : String(err ?? "")).toLowerCase();
+  if (name === "RangeError" || /out of memory|memory|allocation|oom/.test(msg)) return "memory";
+  if (/fetch|network|load failed|failed to load|resources\.json|404|timed? ?out/.test(msg)) return "network";
+  if (/webassembly|wasm|webgpu|backend|not supported|unsupported/.test(msg)) return "unsupported";
+  if (/decode|image/.test(msg)) return "decode";
+  return "other";
+}
+
+/** 檔案大小級距（MB）。只送級距，不送實際大小。 */
+function fileSizeBucket(bytes: number): string {
+  const mb = bytes / (1024 * 1024);
+  if (mb < 1) return "<1MB";
+  if (mb < 3) return "1-3MB";
+  if (mb < 8) return "3-8MB";
+  return "8MB+";
+}
+
+/**
+ * 去背失敗（GA4 remove_bg_failed）。
+ *
+ * 失敗率請用 remove_bg_failed ÷ (remove_bg_complete + remove_bg_failed)。
+ * 不要用 remove_bg_start：它和其他工具的 *_start 一樣在「上傳」時就送出，
+ * 包含上傳後沒按去背就離開的人。
+ *
+ * 參數：stage（卡在哪一步）、error_type（固定分類）、size_bucket（檔案大小級距）。
+ * 要在 GA4 報表看到這三個參數，需在 GA4 後台註冊為事件範圍自訂維度，
+ * 見 docs/analytics/ga4-trend-reading.md。
+ *
+ * 在 catch 區塊裡呼叫，所以本身絕不可拋錯，否則會蓋掉要顯示給使用者的錯誤。
+ */
+export function trackRemoveBgFailed(stage: RemoveBgStage, err: unknown, fileBytes: number): void {
+  try {
+    if (typeof gtag === "undefined") return;
+    gtag("event", "remove_bg_failed", {
+      tool_name: "remove-bg",
+      stage,
+      error_type: classifyRemoveBgError(err),
+      size_bucket: fileSizeBucket(fileBytes),
+    });
+  } catch {
+    /* 埋點失敗不影響使用者 */
+  }
+}
+
 /**
  * 成果產生完畢、下載成功畫面出現時觸發（尚未按下載）。
  * 這是漏斗中間層：多少人真的做出了可下載的成果。

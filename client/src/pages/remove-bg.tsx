@@ -9,7 +9,7 @@ import { ToolRecommendations } from "@/components/ToolRecommendations";
 import { UploadZone } from "@/components/UploadZone";
 import { ActionButton, ActionButtons } from "@/components/ActionButtons";
 import { setPageSeo, webAppSchema, localeAlternates } from "@/lib/seo";
-import { trackToolUseStart, trackToolEvent, trackDownloadComplete } from "@/lib/analytics";
+import { trackToolUseStart, trackToolEvent, trackDownloadComplete, trackRemoveBgFailed, type RemoveBgStage } from "@/lib/analytics";
 import {
   CheckCircle,
   Download,
@@ -163,15 +163,21 @@ export default function RemoveBgPage() {
     setError(null);
     setStage("loading-model");
     setPercent(0);
+    // 失敗時回報卡在哪一步（remove_bg_failed 的 stage）。用區域變數而不是 stage state：
+    // catch 裡讀到的 state 是這次呼叫開始時的舊值。
+    let failStage: RemoveBgStage = "loading-library";
     try {
       const { removeBackground } = await import("@imgly/background-removal");
+      failStage = "loading-model";
       const blob = await removeBackground(file, {
         progress: (key: string, current: number, total: number) => {
           const [action] = key.split(":");
           if (action === "fetch" || action === "download") {
             setStage("loading-model");
+            failStage = "loading-model";
           } else {
             setStage("processing");
+            failStage = "processing";
           }
           if (total > 0) {
             setPercent(Math.min(100, Math.round((current / total) * 100)));
@@ -185,6 +191,7 @@ export default function RemoveBgPage() {
       trackToolEvent("remove_bg_complete", "remove-bg");
     } catch (e) {
       console.error(e);
+      trackRemoveBgFailed(failStage, e, file.size);
       setError(
         e instanceof Error
           ? `去背失敗：${e.message}`
