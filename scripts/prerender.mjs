@@ -60,12 +60,17 @@ function getRoutes() {
 // whole life advertising themselves to Google as duplicates of "/".
 // Warning only: excluding a route can be deliberate, but it has to be a choice.
 function routesMissingFromSitemap(sitemapRoutes) {
-  const appTsx = join(projectRoot, "client/src/App.tsx");
-  if (!existsSync(appTsx)) return [];
-  const src = readFileSync(appTsx, "utf-8");
+  // Routes live in the route table (client/src/routes.tsx) as `path: "..."`.
+  // They used to be JSX `path="..."` in App.tsx; after the move this check read
+  // App.tsx, matched nothing and passed vacuously — so fail loudly if it ever
+  // finds no routes again instead of reporting a clean bill of health.
+  const routesFile = join(projectRoot, "client/src/routes.tsx");
+  if (!existsSync(routesFile)) bail("client/src/routes.tsx not found for the sitemap coverage check");
+  const src = readFileSync(routesFile, "utf-8");
   // Only literal paths; the convert-pair routes are template literals built from
   // PAIRS and are listed in the sitemap by their generator.
-  const declared = [...src.matchAll(/path="([^"]+)"/g)].map((m) => m[1]);
+  const declared = [...src.matchAll(/path: "([^"]+)"/g)].map((m) => m[1]);
+  if (declared.length === 0) bail("no literal routes found in client/src/routes.tsx");
   const norm = (r) => r.replace(/\/$/, "") || "/";
   const known = new Set(sitemapRoutes.map(norm));
   return [...new Set(declared.map(norm))].filter((r) => !known.has(r));

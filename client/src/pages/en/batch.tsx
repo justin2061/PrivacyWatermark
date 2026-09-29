@@ -296,10 +296,10 @@ export default function BatchEnPage() {
           </div>
 
           {/* Preview (sticky on top for mobile so it stays visible while adjusting settings; right column on desktop) */}
-          <div className="order-1 lg:order-none lg:col-start-2 lg:row-start-1 sticky top-16 z-30 -mx-4 px-4 pt-2 pb-3 bg-gray-50 shadow-sm sm:-mx-6 sm:px-6 lg:static lg:z-auto lg:mx-0 lg:px-0 lg:pt-0 lg:pb-0 lg:bg-transparent lg:shadow-none">
-            <Card className="p-3 sm:p-6">
+          <div className="order-1 lg:order-none lg:col-start-2 lg:row-start-1 sticky top-16 z-30 [@media(max-height:640px)]:static -mx-4 px-4 pt-2 pb-3 bg-gray-50 shadow-sm sm:-mx-6 sm:px-6 lg:static lg:z-auto lg:mx-0 lg:px-0 lg:pt-0 lg:pb-0 lg:bg-transparent lg:shadow-none">
+            <Card className="p-3 lg:p-6">
               {/* Header hidden on mobile to shrink the sticky area */}
-              <div className="hidden sm:flex items-center justify-between mb-4">
+              <div className="hidden lg:flex items-center justify-between mb-4">
                 <h2 className="text-lg font-semibold text-gray-900">Preview</h2>
                 <div className="flex items-center space-x-2 text-sm text-gray-500">
                   <Eye className="w-4 h-4" />
@@ -308,28 +308,28 @@ export default function BatchEnPage() {
               </div>
 
               {/* Big preview (fixed ~120px on mobile so the sticky bar doesn't cover the settings below) */}
-              <div className="border border-gray-200 rounded-lg p-2 sm:p-4 bg-gray-50 h-[120px] sm:h-auto sm:min-h-[400px] flex items-center justify-center">
+              <div className="border border-gray-200 rounded-lg p-2 lg:p-4 bg-gray-50 h-[120px] lg:h-auto lg:min-h-[400px] flex items-center justify-center">
                 {!selectedImage ? (
                   <div className="text-center">
-                    <span className="text-gray-400 text-3xl sm:text-6xl sm:mb-4 block">📷</span>
-                    <p className="text-gray-500 mb-2 hidden sm:block">
+                    <span className="text-gray-400 text-3xl lg:text-6xl lg:mb-4 block">📷</span>
+                    <p className="text-gray-500 mb-2 hidden lg:block">
                       Upload images and the preview will appear here
                     </p>
-                    <p className="text-sm text-gray-400 hidden sm:block">
+                    <p className="text-sm text-gray-400 hidden lg:block">
                       Click a thumbnail to switch between images
                     </p>
                   </div>
                 ) : (
                   <canvas
                     ref={canvasRef}
-                    className="max-w-full max-h-[104px] sm:max-h-[400px] object-contain"
+                    className="max-w-full max-h-[104px] lg:max-h-[400px] object-contain"
                   />
                 )}
               </div>
 
               {/* File name/size hidden on mobile */}
               {selectedImage && (
-                <div className="mt-4 hidden sm:flex justify-between text-sm text-gray-500">
+                <div className="mt-4 hidden lg:flex justify-between text-sm text-gray-500">
                   <span className="truncate mr-2">{selectedImage.file.name}</span>
                   <span className="flex-shrink-0">
                     {selectedImage.img.naturalWidth}×
@@ -341,7 +341,7 @@ export default function BatchEnPage() {
               {/* Thumbnail strip (hidden on mobile; switch preview via the upload list instead) */}
               {hasImages && (
                 <div
-                  className="mt-4 hidden sm:flex gap-2 overflow-x-auto pb-1"
+                  className="mt-4 hidden lg:flex gap-2 overflow-x-auto pb-1"
                   aria-label="Image thumbnails"
                 >
                   {images.map((img) => (

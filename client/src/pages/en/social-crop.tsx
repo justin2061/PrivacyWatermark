@@ -1,4 +1,5 @@
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { Link } from "wouter";
 import { Card } from "@/components/ui/card";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
@@ -30,7 +31,6 @@ import {
 } from "lucide-react";
 
 const ACCEPTED = "image/jpeg,image/png,image/webp,image/bmp,image/gif";
-const CANVA_URL = "https://www.canva.com";
 
 type Platform = {
   key: string;
@@ -369,10 +369,10 @@ export default function SocialCropEnPage() {
         {selectedFile && imgUrl && imgSize && (
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {/* Left: crop editor (sticky on top for mobile so the crop preview stays visible while picking a platform/zoom) */}
-            <div className="lg:col-span-2 space-y-6 sticky top-16 z-30 -mx-4 px-4 pt-2 bg-gray-50 shadow-sm sm:-mx-6 sm:px-6 lg:static lg:z-auto lg:mx-0 lg:px-0 lg:pt-0 lg:bg-transparent lg:shadow-none">
-              <Card className="p-3 sm:p-6">
+            <div className="lg:col-span-2 space-y-6 sticky top-16 z-30 [@media(max-height:640px)]:static -mx-4 px-4 pt-2 bg-gray-50 shadow-sm sm:-mx-6 sm:px-6 lg:static lg:z-auto lg:mx-0 lg:px-0 lg:pt-0 lg:bg-transparent lg:shadow-none">
+              <Card className="p-3 lg:p-6">
                 {/* Header hidden on mobile to keep the sticky crop area compact */}
-                <div className="hidden sm:flex items-center justify-between mb-4">
+                <div className="hidden lg:flex items-center justify-between mb-4">
                   <h2 className="text-lg font-semibold text-gray-900">
                     Crop Preview
                     {selectedPlatform && (
@@ -467,7 +467,7 @@ export default function SocialCropEnPage() {
                       <ZoomIn className="w-4 h-4" aria-hidden="true" />
                     </button>
                   </div>
-                  <p className="mt-2 text-xs text-gray-500 hidden sm:block">
+                  <p className="mt-2 text-xs text-gray-500 hidden lg:block">
                     Drag the white crop box to reposition; use the slider to zoom in and crop a smaller area.
                   </p>
                 </div>
@@ -667,19 +667,13 @@ export default function SocialCropEnPage() {
             browser using the Canvas API. Your images are never uploaded, stored or sent to any third party —
             ideal for photos with personal information or commercial assets.
           </p>
-          <h2 className="text-xl font-semibold text-gray-900 mb-3 mt-6">Want to add a design after cropping?</h2>
+          <h2 className="text-xl font-semibold text-gray-900 mb-3 mt-6">What to do before you post</h2>
           <p>
-            Once your image is the right size, if you want to add text, stickers or a layout to your post, pair
-            it with{" "}
-            <a
-              href={CANVA_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-primary hover:underline"
-            >
-              Canva
-            </a>{" "}
-            and its free templates to build a more complete social post quickly.
+            For work or product photos you're posting publicly, add your name or handle with the{" "}
+            <Link href="/en/" className="text-primary hover:underline">watermark tool</Link>{" "}
+            to make image theft less tempting. If the platform or a form caps file size, shrink it with the{" "}
+            <Link href="/en/compress" className="text-primary hover:underline">image compressor</Link>.
+            Both run locally in your browser too — nothing is uploaded.
           </p>
         </section>
 

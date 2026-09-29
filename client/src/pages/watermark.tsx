@@ -221,7 +221,7 @@ export default function WatermarkPage() {
               will-change: transform 把 sticky 容器提升成自己的合成圖層，讓 canvas 與容器一起移動。
               （transform-gpu 的 translate3d(0,0,0) 會被瀏覽器攤平成 2D、無法提升圖層，故不用它。）
               桌面 lg:static 不需要，lg:will-change-auto 關掉。 */}
-          <div className="order-1 lg:order-none lg:col-start-2 lg:row-start-1 sticky top-16 z-30 -mx-4 px-4 pt-2 pb-3 bg-gray-50 shadow-sm will-change-transform lg:will-change-auto sm:-mx-6 sm:px-6 lg:static lg:z-auto lg:mx-0 lg:px-0 lg:pt-0 lg:pb-0 lg:bg-transparent lg:shadow-none lg:min-h-0 lg:overflow-y-auto">
+          <div className="order-1 lg:order-none lg:col-start-2 lg:row-start-1 sticky top-16 z-30 [@media(max-height:640px)]:static -mx-4 px-4 pt-2 pb-3 bg-gray-50 shadow-sm will-change-transform lg:will-change-auto sm:-mx-6 sm:px-6 lg:static lg:z-auto lg:mx-0 lg:px-0 lg:pt-0 lg:pb-0 lg:bg-transparent lg:shadow-none lg:min-h-0 lg:overflow-y-auto">
             <CanvasPreview
               canvasRef={canvasRef}
               selectedFile={selectedFile}

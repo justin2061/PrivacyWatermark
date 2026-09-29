@@ -94,4 +94,4 @@ docs/                   # 分析判讀規則、市場研究
 
 ## 📄 授權
 
-MIT（見 `package.json`）。
+MIT，見 [LICENSE](LICENSE)。
