@@ -517,7 +517,14 @@ export default function GdprCompliantWatermarkingEn() {
                 >
                   PDFs
                 </Link>
-                , in the browser.
+                , in the browser &mdash; see our guide on{" "}
+                <Link
+                  href="/en/blog/pdf-watermark-online-free"
+                  className="text-primary hover:underline"
+                >
+                  watermarking contracts and proposals without uploading them
+                </Link>
+                .
               </li>
               <li>
                 <strong>Strip metadata.</strong> Scans and phone photos carry{" "}
