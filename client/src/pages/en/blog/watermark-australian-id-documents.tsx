@@ -70,30 +70,12 @@ export default function WatermarkAustralianIdDocumentsEn() {
           ],
         }),
         faqSchema([
-          {
-            q: "What is the 100-point identification check and does watermarking break it?",
-            a: "The 100-point check comes from the Financial Transaction Reports Act 1988 and is used by banks, some financial services and government agencies to verify identity. Documents are assigned point values — a passport is 70 points, a driver's licence 40 points, a Medicare card 25 points, and so on — and you need 100 combined to open certain accounts. Watermarking with a semi-transparent purpose label does not change the document's point value, because the identifying details remain readable. What triggers rejection is a heavy watermark that covers name, number, photo or date of birth; keep opacity at 30-45% and check every field is legible before sending.",
-          },
-          {
-            q: "What does the Privacy Act 1988 give me when a business holds my ID copy?",
-            a: "The Privacy Act 1988 and its Australian Privacy Principles (APPs) apply to businesses turning over more than $3 million a year, and to all businesses regardless of size in specific sectors (health, credit reporting, tax file numbers, retention of personal data). The 2024 amendments (in force through 2025-2026) added a right to erasure, a statutory tort for serious invasions of privacy, tougher penalties for repeated breaches, and clearer notification obligations. In practice, you can request access to a copy of what a business holds about you (APP 12), correction (APP 13), and increasingly deletion when the retention purpose has ended. The Office of the Australian Information Commissioner (OAIC) handles complaints.",
-          },
-          {
-            q: "Will a watermark get my crypto exchange or bank application rejected?",
-            a: "Not if it stays light. Australian financial services under AUSTRAC's AML/CTF regime (which includes banks, remitters, digital currency exchange providers registered with AUSTRAC, and casinos) must verify customer identity, typically through third-party KYC vendors — Frankie Financial, GreenID, IDVerse, iSignthis, ThreatMetrix, Sumsub and Onfido are the ones most often named in Australian privacy policies. Opacity around 30-40% with tiled coverage and a light neutral color passes most automated checks. Watermark with the platform's registered ACN or ABN name plus the KYC vendor name if the privacy policy discloses it.",
-          },
-          {
-            q: "Can a real estate agent legally demand my driver's licence copy at inspection?",
-            a: "They can ask, but the request has to be justified for a specific purpose under the APPs. At the inspection stage, the agent is collecting details for a viewing register, which usually does not require a full licence scan — offering to show the licence for sighting is reasonable. At the rental application stage, a copy is a normal ask, but you are entitled to know why it is being collected, who else will see it (including the landlord and any tenant-check services), how long it is retained and how to request deletion. Recent OAIC enforcement action against real estate agencies for excessive tenant data collection is worth knowing about — the standard is 'reasonably necessary', not 'convenient'.",
-          },
-          {
-            q: "Should I mask my Medicare card number?",
-            a: "For most purposes outside Medicare and Medicare-linked services (private health insurance, prescription-only pharmacies, some hospitals), a Medicare card number is not needed. The number is a health identifier and should not be routinely provided as a proof of identity — despite being on the 100-point list. If a business asks for a full Medicare card scan for identity verification only, ask why, and consider masking the number itself with the mosaic tool while keeping the name visible for the sighting purpose.",
-          },
-          {
-            q: "Does ImageMarker upload my ID to a server?",
-            a: "No. Everything runs inside your browser, so the image never leaves your device and there is nothing on our side to store, log, or leak. Switch on flight mode and the tool still works — the simplest way to prove it to yourself before you use it on an identity document.",
-          },
+          { q: "What is the 100-point identification check and does watermarking break it?", a: "The 100-point check comes from the Financial Transaction Reports Act 1988. Documents are assigned point values — passport 70, licence 40, Medicare card 25 — and you need 100 combined. A semi-transparent watermark does not change the point value as long as identifying details remain legible. Keep opacity at 30-45% and verify every field is readable." },
+          { q: "What does the Privacy Act 1988 give me when a business holds my ID copy?", a: "Rights to be informed of purpose and retention (APP 5), access (APP 12), correction (APP 13), and increasingly deletion after the 2024 amendments. Businesses turning over more than $3 million are covered, plus specific sectors regardless of size. The OAIC handles complaints." },
+          { q: "Will a watermark get my crypto exchange or bank application rejected?", a: "Not if it stays light. AUSTRAC-registered financial services and DCE providers verify identity through KYC vendors like GreenID, Frankie Financial, IDVerse and Onfido. Opacity around 30-40% with tiled coverage passes most automated checks." },
+          { q: "Can a real estate agent legally demand my licence copy at inspection?", a: "They can ask, but the APPs limit collection to what is reasonably necessary. Offer to show the licence for sighting at inspection; a copy is expected at application stage. Recent OAIC enforcement targets agencies for excessive tenant data collection." },
+          { q: "Should I mask my Medicare card number?", a: "For most purposes outside health services, yes. The Medicare number is a health identifier, not a general identity credential. Ask why it is being collected, and consider masking the number itself with the mosaic tool while keeping the name visible." },
+          { q: "Does ImageMarker upload my ID to a server?", a: "No. Everything runs inside your browser, so the image never leaves your device. Switch on flight mode and the tool still works." },
         ]),
       ],
     });

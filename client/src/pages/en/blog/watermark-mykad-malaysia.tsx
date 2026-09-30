@@ -68,26 +68,11 @@ export default function WatermarkMyKadMalaysiaEn() {
           ],
         }),
         faqSchema([
-          {
-            q: "Is it legal to watermark my own MyKad copy in Malaysia?",
-            a: "Adding a semi-transparent purpose note across a photocopy of your own MyKad is a labelling step, not an alteration — the details stay readable and your physical card is untouched. What is prohibited is defacing or tampering with the MyKad itself, which is a different act entirely. Keep the watermark light enough that your name, NRIC number and photo remain legible, and you are simply marking a copy.",
-          },
-          {
-            q: "Can a landlord or agent demand a copy of my MyKad?",
-            a: "They can ask, and at the tenancy agreement stage it is normal. But under the Personal Data Protection Act 2010, a data user should collect personal data only for a lawful purpose directly related to its activity, and the data collected should not be excessive for that purpose. It is reasonable to ask what the copy is for, how long it will be kept, and to offer to show the original for sighting instead of handing over a copy during a viewing.",
-          },
-          {
-            q: "Should I black out my NRIC number on the copy?",
-            a: "Only if the recipient does not actually need it. A bank opening an account under Bank Negara's customer due diligence rules does need the full number. A landlord at a viewing, or a shop registering a loyalty card, usually does not. Note that the first six digits of an NRIC are your date of birth and the next two are a place-of-birth code, so masking only the last four digits still leaves a lot exposed.",
-          },
-          {
-            q: "What should the watermark actually say?",
-            a: "Three things: the recipient, the purpose and the date — for example \"For Celcom SIM registration only — 17 Aug 2026\". A generic \"COPY\" or \"SALINAN SAHAJA\" names nobody and limits nothing, so a leaked file marked that way is still perfectly usable somewhere else.",
-          },
-          {
-            q: "Does ImageMarker upload my MyKad to a server?",
-            a: "No. Everything runs inside your browser, so the image never leaves your phone or laptop and there is nothing on our side to store or leak. You can switch on flight mode and the tool still works — which is the simplest way to prove it to yourself.",
-          },
+          { q: "Is it legal to watermark my own MyKad copy in Malaysia?", a: "Adding a semi-transparent purpose note across a photocopy of your own MyKad is a labelling step, not an alteration — the details stay readable and your physical card is untouched. What is prohibited is defacing or tampering with the MyKad itself, which is a different act entirely. Keep the watermark light enough that your name, NRIC number and photo remain legible." },
+          { q: "Can a landlord or agent demand a copy of my MyKad?", a: "They can ask, and at the tenancy agreement stage it is normal. But under the PDPA 2010, personal data should be collected for a lawful purpose directly related to the organisation's activity and should not be excessive for that purpose. Asking what the copy is for and how long it will be kept — or offering to show the original for sighting during a viewing — is entirely reasonable." },
+          { q: "Should I black out my NRIC number on the copy?", a: "Only if the recipient does not actually need it. A bank performing customer due diligence does. A landlord at a viewing usually does not. Remember that the first six digits are your date of birth and the next two a place-of-birth code, so masking only the last four digits leaves most of it exposed." },
+          { q: "What should the watermark actually say?", a: "The recipient, the purpose and the date — for example \"For Celcom SIM registration only — 17 Aug 2026\". A generic \"COPY\" or \"SALINAN SAHAJA\" names nobody and limits nothing." },
+          { q: "Does ImageMarker upload my MyKad to a server?", a: "No. Everything runs inside your browser, so the image never leaves your device and there is nothing on our side to store or leak. Switch on flight mode and the tool still works — which is the simplest way to prove it to yourself." },
         ]),
       ],
     });

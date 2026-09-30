@@ -54,30 +54,12 @@ export default function WatermarkEtsyProductPhotosEn() {
           ],
         }),
         faqSchema([
-          {
-            q: "Does Etsy allow watermarks on product photos?",
-            a: "Yes. Etsy permits watermarks on listing images, unlike Amazon, which prohibits them on the main product image. Etsy's own photography guidance still favours clean, uncluttered shots because they convert better, so the practical compromise most sellers land on is a clean first image and discreet marks on the rest.",
-          },
-          {
-            q: "Should I watermark my Etsy product photos?",
-            a: "Watermark the images that travel: the ones you post on Pinterest, Instagram, TikTok and your own site, plus secondary listing photos. Leave the first listing image clean so it competes well in search results. That split protects the photos most likely to be scraped without hurting the one image that drives clicks.",
-          },
-          {
-            q: "How do I watermark a whole Etsy catalogue at once?",
-            a: "Use a batch tool rather than editing each file. Open ImageMarker's batch watermark page, drag in every product photo, set the shop name or logo, position and opacity once, then export the whole set. Sixty listings with eight photos each is one operation instead of 480.",
-          },
-          {
-            q: "What should an Etsy watermark say?",
-            a: "Your shop name, and ideally something searchable — a domain or the handle people can actually find you by. A stylised monogram nobody can type into a search box does nothing for you when the photo shows up somewhere else. Keep it short so it stays legible at thumbnail size.",
-          },
-          {
-            q: "Do watermarks hurt Etsy sales or SEO?",
-            a: "A heavy, badly placed watermark can hurt conversion because shoppers judge quality from the thumbnail. A discreet corner mark at 30 to 50 percent opacity is essentially invisible to a browsing shopper. There is no evidence Etsy's search algorithm penalises watermarked images, but a cluttered thumbnail loses clicks, and click-through does affect placement.",
-          },
-          {
-            q: "Does ImageMarker upload my product photos?",
-            a: "No. Every image is processed in your browser with the Canvas API, so your product photography never reaches a server. That also means there is no upload wait — a hundred images process at the speed of your own machine.",
-          },
+          { q: "Does Etsy allow watermarks on product photos?", a: "Yes — unlike Amazon, which bans them on the main product image. Etsy's photography guidance still favours clean shots for conversion, so most sellers keep the first image clean and mark the rest." },
+          { q: "Should I watermark my Etsy product photos?", a: "Mark the images that travel — secondary listing photos and everything you post off-platform. Leave the first listing image clean so your thumbnail competes properly." },
+          { q: "How do I watermark a whole catalogue at once?", a: "With a batch tool. Drag every photo into ImageMarker's batch page, set the mark once, export the set. 480 images become one operation." },
+          { q: "What should an Etsy watermark say?", a: "Something searchable — your shop name, ideally with a domain or handle. A decorative monogram nobody can type is no help when the photo turns up elsewhere." },
+          { q: "Do watermarks hurt Etsy sales or SEO?", a: "A heavy, badly placed one can hurt conversion because shoppers judge from the thumbnail. A 30–50% opacity corner mark is effectively invisible while browsing. There is no evidence Etsy's search penalises watermarks, but a cluttered thumbnail loses clicks." },
+          { q: "Does ImageMarker upload my product photos?", a: "No. Everything is processed in your browser, so your photography never reaches a server — and there is no upload wait on large batches." },
         ]),
       ],
     });

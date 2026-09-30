@@ -49,22 +49,10 @@ export default function RentingProtectIdDocumentsEn() {
           ],
         }),
         faqSchema([
-          {
-            q: "What documents do landlords usually ask for when renting?",
-            a: "It varies by country, but the common set is a government photo ID (passport, national ID or driver's licence), proof of income such as recent payslips or an employment letter, a bank statement, and sometimes a reference or a previous landlord's contact. In the US you may also face a credit and background check; in much of Europe a Schufa-style credit report or a guarantor is common.",
-          },
-          {
-            q: "Is it safe to send my ID to a landlord or letting agent?",
-            a: "Only with precautions. Legitimate landlords do need to verify who you are, but you rarely need to send a pristine, unmarked copy. Watermark the copy with its purpose (\"For [address] rental application only\"), strip the EXIF metadata, and share it through an official portal rather than a public chat or email whenever possible.",
-          },
-          {
-            q: "How do rental scammers misuse ID copies?",
-            a: "A clean ID image contains your full name, date of birth, document number and often your address and photo — everything needed to open accounts, pass identity checks, or build a fuller profile when combined with leaked data. Fake listings frequently exist only to harvest these documents from hopeful applicants.",
-          },
-          {
-            q: "Can I watermark my ID without uploading it anywhere?",
-            a: "Yes. ImageMarker runs entirely in your browser, so your ID never leaves your device. You add the watermark, adjust opacity and placement, and download the protected copy locally — nothing is sent to a server.",
-          },
+          { q: "What documents do landlords usually ask for when renting?", a: "Typically a government photo ID, proof of income such as payslips or an employment letter, a bank statement, and sometimes a reference or credit report. The US often adds a credit and background check; parts of Europe expect a Schufa report or guarantor." },
+          { q: "Is it safe to send my ID to a landlord or letting agent?", a: "With precautions, yes. Watermark the copy with its purpose, strip the EXIF metadata, and use an official portal rather than a public chat where possible." },
+          { q: "How do rental scammers misuse ID copies?", a: "A clean ID gives them your name, date of birth, document number and photo — enough to open accounts or pass identity checks. Fake listings often exist purely to harvest these files." },
+          { q: "Can I watermark my ID without uploading it anywhere?", a: "Yes. ImageMarker processes everything in your browser, so your ID never leaves your device." },
         ]),
       ],
     });

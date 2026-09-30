@@ -49,22 +49,10 @@ export default function SocialMediaImageSizesEn() {
           ],
         }),
         faqSchema([
-          {
-            q: "What is the best image size for an Instagram post in 2026?",
-            a: "For a square post, 1080×1080 pixels (1:1). For a portrait post, 1080×1350 (4:5), which takes up the most vertical space in the feed. Stories and Reels are 1080×1920 (9:16). Instagram displays at 1080px wide, so uploading at that width keeps images crisp without wasting file size.",
-          },
-          {
-            q: "Why do my social media images look blurry or get cropped?",
-            a: "Two reasons. Blurriness usually means the image was uploaded smaller than the platform's display width and got upscaled. Cropping happens when the aspect ratio doesn't match what the platform expects — a landscape photo forced into a square slot loses its edges. Resizing to the correct dimensions and ratio before uploading fixes both.",
-          },
-          {
-            q: "Should I resize images before uploading to social media?",
-            a: "Yes. Resizing to each platform's recommended dimensions gives you control over the crop, keeps images sharp, and reduces file size so posts load faster. It also prevents the platform's automatic compression from being applied to an unnecessarily large original.",
-          },
-          {
-            q: "How can I resize images for social media for free?",
-            a: "Use ImageMarker's resize tool: add your image, enter the target dimensions (or pick an aspect ratio), and download. It runs entirely in your browser, so nothing is uploaded to a server.",
-          },
+          { q: "What is the best image size for an Instagram post in 2026?", a: "1080×1080 for square, 1080×1350 for portrait (best reach), and 1080×1920 for Stories and Reels." },
+          { q: "Why do my social media images look blurry or get cropped?", a: "Blur means the image was smaller than the display width and got upscaled; cropping means the aspect ratio didn't match. Resizing to the correct dimensions fixes both." },
+          { q: "Should I resize images before uploading to social media?", a: "Yes — it gives you control over the crop, keeps images sharp, and reduces file size so posts load faster." },
+          { q: "How can I resize images for social media for free?", a: "Use ImageMarker's resize tool — enter the dimensions and download. It runs in your browser with no upload." },
         ]),
       ],
     });

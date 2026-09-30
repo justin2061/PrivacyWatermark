@@ -82,6 +82,17 @@ const compressImage = (
   });
 };
 
+// Shown on the page AND fed to the FAQPage JSON-LD from this one array, so the
+// structured data can never claim questions the page doesn't show.
+const FAQS = [
+  { q: "Does compressing lose quality?", a: "Any lossy compression (JPG or WebP at less than 100%) discards some detail, but at 70-85% quality the difference is essentially invisible while file size drops dramatically. Lossless is only possible with PNG, which usually compresses less. For photos, 80% JPG or WebP is the standard sweet spot." },
+  { q: "Is there a file size limit?", a: "There is no fixed limit in the tool. Because compression runs on your own device rather than through a server, the practical limit is your device's memory — very large images work more comfortably on a laptop than on a phone." },
+  { q: "Which format compresses best?", a: "WebP typically produces the smallest file at the same visual quality — around 25-35% smaller than JPG. JPG is the safest choice for maximum compatibility (email, older devices, printers). PNG is only smaller when the image has large flat areas of colour, like screenshots." },
+  { q: "Is my image uploaded to a server?", a: "No. ImageMarker uses the browser's Canvas API to compress locally, so your photo never leaves your device. This matters for images containing personal information like IDs, contracts, or medical scans." },
+  { q: "Can I compress a batch of images?", a: "Not yet — the compressor handles one image at a time with a live quality slider. For a folder of photos, compress them one after another; each takes only a moment because nothing is uploaded." },
+  { q: "What's a good quality setting?", a: "80% is the default for a reason — for photographs it looks identical to the original at roughly one-third the size. Drop to 65-70% for backgrounds or thumbnails, push to 85-90% for hero images or portrait detail." },
+];
+
 export default function CompressEnPage() {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -118,14 +129,7 @@ export default function CompressEnPage() {
           "Optional conversion to JPG or WebP output",
           "No file size limits",
         ],
-      }), faqSchema([
-        { q: "Does compressing lose quality?", a: "Any lossy compression (JPG or WebP at less than 100%) discards some detail, but at 70-85% quality the difference is essentially invisible while file size drops dramatically. Lossless is only possible with PNG, which usually compresses less. For photos, 80% JPG or WebP is the standard sweet spot." },
-        { q: "Is there a file size limit?", a: "No. Because compression runs on your own device rather than through a server, the only limit is your device's memory. Files up to several hundred megabytes work on most laptops." },
-        { q: "Which format compresses best?", a: "WebP typically produces the smallest file at the same visual quality — around 25-35% smaller than JPG. JPG is the safest choice for maximum compatibility (email, older devices, printers). PNG is only smaller when the image has large flat areas of colour, like screenshots." },
-        { q: "Is my image uploaded to a server?", a: "No. ImageMarker uses the browser's Canvas API to compress locally, so your photo never leaves your device. This matters for images containing personal information like IDs, contracts, or medical scans." },
-        { q: "Can I compress a batch of images?", a: "The main compressor handles one image at a time with a live quality slider. For high-volume compression across a folder of photos, the batch watermark tool re-exports each image and lets you set a target format and quality, which effectively compresses them in one operation." },
-        { q: "What's a good quality setting?", a: "80% is the default for a reason — for photographs it looks identical to the original at roughly one-third the size. Drop to 65-70% for backgrounds or thumbnails, push to 85-90% for hero images or portrait detail." },
-      ])],
+      }), faqSchema(FAQS)],
     });
   }, []);
 
@@ -454,6 +458,18 @@ export default function CompressEnPage() {
             transparency. In most cases a quality setting between 70–85% is visually indistinguishable from
             the original while saving a significant amount of space.
           </p>
+        </section>
+
+        <section className="mt-12 text-gray-700 leading-relaxed">
+          <h2 className="text-xl font-semibold text-gray-900 mb-4">Frequently asked questions</h2>
+          <div className="space-y-4">
+            {FAQS.map((f) => (
+              <div key={f.q}>
+                <h3 className="font-semibold text-gray-900">{f.q}</h3>
+                <p className="mt-1 text-sm">{f.a}</p>
+              </div>
+            ))}
+          </div>
         </section>
 
         {/* 所有工具中心：推廣其他工具 */}

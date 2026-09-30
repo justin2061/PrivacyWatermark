@@ -49,22 +49,10 @@ export default function WhatIsDigitalWatermarkEn() {
           ],
         }),
         faqSchema([
-          {
-            q: "What is a digital watermark?",
-            a: "A digital watermark is information embedded into an image, video or document to signal its ownership, source or intended use. It can be visible — like a semi-transparent logo or line of text across a photo — or invisible, encoded into the pixel data so software can detect it while the human eye cannot.",
-          },
-          {
-            q: "What's the difference between visible and invisible watermarks?",
-            a: "A visible watermark is meant to be seen: it deters copying and states ownership or purpose directly on the image. An invisible watermark hides identifying data inside the file so it can be traced or verified later without altering how the image looks. Visible marks deter; invisible marks trace.",
-          },
-          {
-            q: "Why do digital watermarks matter in 2026?",
-            a: "As AI makes images trivially easy to copy, alter and generate, provenance has become a real problem. Watermarks help creators assert ownership, help people limit misuse of sensitive documents like IDs, and increasingly help label AI-generated content. They're a practical, low-effort layer of protection in a landscape where images spread instantly.",
-          },
-          {
-            q: "How do I add a digital watermark to my own images?",
-            a: "For a visible watermark, use a tool like ImageMarker: add your photo, type your text or add a logo, adjust opacity and placement, and download. It runs entirely in your browser, so your images are never uploaded to a server.",
-          },
+          { q: "What is a digital watermark?", a: "Information embedded into an image, video or document to signal its ownership, source or intended use — either visibly or hidden inside the file." },
+          { q: "What's the difference between visible and invisible watermarks?", a: "Visible marks are meant to be seen and deter copying; invisible marks hide data in the file so it can be traced later. Visible deters, invisible traces." },
+          { q: "Why do digital watermarks matter in 2026?", a: "AI has made images easy to copy, alter and generate, so provenance and ownership are harder to establish. Watermarks are a practical layer for creators, for labelling AI content, and for limiting misuse of sensitive documents." },
+          { q: "How do I add a digital watermark to my own images?", a: "Use a tool like ImageMarker — add your image, set text or a logo, adjust opacity, and download. It all runs in your browser." },
         ]),
       ],
     });

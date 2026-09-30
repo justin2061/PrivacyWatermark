@@ -69,30 +69,12 @@ export default function WatermarkDriversLicenseUsaEn() {
           ],
         }),
         faqSchema([
-          {
-            q: "What can someone actually do with a photo of my US driver's license?",
-            a: "More than most people realize. A clean DL image plus your date of birth and address (both printed on the license itself) is enough to open online-only banking accounts, apply for personal loans and store credit at some retailers, register prepaid SIMs at some carriers, open rideshare and delivery driver accounts under your name, and pass 'age verification' at cannabis and alcohol delivery apps. In most states, the DL number is also used as a partial key for insurance quotes and DMV record lookups. None of this requires the physical card — a clean, unmarked scan is enough.",
-          },
-          {
-            q: "Does the Driver's Privacy Protection Act (DPPA) protect my license copy?",
-            a: "The DPPA (18 U.S.C. §§ 2721-2725) regulates state DMVs and prohibits disclosing personal information from motor vehicle records without one of a specific set of permitted uses. It applies to the DMV database and to entities that receive data from it, not directly to a copy of your license you sent to a landlord or a rideshare app. State-specific data privacy laws — California's CCPA/CPRA, Virginia's VCDPA, Colorado's CPA, Connecticut's CTDPA, Utah's UCPA and others that took effect through 2024-2025 — do apply to businesses handling your DL image, giving you rights to access, delete and opt out of sharing. Neither the DPPA nor the state privacy laws prevent the request in the first place; watermarking is what limits how a leaked copy can be reused.",
-          },
-          {
-            q: "Will a watermark get my Uber or DoorDash driver application rejected?",
-            a: "Not if it stays light. Uber and DoorDash driver verification runs an automated document check through KYC vendors (typically Onfido or Jumio) that read the license number, name, date of birth and photo. Opacity around 30% with tiled coverage and a light neutral color passes those checks in most cases. Heavier watermarks or dark colors over the ID number will trigger a resubmission request. The safe order is: try with a light watermark first, resubmit clean only if the automated check specifically rejects it.",
-          },
-          {
-            q: "Should I black out my DL number before sending?",
-            a: "Only if the recipient does not actually need it. A rideshare or delivery platform's KYC does need the full number. A landlord at a viewing usually doesn't. A merchant taking a photo for a returns policy sometimes wants the last four digits only. When you can mask, use the mosaic tool on the number rather than a scribble; mosaic completely replaces the pixels rather than obscuring them, which matters if the copy leaks.",
-          },
-          {
-            q: "What if the request comes on WhatsApp or SMS from someone claiming to be my landlord?",
-            a: "Treat that as a signal to slow down. Legitimate landlords use property management portals or in-person handovers; scam rentals typically use WhatsApp before you have viewed the unit. Rental scams asking for a DL copy plus a booking fee before viewing are one of the most common ID fraud patterns in the US, especially on Facebook Marketplace and Craigslist listings scraped from real portals. Verify the listing on the property management company's own website, and refuse to send a copy before physically seeing the unit.",
-          },
-          {
-            q: "Does ImageMarker upload my DL to a server?",
-            a: "No. Everything runs inside your browser, so the image never leaves your device and there is nothing on our side to store, log, or leak. Switch on flight mode and the tool still works — the simplest way to prove it to yourself before you use it on an identity document.",
-          },
+          { q: "What can someone actually do with a photo of my US driver's license?", a: "More than most people realize. A clean DL image plus your DOB and address (both printed on the license) is enough to open online-only banking accounts, apply for personal loans, register prepaid SIMs, open rideshare and delivery driver accounts under your name, and pass age verification at cannabis and alcohol delivery apps. None of this needs the physical card." },
+          { q: "Does the Driver's Privacy Protection Act (DPPA) protect my license copy?", a: "The DPPA regulates state DMVs and prohibits disclosing DL personal information without permitted use. It applies to the DMV database and its recipients, not directly to a copy of your license you sent to a landlord or rideshare app. State privacy laws (CCPA, VCDPA, CPA and others) do apply to businesses handling your DL image, giving you rights to access and delete." },
+          { q: "Will a watermark get my Uber or DoorDash driver application rejected?", a: "Not if it stays light. Uber and DoorDash driver verification runs automated document checks. Opacity around 30% with tiled coverage and a light neutral color passes in most cases. The safe order is: try light watermark first, resubmit clean only if the check specifically rejects it." },
+          { q: "Should I black out my DL number before sending?", a: "Only if the recipient does not actually need it. A rideshare or delivery platform's KYC does need the full number. A landlord at a viewing usually doesn't. Use the mosaic tool for a proper block rather than a scribble." },
+          { q: "What if the request comes on WhatsApp or SMS from someone claiming to be my landlord?", a: "Treat that as a signal to slow down. Legitimate landlords use property management portals or in-person handovers; scam rentals typically use WhatsApp before you have viewed the unit. Verify the listing on the property management company's own website, and refuse to send a copy before physically seeing the unit." },
+          { q: "Does ImageMarker upload my DL to a server?", a: "No. Everything runs inside your browser, so the image never leaves your device and there is nothing on our side to store, log, or leak. Switch on flight mode and the tool still works." },
         ]),
       ],
     });

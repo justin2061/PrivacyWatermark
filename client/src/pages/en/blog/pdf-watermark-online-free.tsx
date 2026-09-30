@@ -62,30 +62,13 @@ export default function PdfWatermarkOnlineFreeEn() {
           ],
         }),
         faqSchema([
-          {
-            q: "Is it safe to add a watermark to a PDF online?",
-            a: "It depends entirely on where the processing happens. Smallpdf, DeftPDF and most other free online PDF tools are server-side: your contract is uploaded in full to their infrastructure, watermarked there, and sent back. Whether the file is retained, for how long, and who can reach it is something you can only take on trust from a privacy policy. ImageMarker's PDF watermark tool runs pdf-lib directly in your browser, so the document never leaves your computer. You can prove it: load the page, disconnect from the internet, and watermark a PDF anyway — it still works.",
-          },
-          {
-            q: "Can I add a watermark to a PDF for free without a subscription?",
-            a: "Yes. ImageMarker's PDF watermark tool is free with no account, no install and no daily cap on the number of documents. Cloud services meter the free tier because server CPU and bandwidth cost them money per file; local processing has no such cost, so the only real limit is how much memory your own device has.",
-          },
-          {
-            q: "Does the watermark get applied to every page of the PDF?",
-            a: "Yes. The text and logo watermarks you configure are applied to all pages automatically — you do not process them one at a time. A one-page quote and a forty-page master services agreement take exactly the same three steps.",
-          },
-          {
-            q: "Can the recipient still select and copy the text after watermarking?",
-            a: "Yes. The watermark is a visual layer drawn on top of each page; it does not alter the PDF's existing text layer, so the body copy remains selectable, searchable and copyable. That is deliberate. A watermark is a statement of purpose and audience, not a lock. If you need to block copying and printing outright, that is a PDF permissions password or enterprise DRM — a different control at a different cost.",
-          },
-          {
-            q: "Can a PDF watermark be removed?",
-            a: "No watermark is impossible to remove; the point is to make removal expensive and obvious. A tiled watermark that repeats diagonally across the body text cannot be cropped away, and text naming a specific recipient and date turns any removal attempt into clear evidence of intent. The practical value is this: when a quote marked for one company's evaluation surfaces at a competitor, you have something concrete to point at.",
-          },
-          {
-            q: "What should the watermark on a contract or quote actually say?",
-            a: "Three elements, all of them: the purpose (for pricing review only, for tender evaluation only), the recipient (the receiving company's full legal name), and the date or version number. A usable format is: CONFIDENTIAL — For Acme Corp pricing review only — 10 Aug 2026. Give every recipient a slightly different string, and a leaked copy tells you which one it came from.",
-          },
+          { q: "Is it safe to add a watermark to a PDF online?", a: "It depends on where the processing happens. Smallpdf, DeftPDF and most free online tools upload your contract to their servers; how long it is kept and who can reach it is a matter of trust. ImageMarker's PDF watermark tool runs pdf-lib in your own browser, so the file never leaves your computer — and it keeps working with the internet disconnected." },
+          { q: "Can I add a watermark to a PDF for free, without a subscription?", a: "Yes — free, no account, no install, no cap on how many documents you process. Cloud services meter their free tiers because server CPU and bandwidth cost money per file. Local processing has no such cost, so the only limit is your device's memory." },
+          { q: "Does the watermark apply to every page?", a: "Yes, automatically, in one pass. A one-page quote and a forty-page agreement take exactly the same three steps." },
+          { q: "Can the recipient still select and copy the text afterwards?", a: "Yes. The watermark is drawn on top of the page and does not touch the existing text layer, so the body stays selectable and searchable. That is intentional — a watermark declares purpose and audience rather than locking the file. To block copying and printing you need a PDF permissions password or enterprise DRM." },
+          { q: "Can a PDF watermark be removed?", a: "Nothing is unremovable; the goal is to raise the cost and leave evidence. Tiled watermarks that overlap the body text cannot be cropped away, and naming a specific recipient and date makes any removal attempt plainly deliberate." },
+          { q: "What should the watermark text actually say?", a: "Purpose, recipient, and date or version. For example: CONFIDENTIAL — For Acme Corp pricing review only — 10 Aug 2026. Vary the string per recipient and a leaked copy identifies its own source." },
+          { q: "Does a watermark make my document legally protected?", a: "It is evidence, not a legal shield. It does not create rights you did not have, and it does not replace an NDA or a contractual confidentiality clause. What it does is make the confidential status and intended use unambiguous on the face of the document, which is exactly the kind of reasonable measure that confidentiality and trade secret claims tend to depend on. For anything with real money attached, take proper legal advice — but watermark the file anyway." },
         ]),
         blogBreadcrumb(HEADLINE, URL, "en"),
       ],

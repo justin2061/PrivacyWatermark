@@ -68,26 +68,11 @@ export default function WatermarkAadhaarCardIndiaEn() {
           ],
         }),
         faqSchema([
-          {
-            q: "What is Masked Aadhaar and how do I get it?",
-            a: "Masked Aadhaar is an official version of your e-Aadhaar in which the first eight digits of the number are replaced with X and only the last four remain visible. Everything else — your name, photograph, address and the secure QR code — stays intact, so it still works as proof of identity where full authentication is not required. You download it from the myAadhaar portal by choosing the masked option on the Download Aadhaar screen.",
-          },
-          {
-            q: "Did UIDAI tell people not to share Aadhaar photocopies?",
-            a: "UIDAI issued a press release in 2022 advising against sharing photocopies with unlicensed private entities and recommending Masked Aadhaar instead. That release was withdrawn days later because it risked being misinterpreted, with UIDAI asking people to exercise normal prudence. The practical takeaway has not changed: Masked Aadhaar remains available and is the safer thing to hand over when full digits are not genuinely needed.",
-          },
-          {
-            q: "Can a private company insist on Aadhaar as the only ID?",
-            a: "Generally no. For opening a bank account or getting a SIM, Aadhaar is one of several officially valid documents — a passport, voter ID or driving licence can usually be used instead, and offline verification methods exist that do not require handing over the number at all. If an entity insists on Aadhaar and nothing else while offering no offline option, it is fair to ask which rule requires it.",
-          },
-          {
-            q: "What is a Virtual ID and when should I use it?",
-            a: "A Virtual ID, or VID, is a temporary revocable 16-digit number that maps to your Aadhaar and can be used in its place for authentication and e-KYC. You generate it from the myAadhaar portal or by SMS, and you can regenerate it whenever you want, which invalidates the previous one. Where a service accepts a VID, use it — the recipient never learns your actual Aadhaar number.",
-          },
-          {
-            q: "How do I stop someone using my fingerprints for AEPS withdrawals?",
-            a: "Lock your biometrics from the myAadhaar portal or the mAadhaar app. Once locked, biometric authentication against your Aadhaar fails until you temporarily unlock it, which blocks the Aadhaar-enabled payment withdrawals that rely on a captured or cloned fingerprint. It is worth doing regardless of whether you share copies, and you can also review your Aadhaar authentication history to see where your number has been used.",
-          },
+          { q: "What is Masked Aadhaar and how do I get it?", a: "It is an official version of your e-Aadhaar in which the first eight digits are replaced with X and only the last four remain visible. Name, photograph, address and the secure QR code stay intact. Download it from the myAadhaar portal by ticking the masked option on the Download Aadhaar screen." },
+          { q: "Did UIDAI tell people not to share Aadhaar photocopies?", a: "UIDAI issued such a press release in 2022, then withdrew it days later because it risked being misinterpreted, asking people to exercise normal prudence instead. Masked Aadhaar remains available and is still the safer thing to hand over when full digits are not genuinely needed." },
+          { q: "Can a private company insist on Aadhaar as the only ID?", a: "Generally no. For a bank account or a SIM, Aadhaar is one of several officially valid documents — a passport, voter ID or driving licence can usually be used instead, and offline verification methods exist. If an entity insists on Aadhaar with no alternative, it is fair to ask which rule requires it." },
+          { q: "What is a Virtual ID and when should I use it?", a: "A VID is a temporary, revocable 16-digit number that maps to your Aadhaar and can be used in its place for authentication and e-KYC. Generate it from myAadhaar or by SMS and regenerate it whenever you want. Where a service accepts a VID, the recipient never learns your actual Aadhaar number." },
+          { q: "How do I stop someone using my fingerprints for AEPS withdrawals?", a: "Lock your biometrics from the myAadhaar portal or the mAadhaar app. Biometric authentication then fails until you temporarily unlock it, which blocks the withdrawals that rely on a captured or cloned fingerprint. Reviewing your authentication history is worth doing at the same time." },
         ]),
       ],
     });

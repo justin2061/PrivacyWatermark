@@ -82,6 +82,17 @@ const convertImage = (
   });
 };
 
+// Shown on the page AND fed to the FAQPage JSON-LD from this one array, so the
+// structured data can never claim questions the page doesn't show.
+const FAQS = [
+  { q: "Which format conversions are supported?", a: "Input: JPG, PNG, WebP, BMP, GIF, SVG and HEIC. Output: JPG, PNG or WebP. GIF, BMP and TIFF cannot be exported because browser Canvas doesn't encode them; that's a limitation of the web platform, not the tool." },
+  { q: "Does converting PNG to JPG lose transparency?", a: "Yes — JPG doesn't support transparency, so any transparent pixels are filled with white during conversion. If you need to keep transparency, convert to WebP instead, which supports it and produces smaller files than PNG." },
+  { q: "What happens to HEIC files?", a: "HEIC is decoded in the browser using a WebAssembly decoder, then re-encoded to your chosen output format. HEIC files come out of iPhones by default; converting to JPG or WebP makes them shareable with almost any device or platform." },
+  { q: "Is my image uploaded anywhere?", a: "No. All decoding, re-encoding and download happen inside your browser. This matters especially for HEIC, which many online converters upload to their servers just to run the decode step." },
+  { q: "Are there any file size limits?", a: "There is no fixed limit in the tool. Because processing runs locally, the practical limit is your device's memory — very large files convert more comfortably on a laptop than on a phone." },
+  { q: "Can I convert to modern formats like AVIF?", a: "Not currently — AVIF encoding requires a browser Canvas API that only some browsers support and only recently. WebP is the practical modern-format choice: nearly as small as AVIF, universally supported by browsers built after 2020, and produced by the same one-click flow." },
+];
+
 export default function ConvertEnPage() {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -121,14 +132,7 @@ export default function ConvertEnPage() {
           "Instant preview with before/after size comparison",
           "No file size limits",
         ],
-      }), faqSchema([
-        { q: "Which format conversions are supported?", a: "Input: JPG, PNG, WebP, BMP, GIF, SVG and HEIC. Output: JPG, PNG or WebP. GIF, BMP and TIFF cannot be exported because browser Canvas doesn't encode them; that's a limitation of the web platform, not the tool." },
-        { q: "Does converting PNG to JPG lose transparency?", a: "Yes — JPG doesn't support transparency, so any transparent pixels are filled with white (or a solid color you choose) during conversion. If you need to keep transparency, convert to WebP instead, which supports it and produces smaller files than PNG." },
-        { q: "What happens to HEIC files?", a: "HEIC is decoded in the browser using a WebAssembly decoder, then re-encoded to your chosen output format. HEIC files come out of iPhones by default; converting to JPG or WebP makes them shareable with almost any device or platform." },
-        { q: "Is my image uploaded anywhere?", a: "No. All decoding, re-encoding and download happen inside your browser. This matters especially for HEIC, which many online converters upload to their servers just to run the decode step." },
-        { q: "Are there any file size limits?", a: "No. Because processing runs locally, the only limit is your device's memory. Files up to several hundred megabytes convert fine on most laptops." },
-        { q: "Can I convert to modern formats like AVIF?", a: "Not currently — AVIF encoding requires a browser Canvas API that only some browsers support and only recently. WebP is the practical modern-format choice: nearly as small as AVIF, universally supported by browsers built after 2020, and produced by the same one-click flow." },
-      ])],
+      }), faqSchema(FAQS)],
     });
   }, []);
 
@@ -446,6 +450,18 @@ export default function ConvertEnPage() {
               >
                 {pair.fromLabel} to {pair.toLabel}
               </Link>
+            ))}
+          </div>
+        </section>
+
+        <section className="mt-12 text-gray-700 leading-relaxed">
+          <h2 className="text-xl font-semibold text-gray-900 mb-4">Frequently asked questions</h2>
+          <div className="space-y-4">
+            {FAQS.map((f) => (
+              <div key={f.q}>
+                <h3 className="font-semibold text-gray-900">{f.q}</h3>
+                <p className="mt-1 text-sm">{f.a}</p>
+              </div>
             ))}
           </div>
         </section>

@@ -58,22 +58,10 @@ export default function TinypngIloveimgSquooshAlternativesEn() {
           ],
         }),
         faqSchema([
-          {
-            q: "Does TinyPNG or iLoveIMG upload my images?",
-            a: "Yes. Both are cloud services: your image is uploaded to their servers, processed remotely, and returned as a download. That is usually fine for casual photos, but for ID documents, contracts or unreleased work, the file leaving your device is itself the risk.",
-          },
-          {
-            q: "How can I verify a tool really processes images locally?",
-            a: "Open your browser's developer tools, watch the Network tab while you process an image, and check that no request contains your file. Or simply go offline first — a truly client-side tool keeps working without a connection.",
-          },
-          {
-            q: "Squoosh is also local — how is ImageMarker different?",
-            a: "Both run entirely in your browser and never upload files. Squoosh focuses on best-in-class single-image compression (MozJPEG, AVIF). ImageMarker is a privacy toolbox: watermarking, batch processing, EXIF removal, AI background removal, compression, conversion and resizing in one place.",
-          },
-          {
-            q: "Which tool should I use for ID documents or sensitive files?",
-            a: "Only local-processing tools (ImageMarker or Squoosh). Before sharing an ID copy, add a purpose-stating watermark and strip EXIF metadata — uploading such files to any third-party server creates a copy you no longer control.",
-          },
+          { q: "Does TinyPNG or iLoveIMG upload my images?", a: "Yes. Both are cloud services: your image is uploaded, processed on their servers, and returned as a download. Fine for casual photos; risky for anything sensitive." },
+          { q: "How can I verify a tool really processes images locally?", a: "Watch the Network tab in your browser's developer tools while processing an image — no request should contain your file. Or go offline first: a truly client-side tool keeps working. ImageMarker and Squoosh both pass this test." },
+          { q: "Squoosh is also local — how is ImageMarker different?", a: "Both are trustworthy on privacy. Squoosh specializes in single-image compression with advanced codecs; ImageMarker covers watermarking, batch, EXIF removal and AI background removal in one place." },
+          { q: "Which tool should I use for ID documents?", a: "Local tools only. Add a purpose-stating watermark and remove metadata with the EXIF cleaner before sharing any ID copy." },
         ]),
         blogBreadcrumb(
           "TinyPNG, iLoveIMG & Squoosh Alternatives",

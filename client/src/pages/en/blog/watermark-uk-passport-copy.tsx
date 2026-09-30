@@ -69,30 +69,12 @@ export default function WatermarkUkPassportCopyEn() {
           ],
         }),
         faqSchema([
-          {
-            q: "What can someone do with a copy of my UK passport?",
-            a: "The UK passport biographical page carries passport number, full name, nationality, date of birth, sex, place of birth, issue date, expiry, signature and photograph — plus the machine-readable zone (MRZ) at the bottom which encodes most of those fields in a fixed OCR-friendly format. That combination is enough to open online crypto exchanges and neobanks, apply for buy-now-pay-later credit, register for overseas services that accept a passport as sole ID, and impersonate you in KYC flows at services you have never used. The MRZ specifically means that masking the printed fields alone is not enough — a passport scan with a visible MRZ can be fully reconstructed even if the printed fields are covered.",
-          },
-          {
-            q: "What does UK GDPR give me when I send a passport copy to a business?",
-            a: "The UK GDPR and Data Protection Act 2018 apply to any business that processes your personal data as a controller — which includes a letting agent, employer, bank or KYC vendor holding your passport image. You have the right to be told the purpose of processing, the lawful basis (usually contract or legal obligation), the retention period, and the identity of any processors. You also have rights of access, rectification, erasure (with limits — legal obligation to retain can override erasure), restriction, portability, and objection. In practice, two questions do most of the work at a counter: 'what is the copy used for, and how long do you keep it?'",
-          },
-          {
-            q: "Will a watermark get my Right to Work or Right to Rent check rejected?",
-            a: "The Home Office guidance for both Right to Work and Right to Rent focuses on verifying the identity of the person against the document, not on receiving a clean unmodified image. As long as name, date of birth, photograph, expiry and MRZ are clearly legible, a light purpose-bound watermark is usually accepted. In practice, more employers and letting agents are moving to Identity Service Providers (IDSPs) that use certified digital identity checks — those flows sometimes ask for a live selfie and a clean scan and may reject a watermarked image at the automated step. The safe order is: try with a light watermark first; if the IDSP specifically rejects it, resubmit clean for that step only.",
-          },
-          {
-            q: "Should I mask the MRZ (the two bottom lines) on my passport copy?",
-            a: "If the recipient does not actually need to read it, yes — but with a proper mosaic or solid-color block, not a light blur. The MRZ is a fixed-format machine-readable payload; a light blur over it can be partially decoded by modern OCR, which effectively defeats masking. For Right to Work, Right to Rent and financial KYC, the recipient often does need the MRZ (it is how the automated document check verifies authenticity), so leave it visible under the watermark. For a hotel check-in, an insurance claim, or a general 'photo for our records', mask it — those recipients do not need it.",
-          },
-          {
-            q: "What if a letting agent asks for a passport copy before a viewing?",
-            a: "That is not required for Right to Rent, which only applies when a tenancy begins. Offer to bring your passport to the viewing for sighting, or send a heavily watermarked copy marked 'For [agency name] viewing appointment only — [date]' if the agent insists. An agent who refuses to show a property unless you send a full passport scan first is either lazy or running a scam listing; scraped rental listings on Gumtree and Facebook Marketplace, followed by a passport-and-deposit request over WhatsApp, are a common UK rental fraud pattern.",
-          },
-          {
-            q: "Does ImageMarker upload my passport to a server?",
-            a: "No. Everything runs inside your browser, so the image never leaves your device and there is nothing on our side to store, log, or leak. Switch on flight mode and the tool still works — the simplest way to prove it to yourself before you use it on an identity document.",
-          },
+          { q: "What can someone do with a copy of my UK passport?", a: "The biographical page carries passport number, full name, date of birth, MRZ and photograph — enough to open online crypto exchanges and neobanks, apply for BNPL credit, register for overseas services, and impersonate you in KYC flows. The MRZ specifically means masking the printed fields alone is not enough." },
+          { q: "What does UK GDPR give me when I send a passport copy to a business?", a: "UK GDPR and the Data Protection Act 2018 apply to any business processing your data. You have rights to be informed of purpose and retention, to access, to rectification, to erasure (with legal-obligation limits), and to object. Two questions do most of the work: what is the copy used for, and how long is it retained?" },
+          { q: "Will a watermark get my Right to Work or Right to Rent check rejected?", a: "Home Office guidance focuses on identity verification, not clean unmodified images. A light purpose-bound watermark usually passes if name, DOB, photo, expiry and MRZ are clearly legible. Digital IDSP flows are stricter; try light watermark first, resubmit clean only if the automated check rejects it." },
+          { q: "Should I mask the MRZ?", a: "If the recipient does not need it, yes — with a proper mosaic or solid-color block, not a blur. For Right to Work, Right to Rent and financial KYC the recipient usually does need the MRZ. For a hotel or insurance claim, they don't." },
+          { q: "What if a letting agent asks for a passport copy before a viewing?", a: "That is not required for Right to Rent, which only applies when a tenancy begins. Offer to bring your passport for sighting, or send a heavily watermarked copy if remote. Scraped rental listings followed by a passport-and-deposit request over WhatsApp are a common UK rental fraud pattern." },
+          { q: "Does ImageMarker upload my passport to a server?", a: "No. Everything runs inside your browser, so the image never leaves your device. Switch on flight mode and the tool still works." },
         ]),
       ],
     });

@@ -36,10 +36,13 @@ jobs:
       - name: Vite build
         run: pnpm build:spa
 
-      # 與 Netlify 正式部署相同的預渲染；內含 sitemap coverage、canonical、
-      # hreflang 檢查，任何一項失敗都會讓 CI 變紅。
+      # 與 Netlify 正式部署相同的預渲染。任一路由沒渲染成功、Chrome 起不來，
+      # 或 FAQ 結構化資料與頁面內容不一致，CI 會變紅；sitemap coverage、canonical、
+      # hreflang 目前只輸出警告，請看這一步的 log。
       - name: Prerender + SEO checks
         run: pnpm prerender
         env:
           PRERENDER_REQUIRED: "1"
+          # FAQ JSON-LD must match the FAQ shown on the page (warn-only on Netlify)
+          STRICT_SEO_CHECKS: "1"
           PUPPETEER_EXECUTABLE_PATH: /usr/bin/google-chrome

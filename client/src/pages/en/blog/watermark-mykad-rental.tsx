@@ -69,30 +69,12 @@ export default function WatermarkMyKadRentalEn() {
           ],
         }),
         faqSchema([
-          {
-            q: "Is it safe to send my IC copy online in Malaysia?",
-            a: "Only when three things are true: the person asking has a legitimate reason (a signed tenancy agreement, KYC for a licensed bank), you know who they actually are, and the copy is watermarked with that recipient, purpose and date. A clean, unmarked IC scan sent to a stranger on WhatsApp is one of the highest-risk things you can do online, because a MyKad copy alone is enough to apply for loans, register SIMs and open accounts in your name. The watermark does not make the transfer risk-free, but it turns a copy that is usable anywhere into one that is visibly out of place anywhere else.",
-          },
-          {
-            q: "Can a landlord in Malaysia legally demand a copy of my MyKad?",
-            a: "They can ask, and at the tenancy agreement stage it is normal because they need to identify the person they are entering a contract with. But the request has to be reasonable for that specific purpose. Under the Personal Data Protection Act 2010, an organisation collecting personal data should collect only what is necessary. An individual landlord renting out a single unit for personal purposes may fall outside the PDPA entirely under the personal or household exemption — which means the Act does not force them to protect the copy either. That cuts both ways, and it is exactly why you should watermark before you send.",
-          },
-          {
-            q: "When can I refuse to send my IC copy to an agent?",
-            a: "At the viewing stage, easily. There is no contract, no obligation and no lawful purpose that needs a stored copy of your identity document just to walk through a unit. Offer to show the original for sighting when you meet in person, or a heavily watermarked copy marked \"For viewing appointment only\" if the appointment is remote. An agent who refuses to show a property unless you send the full IC copy first is asking for more than the situation requires.",
-          },
-          {
-            q: "Should I black out my NRIC number when sending to a landlord?",
-            a: "Not usually. The tenancy agreement identifies both parties by NRIC number, so masking it means signing a document with a number the landlord cannot verify against the copy. What you can mask is anything the landlord does not need for that specific unit — the address on the card if it is not needed for the contract, for example. The bigger lever is the watermark, which binds the copy to that one tenancy agreement and one date.",
-          },
-          {
-            q: "What if the agent asks for my IC copy on WhatsApp before I have even seen the property?",
-            a: "Treat that as a signal to slow down. There is no legitimate reason to collect a copy before any relationship exists, and it is one of the standard shapes of property listing fraud in Malaysia — a fake listing lifted from Facebook Marketplace or a real portal, an urgent request for IC and a booking fee, a person who never shows up to a viewing. Ask what the copy is for, verify the listing exists on the agency's official channel, and do not send a clean copy before you have physically seen the unit and met the landlord or a properly credentialled REN or REA agent.",
-          },
-          {
-            q: "Does ImageMarker upload my MyKad to a server?",
-            a: "No. Everything runs inside your browser, so the image never leaves your device and there is nothing on our side to store or leak. Switch on flight mode and the tool still works, which is the simplest way to prove it to yourself before you use it on an identity document.",
-          },
+          { q: "Is it safe to send my IC copy online in Malaysia?", a: "Only when three things are true: the person asking has a legitimate reason (a signed tenancy agreement, KYC for a licensed bank), you know who they actually are, and the copy is watermarked with that recipient, purpose and date. A clean, unmarked IC scan sent to a stranger on WhatsApp is one of the highest-risk things you can do online, because a MyKad copy alone is enough to apply for loans, register SIMs and open accounts in your name." },
+          { q: "Can a landlord in Malaysia legally demand a copy of my MyKad?", a: "They can ask, and at the tenancy agreement stage it is normal — they need to identify the person they are entering a contract with. But the request has to be reasonable for that specific purpose. An individual landlord renting out a single unit for personal purposes may fall outside the PDPA entirely under its personal or household exemption, which cuts both ways: they may not have the same duty to protect your copy that an agency does, so watermarking before sending is proportionate rather than paranoid." },
+          { q: "When can I refuse to send my IC copy to an agent?", a: "At the viewing stage, easily. There is no contract, no obligation and no lawful purpose that needs a stored copy of your identity document just to walk through a unit. Offer to show the original for sighting in person, or a heavily watermarked copy marked \"For viewing appointment only\" if the appointment is remote." },
+          { q: "Should I black out my NRIC number when sending to a landlord?", a: "Not usually. The tenancy agreement identifies both parties by NRIC number, so masking it means signing a document with a number the landlord cannot verify against the copy. The bigger lever is the watermark, which binds the copy to that one tenancy agreement and one date." },
+          { q: "What if the agent asks for my IC copy on WhatsApp before I have even seen the property?", a: "Treat that as a signal to slow down. There is no legitimate reason to collect a copy before any relationship exists, and it is one of the standard shapes of property listing fraud in Malaysia. Verify the listing on the agency's official channel, and do not send a clean copy before you have physically seen the unit and met the landlord or a properly credentialled agent." },
+          { q: "Does ImageMarker upload my MyKad to a server?", a: "No. Everything runs inside your browser, so the image never leaves your device and there is nothing on our side to store or leak. Switch on flight mode and the tool still works — the simplest way to prove it to yourself." },
         ]),
       ],
     });

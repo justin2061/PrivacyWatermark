@@ -51,22 +51,10 @@ export default function ImageCompressionGuideEn() {
           ],
         }),
         faqSchema([
-          {
-            q: "How can I reduce image file size without losing quality?",
-            a: "Use lossless compression, or lossy compression at a high quality setting (around 75–85% for JPEG or WebP). At that level most images shrink dramatically while the loss stays invisible to the eye. Also resize the image to the dimensions it will actually be displayed at — an oversized photo is the single biggest source of wasted file size.",
-          },
-          {
-            q: "What's the difference between lossy and lossless compression?",
-            a: "Lossless compression (PNG, and lossless WebP) rebuilds the image pixel-for-pixel, so quality is perfectly preserved but files are larger. Lossy compression (JPEG, standard WebP) permanently discards detail the eye barely notices to reach much smaller sizes. Photos suit lossy; logos, screenshots and line art with sharp edges suit lossless.",
-          },
-          {
-            q: "Which format is best: JPEG, PNG or WebP?",
-            a: "JPEG for photographs, PNG when you need transparency or crisp text and edges, and WebP as a modern all-rounder that beats both on size at similar quality and is supported by every current browser. Convert to WebP when file size is the priority and your audience uses up-to-date browsers.",
-          },
-          {
-            q: "Can I compress images without uploading them to a website?",
-            a: "Yes. ImageMarker's compressor runs entirely in your browser, so your images are never sent to a server. You choose the quality, see the resulting size, and download locally — nothing is uploaded.",
-          },
+          { q: "How can I reduce image file size without losing quality?", a: "Use lossless compression, or lossy at a high setting (75–85%), and resize the image to the dimensions it'll actually be shown at — oversizing is the biggest source of wasted bytes." },
+          { q: "What's the difference between lossy and lossless compression?", a: "Lossless (PNG) preserves every pixel but stays larger; lossy (JPEG, WebP) discards barely-noticeable detail for much smaller files. Photos suit lossy; logos and screenshots suit lossless." },
+          { q: "Which format is best — JPEG, PNG or WebP?", a: "JPEG for photos, PNG for transparency and sharp edges, and WebP as a modern all-rounder that beats both on size at similar quality." },
+          { q: "Can I compress images without uploading them to a website?", a: "Yes. ImageMarker compresses everything in your browser, so your images are never sent to a server." },
         ]),
       ],
     });

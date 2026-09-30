@@ -112,6 +112,17 @@ const resizeImage = (
   });
 };
 
+// Shown on the page AND fed to the FAQPage JSON-LD from this one array, so the
+// structured data can never claim questions the page doesn't show.
+const FAQS = [
+  { q: "Can I resize by exact pixel dimensions or by percentage?", a: "By exact pixel dimensions. Enter the width and height a form or platform asks for (for example, an Instagram post at 1080x1080), or pick one of the built-in presets for social media and ID photos." },
+  { q: "Does resize keep the aspect ratio?", a: "Yes by default. Aspect ratio lock is on, so changing the width updates the height proportionally and vice versa. Unlock it only when you deliberately want to stretch or squash — most of the time that produces visibly wrong-looking photos." },
+  { q: "Will resizing reduce file size?", a: "Yes, usually significantly. A 4000x3000 photo resized to 1200x900 is one-tenth the pixel count, which tends to translate to roughly one-fifth to one-tenth of the file size depending on format. For very large uploads, resize before compress." },
+  { q: "Are photos uploaded to a server?", a: "No. All resizing happens inside your browser using Canvas, so the image never leaves your device. This matters for private photos where a smaller version is being made for sharing." },
+  { q: "Which formats are supported?", a: "JPG, PNG and WebP for both input and output. You can also change the output format at the same time as resizing — useful for converting a large PNG down to a small WebP in one step." },
+  { q: "What's the maximum resolution I can resize?", a: "There is no hard cap in the tool — the practical limit is your device's memory, so very large images resize more comfortably on a laptop than on a phone." },
+];
+
 export default function ResizeEnPage() {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -157,14 +168,7 @@ export default function ResizeEnPage() {
           "Aspect ratio lock to prevent distortion",
           "Instant preview with output file size",
         ],
-      }), faqSchema([
-        { q: "Can I resize by exact pixel dimensions or by percentage?", a: "Both. Use pixel dimensions when a form or platform gives you a specific size (Instagram post at 1080x1080, ID photo at 600x600), and percentage when you just need something smaller than the original. The two inputs update each other automatically." },
-        { q: "Does resize keep the aspect ratio?", a: "Yes by default. Aspect ratio lock is on, so changing the width updates the height proportionally and vice versa. Unlock it only when you deliberately want to stretch or squash — most of the time that produces visibly wrong-looking photos." },
-        { q: "Will resizing reduce file size?", a: "Yes, usually significantly. A 4000x3000 photo resized to 1200x900 is one-tenth the pixel count, which tends to translate to roughly one-fifth to one-tenth of the file size depending on format. For very large uploads, resize before compress." },
-        { q: "Are photos uploaded to a server?", a: "No. All resizing happens inside your browser using Canvas, so the image never leaves your device. This matters for private photos where a smaller version is being made for sharing." },
-        { q: "Which formats are supported?", a: "JPG, PNG and WebP for both input and output. You can also change the output format at the same time as resizing — useful for converting a large PNG down to a small WebP in one step." },
-        { q: "What's the maximum resolution I can resize?", a: "There is no hard cap — the practical limit is your device's memory. A modern laptop handles images up to several hundred megapixels; a mid-range phone typically manages up to 100 megapixels before things slow down." },
-      ])],
+      }), faqSchema(FAQS)],
     });
   }, []);
 
@@ -551,6 +555,18 @@ export default function ResizeEnPage() {
             avoid distortion. When you need an exact fixed size (like an ID photo or social cover), tap a
             built-in preset to apply it instantly, or unlock the ratio to enter width and height freely.
           </p>
+        </section>
+
+        <section className="mt-12 text-gray-700 leading-relaxed">
+          <h2 className="text-xl font-semibold text-gray-900 mb-4">Frequently asked questions</h2>
+          <div className="space-y-4">
+            {FAQS.map((f) => (
+              <div key={f.q}>
+                <h3 className="font-semibold text-gray-900">{f.q}</h3>
+                <p className="mt-1 text-sm">{f.a}</p>
+              </div>
+            ))}
+          </div>
         </section>
 
         {/* 所有工具中心：推廣其他工具 */}

@@ -58,22 +58,10 @@ export default function BestWatermarkGeneratorsEn() {
           ],
         }),
         faqSchema([
-          {
-            q: "What is the best free watermark generator in 2026?",
-            a: "It depends on your priority. For privacy — especially watermarking ID documents or sensitive photos — ImageMarker is the strongest pick because it runs 100% in your browser and never uploads your files. For heavy graphic design, Canva is more capable but uploads your images to the cloud.",
-          },
-          {
-            q: "Do free watermark tools add their own watermark to my image?",
-            a: "Some do. Several freemium tools stamp their own logo on your output or limit resolution unless you upgrade. ImageMarker adds only the watermark you choose, with no forced branding and no export limit.",
-          },
-          {
-            q: "Are online watermark generators safe for private photos?",
-            a: "Only if they process images locally. Most cloud-based tools upload your photo to a server. For anything sensitive, choose a client-side tool like ImageMarker where the file never leaves your device.",
-          },
-          {
-            q: "Can I batch watermark many images for free?",
-            a: "Yes. ImageMarker lets you batch watermark multiple images at once in your browser for free. Watermarkly and iLoveIMG also support batch, though free tiers cap the number of images or require an account.",
-          },
+          { q: "What is the best free watermark generator in 2026?", a: "It depends on your priority. For privacy — especially watermarking ID documents or sensitive photos — ImageMarker is the strongest pick because it runs 100% in your browser and never uploads your files. For heavy graphic design, Canva is more capable but uploads to the cloud." },
+          { q: "Do free watermark tools add their own watermark to my image?", a: "Some do. Several freemium tools stamp their own logo on your output or cap resolution unless you upgrade. ImageMarker adds only the watermark you choose, with no forced branding." },
+          { q: "Are online watermark generators safe for private photos?", a: "Only if they process images locally. Most cloud tools upload your photo to a server. For anything sensitive, choose a client-side tool like ImageMarker." },
+          { q: "Can I batch watermark many images for free?", a: "Yes. ImageMarker's batch tool watermarks multiple images at once in your browser for free." },
         ]),
         blogBreadcrumb(
           "5 Best Free Watermark Generators in 2026",

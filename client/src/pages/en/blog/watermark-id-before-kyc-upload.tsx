@@ -69,30 +69,12 @@ export default function WatermarkIdBeforeKycUploadEn() {
           ],
         }),
         faqSchema([
-          {
-            q: "Is it safe to watermark an ID before uploading it to an app?",
-            a: "For manual reviews and lightweight KYC flows, yes — a semi-transparent purpose note on a copy of your own document is a labelling step, not tampering, and the identifying details stay readable. For automated liveness or document-authenticity checks (crypto exchanges, some neobanks), a heavy watermark can get flagged. The practical order is: try with a light 30-45% opacity watermark first, and resubmit clean only if the automated check rejects it. Never do it the other way round — once a clean copy is on the vendor's servers, you cannot pull it back.",
-          },
-          {
-            q: "Who actually sees my ID after I upload it to an app?",
-            a: "Almost always more organisations than the app itself. A typical crypto exchange or neobank routes the file through a third-party KYC vendor — Sumsub, Onfido, Persona, Jumio, IDnow, Veriff or iProov are the ones you will see named in privacy policies. The vendor runs OCR, checks the document against reference databases, and hands a pass/fail decision back to the app. Your ID sits on the vendor's storage for as long as their contract with the app requires, often measured in years rather than months.",
-          },
-          {
-            q: "Will a watermark get my KYC application rejected?",
-            a: "It can, if it is too heavy. Automated document checks read the machine-readable zone, the number and the face crop. A dense tile at 60%+ opacity or dark colours over those regions will trigger a re-submission. Keep opacity 30-45%, use a light neutral colour, and zoom in to verify the MRZ, ID number and face crop are all cleanly readable before you upload. Manual reviews are much more forgiving; automated ones are the strict case.",
-          },
-          {
-            q: "How do I protect my ID when sharing it online with people who are not KYC vendors?",
-            a: "The same three-element watermark — recipient, purpose, date — plus channel-specific care. Do not send an ID as a WhatsApp attachment when a portal upload exists; do not email an unwatermarked scan to a support address; do not paste one into a shared Notion or Google Drive folder where the access list has grown over time. If the recipient is an individual (a landlord, a private employer, a coach), assume they will not delete it, and mark the copy accordingly.",
-          },
-          {
-            q: "What about the selfie some apps ask for alongside the ID?",
-            a: "Do not watermark that. The purpose of the selfie is to prove you are the person on the ID via liveness detection, which needs an unedited face image and often video frames. What you can do is check the privacy policy for how long the selfie is retained — biometric data is regulated separately in several states and countries, and a few vendors keep selfies for six years or more.",
-          },
-          {
-            q: "Does ImageMarker upload my ID to a server?",
-            a: "No. Everything runs inside your browser, so the image never leaves your device and there is nothing on our side to store, log, or leak. Switch on flight mode and the tool still works — the simplest way to prove it to yourself before you use it on an identity document.",
-          },
+          { q: "Is it safe to watermark an ID before uploading it to an app?", a: "For manual reviews and lightweight KYC flows, yes. For automated liveness or document-authenticity checks (crypto exchanges, some neobanks), a heavy watermark can get flagged, so try with a light 30-45% opacity watermark first and only resubmit clean if the automated check rejects it. Never do it the other way round — once a clean copy is on the vendor's servers, you cannot pull it back." },
+          { q: "Who actually sees my ID after I upload it to an app?", a: "Almost always more organisations than the app itself. A typical crypto exchange or neobank routes the file through a third-party KYC vendor — Sumsub, Onfido, Persona, Jumio, IDnow, Veriff or iProov are the ones you will see named in privacy policies. The vendor stores the file for years under the app's retention contract." },
+          { q: "Will a watermark get my KYC application rejected?", a: "It can, if it is too heavy. Keep opacity 30-45%, use a light neutral colour, and zoom in to verify the MRZ, ID number and face crop are all cleanly readable before you upload. Manual reviews are much more forgiving; automated ones are the strict case." },
+          { q: "How do I protect my ID when sharing it online with people who are not KYC vendors?", a: "Same three-element watermark — recipient, purpose, date — plus channel-specific care. Do not send an ID as a WhatsApp attachment when a portal upload exists; do not email an unwatermarked scan to a support address; do not paste one into a shared drive folder." },
+          { q: "What about the selfie some apps ask for alongside the ID?", a: "Do not watermark that. The purpose of the selfie is to prove you are the person on the ID via liveness detection, which needs an unedited face image. What you can do is check the privacy policy for how long the selfie is retained, since biometric data is regulated separately in several places." },
+          { q: "Does ImageMarker upload my ID to a server?", a: "No. Everything runs inside your browser, so the image never leaves your device and there is nothing on our side to store, log, or leak. Switch on flight mode and the tool still works — the simplest way to prove it to yourself before you use it on an identity document." },
         ]),
       ],
     });

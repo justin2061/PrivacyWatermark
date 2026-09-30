@@ -118,6 +118,23 @@ function drawPreviewImage(
   ctx.globalAlpha = 1;
 }
 
+// FAQ 同時顯示在頁面上並餵給 FAQPage JSON-LD，共用同一份資料，
+// 結構化資料才不會出現頁面上沒有的問題。
+const FAQS = [
+  {
+    q: "PDF 會上傳到伺服器嗎？",
+    a: "不會。所有處理都在你的瀏覽器中以 pdf-lib 完成，PDF 檔案不會上傳、儲存或傳送給任何第三方。",
+  },
+  {
+    q: "可以加中文浮水印嗎？",
+    a: "可以。本工具會用瀏覽器把文字繪製後嵌入 PDF，因此完整支援中文、日文等文字，不會出現亂碼。",
+  },
+  {
+    q: "浮水印會套用到每一頁嗎？",
+    a: "會。設定好的文字或 Logo 浮水印會自動套用到 PDF 的每一頁。",
+  },
+];
+
 export default function PdfWatermarkPage() {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const logoInputRef = useRef<HTMLInputElement>(null);
@@ -148,20 +165,7 @@ export default function PdfWatermarkPage() {
             "重複鋪滿模式，套用到 PDF 的每一頁",
           ],
         }),
-        faqSchema([
-          {
-            q: "PDF 會上傳到伺服器嗎？",
-            a: "不會。所有處理都在你的瀏覽器中以 pdf-lib 完成，PDF 檔案不會上傳、儲存或傳送給任何第三方。",
-          },
-          {
-            q: "可以加中文浮水印嗎？",
-            a: "可以。本工具會用瀏覽器把文字繪製後嵌入 PDF，因此完整支援中文、日文等文字，不會出現亂碼。",
-          },
-          {
-            q: "浮水印會套用到每一頁嗎？",
-            a: "會。設定好的文字或 Logo 浮水印會自動套用到 PDF 的每一頁。",
-          },
-        ]),
+        faqSchema(FAQS),
       ],
     });
   }, []);
@@ -701,6 +705,18 @@ export default function PdfWatermarkPage() {
             你可以只加文字浮水印、只加 Logo 浮水印，或兩者同時使用，並各自調整透明度、大小與位置。
             選擇「重複鋪滿」模式時，浮水印會以交錯的方式平鋪整頁，最大程度防止被裁切移除。
           </p>
+        </section>
+
+        <section className="mt-12 text-gray-700 leading-relaxed">
+          <h2 className="text-xl font-semibold text-gray-900 mb-4">常見問題</h2>
+          <div className="space-y-4">
+            {FAQS.map((f) => (
+              <div key={f.q}>
+                <h3 className="font-semibold text-gray-900">{f.q}</h3>
+                <p className="mt-1 text-sm">{f.a}</p>
+              </div>
+            ))}
+          </div>
         </section>
 
         {/* 所有工具中心：推廣其他工具 */}
