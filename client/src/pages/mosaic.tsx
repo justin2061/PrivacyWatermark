@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { Card } from "@/components/ui/card";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
@@ -9,7 +9,8 @@ import { ToolRecommendations } from "@/components/ToolRecommendations";
 import { UploadZone } from "@/components/UploadZone";
 import { ActionButton } from "@/components/ActionButtons";
 import { setPageSeo, webAppSchema, faqSchema, localeAlternates } from "@/lib/seo";
-import { trackToolUseStart, trackToolEvent, trackDownloadComplete } from "@/lib/analytics";
+import { trackToolUseStart, trackToolEvent, trackDownloadComplete, trackToolHandoff } from "@/lib/analytics";
+import { takeHandoffImage } from "@/lib/imageHandoff";
 import { useMosaic, type MaskType } from "@/hooks/useMosaic";
 import {
   CheckCircle,
@@ -79,6 +80,17 @@ export default function MosaicPage() {
     m.onPickFile(file);
   };
 
+  // 從其他工具帶圖過來（例：浮水印頁「先遮個資」）：直接載入，免得使用者再選一次檔。
+  // handoffFrom 記住來源，完成下載時送 tool_handoff_complete 做歸因；自己換圖就不算。
+  const handoffFrom = useRef<string | null>(null);
+  useEffect(() => {
+    const h = takeHandoffImage();
+    if (!h) return;
+    handoffFrom.current = h.from;
+    pickFile(h.file);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <div className="min-h-screen bg-gray-50">
       <SiteHeader lang="zh" current="mosaic" />
@@ -94,7 +106,7 @@ export default function MosaicPage() {
             </h1>
             <UploadZone
               accept={ACCEPTED}
-              onFiles={(files) => pickFile(files[0])}
+              onFiles={(files) => { handoffFrom.current = null; pickFile(files[0]); }}
               title="將圖片拖放到此處，或點擊選擇檔案"
               description="支援 JPG、PNG、WebP、BMP、GIF"
               buttonLabel="選擇檔案"
@@ -301,6 +313,10 @@ export default function MosaicPage() {
                       m.download();
                       trackDownloadComplete("mosaic", 1);
                       trackToolEvent("mosaic_complete", "mosaic");
+                      if (handoffFrom.current) {
+                        trackToolHandoff("complete", handoffFrom.current, "mosaic");
+                        handoffFrom.current = null;
+                      }
                     }}
                     disabled={!hasResult}
                     icon={<Download className="w-4 h-4 mr-2" aria-hidden="true" />}
