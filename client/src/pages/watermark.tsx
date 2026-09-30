@@ -21,6 +21,27 @@ import { trackToolUseStart, trackDownloadComplete, trackWatermarkLayoutMode } fr
 import { setPageSeo, webAppSchema, faqSchema, localeAlternates } from "@/lib/seo";
 import { Lock, Zap, Eraser, Loader2 } from "lucide-react";
 
+// FAQ 同時顯示在頁面上並餵給 FAQPage JSON-LD，共用同一份資料，
+// 結構化資料才不會出現頁面上沒有的問題。
+const FAQS = [
+  {
+    q: "證件浮水印要寫什麼？",
+    a: "建議寫明用途和日期，例如「僅供 XX 公司租屋使用 2026/04/05」。明確標註用途可以有效防止證件被挪作他用。",
+  },
+  {
+    q: "使用這個工具圖片會被上傳嗎？",
+    a: "不會。ImageMarker 100% 在您的瀏覽器本地端處理，所有圖片都不會上傳到任何伺服器，確保您的個資安全。",
+  },
+  {
+    q: "支援哪些圖片格式？",
+    a: "目前支援 JPG 和 PNG 格式，檔案大小上限為 10MB。",
+  },
+  {
+    q: "手機可以使用嗎？",
+    a: "可以。ImageMarker 支援所有現代瀏覽器，包括手機和平板上的 Chrome、Safari 等瀏覽器，也支援 PWA 離線使用。",
+  },
+];
+
 export default function WatermarkPage() {
   const {
     selectedFile,
@@ -68,24 +89,7 @@ export default function WatermarkPage() {
             "支援 JPG、PNG 格式，PWA 可離線使用",
           ],
         }),
-        faqSchema([
-          {
-            q: "證件浮水印要寫什麼？",
-            a: "建議寫明用途和日期，例如「僅供 XX 公司租屋使用 2026/04/05」。明確標註用途可以有效防止證件被挪作他用。",
-          },
-          {
-            q: "使用這個工具圖片會被上傳嗎？",
-            a: "不會。ImageMarker 100% 在您的瀏覽器本地端處理，所有圖片都不會上傳到任何伺服器，確保您的個資安全。",
-          },
-          {
-            q: "支援哪些圖片格式？",
-            a: "目前支援 JPG 和 PNG 格式，檔案大小上限為 10MB。",
-          },
-          {
-            q: "手機可以使用嗎？",
-            a: "可以。ImageMarker 支援所有現代瀏覽器，包括手機和平板上的 Chrome、Safari 等瀏覽器，也支援 PWA 離線使用。",
-          },
-        ]),
+        faqSchema(FAQS),
         {
           "@context": "https://schema.org",
           "@type": "HowTo",
@@ -245,6 +249,18 @@ export default function WatermarkPage() {
         </div>
         </div>
         )}
+
+        <section className="mt-12 text-gray-700 leading-relaxed">
+          <h2 className="text-xl font-semibold text-gray-900 mb-4">常見問題</h2>
+          <div className="space-y-4">
+            {FAQS.map((f) => (
+              <div key={f.q}>
+                <h3 className="font-semibold text-gray-900">{f.q}</h3>
+                <p className="mt-1 text-sm">{f.a}</p>
+              </div>
+            ))}
+          </div>
+        </section>
 
         {/* 所有工具中心 */}
         <ToolsShowcase lang="zh" current="watermark" />

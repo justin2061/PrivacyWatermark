@@ -32,6 +32,17 @@ function formatFileSize(bytes: number): string {
   return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + " " + sizes[i];
 }
 
+// Shown on the page AND fed to the FAQPage JSON-LD from this one array, so the
+// structured data can never claim questions the page doesn't show.
+const FAQS = [
+  { q: "How many photos can I batch watermark at once?", a: "There is no fixed limit in the tool — the practical ceiling is your device's memory, since every photo is processed in the browser. Laptops handle larger batches than phones; if a very large batch slows down, split it into a few smaller ones." },
+  { q: "Are my photos uploaded?", a: "No. Every image in the batch is processed inside your browser using Canvas. Nothing is sent to a server, which is what makes batch watermarking safe for a full shoot of client-facing photos or a stack of ID copies." },
+  { q: "Do I get one ZIP file or individual downloads?", a: "One ZIP containing every watermarked photo, built in the browser so nothing hits the network. To save a single photo on its own, use the main watermark page instead." },
+  { q: "Can I use different watermark text on different photos?", a: "The current batch mode applies one shared watermark to all photos in the batch, which is what most photography and real-estate workflows need. For per-image customisation, process photos one at a time on the main watermark page." },
+  { q: "What formats does batch support?", a: "JPG and PNG. Mixed batches work, and each exported photo keeps its original format. Convert WebP or HEIC photos to JPG first with the image converter." },
+  { q: "How long does 100 photos take?", a: "It depends on your device and the photos' resolution. Because everything runs locally, there is no upload or server queue — larger batches simply take proportionally longer." },
+];
+
 export default function BatchEnPage() {
   const {
     images,
@@ -89,14 +100,7 @@ export default function BatchEnPage() {
           "Download all processed images as a ZIP",
           "Live per-image preview with thumbnails",
         ],
-      }), faqSchema([
-        { q: "How many photos can I batch watermark at once?", a: "Practical throughput is bounded by your device's memory rather than by the tool — most laptops and mid-range phones handle 100 to 200 photos comfortably in one batch. Very large batches (500+) work but take longer to finish and briefly use more memory during export." },
-        { q: "Are my photos uploaded?", a: "No. Every image in the batch is processed inside your browser using Canvas. Nothing is sent to a server, which is what makes batch watermarking safe for a full shoot of client-facing photos or a stack of ID copies." },
-        { q: "Do I get one ZIP file or individual downloads?", a: "One ZIP by default, built in the browser so nothing hits the network. Individual per-image download is also possible if you prefer to save them one at a time." },
-        { q: "Can I use different watermark text on different photos?", a: "The current batch mode applies one shared watermark to all photos in the batch, which is what most photography and real-estate workflows need. For per-image customisation, process photos one at a time on the main watermark page." },
-        { q: "What formats does batch support?", a: "JPG, PNG and WebP for both input and output. Mixed batches work — the exports keep each photo's original format unless you explicitly convert." },
-        { q: "How long does 100 photos take?", a: "Under a minute on a modern laptop, a couple of minutes on a mid-range phone. Because everything runs locally, larger batches simply take proportionally longer without upload or server queue delays." },
-      ])],
+      }), faqSchema(FAQS)],
     });
   }, []);
 
@@ -395,6 +399,18 @@ export default function BatchEnPage() {
         {allProcessed && (
           <ToolRecommendations current="batch" lang="en" className="mt-12" />
         )}
+
+        <section className="mt-12 text-gray-700 leading-relaxed">
+          <h2 className="text-xl font-semibold text-gray-900 mb-4">Frequently asked questions</h2>
+          <div className="space-y-4">
+            {FAQS.map((f) => (
+              <div key={f.q}>
+                <h3 className="font-semibold text-gray-900">{f.q}</h3>
+                <p className="mt-1 text-sm">{f.a}</p>
+              </div>
+            ))}
+          </div>
+        </section>
 
         {/* 所有工具中心：推廣其他工具 */}
         <ToolsShowcase lang="en" exclude="batch" />

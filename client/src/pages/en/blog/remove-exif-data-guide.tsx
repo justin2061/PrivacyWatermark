@@ -60,30 +60,12 @@ export default function RemoveExifDataGuideEn() {
           ],
         }),
         faqSchema([
-          {
-            q: "Is it safe to remove EXIF data online?",
-            a: "It depends entirely on where the processing happens. Most online EXIF removers upload your photo to their server, strip the metadata there and send a clean file back — which means that in order to hide your location you first hand a stranger the original file with the GPS tag still in it. ImageMarker's EXIF cleaner runs 100% in your browser using JavaScript, so the photo never leaves your device. You can verify this by loading the page, disconnecting from the internet, and cleaning a photo anyway — it still works.",
-          },
-          {
-            q: "How do I check whether a photo has GPS data?",
-            a: "On iPhone, open the photo and swipe up or tap the info (i) button — a small map means the photo is geotagged. On Android, open the photo in Google Photos or your gallery and tap Details. On Windows, right-click the file, choose Properties, then Details, and scroll to the GPS section. On Mac, open the file in Preview and choose Tools, Show Inspector, then the GPS tab. The fastest option is to drop the photo into an EXIF viewer or cleaner, which lists every field at once and flags the sensitive ones.",
-          },
-          {
-            q: "Does removing EXIF data reduce image quality?",
-            a: "No. EXIF is text metadata attached to the image file, not part of the picture itself, so deleting it does not touch a single pixel. ImageMarker removes the metadata segment from JPEGs without re-encoding them, which means the output is visually identical to the original and slightly smaller in file size.",
-          },
-          {
-            q: "Can I stop my phone from geotagging photos in the first place?",
-            a: "Yes, and it is worth doing. On iPhone go to Settings, Privacy and Security, Location Services, Camera, and set it to Never. On Android, open the camera app's settings and turn off location tags or geotagging. This only affects photos you take from that point on — every photo already in your library keeps its GPS coordinates until you strip them.",
-          },
-          {
-            q: "Do Facebook, Instagram and WhatsApp remove EXIF data automatically?",
-            a: "Major social platforms usually strip or rewrite most EXIF, including GPS, on the image they display. But that protection only applies on those platforms. The moment you send the original file by email, a cloud link, a direct message set to send the full-resolution file, or upload it to a forum, marketplace, classified ad or rental listing site, the metadata typically survives intact. The reliable rule is to clean the file yourself before it leaves your device rather than betting on the platform.",
-          },
-          {
-            q: "Can I remove EXIF data from multiple photos at once?",
-            a: "The EXIF cleaner handles one photo at a time on purpose, so you can review the detected fields before stripping them — the right trade-off for a document or a photo you are about to hand to someone. For dozens of files at once, use the batch watermark tool instead: it re-renders every image in your browser, and the original EXIF is not carried into the new files, so you strip metadata and add a watermark in a single pass.",
-          },
+          { q: "Is it safe to remove EXIF data online?", a: "It depends entirely on where the processing happens. Most online EXIF removers upload your photo to a server, which means that to hide your location you first hand the original geotagged file to a stranger. The ImageMarker EXIF cleaner runs entirely in your browser, so the photo never leaves your device — load the page, disconnect from the internet, and it still works." },
+          { q: "How do I check whether a photo has GPS data?", a: "iPhone: tap the (i) button and look for a map. Android: open Details in Google Photos or your gallery. Windows: right-click → Properties → Details → scroll to GPS. Mac: Preview → Tools → Show Inspector → GPS tab. Or drop the file into an EXIF cleaner, which lists every field at once and flags the sensitive ones." },
+          { q: "Does removing EXIF data reduce image quality?", a: "No. EXIF is text metadata attached to the file, not part of the picture, so deleting it does not touch a single pixel. ImageMarker removes the metadata segment from JPEGs without re-encoding, so the output is identical to the original and slightly smaller." },
+          { q: "Can I stop my phone from geotagging photos in the first place?", a: "Yes. On iPhone: Settings → Privacy & Security → Location Services → Camera → Never. On Android: open the camera app settings and turn off location tags or geotagging. This only affects future photos — everything already in your library keeps its coordinates until you strip them." },
+          { q: "Do Facebook, Instagram and WhatsApp remove EXIF automatically?", a: "Major platforms usually strip most EXIF from the image they display, but that only helps on those platforms. Email attachments, cloud links, full-resolution file transfers in chat apps, forums, marketplaces and listing sites frequently keep the metadata intact. Clean the file yourself before it leaves your device rather than betting on the platform." },
+          { q: "Can I remove EXIF from multiple photos at once?", a: "The EXIF cleaner takes one file at a time so you can review the detected fields before stripping them. For dozens of files, use the batch watermark tool, which re-renders each image in your browser without carrying the original EXIF into the output — metadata removal and watermarking in a single pass." },
         ]),
         blogBreadcrumb(HEADLINE, URL, "en"),
       ],

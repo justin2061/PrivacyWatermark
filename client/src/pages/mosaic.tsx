@@ -8,7 +8,7 @@ import { DownloadSuccess } from "@/components/DownloadSuccess";
 import { ToolRecommendations } from "@/components/ToolRecommendations";
 import { UploadZone } from "@/components/UploadZone";
 import { ActionButton } from "@/components/ActionButtons";
-import { setPageSeo, webAppSchema, localeAlternates } from "@/lib/seo";
+import { setPageSeo, webAppSchema, faqSchema, localeAlternates } from "@/lib/seo";
 import { trackToolUseStart, trackToolEvent, trackDownloadComplete } from "@/lib/analytics";
 import { useMosaic, type MaskType } from "@/hooks/useMosaic";
 import {
@@ -30,6 +30,17 @@ const MASK_OPTIONS: { value: MaskType; label: string; desc: string }[] = [
   { value: "solid", label: "純色色塊", desc: "完全遮蔽" },
 ];
 
+// FAQ 同時顯示在頁面上並餵給 FAQPage JSON-LD，共用同一份資料，
+// 結構化資料才不會出現頁面上沒有的問題。
+const FAQS = [
+  { q: "哪些東西可以打馬賽克或模糊？", a: "人臉、車牌、證件號碼、地址、門牌、提款卡或信用卡卡號、ATM 或電腦螢幕、旅遊照裡入鏡的路人等。只要是照片中想讓人看不清楚的矩形區域，都可以遮住。" },
+  { q: "圖片會被上傳到哪裡嗎？", a: "不會。馬賽克完全在你的瀏覽器中以 Canvas 處理，原始圖片不會離開你的裝置。這點很重要，因為還看得到敏感資訊的原圖，正是你最不希望被陌生伺服器留存的東西。" },
+  { q: "別人能把馬賽克還原、看到底下的內容嗎？", a: "只要馬賽克的方塊夠大、或模糊夠強，原本的像素資訊就已經被捨棄，無法還原。例外是在清楚的文字上只套用很輕的模糊或很小的方塊，現在的技術有機會還原一部分。必須完全看不清楚的內容，請用大方塊或強模糊。" },
+  { q: "可以用來遮車牌和證件號碼嗎？", a: "可以，這正是純色色塊和高強度馬賽克的主要用途。兩者都是把資訊移除，而不只是看起來模糊。證件號碼、銀行卡號這類絕對不能被還原的資訊，建議用純色色塊。" },
+  { q: "馬賽克和模糊有什麼不同？", a: "馬賽克把區域換成大塊色塊，一看就知道被遮住，方塊夠大就無法還原。高斯模糊則把像素柔和地混在一起，看起來比較自然，但在文字上套用輕度模糊有時能被部分還原。真正敏感的欄位，第三種「純色色塊」最保險。" },
+  { q: "手機可以用嗎？", a: "可以。拖曳框選區域支援手機觸控，也支援滑鼠，剛用手機拍的照片，直接在瀏覽器裡就能把人臉或螢幕遮起來。" },
+];
+
 export default function MosaicPage() {
   const m = useMosaic({
     invalidType: "請選擇圖片檔案（JPG、PNG、WebP、BMP、GIF）",
@@ -43,7 +54,7 @@ export default function MosaicPage() {
         "免費線上圖片馬賽克工具，拖曳選取即可為人臉、車牌、證件號碼打馬賽克、高斯模糊或加上純色色塊。100% 瀏覽器本機處理，圖片不上傳，隱私安全。支援手機觸控操作。",
       canonical: "https://imagemarker.app/mosaic",
       alternates: localeAlternates({ zh: "/mosaic", en: "/en/mosaic", ja: "/ja/mosaic" }),
-      jsonLd: webAppSchema({
+      jsonLd: [webAppSchema({
         name: "圖片馬賽克工具 — ImageMarker",
         description:
           "免費線上圖片馬賽克工具，拖曳選取即可為人臉、車牌、證件號碼打馬賽克、高斯模糊或加上純色色塊。100% 瀏覽器本機處理，圖片不上傳。",
@@ -55,7 +66,7 @@ export default function MosaicPage() {
           "可調整馬賽克像素大小與模糊強度",
           "多區域遮蔽，每個區域可個別刪除",
         ],
-      }),
+      }), faqSchema(FAQS)],
     });
   }, []);
 
@@ -365,6 +376,18 @@ export default function MosaicPage() {
             馬賽克把區域像素化成方塊，兼顧遮蔽與美觀；高斯模糊讓區域柔化，適合背景或人臉；純色色塊則是完全遮蔽，
             最安全、無法還原，適合證件號碼等絕不能外洩的資訊。可依需求調整馬賽克像素大小與模糊強度。
           </p>
+        </section>
+
+        <section className="mt-12 text-gray-700 leading-relaxed">
+          <h2 className="text-xl font-semibold text-gray-900 mb-4">常見問題</h2>
+          <div className="space-y-4">
+            {FAQS.map((f) => (
+              <div key={f.q}>
+                <h3 className="font-semibold text-gray-900">{f.q}</h3>
+                <p className="mt-1 text-sm">{f.a}</p>
+              </div>
+            ))}
+          </div>
         </section>
 
         {/* 所有工具中心：推廣其他工具 */}

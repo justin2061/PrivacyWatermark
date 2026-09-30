@@ -54,30 +54,12 @@ export default function GdprCompliantWatermarkingEn() {
           ],
         }),
         faqSchema([
-          {
-            q: "Is uploading personal data to an online watermark tool a GDPR issue?",
-            a: "It can be. If the file contains personal data and you send it to a third-party service that processes it on your behalf, that service is acting as a processor. GDPR Article 28 requires a written contract with defined terms before that happens, and you also need to account for security, international transfers and your record of processing activities. Most free online tools give you none of that.",
-          },
-          {
-            q: "Does client-side processing make a tool GDPR compliant?",
-            a: "It removes one specific and expensive problem: if the file never leaves your device, there is no disclosure to a third party, so no processor relationship, no Article 28 contract and no international transfer to assess. It does not make you compliant on its own — you are still the controller and still need a lawful basis, data minimisation, sensible retention and secure devices. It eliminates the vendor side of the risk, not your own obligations.",
-          },
-          {
-            q: "How can I verify that a watermark tool doesn't upload my files?",
-            a: "Open your browser's developer tools, switch to the Network tab, and process a file. If it is genuinely client-side you will see no outbound request carrying the image. A blunter test: load the page, disconnect from the internet, and try to watermark something. A client-side tool keeps working offline; an upload-based one fails immediately.",
-          },
-          {
-            q: "Are ID documents special category data under GDPR?",
-            a: "Not automatically. An identity document is personal data, and often includes data that becomes special category in context — a photo used for biometric identification, or details revealing health, ethnic origin or religious belief. Regulators consistently treat identity documents as high-risk regardless of category, because a leak enables identity fraud directly. Treat them as sensitive whether or not Article 9 applies.",
-          },
-          {
-            q: "Does \"we delete your files after one hour\" solve the problem?",
-            a: "No. Deletion is a retention control, not a lawfulness control. The processing already happened when the file reached their server, and every obligation attached to that processing — a processor contract, security measures, transfer safeguards, breach notification if it goes wrong — applied from the moment of upload. A short retention period is good practice, but it does not remove the transfer or the paperwork it triggers.",
-          },
-          {
-            q: "Does ImageMarker send my documents anywhere?",
-            a: "No. ImageMarker processes images entirely in your browser using the Canvas API. Nothing is uploaded, so there is no server-side copy to store, log, subpoena or breach — which is verifiable from your own Network tab in a few seconds.",
-          },
+          { q: "Is uploading personal data to an online watermark tool a GDPR issue?", a: "It can be. Sending a file containing personal data to a third-party service makes them a processor, which requires an Article 28 contract, appropriate security, and a transfer mechanism if they are outside the EEA or UK. Free tools rarely provide any of it." },
+          { q: "Does client-side processing make a tool GDPR compliant?", a: "It removes the processor relationship, the transfer question and the third-party breach surface entirely. It does not remove your own controller obligations — lawful basis, minimisation, retention, device security." },
+          { q: "How can I verify a tool doesn't upload my files?", a: "Open developer tools, watch the Network tab while you process a file, and look for an outbound request the size of your image. Or load the page, go offline, and see whether it still works." },
+          { q: "Are ID documents special category data?", a: "Not automatically, though they often contain data that becomes special category in context. Regulators treat them as high-risk regardless, because a leak enables identity fraud directly — so handle them as sensitive either way." },
+          { q: "Does \"we delete your files after one hour\" solve it?", a: "No. The processing already happened on upload, and every obligation attached then. Short retention is good practice, not a substitute for the transfer never having taken place." },
+          { q: "Does ImageMarker send my documents anywhere?", a: "No. Everything runs in your browser, so there is no server-side copy to store, log or breach — and you can confirm that from your own Network tab." },
         ]),
       ],
     });

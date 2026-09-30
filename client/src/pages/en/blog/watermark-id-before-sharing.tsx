@@ -48,22 +48,10 @@ export default function WatermarkIdBeforeSharingEn() {
           ],
         }),
         faqSchema([
-          {
-            q: "Is it legal to watermark my own ID document?",
-            a: "Yes. Adding a semi-transparent note such as \"For rental application only\" across your own ID copy is a widely accepted way to limit misuse. You are not altering the identifying details — you are marking the purpose of that specific copy. It does not invalidate the document; the original in your wallet is untouched.",
-          },
-          {
-            q: "What should the watermark actually say?",
-            a: "State the single purpose and recipient, for example \"For [Company] job application only — not valid for other use\". Naming the purpose and the date makes a leaked copy far harder to reuse for anything else.",
-          },
-          {
-            q: "Will a watermark stop identity theft completely?",
-            a: "No single step does. A purpose-stating watermark is a strong deterrent that makes your ID copy much less useful to a fraudster, but combine it with only sharing when truly required, stripping EXIF metadata, and never sending the file over insecure channels.",
-          },
-          {
-            q: "Is it safe to upload my ID to a watermark website?",
-            a: "Only if the tool runs locally. ImageMarker processes your image entirely in your browser — your ID is never uploaded to any server, which is essential when the whole point is protecting a sensitive document.",
-          },
+          { q: "Is it legal to watermark my own ID document?", a: "Yes. Adding a semi-transparent note such as \"For rental application only\" across your own copy is a widely accepted way to limit misuse. You are marking the purpose, not altering the identifying details, and the original document stays valid." },
+          { q: "What should the watermark actually say?", a: "State the single purpose and recipient, e.g. \"For [Company] job application only — not valid for other use\". Adding the date makes a leaked copy even harder to reuse." },
+          { q: "Will a watermark stop identity theft completely?", a: "No single step does. A purpose-stating watermark is a strong deterrent that makes your ID copy far less useful to a fraudster; combine it with sharing only when required, stripping EXIF data, and using secure channels." },
+          { q: "Is it safe to upload my ID to a watermark website?", a: "Only if the tool runs locally. ImageMarker processes everything in your browser — your ID is never uploaded to any server." },
         ]),
       ],
     });

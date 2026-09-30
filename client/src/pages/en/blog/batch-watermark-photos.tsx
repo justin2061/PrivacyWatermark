@@ -49,22 +49,10 @@ export default function BatchWatermarkPhotosEn() {
           ],
         }),
         faqSchema([
-          {
-            q: "What is batch watermarking?",
-            a: "Batch watermarking applies the same watermark — text or logo, at a fixed position and opacity — to many images in a single operation, instead of editing each one by hand. It's how photographers, sellers and agencies stamp entire folders of photos consistently in seconds.",
-          },
-          {
-            q: "How do I watermark 100 photos at once for free?",
-            a: "Open ImageMarker's batch tool, drag in all your images, set the watermark text or logo once, position it, and export. Every photo is processed in your browser and downloaded together — there is no per-image work and no upload.",
-          },
-          {
-            q: "Is batch watermarking in the browser as good as Photoshop?",
-            a: "For applying a consistent text or logo watermark across many images, a browser batch tool is usually faster and simpler than Photoshop actions or Lightroom export presets, and it needs no software or subscription. Photoshop still wins for pixel-level compositing on a single image, but that's rarely what batch watermarking needs.",
-          },
-          {
-            q: "Are my photos uploaded when I batch watermark them?",
-            a: "Not with ImageMarker. Every image is processed locally in your browser using the Canvas API, so nothing is sent to a server — important for client work, product shots or anything you'd rather not hand to a third party.",
-          },
+          { q: "What is batch watermarking?", a: "Applying the same watermark — text or logo, fixed position and opacity — to many images in one operation instead of editing each by hand." },
+          { q: "How do I watermark 100 photos at once for free?", a: "Open ImageMarker's batch tool, drag in all your images, set the watermark once, and export. Every photo is processed in your browser with no upload." },
+          { q: "Is batch watermarking in the browser as good as Photoshop?", a: "For a consistent text or logo mark across many images it's usually faster and simpler, and needs no software. Photoshop still wins for detailed single-image compositing." },
+          { q: "Are my photos uploaded when I batch watermark them?", a: "Not with ImageMarker — every image is processed locally in your browser, so nothing is sent to a server." },
         ]),
       ],
     });

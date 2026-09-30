@@ -77,6 +77,17 @@ function compositeBackground(
   });
 }
 
+// Shown on the page AND fed to the FAQPage JSON-LD from this one array, so the
+// structured data can never claim questions the page doesn't show.
+const FAQS = [
+  { q: "How accurate is the background removal?", a: "Very good on clearly separated subjects (people against plain backgrounds, product shots on neutral surfaces, portraits with soft light). It struggles at hair-fine detail against busy backgrounds and translucent subjects like glass or ice. The AI model runs locally in your browser rather than on a server." },
+  { q: "Does this upload my photo to a server?", a: "No. The AI model runs entirely inside your browser — it downloads once, gets cached, and then runs on your device with WebAssembly. Your photo never leaves the browser tab, which is what makes this safe for private photos, employee headshots, or client work under NDA." },
+  { q: "Does it work on people, products and objects?", a: "Yes to all three. The underlying model was trained on a broad category set, so portraits, e-commerce product shots, animal photos and everyday objects all work. It is optimised for the general 'foreground versus background' case rather than a specific niche." },
+  { q: "What file formats work?", a: "Input: JPG, PNG and WebP. Output: PNG — with a transparent background (the standard for e-commerce and design work), or with a white or custom solid-color background if you choose one." },
+  { q: "Does the model run on my device or in the cloud?", a: "On your device, in the browser. The first time you use the tool, your browser downloads the AI model files (several tens of megabytes). The model then runs on your device; your photo itself is never sent anywhere." },
+  { q: "Can I use it offline after the first run?", a: "Not reliably. The model files are downloaded on first use and your browser may keep them cached, which usually makes later runs start faster, but the tool needs a connection to fetch the model if the cache has been cleared. Your photo is processed on your device either way." },
+];
+
 export default function RemoveBgEnPage() {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -126,14 +137,7 @@ export default function RemoveBgEnPage() {
           "Model cached after first use — works offline",
           "Supports JPG, PNG and WebP",
         ],
-      }), faqSchema([
-        { q: "How accurate is the background removal?", a: "Very good on clearly separated subjects (people against plain backgrounds, product shots on neutral surfaces, portraits with soft light). It struggles at hair-fine detail against busy backgrounds and translucent subjects like glass or ice. The model is the same class that powers most commercial background removers, but running locally rather than on a server." },
-        { q: "Does this upload my photo to a server?", a: "No. The AI model runs entirely inside your browser — it downloads once, gets cached, and then runs on your device with WebAssembly. Your photo never leaves the browser tab, which is what makes this safe for private photos, employee headshots, or client work under NDA." },
-        { q: "Does it work on people, products and objects?", a: "Yes to all three. The underlying model was trained on a broad category set, so portraits, e-commerce product shots, animal photos and everyday objects all work. It is optimised for the general 'foreground versus background' case rather than a specific niche." },
-        { q: "What file formats work?", a: "Input: JPG, PNG and WebP. Output: PNG with a transparent background (the standard for e-commerce and design work) or PNG/JPG/WebP with a solid color if you set a replacement background." },
-        { q: "Does the model run on my device or in the cloud?", a: "On your device, in the browser. The first time you use the tool it downloads the model file (about 40MB) and caches it locally. After that, background removal works even with the network turned off, which is a good way to verify nothing is being sent anywhere." },
-        { q: "Can I use it offline after the first run?", a: "Yes. The model gets cached in your browser storage the first time you run it, so subsequent uses work offline. Air-gapped photo editing for privacy-sensitive material is exactly this tool's use case." },
-      ])],
+      }), faqSchema(FAQS)],
     });
   }, []);
 
@@ -617,6 +621,18 @@ export default function RemoveBgEnPage() {
             and swapping background colors. Combine it with our watermark,
             compression and format-conversion tools to handle images end to end.
           </p>
+        </section>
+
+        <section className="mt-12 text-gray-700 leading-relaxed">
+          <h2 className="text-xl font-semibold text-gray-900 mb-4">Frequently asked questions</h2>
+          <div className="space-y-4">
+            {FAQS.map((f) => (
+              <div key={f.q}>
+                <h3 className="font-semibold text-gray-900">{f.q}</h3>
+                <p className="mt-1 text-sm">{f.a}</p>
+              </div>
+            ))}
+          </div>
         </section>
 
         {/* 所有工具中心：推廣其他工具 */}

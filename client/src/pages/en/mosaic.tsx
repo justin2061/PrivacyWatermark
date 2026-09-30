@@ -30,6 +30,17 @@ const MASK_OPTIONS: { value: MaskType; label: string; desc: string }[] = [
   { value: "solid", label: "Solid Box", desc: "Full cover" },
 ];
 
+// Shown on the page AND fed to the FAQPage JSON-LD from this one array, so the
+// structured data can never claim questions the page doesn't show.
+const FAQS = [
+  { q: "What can I mosaic or blur?", a: "Faces, license plates, ID numbers, addresses, home nameplates, bank card numbers, credit card numbers, ATM screens, monitor screens, background people in tourist photos. Anything you want a fixed rectangular region of the photo to be unreadable." },
+  { q: "Is my image uploaded anywhere?", a: "No. Mosaic runs entirely inside your browser with Canvas, so the original image never leaves your device. This matters because the original — which still contains the sensitive area — is exactly what you don't want a random server to keep a copy of." },
+  { q: "Can someone reverse the mosaic and see what was underneath?", a: "Not from a properly-sized mosaic or gaussian blur — the original pixel information is discarded. The exception is very light blur or very small pixel blocks over legible text, which can sometimes be partially recovered with modern models. Use a large pixel block or heavy blur for anything that has to stay unreadable." },
+  { q: "Can I use this to hide license plates and ID numbers?", a: "Yes — that's the primary use case for the solid-color-box and heavy-mosaic modes. Both remove the information rather than just obscure it visually. Prefer solid color box for anything that must be non-recoverable (ID numbers, bank cards)." },
+  { q: "What's the difference between mosaic and blur?", a: "Mosaic replaces the region with large colored pixels — visually obvious that something has been hidden, and impossible to recover if the pixel size is big enough. Gaussian blur smoothly smears the pixels together — subtler look, but light blur over text can sometimes be partially reversed. For truly sensitive fields, solid color box (the third mode) is the strongest option." },
+  { q: "Does it work on phones?", a: "Yes. Drag-to-select the mosaic region works on touch as well as mouse, so hiding a face or a screen in a photo you just took on the phone is a one-step operation without leaving the browser." },
+];
+
 export default function MosaicEnPage() {
   const m = useMosaic({
     invalidType: "Please choose an image file (JPG, PNG, WebP, BMP, GIF)",
@@ -59,14 +70,7 @@ export default function MosaicEnPage() {
           "Adjustable mosaic pixel size and blur strength",
           "Multiple regions, each individually removable",
         ],
-      }), faqSchema([
-        { q: "What can I mosaic or blur?", a: "Faces, license plates, ID numbers, addresses, home nameplates, bank card numbers, credit card numbers, ATM screens, monitor screens, background people in tourist photos. Anything you want a fixed rectangular region of the photo to be unreadable." },
-        { q: "Is my image uploaded anywhere?", a: "No. Mosaic runs entirely inside your browser with Canvas, so the original image never leaves your device. This matters because the original — which still contains the sensitive area — is exactly what you don't want a random server to keep a copy of." },
-        { q: "Can someone reverse the mosaic and see what was underneath?", a: "Not from a properly-sized mosaic or gaussian blur — the original pixel information is discarded. The exception is very light blur or very small pixel blocks over legible text, which can sometimes be partially recovered with modern models. Use a large pixel block or heavy blur for anything that has to stay unreadable." },
-        { q: "Can I use this to hide license plates and ID numbers?", a: "Yes — that's the primary use case for the solid-color-box and heavy-mosaic modes. Both remove the information rather than just obscure it visually. Prefer solid color box for anything that must be non-recoverable (ID numbers, bank cards)." },
-        { q: "What's the difference between mosaic and blur?", a: "Mosaic replaces the region with large colored pixels — visually obvious that something has been hidden, and impossible to recover if the pixel size is big enough. Gaussian blur smoothly smears the pixels together — subtler look, but light blur over text can sometimes be partially reversed. For truly sensitive fields, solid color box (the third mode) is the strongest option." },
-        { q: "Does it work on phones?", a: "Yes. Drag-to-select the mosaic region works on touch as well as mouse, so hiding a face or a screen in a photo you just took on the phone is a one-step operation without leaving the browser." },
-      ])],
+      }), faqSchema(FAQS)],
     });
   }, []);
 
@@ -379,6 +383,18 @@ export default function MosaicEnPage() {
             great to blur a face online or a busy background. A solid box fully covers the area — the safest, non-reversible
             option for ID numbers and anything that must never leak. Adjust the mosaic block size and blur strength to taste.
           </p>
+        </section>
+
+        <section className="mt-12 text-gray-700 leading-relaxed">
+          <h2 className="text-xl font-semibold text-gray-900 mb-4">Frequently asked questions</h2>
+          <div className="space-y-4">
+            {FAQS.map((f) => (
+              <div key={f.q}>
+                <h3 className="font-semibold text-gray-900">{f.q}</h3>
+                <p className="mt-1 text-sm">{f.a}</p>
+              </div>
+            ))}
+          </div>
         </section>
 
         {/* 所有工具中心：推廣其他工具 */}

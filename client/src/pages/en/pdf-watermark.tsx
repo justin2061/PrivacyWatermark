@@ -117,6 +117,23 @@ function drawPreviewImage(
   ctx.globalAlpha = 1;
 }
 
+// Shown on the page AND fed to the FAQPage JSON-LD from this one array, so the
+// structured data can never claim questions the page doesn't show.
+const FAQS = [
+  {
+    q: "Is my PDF uploaded to a server?",
+    a: "No. All processing runs in your browser with pdf-lib. Your PDF is never uploaded, stored or sent to any third party.",
+  },
+  {
+    q: "Does the watermark apply to every page?",
+    a: "Yes. Your text or logo watermark is automatically applied to every page of the PDF.",
+  },
+  {
+    q: "Can I use text and a logo at the same time?",
+    a: "Yes. You can enable text and logo watermarks together, each with its own opacity, size and position.",
+  },
+];
+
 export default function PdfWatermarkEnPage() {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const logoInputRef = useRef<HTMLInputElement>(null);
@@ -151,20 +168,7 @@ export default function PdfWatermarkEnPage() {
             "Applied automatically to every page of the PDF",
           ],
         }),
-        faqSchema([
-          {
-            q: "Is my PDF uploaded to a server?",
-            a: "No. All processing runs in your browser with pdf-lib. Your PDF is never uploaded, stored or sent to any third party.",
-          },
-          {
-            q: "Does the watermark apply to every page?",
-            a: "Yes. Your text or logo watermark is automatically applied to every page of the PDF.",
-          },
-          {
-            q: "Can I use text and a logo at the same time?",
-            a: "Yes. You can enable text and logo watermarks together, each with its own opacity, size and position.",
-          },
-        ]),
+        faqSchema(FAQS),
       ],
     });
   }, []);
@@ -688,6 +692,18 @@ export default function PdfWatermarkEnPage() {
             Use a text watermark, a logo watermark, or both together, each with its own opacity, size and position.
             The tiled repeat mode staggers the watermark across the whole page to make it hard to crop out.
           </p>
+        </section>
+
+        <section className="mt-12 text-gray-700 leading-relaxed">
+          <h2 className="text-xl font-semibold text-gray-900 mb-4">Frequently asked questions</h2>
+          <div className="space-y-4">
+            {FAQS.map((f) => (
+              <div key={f.q}>
+                <h3 className="font-semibold text-gray-900">{f.q}</h3>
+                <p className="mt-1 text-sm">{f.a}</p>
+              </div>
+            ))}
+          </div>
         </section>
 
         {/* 所有工具中心：推廣其他工具 */}

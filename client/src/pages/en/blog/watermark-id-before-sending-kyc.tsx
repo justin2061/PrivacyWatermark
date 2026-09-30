@@ -52,26 +52,11 @@ export default function WatermarkIdBeforeSendingKyc() {
           ],
         }),
         faqSchema([
-          {
-            q: "Will a watermark get my KYC application rejected?",
-            a: "It can, if it is too heavy. Many KYC checks are automated and read your document with OCR, so a dense or dark watermark over the number, photo, or machine-readable zone may trigger a re-submission. Keep opacity around 40–60% and check every field is still readable before you send. Watermarking is safest for manual and email submissions, and for copies going to landlords, employers, agents, or support staff.",
-          },
-          {
-            q: "What should the watermark on my ID actually say?",
-            a: "Three things: the recipient, the purpose, and the date — for example \"For [Platform] KYC verification only — 2026-07-15\". A generic \"COPY\" says nothing about who may use the file or for how long, so it deters very little. Naming one recipient and one purpose is what makes the copy hard to reuse somewhere else.",
-          },
-          {
-            q: "Is it legal to watermark my own passport copy?",
-            a: "Adding a semi-transparent purpose note across a copy of your own document is a common and widely suggested privacy practice. You are labelling a copy, not altering the identifying details, and your original document is untouched. A watermark carries no legal force on its own — treat it as deterrence and reduced reuse value, not as a guarantee.",
-          },
-          {
-            q: "Does ImageMarker upload my ID to a server?",
-            a: "No. ImageMarker runs entirely in your browser — your passport or ID photo never leaves your device, and there is nothing on our side to store, log, or breach. That is the whole point of using a client-side tool for a document this sensitive.",
-          },
-          {
-            q: "Can I watermark my ID on my phone?",
-            a: "Yes. ImageMarker works in any modern mobile browser, so you can photograph your ID, watermark it, and download the marked copy on the same phone you will submit it from — without the original ever being uploaded.",
-          },
+          { q: "Will a watermark get my KYC application rejected?", a: "It can, if it is too heavy. Many KYC checks are automated and read your document with OCR, so a dense or dark watermark over the number, photo, or machine-readable zone may trigger a re-submission. Keep opacity around 40–60% and confirm every field is still readable. Watermarking is safest for manual and email submissions, and for copies going to landlords, employers, agents, or support staff." },
+          { q: "What should the watermark on my ID actually say?", a: "Three things — the recipient, the purpose, and the date, e.g. \"For [Platform] KYC verification only — 2026-07-15\". A generic \"COPY\" says nothing about who may use the file or for how long, so it deters very little." },
+          { q: "Is it legal to watermark my own passport copy?", a: "Adding a semi-transparent purpose note across a copy of your own document is a common privacy practice. You are labelling a copy, not altering the identifying details, and your original stays untouched. A watermark carries no legal force on its own — treat it as deterrence and reduced reuse value." },
+          { q: "Does ImageMarker upload my ID to a server?", a: "No. ImageMarker runs entirely in your browser — your passport or ID photo never leaves your device, and there is nothing on our side to store, log, or breach." },
+          { q: "Can I watermark my ID on my phone?", a: "Yes. It works in any modern mobile browser, so you can photograph your ID, watermark it, and download the marked copy on the same phone you will submit from." },
         ]),
       ],
     });

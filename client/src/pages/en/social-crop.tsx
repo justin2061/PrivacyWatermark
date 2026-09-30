@@ -68,6 +68,17 @@ function maxCropFor(imgW: number, imgH: number, ratio: number) {
   return { w: imgW, h: imgW / ratio };
 }
 
+// Shown on the page AND fed to the FAQPage JSON-LD from this one array, so the
+// structured data can never claim questions the page doesn't show.
+const FAQS = [
+  { q: "Which social media aspect ratios are supported?", a: "Presets cover Instagram posts (1080x1080, 1:1) and stories (1080x1920, 9:16), Facebook covers and posts, YouTube thumbnails (16:9), the Twitter/X header (3:1), the LinkedIn cover (4:1) and Pinterest pins (2:3). Any other size can be entered as custom pixel dimensions." },
+  { q: "Does this include Instagram Reels and TikTok sizes?", a: "Yes — Reels and TikTok both use 1080x1920 at 9:16, the same as the Instagram Story preset, so pick that one. The preview shows exactly what will be cropped, so you can position the subject before downloading." },
+  { q: "Is my image uploaded to any server?", a: "No. All cropping happens inside your browser with Canvas, so the source image never leaves your device. Useful when the photo is a screenshot with personal information, or a design mock you don't want to leak." },
+  { q: "Can I crop for multiple platforms at once?", a: "The current flow is one crop per download. For posting the same photo across Instagram, TikTok, X and LinkedIn, run through the presets one at a time — each takes a few seconds because there is no upload roundtrip." },
+  { q: "Does it work on mobile?", a: "Yes. Drag-to-position the crop area works on touch as well as mouse, so cropping for a Story or Reel on the phone that shot the photo is the most direct path." },
+  { q: "Can I use a custom aspect ratio?", a: "Yes. Switch to custom and enter the width and height in pixels; the crop overlay updates immediately. Useful for banner ads, blog hero images, or platforms whose ratios aren't in the presets." },
+];
+
 export default function SocialCropEnPage() {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
@@ -125,14 +136,7 @@ export default function SocialCropEnPage() {
           "Custom size support",
           "100% local in-browser processing — no uploads",
         ],
-      }), faqSchema([
-        { q: "Which social media aspect ratios are supported?", a: "Every current standard: Instagram square (1:1), portrait (4:5) and story (9:16); TikTok and Reels (9:16); YouTube thumbnails (16:9); Twitter/X, Facebook and LinkedIn feed sizes; Pinterest 2:3; plus 1:1 for profile photos across every platform. Custom pixel dimensions are supported too." },
-        { q: "Does this include Instagram Reels and TikTok sizes?", a: "Yes — both use 1080x1920 at 9:16, and that preset is one click. The preview shows exactly what will be cropped, so you can position the subject inside the safe area rather than getting a face cut in half by the platform." },
-        { q: "Is my image uploaded to any server?", a: "No. All cropping happens inside your browser with Canvas, so the source image never leaves your device. Useful when the photo is a screenshot with personal information, or a design mock you don't want to leak." },
-        { q: "Can I crop for multiple platforms at once?", a: "The current flow is one crop per download. For posting the same photo across Instagram, TikTok, X and LinkedIn, run through the presets one at a time — each takes a few seconds because there is no upload roundtrip." },
-        { q: "Does it work on mobile?", a: "Yes. Drag-to-position the crop area works on touch as well as mouse, so cropping for a Story or Reel on the phone that shot the photo is the most direct path." },
-        { q: "Can I use a custom aspect ratio?", a: "Yes. Switch to custom and enter the width and height in pixels; the crop overlay updates immediately. Useful for banner ads, blog hero images, or platforms whose ratios aren't in the presets." },
-      ])],
+      }), faqSchema(FAQS)],
     });
   }, []);
 
@@ -675,6 +679,18 @@ export default function SocialCropEnPage() {
             <Link href="/en/compress" className="text-primary hover:underline">image compressor</Link>.
             Both run locally in your browser too — nothing is uploaded.
           </p>
+        </section>
+
+        <section className="mt-12 text-gray-700 leading-relaxed">
+          <h2 className="text-xl font-semibold text-gray-900 mb-4">Frequently asked questions</h2>
+          <div className="space-y-4">
+            {FAQS.map((f) => (
+              <div key={f.q}>
+                <h3 className="font-semibold text-gray-900">{f.q}</h3>
+                <p className="mt-1 text-sm">{f.a}</p>
+              </div>
+            ))}
+          </div>
         </section>
 
         {/* 所有工具中心：推廣其他工具 */}

@@ -54,26 +54,11 @@ export default function RealEstatePhotoWatermarkingEn() {
           ],
         }),
         faqSchema([
-          {
-            q: "Should real estate agents watermark listing photos?",
-            a: "Yes for anything you publish outside a portal you control — your website, social posts, Pinterest, emailed brochures and PDF flyers. A discreet corner mark carrying your name and agency makes a photo hard to reuse in a fake listing and traceable back to you when it is. Many MLS and portal feeds restrict or strip overlays, so keep clean masters and publish watermarked copies everywhere else.",
-          },
-          {
-            q: "How do I watermark hundreds of property photos at once?",
-            a: "Use a batch tool. Open ImageMarker's batch watermark page, drag in the whole shoot, set the text or logo, position and opacity once, then export. Every photo receives an identical mark and the set downloads together, so a 200-image shoot takes about the same time as a single photo.",
-          },
-          {
-            q: "Why should I remove EXIF data from property photos?",
-            a: "Camera and phone photos carry hidden EXIF metadata: GPS coordinates, capture timestamps, camera serial numbers and sometimes the photographer's name. On a vacant or tenanted property that quietly publishes an exact location and a shooting schedule. Stripping EXIF before publishing removes that trail and shrinks the file at the same time.",
-          },
-          {
-            q: "How should I watermark a tenant's ID document?",
-            a: "Differently from a listing photo. On an ID copy the mark should be heavy and specific — the recipient, the purpose and the date, for example \"For [Agency] tenancy application only — 2026-08-04\" — placed across the document at roughly 40 to 60 percent opacity so every field stays readable. That labels the copy for one use and makes it far less valuable if it leaks.",
-          },
-          {
-            q: "Are my listing photos uploaded when I use ImageMarker?",
-            a: "No. ImageMarker runs entirely in your browser using the Canvas API. Photos, floor plans and ID scans are processed on your own machine and never sent to a server, which matters when the files include a client's identity documents or an unoccupied property's address.",
-          },
+          { q: "Should real estate agents watermark listing photos?", a: "Yes for anything published outside a portal you control — your website, social, Pinterest, emailed brochures and PDF flyers. Check your MLS or portal feed rules first, since some restrict or strip overlays; keep clean masters and mark everything else." },
+          { q: "How do I watermark hundreds of property photos at once?", a: "With a batch tool. Drag the whole shoot into ImageMarker's batch page, set the mark once, and export the set. Two hundred photos take about as long as one." },
+          { q: "Why should I remove EXIF data from property photos?", a: "Because photos carry GPS coordinates, timestamps, camera serial numbers and sometimes a name. On a vacant or tenanted property that publishes an exact location and a visiting schedule you never meant to share." },
+          { q: "How should I watermark a tenant's ID document?", a: "Heavily and specifically. Recipient, purpose and date across the document at 40–60% opacity, with every field still readable. That is a very different setting from a listing photo." },
+          { q: "Are my listing photos uploaded when I use ImageMarker?", a: "No. Everything is processed locally in your browser, so property photos and applicant documents never leave your machine." },
         ]),
       ],
     });

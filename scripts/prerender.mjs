@@ -357,6 +357,43 @@ async function main() {
     );
   }
 
+  // FAQ guard. Google requires FAQPage content to be visible on the page. Pages
+  // used to carry FAQ JSON-LD written separately from (or instead of) the FAQ the
+  // reader sees, and the two drifted: 2026-09-30 found 47 posts and 12 tool pages
+  // whose structured data claimed questions or answers the page didn't show.
+  // Compare ignoring whitespace — stripping tags inserts spaces around inline
+  // links that the reader never sees. Warns on a normal build; CI sets
+  // STRICT_SEO_CHECKS=1 so a mismatch fails the PR instead of reaching Google.
+  const faqIssues = [];
+  const squash = (t) => t.replace(/\s+/g, "");
+  const decode = (t) =>
+    t.replace(/&amp;/g, "&").replace(/&#x27;|&#39;/g, "'").replace(/&quot;/g, '"')
+      .replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&nbsp;/g, " ");
+  for (const { route, html } of rendered) {
+    const blocks = [...html.matchAll(
+      /<script type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/g
+    )].flatMap((m) => {
+      try { return [JSON.parse(m[1])].flat(2); } catch { return []; }
+    });
+    const faq = blocks.find((b) => b && b["@type"] === "FAQPage");
+    if (!faq) continue;
+    const root = (html.split('<div id="root">')[1] || "").replace(/<script[\s\S]*?<\/script>/g, "");
+    const body = squash(decode(root.replace(/<[^>]+>/g, "")));
+    for (const q of faq.mainEntity || []) {
+      if (!body.includes(squash(q.name))) faqIssues.push(`${route} — question not on page: ${q.name}`);
+      else if (!body.includes(squash(q.acceptedAnswer?.text || ""))) faqIssues.push(`${route} — answer not on page for: ${q.name}`);
+    }
+  }
+  if (faqIssues.length > 0) {
+    console.warn(`[prerender] FAQ warnings (${faqIssues.length}):\n  ` + faqIssues.join("\n  "));
+    if (process.env.STRICT_SEO_CHECKS === "1") {
+      console.error("[prerender] FATAL: FAQPage JSON-LD must match the FAQ shown on the page.");
+      process.exit(1);
+    }
+  } else {
+    console.log("[prerender] FAQ check ✓ — every FAQPage question and answer is visible on its page.");
+  }
+
   // A partial crawl still de-indexes whatever it missed, so hold production to
   // a full render. The threshold is every route: a route that silently stops
   // rendering is exactly the regression this guard exists to catch.
