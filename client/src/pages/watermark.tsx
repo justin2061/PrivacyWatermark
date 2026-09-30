@@ -8,6 +8,7 @@ import { ToolsShowcase } from "@/components/ToolsShowcase";
 import { PrivacyBanner } from "@/components/PrivacyBanner";
 import { FileUploadZone } from "@/components/watermark/FileUploadZone";
 import { DocTypeSuggestion } from "@/components/watermark/DocTypeSuggestion";
+import { MosaicHandoff } from "@/components/watermark/MosaicHandoff";
 import { WatermarkControls } from "@/components/watermark/WatermarkControls";
 import { CanvasPreview } from "@/components/watermark/CanvasPreview";
 import { ProcessingStatus } from "@/components/watermark/ProcessingStatus";
@@ -168,6 +169,8 @@ export default function WatermarkPage() {
               file={selectedFile}
               onApplyTemplate={(text) => updateWatermarkSettings({ text, textEnabled: true, mode: 'text' })}
             />
+
+            <MosaicHandoff file={selectedFile} />
 
             <WatermarkControls
               settings={watermarkSettings}

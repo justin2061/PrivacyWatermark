@@ -540,6 +540,27 @@ export function trackNextStepClick(fromTool: string, toTool: string): void {
   }
 }
 
+/**
+ * 「帶圖跳到另一個工具」按鈕（假門測試，2026-09-30 上線；第一個是浮水印頁 → 馬賽克）。
+ * 用來驗證「做 A 的途中想順手做 B」是否夠常見，值不值得把 B 整合進 A 的編輯器。
+ *   tool_handoff_view     按鈕進入畫面（分母，每張圖只送一次）
+ *   tool_handoff_click    按下按鈕、圖片已帶到目標工具
+ *   tool_handoff_complete 在目標工具完成下載（真的做完，不只是好奇點進去）
+ * 與 next_step_click（下載後）分開：這裡量的是「處理途中」的需求。
+ */
+export function trackToolHandoff(
+  stage: "view" | "click" | "complete",
+  fromTool: string,
+  toTool: string,
+): void {
+  if (typeof gtag !== "undefined") {
+    gtag("event", `tool_handoff_${stage}`, {
+      from_tool: fromTool,
+      to_tool: toTool,
+    });
+  }
+}
+
 // PWA 安裝提示的觸發方式：
 //   native —— Chrome／Edge 等支援 beforeinstallprompt，可叫出原生安裝對話框
 //   ios    —— iOS Safari 不支援該事件，只能顯示「分享 → 加入主畫面」手動指引
