@@ -5,6 +5,7 @@ import { InlineCTA } from "@/components/InlineCTA";
 import { PopularTools } from "@/components/PopularTools";
 import { SiteFooter } from "@/components/SiteFooter";
 import { trackToolEvent } from "@/lib/analytics";
+import { copyText } from "@/lib/copyText";
 import {
   setPageSeo,
   articleSchema,
@@ -232,35 +233,6 @@ function formatToday(): string {
   const mm = String(d.getMonth() + 1).padStart(2, "0");
   const dd = String(d.getDate()).padStart(2, "0");
   return `${d.getFullYear()}/${mm}/${dd}`;
-}
-
-/**
- * 一鍵複製。navigator.clipboard 在非安全來源與部分舊版 Safari 不存在，
- * 所以保留 textarea + execCommand 的退路——複製失敗等於這頁沒有用。
- */
-async function copyText(text: string): Promise<void> {
-  try {
-    if (navigator.clipboard?.writeText) {
-      await navigator.clipboard.writeText(text);
-      return;
-    }
-  } catch {
-    // 掉到下面的 fallback
-  }
-  const ta = document.createElement("textarea");
-  ta.value = text;
-  ta.setAttribute("readonly", "");
-  ta.style.position = "fixed";
-  ta.style.top = "0";
-  ta.style.opacity = "0";
-  document.body.appendChild(ta);
-  ta.select();
-  try {
-    document.execCommand("copy");
-  } catch {
-    // 兩條路都失敗就讓使用者自己選取，文字本來就顯示在畫面上
-  }
-  ta.remove();
 }
 
 function TemplateCard({ item, today }: { item: Template; today: string }) {
