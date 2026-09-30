@@ -24,6 +24,20 @@ import {
 
 const ACCEPTED = "image/jpeg,image/png,image/webp";
 
+const TITLE = "写真の位置情報（Exif）を削除｜無料・アップロード不要";
+const DESCRIPTION =
+  "写真に埋め込まれた GPS 位置情報・撮影日時・カメラ機種・シリアル番号などの Exif メタデータを無料で削除。すべてブラウザ内で処理し、画像はどこにもアップロードされません。";
+
+// FAQ はページ上の表示と FAQPage JSON-LD で同じ配列を使う（食い違うと構造化データが無効になる）
+const FAQS = [
+  { q: "Exif とは何ですか？なぜ削除したほうがいいのですか？", a: "Exif はスマートフォンやカメラで撮った写真に自動で埋め込まれる情報で、GPS の位置情報、撮影日時、カメラの機種、場合によっては端末のシリアル番号まで含まれます。自宅で撮った写真をそのまま送ると、ファイル内の位置情報から住所が分かってしまうことがあります。Exif を削除すれば、画像そのものだけが残ります。" },
+  { q: "Exif を削除すると画質やファイルサイズは変わりますか？", a: "JPG は画素を再圧縮せずにメタデータ部分だけを取り除くため、画質は元の画像とまったく同じです。PNG と WebP はメタデータを除いて保存し直しますが、見た目は変わりません。メタデータがなくなる分、ファイルサイズはわずかに小さくなります。" },
+  { q: "写真はサーバーにアップロードされますか？", a: "いいえ。ファイルの読み込みも書き換えもすべてブラウザの中で行うため、写真が端末の外に出ることはありません。プライバシーを守るためのツールなので、アップロードしない設計にしています。" },
+  { q: "対応しているファイル形式は？", a: "JPG（JPEG）、PNG、WebP です。iPhone の HEIC には直接対応していないため、先に画像変換ツールで JPG に変換してから、この画面で Exif を削除してください。" },
+  { q: "SNS に投稿すれば Exif は自動で消えますか？", a: "大手 SNS の多くはアップロード時に Exif の大部分を削除しますが、すべての場合に当てはまるとは限りません。メールへの添付、クラウドの共有リンク、掲示板、ファイルとしての送信などでは、Exif がそのまま残ることがあります。送り先が分からないときは、送る前に自分で削除しておくのが確実です。" },
+  { q: "位置情報だけを消して、カメラの設定は残せますか？", a: "このツールは Exif をまとめて削除します。プライバシー上いちばん問題になるのは位置情報で、項目ごとに選ぶには本格的なメタデータ編集ツールが必要になるためです。項目単位で調整したい場合は、ExifTool などのローカルツールをおすすめします。" },
+];
+
 function formatSize(bytes: number) {
   if (bytes === 0) return "0 B";
   const k = 1024;
@@ -32,7 +46,7 @@ function formatSize(bytes: number) {
   return `${parseFloat((bytes / Math.pow(k, i)).toFixed(2))} ${units[i]}`;
 }
 
-export default function ExifCleanEnPage() {
+export default function ExifCleanJaPage() {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const {
     selectedFile,
@@ -45,45 +59,38 @@ export default function ExifCleanEnPage() {
     cleanFile,
     downloadCleaned,
     reset,
-  } = useExifCleaner("en");
+  } = useExifCleaner("ja");
 
-  // Fire the complete event once a cleaned file is produced
+  // クリーンなファイルができた時点で complete イベントを送る
   useEffect(() => {
     if (cleaned) trackToolEvent("exif_clean_complete", "exif-clean");
   }, [cleaned]);
 
   useEffect(() => {
     return setPageSeo({
-      title:
-        "Free EXIF Remover — Strip GPS & Metadata, 100% Local",
-      description:
-        "Free online EXIF remover. Strip GPS location, camera model, serial number and other hidden metadata from your photos before sharing. 100% browser-based — nothing is uploaded.",
-      canonical: "https://imagemarker.app/en/exif-clean",
+      title: TITLE,
+      description: DESCRIPTION,
+      canonical: "https://imagemarker.app/ja/exif-clean",
+      locale: "ja_JP",
       alternates: localeAlternates({ zh: "/exif-clean", en: "/en/exif-clean", ja: "/ja/exif-clean" }),
-      locale: "en_US",
       keywords:
-        "EXIF remover,remove EXIF data,strip EXIF,remove GPS from photo,remove location data from photos,photo metadata remover,image metadata removal,clear EXIF online,privacy,protect location privacy,no upload,browser-based",
-      jsonLd: [webAppSchema({
-        name: "EXIF Cleaner — ImageMarker",
-        description:
-          "Free online EXIF remover. Strip GPS location, camera model, serial number and other hidden metadata from your photos before sharing. 100% browser-based — nothing is uploaded.",
-        url: "https://imagemarker.app/en/exif-clean",
-        inLanguage: "en",
-        featureList: [
-          "100% local in-browser processing — no uploads",
-          "Strip GPS location, camera model and serial number",
-          "Automatic red flags for sensitive metadata fields",
-          "Lossless JPEG cleaning — metadata removed without re-encoding",
-          "Supports JPG, PNG and WebP",
-        ],
-      }), faqSchema([
-        { q: "What is EXIF data and why should I remove it?", a: "EXIF is metadata embedded in every phone or camera photo — GPS coordinates, timestamps, camera model, and sometimes the device serial number. If you share a phone photo taken at home, the GPS coordinates in that file can point directly to your address. Removing EXIF strips those hidden fields so only the picture itself remains." },
-        { q: "Does removing EXIF change the image quality or file size?", a: "For JPGs, ImageMarker uses a lossless EXIF cleaner that removes metadata without re-encoding the pixels, so image quality is identical to the original. PNG and WebP are re-saved without their metadata chunks; the visual result is unchanged. File size drops slightly because the metadata is gone." },
-        { q: "Does this tool upload my photo to a server?", a: "No. ImageMarker reads and rewrites the file entirely inside your browser. Your photo never leaves your device — which is the whole point of a client-side cleaner for a task that is fundamentally about privacy." },
-        { q: "Which file formats are supported?", a: "JPG (and JPEG), PNG and WebP. HEIC is not supported directly; convert HEIC to JPG first in the converter, then clean the resulting JPG." },
-        { q: "Will social media platforms strip EXIF for me automatically?", a: "Facebook, Instagram, Twitter/X and LinkedIn strip most EXIF on upload, but not always for every image size. WhatsApp attachments, direct email, iMessage 'send as file', cloud shares and forums preserve EXIF completely. If the destination is anything other than a big social platform's compressed upload path, assume the metadata travels with the file." },
-        { q: "Can I keep camera settings but remove only the GPS?", a: "This cleaner strips all EXIF fields, because GPS is the field that matters most for privacy and picking subsets requires a full metadata editor. For per-field control, a local tool like ExifTool works well." },
-      ])],
+        "Exif 削除,写真 位置情報 削除,GPS 情報 削除,画像 メタデータ 削除,Exif 消す,撮影場所 バレる,写真 個人情報,オンライン 無料,アップロード不要,ブラウザ処理",
+      jsonLd: [
+        webAppSchema({
+          name: "Exif 削除ツール — ImageMarker",
+          description: DESCRIPTION,
+          url: "https://imagemarker.app/ja/exif-clean",
+          inLanguage: "ja",
+          featureList: [
+            "すべてブラウザ内で処理 — 画像はアップロードされません",
+            "GPS 位置情報・カメラ機種・シリアル番号を削除",
+            "位置情報など注意が必要な項目を自動で赤く表示",
+            "JPEG は再圧縮せずにメタデータだけを削除（画質は変わりません）",
+            "JPG・PNG・WebP に対応",
+          ],
+        }),
+        faqSchema(FAQS),
+      ],
     });
   }, []);
 
@@ -92,7 +99,7 @@ export default function ExifCleanEnPage() {
     trackToolUseStart("exif-clean");
     trackToolEvent("exif_clean_start", "exif-clean");
     if (!ACCEPTED.split(",").includes(file.type)) {
-      alert("Only JPG, PNG and WebP formats are supported");
+      alert("JPG・PNG・WebP 形式のみ対応しています");
       return;
     }
     handleFileSelect(file);
@@ -100,28 +107,28 @@ export default function ExifCleanEnPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <SiteHeader lang="en" current="exif-clean" />
+      <SiteHeader lang="ja" current="exif-clean" />
 
       <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <h1 className="text-lg sm:text-xl font-semibold text-gray-900 mb-3">
-          Free EXIF Remover — Strip GPS &amp; Metadata From Photos, 100% Local
+          写真の位置情報（Exif）を削除 — 無料・アップロード不要でブラウザ内処理
         </h1>
-        <PrivacyBanner lang="en" className="mb-8" />
+        <PrivacyBanner lang="ja" className="mb-8" />
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           <div className="space-y-6">
             <Card className="p-6">
               <h2 className="text-lg font-semibold text-gray-900 mb-4">
-                Upload Image
+                画像をアップロード
               </h2>
               <UploadZone
                 accept={ACCEPTED}
                 onFiles={(files) => onPickFile(files[0])}
-                title="Drag and drop an image here, or click to select a file"
-                description="Supports JPG, PNG and WebP"
-                buttonLabel="Choose File"
-                ariaLabel="Upload area, click or drop a file"
-                inputAriaLabel="Select an image file"
+                title="ここに画像をドラッグ＆ドロップ、またはクリックして選択"
+                description="JPG・PNG・WebP に対応"
+                buttonLabel="ファイルを選択"
+                ariaLabel="画像のアップロード領域。クリックまたはドロップしてください"
+                inputAriaLabel="画像ファイルを選択"
                 inputRef={fileInputRef}
               />
 
@@ -151,7 +158,7 @@ export default function ExifCleanEnPage() {
                   onClick: cleanFile,
                   disabled: !selectedFile || isCleaning || isReading,
                   icon: <EraserIcon className="w-4 h-4 mr-2" aria-hidden="true" />,
-                  label: isCleaning ? "Cleaning…" : "Remove Metadata",
+                  label: isCleaning ? "削除中…" : "メタデータを削除",
                 }}
                 download={{
                   onClick: () => {
@@ -160,13 +167,13 @@ export default function ExifCleanEnPage() {
                   },
                   disabled: !cleaned,
                   icon: <Download className="w-4 h-4 mr-2" aria-hidden="true" />,
-                  label: "Download Clean Image",
+                  label: "削除済みの画像をダウンロード",
                 }}
                 reset={{
                   onClick: reset,
                   disabled: !selectedFile,
                   icon: <RefreshCw className="w-4 h-4 mr-2" aria-hidden="true" />,
-                  label: "Start Over",
+                  label: "最初からやり直す",
                 }}
               />
             </Card>
@@ -175,16 +182,15 @@ export default function ExifCleanEnPage() {
           <div className="space-y-6">
             <Card className="p-6">
               <h2 className="text-lg font-semibold text-gray-900 mb-4">
-                Detected Metadata
+                検出されたメタデータ
               </h2>
               {!selectedFile && (
                 <p className="text-sm text-gray-500">
-                  Upload an image and all detected hidden data will be listed
-                  here.
+                  画像をアップロードすると、埋め込まれている情報がここに一覧表示されます。
                 </p>
               )}
               {selectedFile && isReading && (
-                <p className="text-sm text-gray-500">Analyzing…</p>
+                <p className="text-sm text-gray-500">解析中…</p>
               )}
               {selectedFile && !isReading && report && !report.hasMetadata && (
                 <div className="flex items-start space-x-2 p-3 bg-green-50 border border-green-200 rounded-lg">
@@ -194,10 +200,10 @@ export default function ExifCleanEnPage() {
                   />
                   <div>
                     <p className="text-sm font-medium text-green-900">
-                      This image has no metadata
+                      この画像にはメタデータがありません
                     </p>
                     <p className="text-xs text-green-800 mt-1">
-                      Nothing to clean — you can use it as is.
+                      削除するものはないので、そのまま使えます。
                     </p>
                   </div>
                 </div>
@@ -212,12 +218,10 @@ export default function ExifCleanEnPage() {
                       />
                       <div>
                         <p className="text-sm font-medium text-amber-900">
-                          {report.sensitiveCount} sensitive item
-                          {report.sensitiveCount > 1 ? "s" : ""} detected
+                          注意が必要な項目が {report.sensitiveCount} 件見つかりました
                         </p>
                         <p className="text-xs text-amber-800 mt-1">
-                          Fields marked red (GPS, serial number, date taken,
-                          etc.) should be removed before sharing.
+                          赤く表示された項目（位置情報、シリアル番号、撮影日時など）は、共有する前に削除することをおすすめします。
                         </p>
                       </div>
                     </div>
@@ -234,7 +238,7 @@ export default function ExifCleanEnPage() {
                               {entry.sensitive && (
                                 <span
                                   className="inline-block w-1.5 h-1.5 rounded-full bg-red-500 mr-2 align-middle"
-                                  aria-label="Sensitive data"
+                                  aria-label="注意が必要な情報"
                                 />
                               )}
                               {entry.label}
@@ -265,7 +269,7 @@ export default function ExifCleanEnPage() {
             {cleaned && (
               <Card className="p-6">
                 <h2 className="text-lg font-semibold text-gray-900 mb-4">
-                  Result
+                  処理結果
                 </h2>
                 <div className="flex items-start space-x-3 p-3 bg-green-50 border border-green-200 rounded-lg mb-4">
                   <CheckCircle
@@ -274,39 +278,39 @@ export default function ExifCleanEnPage() {
                   />
                   <div className="flex-1">
                     <p className="text-sm font-medium text-green-900">
-                      Clean version created
+                      メタデータを削除した画像を作成しました
                     </p>
                     <p className="text-xs text-green-800 mt-1">
-                      File: {cleaned.filename}　Size: {formatSize(cleaned.size)}
+                      ファイル名：{cleaned.filename}　サイズ：{formatSize(cleaned.size)}
                     </p>
                   </div>
                 </div>
                 <img
                   src={cleaned.url}
-                  alt="Preview after removing metadata"
+                  alt="メタデータを削除した後のプレビュー"
                   className="max-w-full rounded-lg border border-gray-200"
                 />
-                <DownloadSuccess tool="exif-clean" lang="en" imageCount={1} className="mt-4" />
+                <DownloadSuccess tool="exif-clean" lang="ja" imageCount={1} className="mt-4" />
               </Card>
             )}
           </div>
         </div>
 
         {cleaned && (
-          <ToolRecommendations current="exif-clean" lang="en" className="mt-12" />
+          <ToolRecommendations current="exif-clean" lang="ja" className="mt-12" />
         )}
 
         <section className="mt-12">
-          <h2 className="sr-only">Features</h2>
+          <h2 className="sr-only">特長</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <Card className="p-6 text-center">
               <Lock
                 className="text-primary w-8 h-8 mb-3 mx-auto"
                 aria-hidden="true"
               />
-              <h3 className="font-semibold text-gray-900 mb-2">Local Only</h3>
+              <h3 className="font-semibold text-gray-900 mb-2">端末内で完結</h3>
               <p className="text-sm text-gray-600">
-                Images never leave your browser — no server, no upload.
+                画像はブラウザの外に出ません。サーバーへのアップロードもありません。
               </p>
             </Card>
             <Card className="p-6 text-center">
@@ -314,10 +318,9 @@ export default function ExifCleanEnPage() {
                 className="text-primary w-8 h-8 mb-3 mx-auto"
                 aria-hidden="true"
               />
-              <h3 className="font-semibold text-gray-900 mb-2">Lossless JPEG</h3>
+              <h3 className="font-semibold text-gray-900 mb-2">JPEG は画質そのまま</h3>
               <p className="text-sm text-gray-600">
-                JPEGs use piexifjs to strip the metadata segment directly without
-                re-encoding, so quality is untouched.
+                JPEG は再圧縮せず、メタデータの部分だけを直接取り除くので画質は劣化しません。
               </p>
             </Card>
             <Card className="p-6 text-center">
@@ -326,22 +329,44 @@ export default function ExifCleanEnPage() {
                 aria-hidden="true"
               />
               <h3 className="font-semibold text-gray-900 mb-2">
-                Sensitive Data Alerts
+                危険な項目を自動表示
               </h3>
               <p className="text-sm text-gray-600">
-                Automatically flags high-risk fields like GPS, serial number and
-                capture time in red.
+                位置情報・シリアル番号・撮影日時など、特に注意が必要な項目を赤く表示します。
               </p>
             </Card>
           </div>
         </section>
 
-        {/* 所有工具中心：推廣其他工具 */}
-        <ToolsShowcase lang="en" exclude="exif-clean" />
+        <section className="mt-12 text-gray-700 leading-relaxed space-y-4">
+          <h2 className="text-xl font-semibold text-gray-900">
+            身分証の写真を送る前にも、位置情報を消しておく
+          </h2>
+          <p>
+            マイナンバーカードや運転免許証、パスポートを自宅で撮影した写真には、撮影した場所の位置情報が残っていることがあります。
+            コピーに透かしを入れて提出先・用途を限定するのと同じように、送る前に Exif も削除しておけば、
+            書類の内容以外の情報まで相手に渡してしまうことを防げます。
+          </p>
+        </section>
+
+        <section className="mt-12 text-gray-700 leading-relaxed">
+          <h2 className="text-xl font-semibold text-gray-900 mb-4">よくある質問</h2>
+          <div className="space-y-4">
+            {FAQS.map((f) => (
+              <div key={f.q}>
+                <h3 className="font-semibold text-gray-900">{f.q}</h3>
+                <p className="mt-1 text-sm">{f.a}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* すべてのツール */}
+        <ToolsShowcase lang="ja" exclude="exif-clean" />
 
       </main>
 
-      <SiteFooter lang="en" />
+      <SiteFooter lang="ja" />
     </div>
   );
 }

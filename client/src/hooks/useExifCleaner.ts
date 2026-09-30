@@ -14,6 +14,12 @@ interface CleanedResult {
   filename: string;
 }
 
+const ERRORS: Record<Lang, { read: string; clean: string }> = {
+  zh: { read: "讀取 metadata 失敗", clean: "清除 metadata 失敗" },
+  en: { read: "Failed to read metadata", clean: "Failed to remove metadata" },
+  ja: { read: "メタデータを読み込めませんでした", clean: "メタデータを削除できませんでした" },
+};
+
 export function useExifCleaner(lang: Lang = "zh") {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [report, setReport] = useState<MetadataReport | null>(null);
@@ -41,11 +47,7 @@ export function useExifCleaner(lang: Lang = "zh") {
         setReport(result);
       } catch (err) {
         setError(
-          err instanceof Error
-            ? err.message
-            : lang === "en"
-              ? "Failed to read metadata"
-              : "讀取 metadata 失敗",
+          err instanceof Error ? err.message : ERRORS[lang].read,
         );
       } finally {
         setIsReading(false);
@@ -67,11 +69,11 @@ export function useExifCleaner(lang: Lang = "zh") {
         return { blob, url, size: blob.size, filename };
       });
     } catch (err) {
-      setError(err instanceof Error ? err.message : "清除 metadata 失敗");
+      setError(err instanceof Error ? err.message : ERRORS[lang].clean);
     } finally {
       setIsCleaning(false);
     }
-  }, [selectedFile, releaseCleaned]);
+  }, [selectedFile, releaseCleaned, lang]);
 
   const downloadCleaned = useCallback(() => {
     if (!cleaned) return;

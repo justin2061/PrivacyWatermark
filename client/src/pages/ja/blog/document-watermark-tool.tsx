@@ -279,10 +279,8 @@ export default function JaDocumentWatermarkTool() {
               <li>
                 <strong>EXIF（位置情報）を削除する。</strong>
                 スマホで撮影した書類の画像には、撮影場所の緯度経度や日時が埋め込まれていることがあります。自宅で撮ったなら、それは自宅の座標です。送る前に
-                {/* 日本語版の EXIF ツールはまだ無いので英語版へ。lib/tools.ts の
-                    toolHref と同じ ja → en フォールバック（/ja/exif-clean は 404）。 */}
                 <Link
-                  href="/en/exif-clean"
+                  href="/ja/exif-clean"
                   className="text-primary hover:underline"
                 >
                   EXIF削除ツール

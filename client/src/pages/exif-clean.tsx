@@ -58,7 +58,7 @@ export default function ExifCleanPage() {
       description:
         "免費線上 EXIF 清除工具，移除照片中的 GPS 定位、相機型號、序號、拍攝時間等隱藏資訊，分享前保護隱私。100% 瀏覽器本機處理，圖片不會上傳到任何伺服器。",
       canonical: "https://imagemarker.app/exif-clean",
-      alternates: localeAlternates({ zh: "/exif-clean", en: "/en/exif-clean" }),
+      alternates: localeAlternates({ zh: "/exif-clean", en: "/en/exif-clean", ja: "/ja/exif-clean" }),
       jsonLd: webAppSchema({
         name: "EXIF 清除器 — ImageMarker",
         description:

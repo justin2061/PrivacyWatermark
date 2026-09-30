@@ -42,7 +42,7 @@ export default function MosaicEnPage() {
       description:
         "Free online tool to blur or mosaic sensitive info in a photo. Drag to select and pixelate a face, license plate, address or ID number before you share. 100% in your browser — no upload, works on mobile.",
       canonical: "https://imagemarker.app/en/mosaic",
-      alternates: localeAlternates({ zh: "/mosaic", en: "/en/mosaic" }),
+      alternates: localeAlternates({ zh: "/mosaic", en: "/en/mosaic", ja: "/ja/mosaic" }),
       locale: "en_US",
       keywords:
         "blur sensitive information,mosaic tool,pixelate photo,blur face online,blur license plate,hide personal info in photo,censor image,redact photo,privacy blur,no upload,browser-based",
