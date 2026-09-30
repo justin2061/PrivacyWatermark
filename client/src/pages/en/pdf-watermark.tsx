@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
+import { Link } from "wouter";
 import { Card } from "@/components/ui/card";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
@@ -670,7 +671,11 @@ export default function PdfWatermarkEnPage() {
           <p>
             When sending contracts, quotes, scanned IDs or tender documents, a "For X use only" watermark helps
             prevent your file from being reused or misused. For PDF copies of IDs, passports and bank documents, a
-            watermark is an important step in protecting personal data.
+            watermark is an important step in protecting personal data. See our guide on{" "}
+            <Link href="/en/blog/pdf-watermark-online-free" className="text-primary hover:underline">
+              watermarking contracts and proposals without uploading them
+            </Link>{" "}
+            for a step-by-step walkthrough and a comparison with Smallpdf, Adobe Acrobat and DeftPDF.
           </p>
           <h2 className="text-xl font-semibold text-gray-900 mb-3 mt-6">100% local, privacy-safe</h2>
           <p>
