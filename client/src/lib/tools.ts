@@ -18,11 +18,14 @@ import {
 export type Lang = "zh" | "en" | "ja";
 
 /**
- * Locales that have a translated page for every tool. Japanese currently ships
- * only the watermark homepage (/ja/), so its tool links fall back to English
- * rather than 404 — see toolHref.
+ * 有日文版的工具 slug（"" = 首頁浮水印）。其餘工具的 /ja/ 連結退回英文版，
+ * 而不是連到不存在的頁面——見 toolHref。
+ *
+ * 新增日文工具頁時，除了這裡，還要：routes.tsx 加路由、sitemap.xml 加 <url>
+ * 與三語 hreflang、中英兩頁的 localeAlternates 補 ja，以及刪掉 netlify.toml
+ * 裡該工具的 /ja → /en 301。
  */
-const FULL_LOCALES: Lang[] = ["zh", "en"];
+const JA_TOOL_SLUGS = new Set<string>(["", "exif-clean", "mosaic"]);
 
 // 目前所在頁面的識別鍵，用來高亮對應的導航項目
 export type NavKey =
@@ -197,12 +200,8 @@ export const TOOLS: ToolDef[] = [
 
 /** 依語系組出工具連結（首頁 slug 為空字串）。 */
 export function toolHref(tool: ToolDef, lang: Lang): string {
-  // 日文版目前只有首頁浮水印工具，其餘工具尚未翻譯：與其連到 404，不如退回英文版。
-  // 之後補齊 /ja/<slug> 頁面時，把該語系加進 FULL_LOCALES 即可自動改連日文版。
-  const target: Lang =
-    lang === "ja" && tool.slug !== "" && !FULL_LOCALES.includes("ja")
-      ? "en"
-      : lang;
+  // 還沒翻成日文的工具：與其連到 404，不如退回英文版。
+  const target: Lang = lang === "ja" && !JA_TOOL_SLUGS.has(tool.slug) ? "en" : lang;
 
   if (target === "en") {
     return tool.slug === "" ? "/en/" : `/en/${tool.slug}`;
@@ -239,9 +238,10 @@ const SYMMETRIC_PATHS = new Set<string>([
   ...TOOLS.filter((tool) => tool.slug !== "").map((tool) => `/${tool.slug}`),
 ]);
 
-/** 日文版目前只翻譯了首頁工具與部落格（含 5 篇文章）。 */
+/** 日文版實際存在的頁面：有日文版的工具、部落格首頁與已翻譯的文章。 */
 const JA_PATHS = new Set([
   "/",
+  ...Array.from(JA_TOOL_SLUGS).filter((slug) => slug !== "").map((slug) => `/${slug}`),
   "/blog",
   "/blog/id-copy-watermark",
   "/blog/my-number-card-copy-safe",

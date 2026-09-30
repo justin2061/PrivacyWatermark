@@ -113,12 +113,57 @@ const FIELD_LABELS_EN: Record<string, string> = {
   WhiteBalance: "White Balance",
 };
 
-export type Lang = "zh" | "en";
+const FIELD_LABELS_JA: Record<string, string> = {
+  Make: "カメラメーカー",
+  Model: "カメラ機種",
+  LensMake: "レンズメーカー",
+  LensModel: "レンズ機種",
+  Software: "編集ソフト",
+  DateTimeOriginal: "撮影日時",
+  CreateDate: "作成日時",
+  ModifyDate: "更新日時",
+  GPSLatitude: "GPS 緯度",
+  GPSLongitude: "GPS 経度",
+  GPSAltitude: "GPS 高度",
+  GPSPosition: "GPS 位置",
+  latitude: "緯度",
+  longitude: "経度",
+  SerialNumber: "カメラのシリアル番号",
+  BodySerialNumber: "本体シリアル番号",
+  InternalSerialNumber: "内部シリアル番号",
+  OwnerName: "所有者名",
+  Artist: "作成者",
+  Copyright: "著作権情報",
+  HostComputer: "使用端末",
+  ImageWidth: "画像の幅",
+  ImageHeight: "画像の高さ",
+  Orientation: "向き",
+  XResolution: "水平解像度",
+  YResolution: "垂直解像度",
+  ResolutionUnit: "解像度の単位",
+  ColorSpace: "色空間",
+  ExposureTime: "露出時間",
+  FNumber: "絞り値",
+  ISO: "ISO 感度",
+  FocalLength: "焦点距離",
+  Flash: "フラッシュ",
+  WhiteBalance: "ホワイトバランス",
+};
+
+export type Lang = "zh" | "en" | "ja";
+
+const LABELS_BY_LANG: Record<Lang, Record<string, string>> = {
+  zh: FIELD_LABELS,
+  en: FIELD_LABELS_EN,
+  ja: FIELD_LABELS_JA,
+};
+
+const LOCALE_BY_LANG: Record<Lang, string> = { zh: "zh-TW", en: "en-US", ja: "ja-JP" };
 
 function formatValue(value: unknown, lang: Lang = "zh"): string {
   if (value === null || value === undefined) return "";
   if (value instanceof Date)
-    return value.toLocaleString(lang === "en" ? "en-US" : "zh-TW");
+    return value.toLocaleString(LOCALE_BY_LANG[lang]);
   if (Array.isArray(value))
     return value.map((v) => formatValue(v, lang)).join(", ");
   if (typeof value === "object") return JSON.stringify(value);
@@ -152,8 +197,8 @@ export async function readMetadata(
     return { hasMetadata: false, entries: [], sensitiveCount: 0 };
   }
 
-  const labels = lang === "en" ? FIELD_LABELS_EN : FIELD_LABELS;
-  const collatorLocale = lang === "en" ? "en" : "zh-TW";
+  const labels = LABELS_BY_LANG[lang];
+  const collatorLocale = LOCALE_BY_LANG[lang];
   const entries: MetadataEntry[] = [];
   let sensitiveCount = 0;
 

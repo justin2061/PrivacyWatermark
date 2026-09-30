@@ -83,6 +83,8 @@ const PdfWatermarkPage = lazyPage(() => import("@/pages/pdf-watermark"));
 const PdfWatermarkEnPage = lazyPage(() => import("@/pages/en/pdf-watermark"));
 const MosaicPage = lazyPage(() => import("@/pages/mosaic"));
 const MosaicEnPage = lazyPage(() => import("@/pages/en/mosaic"));
+const ExifCleanJaPage = lazyPage(() => import("@/pages/ja/exif-clean"));
+const MosaicJaPage = lazyPage(() => import("@/pages/ja/mosaic"));
 const IsIdWatermarkUsefulPage = lazyPage(() => import("@/pages/blog/is-id-watermark-useful"));
 const TinypngIloveimgSquooshAlternatives = lazyPage(() => import("@/pages/blog/tinypng-iloveimg-squoosh-alternatives"));
 const TinypngIloveimgSquooshAlternativesEn = lazyPage(() => import("@/pages/en/blog/tinypng-iloveimg-squoosh-alternatives"));
@@ -182,6 +184,7 @@ export const ROUTES: RouteDef[] = [
   { path: "/blog/passport-travel-agency-watermark", page: PassportTravelAgencyWatermarkPage },
   { path: "/exif-clean", page: ExifCleanPage },
   { path: "/en/exif-clean", page: ExifCleanEnPage },
+  { path: "/ja/exif-clean", page: ExifCleanJaPage },
   { path: "/batch", page: BatchPage },
   { path: "/en/batch", page: BatchEnPage },
   { path: "/compress", page: CompressPage },
@@ -201,6 +204,7 @@ export const ROUTES: RouteDef[] = [
   { path: "/en/pdf-watermark", page: PdfWatermarkEnPage },
   { path: "/mosaic", page: MosaicPage },
   { path: "/en/mosaic", page: MosaicEnPage },
+  { path: "/ja/mosaic", page: MosaicJaPage },
   // Programmatic SEO landing pages: long-tail queries funnel into the existing tools rather than duplicating tool logic.
   { path: "/en/compress-to-200kb", page: CompressTo200kbEn },
   { path: "/en/compress-to-100kb", page: CompressTo100kbEn },

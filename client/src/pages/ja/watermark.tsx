@@ -198,7 +198,7 @@ export default function WatermarkJaPage() {
                 </div>
               </div>
               <Link
-                href="/en/exif-clean"
+                href="/ja/exif-clean"
                 className="inline-flex items-center justify-center whitespace-nowrap bg-primary text-white py-2.5 px-5 rounded-lg hover:bg-blue-700 transition-colors font-medium text-sm"
               >
                 EXIF 削除ツールを開く<ReadMoreArrow />

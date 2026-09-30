@@ -96,7 +96,14 @@ GitHub Actions：`pnpm install --frozen-lockfile` → `pnpm check` → `pnpm bui
 且使用者與「租屋交身分證影本」族群重疊，可與現有 7 篇中文租屋相關文章互相導流。
 純前端即可（資料存 localStorage，可匯出 CSV）。
 
-### P3 — 日文擴充（視數據）
+### ✅ P3 — 日文擴充：EXIF 清除與馬賽克（2026-09-30 完成）
+
+新增 `/ja/exif-clean`、`/ja/mosaic`（含可見 FAQ 與 FAQPage schema 共用同一份資料）。
+`lib/tools.ts` 改用 `JA_TOOL_SLUGS` 決定哪些工具有日文版，工具連結與語言切換器都由它推導；
+EXIF 欄位名稱補上日文；中英文兩頁與 sitemap 補 ja hreflang；刪掉 netlify.toml 對應的 /ja → /en 301。
+上線後觀察 GSC 的日文查詢（Exif 削除、写真 位置情報 削除、モザイク 加工），再決定下一個要翻的工具。
+
+原規劃：
 
 目前 `/ja/` 只有浮水印首頁與 5 篇文章，其他工具 301 到英文。
 若 GSC 的日文查詢（マイナンバー、パスポート コピー）持續成長，

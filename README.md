@@ -14,16 +14,16 @@ ImageMarker 是一套完全免費、**100% 在瀏覽器本地處理**的圖片�
 | 🛡️ 隱私保護 | 浮水印（九宮格定位、重複模式、斜放排列） | `/` ・ `/en/` |
 | | 批次浮水印 | `/batch` ・ `/en/batch` |
 | | PDF 浮水印 | `/pdf-watermark` ・ `/en/pdf-watermark` |
-| | EXIF 清除 | `/exif-clean` ・ `/en/exif-clean` |
-| | 馬賽克／臉部模糊 | `/mosaic` ・ `/en/mosaic`、`/en/blur-face` |
+| | EXIF 清除 | `/exif-clean` ・ `/en/exif-clean` ・ `/ja/exif-clean` |
+| | 馬賽克／臉部模糊 | `/mosaic` ・ `/en/mosaic` ・ `/ja/mosaic`、`/en/blur-face` |
 | 🖼️ 圖片處理 | 去背（`@imgly/background-removal`，WASM） | `/remove-bg` ・ `/en/remove-bg` |
 | | 壓縮 | `/compress` ・ `/en/compress`（另有 100KB／200KB 落地頁） |
 | | 格式轉換（HEIC／WebP／PNG／SVG／BMP／GIF） | `/convert`、`/convert/<from>-to-<to>` |
 | | 調整尺寸 | `/resize` ・ `/en/resize` |
 | ✂️ 社群創作 | 社群尺寸裁切 | `/social-crop` ・ `/en/social-crop` |
 
-工具清單的單一來源是 `client/src/lib/tools.ts`。日文目前只有浮水印首頁，
-其他工具的 `/ja/` 連結會退回英文版。
+工具清單的單一來源是 `client/src/lib/tools.ts`。日文版目前有浮水印首頁、EXIF 清除與馬賽克
+（`JA_TOOL_SLUGS`），其他工具的 `/ja/` 連結會退回英文版。
 
 另有：
 
