@@ -13,7 +13,7 @@ import { UploadZone } from "@/components/UploadZone";
 import { ActionButton } from "@/components/ActionButtons";
 import { useBatchWatermark, MAX_FILES } from "@/hooks/useBatchWatermark";
 import { setPageSeo, webAppSchema, faqSchema, localeAlternates } from "@/lib/seo";
-import { trackToolUseStart, trackDownloadComplete, trackWatermarkLayoutMode } from "@/lib/analytics";
+import { trackToolUseStart, trackDownloadComplete, trackWatermarkLayoutMode, trackBatchOverLimit } from "@/lib/analytics";
 
 // Show the Pro prompt past this count (free features stay unrestricted)
 const FREE_IMAGE_LIMIT = 10;
@@ -75,6 +75,15 @@ export default function BatchEnPage() {
   }, [images.length]);
 
   const showProPrompt = images.length > FREE_IMAGE_LIMIT && !proDismissed;
+
+  // batch_over_limit：需求超過免費上限（Pro 門檻），每次頁面載入只送一次
+  const overLimitRef = useRef(false);
+  useEffect(() => {
+    if (!overLimitRef.current && images.length > FREE_IMAGE_LIMIT) {
+      overLimitRef.current = true;
+      trackBatchOverLimit(images.length, FREE_IMAGE_LIMIT);
+    }
+  }, [images.length]);
 
   useEffect(() => {
     return setPageSeo({

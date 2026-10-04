@@ -14,7 +14,7 @@ import { WatermarkControls } from "@/components/watermark/WatermarkControls";
 import { UploadZone } from "@/components/UploadZone";
 import { ActionButton } from "@/components/ActionButtons";
 import { setPageSeo, webAppSchema, localeAlternates } from "@/lib/seo";
-import { trackToolUseStart, trackDownloadComplete, trackWatermarkLayoutMode } from "@/lib/analytics";
+import { trackToolUseStart, trackDownloadComplete, trackWatermarkLayoutMode, trackBatchOverLimit } from "@/lib/analytics";
 import {
   useBatchWatermark,
   MAX_FILES,
@@ -74,6 +74,15 @@ export default function BatchPage() {
   }, [images.length]);
 
   const showProPrompt = images.length > FREE_IMAGE_LIMIT && !proDismissed;
+
+  // batch_over_limit：需求超過免費上限（Pro 門檻），每次頁面載入只送一次
+  const overLimitRef = useRef(false);
+  useEffect(() => {
+    if (!overLimitRef.current && images.length > FREE_IMAGE_LIMIT) {
+      overLimitRef.current = true;
+      trackBatchOverLimit(images.length, FREE_IMAGE_LIMIT);
+    }
+  }, [images.length]);
 
   useEffect(() => {
     return setPageSeo({
