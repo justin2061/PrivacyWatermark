@@ -375,49 +375,6 @@ export function trackCrossPromoClick(site: CrossPromoSite, fromTool: string): vo
   }
 }
 
-/**
- * Pro 提示（第 11 張以上批次上限提示）被顯示時觸發。
- */
-export function trackProPromptShown(
-  toolName: string,
-  imageCount: number,
-): void {
-  if (typeof gtag !== "undefined") {
-    gtag("event", "pro_prompt_shown", {
-      tool_name: toolName,
-      image_count: imageCount,
-    });
-  }
-}
-
-/**
- * 使用者點擊 Pro 提示的主要 CTA（展開了解／送出候補）時觸發。
- */
-export function trackProPromptClick(toolName: string): void {
-  if (typeof gtag !== "undefined") {
-    gtag("event", "pro_prompt_click", {
-      tool_name: toolName,
-    });
-  }
-}
-
-/**
- * 使用者實際加入 Pro 候補名單時觸發。
- * method：留了 Email（"email"）或只是匿名表達興趣（"anonymous"）。
- * 注意：不把 Email 內容送進 GA（避免 PII），只記錄轉換與方式。
- */
-export function trackProWaitlistSignup(
-  toolName: string,
-  method: "email" | "anonymous",
-): void {
-  if (typeof gtag !== "undefined") {
-    gtag("event", "pro_waitlist_signup", {
-      tool_name: toolName,
-      method,
-    });
-  }
-}
-
 /* -------------------------------------------------------------------------- */
 /*  功能許願漏斗（候補名單）                                                    */
 /*                                                                            */
@@ -460,7 +417,7 @@ export function trackWaitlistView(lang: string): void {
 /**
  * 候補表單送出成功時觸發。
  * 不送 Email 也不送建議內容（兩者都可能夾帶 PII），只記錄語系與建議字數——
- * 字數可以分辨「認真寫」與「隨手打一個字」，實際內容去 Netlify Forms 看。
+ * 字數可以分辨「認真寫」與「隨手打一個字」，實際內容去 D1（workers/feedback）看。
  *
  * location 分辨送出位置：inline 表單改版後三個 CTA 都能就地送出，
  * 少了這個參數就無法把 view → click → submit 串成同一條漏斗。

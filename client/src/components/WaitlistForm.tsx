@@ -31,16 +31,16 @@ export const WAITLIST_FORM_COPY: Record<Lang, WaitlistFormCopy> = {
     cta: "我想說",
     requestLabel: "你最想要什麼功能？",
     requestPlaceholder: "例如：一次處理 100 張、保存常用範本、PDF 批次輸出…",
-    emailLabel: "你的 Email（功能做好通知你）",
+    emailLabel: "你的 Email（選填，功能做好通知你）",
     emailPlaceholder: "you@example.com",
     submit: "送出建議",
     submitting: "送出中…",
-    privacy: "Email 只用來在功能做好時通知你，不會轉售、不寄廣告。",
+    privacy: "建議內容與 Email 會存放在 Cloudflare，並轉寄到我們的信箱。Email 只用來通知功能完成，不會轉售、不寄廣告。",
     doneTitle: "收到了！",
-    doneBody: "我們會在功能準備好時通知你。謝謝你花時間告訴我們。",
+    doneBody: "謝謝你花時間告訴我們。有留 Email 的話，功能做好時會通知你。",
     errorTitle: "送出失敗",
     errorNetwork: "看起來是網路問題，請稍後再試一次。",
-    errorRejected: "表單暫時無法送出。請稍後再試，或直接寄信到 madoka2000@gmail.com 告訴我們。",
+    errorRejected: "表單暫時無法送出。請稍後再試，或直接寄信到 feedback@imagemarker.app 告訴我們。",
     emailInvalid: "請輸入有效的 Email 位址。",
     requestRequired: "寫一句就好，讓我們知道你想要什麼。",
   },
@@ -48,17 +48,18 @@ export const WAITLIST_FORM_COPY: Record<Lang, WaitlistFormCopy> = {
     cta: "Tell us",
     requestLabel: "What feature do you want most?",
     requestPlaceholder: "e.g. process 100 images at once, save my usual presets, batch PDF export…",
-    emailLabel: "Your email (so we can tell you when it ships)",
+    emailLabel: "Your email (optional, so we can tell you when it ships)",
     emailPlaceholder: "you@example.com",
     submit: "Send suggestion",
     submitting: "Sending…",
-    privacy: "Your email is only used to tell you when the feature ships. No reselling, no spam.",
+    privacy:
+      "Your suggestion and email are stored on Cloudflare and forwarded to our inbox. Your email is only used to tell you when the feature ships. No reselling, no spam.",
     doneTitle: "Got it!",
-    doneBody: "We'll let you know as soon as the feature is ready. Thanks for taking the time.",
+    doneBody: "Thanks for taking the time. If you left your email, we'll let you know when it's ready.",
     errorTitle: "Couldn't submit",
     errorNetwork: "Looks like a network problem — please try again in a moment.",
     errorRejected:
-      "The form didn't go through. Please try again shortly, or just email madoka2000@gmail.com.",
+      "The form didn't go through. Please try again shortly, or just email feedback@imagemarker.app.",
     emailInvalid: "Please enter a valid email address.",
     requestRequired: "One line is enough — just tell us what you want.",
   },
@@ -66,17 +67,18 @@ export const WAITLIST_FORM_COPY: Record<Lang, WaitlistFormCopy> = {
     cta: "ひとこと伝える",
     requestLabel: "いちばん欲しい機能は何ですか？",
     requestPlaceholder: "例：一度に 100 枚処理、よく使う設定の保存、PDF の一括出力…",
-    emailLabel: "メールアドレス（機能公開時にお知らせします）",
+    emailLabel: "メールアドレス（任意・機能公開時にお知らせします）",
     emailPlaceholder: "you@example.com",
     submit: "送信する",
     submitting: "送信中…",
-    privacy: "メールは機能公開のお知らせにのみ使用します。転売なし、広告なし。",
+    privacy:
+      "ご要望とメールアドレスは Cloudflare に保存され、運営者のメールに転送されます。メールは機能公開のお知らせにのみ使用します。転売なし、広告なし。",
     doneTitle: "受け取りました！",
-    doneBody: "機能が準備でき次第、お知らせします。ご協力ありがとうございます。",
+    doneBody: "ご協力ありがとうございます。メールアドレスをご登録いただいた場合は、機能が準備でき次第お知らせします。",
     errorTitle: "送信できませんでした",
     errorNetwork: "ネットワークの問題のようです。少し時間をおいて再度お試しください。",
     errorRejected:
-      "送信できませんでした。時間をおいて再度お試しいただくか、madoka2000@gmail.com までご連絡ください。",
+      "送信できませんでした。時間をおいて再度お試しいただくか、feedback@imagemarker.app までご連絡ください。",
     emailInvalid: "有効なメールアドレスを入力してください。",
     requestRequired: "一言で構いません。ご要望をお聞かせください。",
   },
@@ -85,7 +87,7 @@ export const WAITLIST_FORM_COPY: Record<Lang, WaitlistFormCopy> = {
 interface WaitlistFormProps {
   lang: Lang;
   /**
-   * 送出位置，同時寫進 Netlify 表單的 source 欄位與 waitlist_submit 埋點。
+   * 送出位置，同時寫進表單的 source 欄位與 waitlist_submit 埋點。
    * 各 CTA 共用同一張表單，沒有這欄就分不出哪個位置真的有效。
    */
   location: string;
@@ -100,7 +102,7 @@ interface WaitlistFormProps {
  * 功能許願表單的唯一實作：欄位、驗證、送出、錯誤顯示都在這裡。
  *
  * 為什麼獨立成一個組件：WaitlistCTA（卡片式）與 PostDownloadHint（下載鍵下方的一行灰字）
- * 外觀完全不同，但表單行為必須一模一樣——欄位鍵名一旦分歧，Netlify 會靜默丟掉對不上的鍵。
+ * 外觀完全不同，但表單行為必須一模一樣——欄位鍵名一旦分歧，後端就會收到不一致的資料。
  * 掛載即聚焦第一個欄位（呼叫端只在使用者展開時才掛載），少一次點擊。
  */
 export function WaitlistForm({ lang, location, id, onSuccess, className = "" }: WaitlistFormProps) {
@@ -134,7 +136,8 @@ export function WaitlistForm({ lang, location, id, onSuccess, className = "" }: 
       setValidation(t.requestRequired);
       return;
     }
-    if (!isValidEmail(email)) {
+    // Email 選填：空白放行，有填才檢查格式
+    if (email.trim() && !isValidEmail(email)) {
       setValidation(t.emailInvalid);
       return;
     }
@@ -185,7 +188,6 @@ export function WaitlistForm({ lang, location, id, onSuccess, className = "" }: 
         <input
           id={emailId}
           type="email"
-          required
           autoComplete="email"
           inputMode="email"
           value={email}

@@ -1,0 +1,23 @@
+# imagemarker.app 回饋表單收件 Worker（取代 Netlify Forms）。
+# 部署步驟見 README.md。
+name = "imagemarker-feedback"
+main = "src/index.ts"
+compatibility_date = "2026-10-01"
+
+[vars]
+# 允許送出的網站來源，逗號分隔。本機 dev（http://localhost:*）由程式另外放行。
+ALLOWED_ORIGINS = "https://imagemarker.app,https://www.imagemarker.app"
+# 通知信的寄件人：必須是已啟用 Email Routing 的 imagemarker.app 網域地址。
+NOTIFY_FROM = "feedback@imagemarker.app"
+# 收件人 NOTIFY_TO 不寫在這裡（repo 是公開的），用 secret 設定：
+#   npx wrangler secret put NOTIFY_TO
+
+[[d1_databases]]
+binding = "DB"
+database_name = "imagemarker-feedback"
+database_id = "REPLACE_WITH_D1_DATABASE_ID"
+migrations_dir = "migrations"
+
+# Email Routing 的寄信綁定。收件人必須是 Email Routing 裡「已驗證」的目的地址。
+[[send_email]]
+name = "NOTIFY"
