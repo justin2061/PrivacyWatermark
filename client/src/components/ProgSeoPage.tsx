@@ -4,7 +4,7 @@ import { ArrowRight, CheckCircle2, Lock } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
-import { setPageSeo, webAppSchema, faqSchema } from "@/lib/seo";
+import { setPageSeo, webAppSchema, faqSchema, type Alternate } from "@/lib/seo";
 import type { NavKey } from "@/lib/tools";
 
 // Shared shell for the /en/ programmatic-SEO landing pages
@@ -20,6 +20,10 @@ export interface ProgSeoFaq {
 }
 
 export interface ProgSeoPageProps {
+  /** 頁面語系，預設英文（/en/ 長尾頁最早做的）；中文長尾頁傳 "zh"。 */
+  lang?: "en" | "zh";
+  /** 有對應翻譯頁時傳入完整 hreflang 叢集（localeAlternates）。 */
+  alternates?: Alternate[];
   title: string;
   description: string;
   canonical: string;
@@ -43,8 +47,27 @@ export interface ProgSeoPageProps {
   seeAlso?: { href: string; label: string }[];
 }
 
+const COPY = {
+  en: {
+    local: "100% local processing.",
+    localBody: "The tool runs entirely inside your browser — nothing is uploaded to any server.",
+    faq: "Frequently asked questions",
+    ready: "Ready to try it? The tool loads instantly — no sign-up, no upload.",
+    seeAlso: "See also",
+  },
+  zh: {
+    local: "100% 本機處理。",
+    localBody: "工具完全在你的瀏覽器中運作，檔案不會上傳到任何伺服器。",
+    faq: "常見問題",
+    ready: "準備好了嗎？工具即開即用，免註冊、不上傳。",
+    seeAlso: "延伸閱讀",
+  },
+} as const;
+
 export default function ProgSeoPage(props: ProgSeoPageProps) {
   const {
+    lang = "en",
+    alternates,
     title,
     description,
     canonical,
@@ -59,30 +82,32 @@ export default function ProgSeoPage(props: ProgSeoPageProps) {
     featureList,
     seeAlso,
   } = props;
+  const c = COPY[lang];
 
   useEffect(() => {
     return setPageSeo({
       title,
       description,
       canonical,
-      locale: "en_US",
+      locale: lang === "en" ? "en_US" : undefined,
       ogImage,
+      alternates,
       jsonLd: [
         webAppSchema({
           name: h1,
           description,
           url: canonical,
-          inLanguage: "en",
+          inLanguage: lang === "en" ? "en" : undefined,
           featureList,
         }),
         faqSchema(faqs),
       ],
     });
-  }, [title, description, canonical, ogImage, h1, featureList, faqs]);
+  }, [lang, alternates, title, description, canonical, ogImage, h1, featureList, faqs]);
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <SiteHeader lang="en" current={siteHeaderCurrent} />
+      <SiteHeader lang={lang} current={siteHeaderCurrent} />
 
       <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-3 leading-snug">
@@ -94,8 +119,7 @@ export default function ProgSeoPage(props: ProgSeoPageProps) {
             <div className="flex-1">
               <p className="text-sm text-gray-700 leading-relaxed">
                 <Lock className="inline w-4 h-4 text-blue-600 mr-1" aria-hidden="true" />
-                <strong>100% local processing.</strong> The tool runs entirely
-                inside your browser — nothing is uploaded to any server.
+                <strong>{c.local}</strong> {c.localBody}
               </p>
             </div>
             <Link
@@ -134,7 +158,7 @@ export default function ProgSeoPage(props: ProgSeoPageProps) {
 
         <section className="mb-10">
           <h2 className="text-xl font-semibold text-gray-900 mb-4">
-            Frequently asked questions
+            {c.faq}
           </h2>
           <div className="space-y-4">
             {faqs.map((f, i) => (
@@ -150,7 +174,7 @@ export default function ProgSeoPage(props: ProgSeoPageProps) {
 
         <div className="mt-8 p-6 bg-blue-50 rounded-lg text-center">
           <p className="text-base text-gray-800 mb-3">
-            Ready to try it? The tool loads instantly — no sign-up, no upload.
+            {c.ready}
           </p>
           <Link
             href={toolHref}
@@ -163,7 +187,7 @@ export default function ProgSeoPage(props: ProgSeoPageProps) {
 
         {seeAlso && seeAlso.length > 0 && (
           <section className="mt-10 pt-6 border-t border-gray-200">
-            <p className="text-sm font-medium text-gray-700 mb-2">See also</p>
+            <p className="text-sm font-medium text-gray-700 mb-2">{c.seeAlso}</p>
             <ul className="text-sm text-gray-600 space-y-1">
               {seeAlso.map((s, i) => (
                 <li key={i}>
@@ -180,7 +204,7 @@ export default function ProgSeoPage(props: ProgSeoPageProps) {
         )}
       </main>
 
-      <SiteFooter lang="en" />
+      <SiteFooter lang={lang} />
     </div>
   );
 }
