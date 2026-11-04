@@ -24,7 +24,11 @@ curl -i -X POST https://imagemarker-feedback.<subdomain>.workers.dev \
   -d '{"form":"waitlist","feature_request":"test","lang":"zh","source":"curl_test"}'
 ```
 
-應回 `200 {"ok":true}`，並收到通知信。查資料：
+應回 `200 {"ok":true}`，並收到通知信。
+
+Windows（Git Bash／PowerShell）在命令列直接打中文時，curl 會送出 CP950 而不是 UTF-8，
+D1 與通知信裡就會變成亂碼——這是測試方法的問題，瀏覽器一律送 UTF-8。要測中文請把 JSON
+存成 UTF-8 檔案，改用 `--data-binary @body.json`。查資料：
 
 ```bash
 npx wrangler d1 execute imagemarker-feedback --remote \

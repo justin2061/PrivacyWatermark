@@ -15,7 +15,7 @@ NOTIFY_FROM = "feedback@imagemarker.app"
 [[d1_databases]]
 binding = "DB"
 database_name = "imagemarker-feedback"
-database_id = "REPLACE_WITH_D1_DATABASE_ID"
+database_id = "d9649e6f-50a2-468c-bdfa-cc710d70565a"
 migrations_dir = "migrations"
 
 # Email Routing 的寄信綁定。收件人必須是 Email Routing 裡「已驗證」的目的地址。
