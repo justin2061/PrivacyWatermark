@@ -2,6 +2,7 @@ import {
   Stamp,
   Layers,
   FileText,
+  FileLock2,
   Grid2x2,
   Eraser,
   Minimize2,
@@ -32,6 +33,7 @@ export type NavKey =
   | "watermark"
   | "batch"
   | "pdf-watermark"
+  | "pdf-encrypt"
   | "exif-clean"
   | "remove-bg"
   | "mosaic"
@@ -108,6 +110,18 @@ export const TOOLS: ToolDef[] = [
       zh: "為 PDF 文件加上浮水印",
       en: "Stamp watermarks onto PDF files",
       ja: "PDF ファイルに透かしを入れる",
+    },
+  },
+  {
+    key: "pdf-encrypt",
+    slug: "pdf-encrypt",
+    icon: FileLock2,
+    category: "protect",
+    label: { zh: "PDF 加密碼", en: "PDF Password", ja: "PDF パスワード" },
+    desc: {
+      zh: "幫 PDF 設定開啟密碼（AES-256）",
+      en: "Password-protect a PDF with AES-256",
+      ja: "PDF に開くためのパスワードを設定",
     },
   },
   {
@@ -235,6 +249,8 @@ export const LOCALES: { lang: Lang; label: string; ariaLabel: string }[] = [
 const SYMMETRIC_PATHS = new Set<string>([
   "/",
   "/blog",
+  "/compress-to-100kb",
+  "/compress-to-200kb",
   ...TOOLS.filter((tool) => tool.slug !== "").map((tool) => `/${tool.slug}`),
 ]);
 

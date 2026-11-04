@@ -106,6 +106,11 @@
   status = 301
 
 [[redirects]]
+  from = "/ja/pdf-encrypt"
+  to = "/en/pdf-encrypt"
+  status = 301
+
+[[redirects]]
   from = "/ja/remove-bg"
   to = "/en/remove-bg"
   status = 301

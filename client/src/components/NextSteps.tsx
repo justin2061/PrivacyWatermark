@@ -73,6 +73,16 @@ const PDF_TOO: NextStep = {
   },
 };
 
+const LOCK_THE_PDF: NextStep = {
+  to: "pdf-encrypt",
+  label: { zh: "PDF 要寄出去？再加一道密碼", en: "Sending it out? Add a password too", ja: "送る前にパスワードもかける" },
+  blurb: {
+    zh: "設定開啟密碼（AES-256），密碼另外傳給對方",
+    en: "Set an open password (AES-256) and share it separately",
+    ja: "開くためのパスワード（AES-256）を設定し、別経路で伝える",
+  },
+};
+
 const MOSAIC_FIELDS: NextStep = {
   to: "mosaic",
   label: { zh: "有欄位要遮？用馬賽克蓋掉", en: "Need to hide a field? Blur it out", ja: "隠したい欄はモザイクで" },
@@ -96,7 +106,8 @@ const MOSAIC_FIELDS: NextStep = {
 const NEXT_STEPS: Record<ToolKey, NextStep[]> = {
   watermark: [CLEAN_EXIF_BEFORE_SHARING, COMPRESS_FOR_UPLOAD],
   batch: [PDF_TOO, MOSAIC_FIELDS],
-  "pdf-watermark": [BATCH_THE_REST],
+  "pdf-watermark": [LOCK_THE_PDF, BATCH_THE_REST],
+  "pdf-encrypt": [], // 加密是 PDF 流程的最後一步；相關工具已在 ToolRecommendations
   mosaic: [CROP_FOR_SOCIAL],
   "exif-clean": [CROP_FOR_SOCIAL, BATCH_THE_REST],
   compress: [CLEAN_EXIF_BEFORE_SHARING],
