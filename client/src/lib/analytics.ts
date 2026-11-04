@@ -87,6 +87,10 @@ interface ToolUsageState {
   tools: Record<string, ToolUsageRecord>;
   last_tool?: string;
   last_tool_used_at?: number;
+  /** 整站層級：最後一次使用任何工具的日期，用來判斷「是不是回訪用戶」 */
+  last_visit_date?: string;
+  /** 整站層級：使用過的不同天數 */
+  visit_day_count?: number;
 }
 
 /** 本地時區的 YYYY-MM-DD。用本地日期而非 UTC，才符合使用者感受的「今天」。 */
@@ -176,8 +180,23 @@ export function trackToolUseStart(toolName: string): void {
     }
   }
 
+  // 整站回訪：不分工具，只要之前某天用過任何工具、今天又來用，每天最多送一次。
+  // tool_return_use 是「同一工具」的留存；這個是「這個人是否回來過」，用來看 Pro 的潛在回頭客。
+  const isNewVisitDay = state.last_visit_date !== today;
+  if (state.last_visit_date && isNewVisitDay) {
+    gtag("event", "returning_user", {
+      tool_name: toolName,
+      days_since_last_visit: daysBetweenDateKeys(state.last_visit_date, today),
+      visit_day_count: (state.visit_day_count ?? 1) + 1,
+    });
+  }
+
   writeUsageState({
     ...state,
+    last_visit_date: today,
+    visit_day_count: isNewVisitDay
+      ? (state.visit_day_count ?? 0) + 1
+      : state.visit_day_count,
     tools: {
       ...state.tools,
       [toolName]: {
@@ -325,45 +344,34 @@ export function trackWatermarkLayoutMode(
 }
 
 /**
- * Pro 提示（第 11 張以上批次上限提示）被顯示時觸發。
+ * 批次一次放入超過免費上限（10 張）時觸發，每個頁面載入最多一次。
+ * 與 pro_prompt_shown 分開：使用者關掉提示後再加圖也不會重複送，
+ * 這個事件量的是「有多少人的需求超過 10 張」，不是提示曝光。
  */
-export function trackProPromptShown(
-  toolName: string,
-  imageCount: number,
-): void {
+export function trackBatchOverLimit(imageCount: number, limit: number): void {
   if (typeof gtag !== "undefined") {
-    gtag("event", "pro_prompt_shown", {
-      tool_name: toolName,
+    gtag("event", "batch_over_limit", {
+      tool_name: "batch",
       image_count: imageCount,
+      free_limit: limit,
     });
   }
 }
 
-/**
- * 使用者點擊 Pro 提示的主要 CTA（展開了解／送出候補）時觸發。
- */
-export function trackProPromptClick(toolName: string): void {
+/** 站外導流卡（下載成功後的低調推薦）的目標站點。 */
+export type CrossPromoSite = "salarykit" | "getcareers";
+
+/** 導流卡曝光（卡片出現在下載成功區塊時送一次）。 */
+export function trackCrossPromoView(site: CrossPromoSite, fromTool: string): void {
   if (typeof gtag !== "undefined") {
-    gtag("event", "pro_prompt_click", {
-      tool_name: toolName,
-    });
+    gtag("event", "cross_promo_view", { site, from_tool: fromTool });
   }
 }
 
-/**
- * 使用者實際加入 Pro 候補名單時觸發。
- * method：留了 Email（"email"）或只是匿名表達興趣（"anonymous"）。
- * 注意：不把 Email 內容送進 GA（避免 PII），只記錄轉換與方式。
- */
-export function trackProWaitlistSignup(
-  toolName: string,
-  method: "email" | "anonymous",
-): void {
+/** 導流卡點擊。 */
+export function trackCrossPromoClick(site: CrossPromoSite, fromTool: string): void {
   if (typeof gtag !== "undefined") {
-    gtag("event", "pro_waitlist_signup", {
-      tool_name: toolName,
-      method,
-    });
+    gtag("event", "cross_promo_click", { site, from_tool: fromTool });
   }
 }
 
@@ -409,7 +417,7 @@ export function trackWaitlistView(lang: string): void {
 /**
  * 候補表單送出成功時觸發。
  * 不送 Email 也不送建議內容（兩者都可能夾帶 PII），只記錄語系與建議字數——
- * 字數可以分辨「認真寫」與「隨手打一個字」，實際內容去 Netlify Forms 看。
+ * 字數可以分辨「認真寫」與「隨手打一個字」，實際內容去 D1（workers/feedback）看。
  *
  * location 分辨送出位置：inline 表單改版後三個 CTA 都能就地送出，
  * 少了這個參數就無法把 view → click → submit 串成同一條漏斗。

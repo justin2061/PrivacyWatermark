@@ -1,10 +1,9 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { Card } from "@/components/ui/card";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { ToolsShowcase } from "@/components/ToolsShowcase";
 import { PrivacyBanner } from "@/components/PrivacyBanner";
-import { ProUpsell } from "@/components/ProUpsell";
 import { DownloadSuccess } from "@/components/DownloadSuccess";
 import { PostDownloadHint } from "@/components/PostDownloadHint";
 import { ToolRecommendations } from "@/components/ToolRecommendations";
@@ -13,9 +12,9 @@ import { UploadZone } from "@/components/UploadZone";
 import { ActionButton } from "@/components/ActionButtons";
 import { useBatchWatermark, MAX_FILES } from "@/hooks/useBatchWatermark";
 import { setPageSeo, webAppSchema, faqSchema, localeAlternates } from "@/lib/seo";
-import { trackToolUseStart, trackDownloadComplete, trackWatermarkLayoutMode } from "@/lib/analytics";
+import { trackToolUseStart, trackDownloadComplete, trackWatermarkLayoutMode, trackBatchOverLimit } from "@/lib/analytics";
 
-// Show the Pro prompt past this count (free features stay unrestricted)
+// Past this count we send batch_over_limit once (measurement only, no restriction)
 const FREE_IMAGE_LIMIT = 10;
 import {
   X,
@@ -64,7 +63,6 @@ export default function BatchEnPage() {
   } = useBatchWatermark("en");
 
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const [proDismissed, setProDismissed] = useState(false);
   const startedRef = useRef(false);
 
   useEffect(() => {
@@ -74,7 +72,14 @@ export default function BatchEnPage() {
     }
   }, [images.length]);
 
-  const showProPrompt = images.length > FREE_IMAGE_LIMIT && !proDismissed;
+  // batch_over_limit：需求超過 10 張（看有多少人需要更大的批次），每次頁面載入只送一次
+  const overLimitRef = useRef(false);
+  useEffect(() => {
+    if (!overLimitRef.current && images.length > FREE_IMAGE_LIMIT) {
+      overLimitRef.current = true;
+      trackBatchOverLimit(images.length, FREE_IMAGE_LIMIT);
+    }
+  }, [images.length]);
 
   useEffect(() => {
     return setPageSeo({
@@ -119,16 +124,6 @@ export default function BatchEnPage() {
         </h1>
         <PrivacyBanner lang="en" className="mb-8" />
 
-        {/* Past the 11th image: non-blocking Pro prompt (dismissible) */}
-        {showProPrompt && (
-          <ProUpsell
-            tool="batch"
-            lang="en"
-            imageCount={images.length}
-            onClose={() => setProDismissed(true)}
-            className="mb-8"
-          />
-        )}
 
         {/* Mobile: sticky preview on top, settings scroll below; desktop keeps two columns.
             All three blocks are direct grid children so the sticky containing block spans the full height. */}

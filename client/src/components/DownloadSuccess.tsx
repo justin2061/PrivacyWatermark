@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { CrossPromo } from "@/components/CrossPromo";
 import { KofiSupport } from "@/components/KofiSupport";
 import { NextSteps } from "@/components/NextSteps";
 import { WaitlistCTA } from "@/components/WaitlistCTA";
@@ -60,6 +61,8 @@ export function DownloadSuccess({
       )}
       <KofiSupport variant="success" lang={lang} location="download_success" />
       <NextSteps current={tool} lang={lang} />
+      {/* 站外導流只在「真的下載了」之後、且僅中文頁（內容是台灣薪資） */}
+      {downloaded && lang === "zh" && <CrossPromo tool={tool} />}
     </div>
   );
 }

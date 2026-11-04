@@ -79,7 +79,7 @@ const PROMPTS: Record<Lang, Record<CtaLocation, Prompt>> = {
  * 為什麼改成 inline：舊版是一條連往 /waitlist 的按鈕，2,374 次曝光只有 11 次點擊
  * （0.46%）、2 次送出——瓶頸整個卡在「願不願意離開這一頁」。表單本身只有兩個欄位，
  * 跳頁的代價遠大於填表的代價，所以把表單搬到原地展開。
- * /waitlist 頁保留作為獨立入口（可分享、可從搜尋進來），兩邊送同一張 Netlify 表單。
+ * /waitlist 頁保留作為獨立入口（可分享、可從搜尋進來），兩邊送同一張表單（lib/waitlist.ts）。
  *
  * 表單本體在 WaitlistForm，與 PostDownloadHint 共用（欄位鍵名必須永遠一致）。
  *
