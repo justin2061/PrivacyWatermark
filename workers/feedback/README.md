@@ -33,8 +33,13 @@ npx wrangler d1 execute imagemarker-feedback --remote \
 
 ## 切換前端
 
-在 Netlify 的 Build environment variables 設 `VITE_FEEDBACK_ENDPOINT=<Worker 網址>` 後重新部署。
-沒設這個變數時，前端會退回 Netlify Forms（要切回去，刪掉變數再部署一次即可）。
+前端只送這個 Worker，不再有 Netlify Forms 後援（`client/index.html` 的隱藏偵測表單已移除）。
+`VITE_FEEDBACK_ENDPOINT` 是 build 時寫進去的，**必須先部署 Worker、在 Netlify 的
+Build environment variables 設好 `VITE_FEEDBACK_ENDPOINT=<Worker 網址>`，再合併前端改動**；
+否則表單會一律顯示送出失敗。
 
-上線後觀察約 7 天，確定 D1 有穩定進資料，再移除 `client/index.html` 的隱藏 Netlify 偵測表單
-與 `waitlist.ts` 的 Netlify 後援路徑。
+本機 dev 要測表單時，在 `client/.env.local` 放同一個變數（`wrangler dev` 的話是
+`http://127.0.0.1:8787`）。
+
+Netlify 上舊的表單資料不會被刪，需要時到 Netlify 後台匯出；確認不再需要後可在
+Site settings → Forms 停用表單偵測。

@@ -1,16 +1,16 @@
 /**
  * 功能許願表單的單一送出入口。
  *
- * 2026-11 起送到 Cloudflare Worker（workers/feedback/，網址由 VITE_FEEDBACK_ENDPOINT
- * 提供），資料存在 D1 並轉寄到站長信箱。沒設這個環境變數時退回 Netlify Forms——
- * 這是切換期的後援：要切回去，刪掉 Netlify 上的變數重新部署即可。觀察穩定後
- * 再移除 Netlify 路徑與 client/index.html 的隱藏偵測表單。
+ * 2026-11 起只送到 Cloudflare Worker（workers/feedback/，網址由 build 時的
+ * VITE_FEEDBACK_ENDPOINT 提供），資料存在 D1 並轉寄到站長信箱。刻意不保留
+ * Netlify Forms 後援：資料只放一個地方。沒設這個環境變數時一律回 "rejected"，
+ * 畫面會顯示錯誤與聯絡信箱，不會靜默丟資料。
  *
  * 一律回傳明確的成敗，呼叫端必須顯示錯誤，不得假裝成功：早期 ProUpsell 直接
  * `await fetch("/")` 就切成功畫面，Netlify 回 404 時 Email 整筆掉了也沒人發現。
  */
 
-/** Worker 與 Netlify 共用的表單名稱。Netlify 那邊需與 client/index.html 一致。 */
+/** Worker 端以 form 欄位分辨表單（見 workers/feedback/src/index.ts 的 FORMS）。 */
 const FEATURE_REQUEST_FORM = "waitlist";
 
 const FEEDBACK_ENDPOINT: string = (import.meta.env.VITE_FEEDBACK_ENDPOINT ?? "").trim();
@@ -38,50 +38,40 @@ export interface FeatureRequestPayload {
   source: string;
 }
 
-async function post(url: string, init: RequestInit): Promise<WaitlistResult> {
-  let response: Response;
-  try {
-    response = await fetch(url, { method: "POST", ...init });
-  } catch {
-    return { ok: false, reason: "network" };
-  }
-  return response.ok ? { ok: true } : { ok: false, reason: "rejected" };
-}
-
 /**
  * 送出功能許願。/waitlist 頁與 WaitlistForm（各處 inline CTA）共用這支，
  * 確保欄位鍵名永遠一致。
  *
  * reason:
  *   "network"  —— fetch 直接拋錯（離線、被擋、CORS），重試可能會成功
- *   "rejected" —— 伺服器回非 2xx（Worker 驗證失敗／D1 寫入失敗；
- *                 Netlify 後援路徑下則通常是表單尚未被偵測，本機 dev 一定是這個）
+ *   "rejected" —— Worker 回非 2xx（驗證失敗／D1 寫入失敗），
+ *                 或 build 時沒設 VITE_FEEDBACK_ENDPOINT
  */
 export async function submitFeatureRequest(
   payload: FeatureRequestPayload,
 ): Promise<WaitlistResult> {
-  const fields = {
-    email: payload.email.trim(),
-    feature_request: payload.featureRequest.trim(),
-    lang: payload.lang,
-    source: payload.source,
-    // 蜜罐欄位：真人不會填，留空即可。
-    "bot-field": "",
-  };
-
-  if (FEEDBACK_ENDPOINT) {
-    return post(FEEDBACK_ENDPOINT, {
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ form: FEATURE_REQUEST_FORM, ...fields }),
-    });
+  if (!FEEDBACK_ENDPOINT) {
+    console.error("VITE_FEEDBACK_ENDPOINT is not set; feedback form cannot submit.");
+    return { ok: false, reason: "rejected" };
   }
 
-  // 後援：Netlify Forms（只保存 index.html 隱藏表單宣告過的欄位）。
-  const body = Object.entries({ "form-name": FEATURE_REQUEST_FORM, ...fields })
-    .map(([k, v]) => `${encodeURIComponent(k)}=${encodeURIComponent(v)}`)
-    .join("&");
-  return post("/", {
-    headers: { "Content-Type": "application/x-www-form-urlencoded" },
-    body,
-  });
+  let response: Response;
+  try {
+    response = await fetch(FEEDBACK_ENDPOINT, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        form: FEATURE_REQUEST_FORM,
+        email: payload.email.trim(),
+        feature_request: payload.featureRequest.trim(),
+        lang: payload.lang,
+        source: payload.source,
+        // 蜜罐欄位：真人不會填，留空即可。
+        "bot-field": "",
+      }),
+    });
+  } catch {
+    return { ok: false, reason: "network" };
+  }
+  return response.ok ? { ok: true } : { ok: false, reason: "rejected" };
 }
