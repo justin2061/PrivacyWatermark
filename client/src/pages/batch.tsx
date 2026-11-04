@@ -1,10 +1,9 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { Card } from "@/components/ui/card";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { ToolsShowcase } from "@/components/ToolsShowcase";
 import { PrivacyBanner } from "@/components/PrivacyBanner";
-import { ProUpsell } from "@/components/ProUpsell";
 import { DownloadSuccess } from "@/components/DownloadSuccess";
 import { PostDownloadHint } from "@/components/PostDownloadHint";
 import { ToolRecommendations } from "@/components/ToolRecommendations";
@@ -20,7 +19,7 @@ import {
   MAX_FILES,
 } from "@/hooks/useBatchWatermark";
 
-// 超過此張數即顯示 Pro 提示（免費功能不受限，只是提示大量處理的 Pro 版）
+// 超過此張數送一次 batch_over_limit（只是量測需求，不限制使用）
 const FREE_IMAGE_LIMIT = 10;
 import {
   X,
@@ -59,7 +58,6 @@ export default function BatchPage() {
   } = useBatchWatermark();
 
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const [proDismissed, setProDismissed] = useState(false);
   const startedRef = useRef(false);
 
   // 機器人／無頭瀏覽器：不載入互動工具元件，改顯示封鎖提示（prerender 不受影響）
@@ -73,9 +71,7 @@ export default function BatchPage() {
     }
   }, [images.length]);
 
-  const showProPrompt = images.length > FREE_IMAGE_LIMIT && !proDismissed;
-
-  // batch_over_limit：需求超過免費上限（Pro 門檻），每次頁面載入只送一次
+  // batch_over_limit：需求超過 10 張（看有多少人需要更大的批次），每次頁面載入只送一次
   const overLimitRef = useRef(false);
   useEffect(() => {
     if (!overLimitRef.current && images.length > FREE_IMAGE_LIMIT) {
@@ -135,16 +131,6 @@ export default function BatchPage() {
         </h1>
         <PrivacyBanner lang="zh" className="mb-8 lg:mb-4 lg:flex-shrink-0" />
 
-        {/* 第 11 張以上：非阻斷式 Pro 提示（可關閉，不影響免費操作） */}
-        {showProPrompt && (
-          <ProUpsell
-            tool="batch"
-            lang="zh"
-            imageCount={images.length}
-            onClose={() => setProDismissed(true)}
-            className="mb-8 lg:mb-4 lg:flex-shrink-0"
-          />
-        )}
 
         {/* 手機版：預覽置頂 sticky、設定在下可捲動；桌面維持左右兩欄。
             三個區塊都是 grid 的直接子元素，sticky 的包含區塊才會涵蓋整個設定區高度。

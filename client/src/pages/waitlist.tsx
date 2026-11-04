@@ -39,18 +39,18 @@ const COPY: Record<
     title: "ImageMarker 還缺什麼功能？",
     intro:
       "你剛用完，所以你最清楚哪裡卡卡的。花 10 秒告訴我們你想要什麼——我們是照著這些回饋決定下一個做什麼功能的。",
-    emailLabel: "Email",
+    emailLabel: "Email（選填）",
     emailPlaceholder: "你的 Email",
     requestLabel: "你希望 ImageMarker 有什麼功能？",
     requestPlaceholder: "例如：一次處理 100 張、保存常用浮水印範本、PDF 批次輸出…",
     submit: "送出建議",
     submitting: "送出中…",
-    privacy: "Email 只用來在功能做好時通知你，不會轉售、不寄廣告。",
+    privacy: "建議內容與 Email 會存放在 Cloudflare，並轉寄到我們的信箱。Email 只用來通知功能完成，不會轉售、不寄廣告。",
     doneTitle: "收到了！",
-    doneBody: "我們會在功能準備好時通知你。謝謝你花時間告訴我們。",
+    doneBody: "謝謝你花時間告訴我們。有留 Email 的話，功能做好時會通知你。",
     errorTitle: "送出失敗",
     errorBody:
-      "表單暫時無法送出，可能是網路問題。請稍後再試一次，或直接寄信到 madoka2000@gmail.com 告訴我們。",
+      "表單暫時無法送出，可能是網路問題。請稍後再試一次，或直接寄信到 feedback@imagemarker.app 告訴我們。",
     emailInvalid: "請輸入有效的 Email 位址。",
     requestRequired: "寫一句就好，讓我們知道你想要什麼。",
   },
@@ -62,19 +62,20 @@ const COPY: Record<
     title: "What's missing from ImageMarker?",
     intro:
       "You just used it, so you know exactly where it got awkward. Take 10 seconds to tell us what you want — this is what we build from next.",
-    emailLabel: "Email",
+    emailLabel: "Email (optional)",
     emailPlaceholder: "Your email",
     requestLabel: "What feature do you wish ImageMarker had?",
     requestPlaceholder:
       "e.g. process 100 images at once, save my usual watermark presets, batch PDF export…",
     submit: "Send suggestion",
     submitting: "Sending…",
-    privacy: "Your email is only used to tell you when the feature ships. No reselling, no spam.",
+    privacy:
+      "Your suggestion and email are stored on Cloudflare and forwarded to our inbox. Your email is only used to tell you when the feature ships. No reselling, no spam.",
     doneTitle: "Got it!",
-    doneBody: "We'll let you know as soon as the feature is ready. Thanks for taking the time.",
+    doneBody: "Thanks for taking the time. If you left your email, we'll let you know when it's ready.",
     errorTitle: "Couldn't submit",
     errorBody:
-      "The form didn't go through, possibly a network issue. Please try again in a moment, or just email madoka2000@gmail.com.",
+      "The form didn't go through, possibly a network issue. Please try again in a moment, or just email feedback@imagemarker.app.",
     emailInvalid: "Please enter a valid email address.",
     requestRequired: "One line is enough — just tell us what you want.",
   },
@@ -86,18 +87,19 @@ const COPY: Record<
     title: "ImageMarker に足りない機能は何ですか？",
     intro:
       "使ったばかりの今だからこそ、不便な点がよく分かるはずです。10 秒だけ、ご要望を教えてください。次に何を作るかは、この回答で決めています。",
-    emailLabel: "メールアドレス",
+    emailLabel: "メールアドレス（任意）",
     emailPlaceholder: "あなたのメールアドレス",
     requestLabel: "ImageMarker にどんな機能があればいいですか？",
     requestPlaceholder: "例：一度に 100 枚処理、よく使う透かしの保存、PDF の一括出力…",
     submit: "送信する",
     submitting: "送信中…",
-    privacy: "メールは機能公開のお知らせにのみ使用します。転売なし、広告なし。",
+    privacy:
+      "ご要望とメールアドレスは Cloudflare に保存され、運営者のメールに転送されます。メールは機能公開のお知らせにのみ使用します。転売なし、広告なし。",
     doneTitle: "受け取りました！",
-    doneBody: "機能が準備でき次第、お知らせします。ご協力ありがとうございます。",
+    doneBody: "ご協力ありがとうございます。メールアドレスをご登録いただいた場合は、機能が準備でき次第お知らせします。",
     errorTitle: "送信できませんでした",
     errorBody:
-      "ネットワークの問題などで送信に失敗しました。少し時間をおいて再度お試しいただくか、madoka2000@gmail.com までご連絡ください。",
+      "ネットワークの問題などで送信に失敗しました。少し時間をおいて再度お試しいただくか、feedback@imagemarker.app までご連絡ください。",
     emailInvalid: "有効なメールアドレスを入力してください。",
     requestRequired: "一言で構いません。ご要望をお聞かせください。",
   },
@@ -109,7 +111,7 @@ interface WaitlistPageProps {
 
 /**
  * 功能許願頁。獨立入口（可分享、可從搜尋進來）——站上的 WaitlistCTA 自 2026-08-12
- * 起改成就地展開表單，不再導向這裡，但兩邊送的是同一張 Netlify 表單
+ * 起改成就地展開表單，不再導向這裡，但兩邊送的是同一張表單
  * （lib/waitlist.ts 的 submitFeatureRequest），只靠 source 欄位分辨來源。
  *
  * 刻意只留兩個欄位：Email ＋ 一個開放式問題。前一版問了張數、定價偏好與語言，
@@ -117,9 +119,9 @@ interface WaitlistPageProps {
  * 定價偏好尤其反效果（「都不想付」這種選項等於在逼人表態），張數改由 GA4 的
  * image_count 推斷，語言直接取路由語系，都不必再問。
  *
- * 表單以 Netlify Forms 收集（零後端）：AJAX POST 到 "/"，form-name 需與
- * client/index.html 內的隱藏偵測表單一致。送出失敗會明確顯示錯誤，
- * 因為這是專程來留 Email 的人，靜默失敗等於白白流失名單。
+ * 送出走 lib/waitlist.ts（Cloudflare Worker，見 workers/feedback/）。Email 自 2026-11
+ * 起改為選填：想提意見的人不必先交出 Email。送出失敗會明確顯示錯誤，
+ * 因為這是專程來回饋的人，靜默失敗等於白白丟掉一則意見。
  */
 export default function WaitlistPage({ lang = "zh" }: WaitlistPageProps) {
   const t = COPY[lang];
@@ -156,13 +158,14 @@ export default function WaitlistPage({ lang = "zh" }: WaitlistPageProps) {
     e.preventDefault();
     if (status === "submitting") return;
 
-    if (!isValidEmail(email)) {
-      setValidation(t.emailInvalid);
-      return;
-    }
     const request = featureRequest.trim();
     if (!request) {
       setValidation(t.requestRequired);
+      return;
+    }
+    // Email 選填：空白放行，有填才檢查格式
+    if (email.trim() && !isValidEmail(email)) {
+      setValidation(t.emailInvalid);
       return;
     }
     setValidation("");
@@ -233,7 +236,6 @@ export default function WaitlistPage({ lang = "zh" }: WaitlistPageProps) {
                   <input
                     id="waitlist-email"
                     type="email"
-                    required
                     autoComplete="email"
                     inputMode="email"
                     value={email}
