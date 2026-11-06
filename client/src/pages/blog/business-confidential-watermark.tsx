@@ -373,6 +373,11 @@ export default function BusinessConfidentialWatermark() {
 
             <InlineCTA tool="pdf-watermark" position="mid_article" location={SLUG} />
 
+            <p>
+              機密文件若要以 PDF 外寄，浮水印之外還可以加一道鎖：用
+              <Link href="/pdf-encrypt">PDF 加密碼工具</Link>設定開啟密碼，並把密碼改走另一個管道傳給對方。
+            </p>
+
             <h2>五、選工具的一個大前提：不能上傳雲端</h2>
             <p>
               這一段特別重要，因為它牽涉到邏輯上的自相矛盾。

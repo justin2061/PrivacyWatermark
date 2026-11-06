@@ -1,8 +1,12 @@
 import ProgSeoPage from "@/components/ProgSeoPage";
+import { localeAlternates } from "@/lib/seo";
+
+const ALTERNATES = localeAlternates({ zh: "/compress-to-200kb", en: "/en/compress-to-200kb" });
 
 export default function CompressTo200kbEn() {
   return (
     <ProgSeoPage
+      alternates={ALTERNATES}
       title="Compress Image to 200KB Online — Free, No Upload | ImageMarker"
       description="Compress a photo down to 200KB or less right in your browser. LinkedIn profile photos, government forms, passport uploads and forums often cap at 200KB — this tool hits that size with the quality slider and downloads instantly. Nothing is uploaded."
       canonical="https://imagemarker.app/en/compress-to-200kb"

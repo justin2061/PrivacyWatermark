@@ -31,6 +31,8 @@ const WatermarkMyKadMalaysiaEn = lazyPage(() => import("@/pages/en/blog/watermar
 const WatermarkMyKadRentalEn = lazyPage(() => import("@/pages/en/blog/watermark-mykad-rental"));
 const WatermarkIdBeforeKycUploadEn = lazyPage(() => import("@/pages/en/blog/watermark-id-before-kyc-upload"));
 const WatermarkHkidCopy = lazyPage(() => import("@/pages/blog/watermark-hkid-copy"));
+const CompressTo200kbZh = lazyPage(() => import("@/pages/compress-to-200kb"));
+const CompressTo100kbZh = lazyPage(() => import("@/pages/compress-to-100kb"));
 const CompressTo200kbEn = lazyPage(() => import("@/pages/en/compress-to-200kb"));
 const CompressTo100kbEn = lazyPage(() => import("@/pages/en/compress-to-100kb"));
 const ConvertHeicToJpgEn = lazyPage(() => import("@/pages/en/convert-heic-to-jpg"));
@@ -81,6 +83,7 @@ const RemoveBgPage = lazyPage(() => import("@/pages/remove-bg"));
 const RemoveBgEnPage = lazyPage(() => import("@/pages/en/remove-bg"));
 const PdfWatermarkPage = lazyPage(() => import("@/pages/pdf-watermark"));
 const PdfWatermarkEnPage = lazyPage(() => import("@/pages/en/pdf-watermark"));
+const PdfEncryptPage = lazyPage(() => import("@/pages/pdf-encrypt"));
 const MosaicPage = lazyPage(() => import("@/pages/mosaic"));
 const MosaicEnPage = lazyPage(() => import("@/pages/en/mosaic"));
 const ExifCleanJaPage = lazyPage(() => import("@/pages/ja/exif-clean"));
@@ -202,10 +205,14 @@ export const ROUTES: RouteDef[] = [
   { path: "/en/remove-bg", page: RemoveBgEnPage },
   { path: "/pdf-watermark", page: PdfWatermarkPage },
   { path: "/en/pdf-watermark", page: PdfWatermarkEnPage },
+  { path: "/pdf-encrypt", page: PdfEncryptPage, props: { lang: "zh" } },
+  { path: "/en/pdf-encrypt", page: PdfEncryptPage, props: { lang: "en" } },
   { path: "/mosaic", page: MosaicPage },
   { path: "/en/mosaic", page: MosaicEnPage },
   { path: "/ja/mosaic", page: MosaicJaPage },
   // Programmatic SEO landing pages: long-tail queries funnel into the existing tools rather than duplicating tool logic.
+  { path: "/compress-to-200kb", page: CompressTo200kbZh },
+  { path: "/compress-to-100kb", page: CompressTo100kbZh },
   { path: "/en/compress-to-200kb", page: CompressTo200kbEn },
   { path: "/en/compress-to-100kb", page: CompressTo100kbEn },
   { path: "/en/convert-heic-to-jpg", page: ConvertHeicToJpgEn },

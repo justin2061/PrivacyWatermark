@@ -12,6 +12,7 @@
     "check": "tsc"
   },
   "dependencies": {
+    "@cantoo/pdf-lib": "^2.11.1",
     "@hookform/resolvers": "^3.10.0",
     "@imgly/background-removal": "^1.7.0",
     "@jridgewell/trace-mapping": "^0.3.25",
