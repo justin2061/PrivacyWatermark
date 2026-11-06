@@ -162,6 +162,7 @@ export default function WatermarkPage() {
             <FileUploadZone
               selectedFile={selectedFile}
               onFileSelect={(file) => { if (typeof gtag !== 'undefined') gtag('event', 'upload_image'); trackToolUseStart('watermark'); handleFileSelect(file); }}
+              onRemove={() => { if (typeof gtag !== 'undefined') gtag('event', 'remove_image'); resetCanvas(); }}
             />
 
             {/* 證件類型自動識別（身分證 vs 護照）：依比例建議，使用者確認後套用對應範本 */}

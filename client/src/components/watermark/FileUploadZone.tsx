@@ -1,15 +1,17 @@
 import { useRef } from "react";
 import { Card } from "@/components/ui/card";
-import { Upload, CheckCircle } from "lucide-react";
+import { Upload, ImageIcon, X } from "lucide-react";
 import type { Lang } from "@/lib/tools";
 
 interface FileUploadZoneProps {
   selectedFile: File | null;
   onFileSelect: (file: File) => void;
+  /** 清除目前的圖片；有傳才顯示檔案卡片上的 ✕ */
+  onRemove?: () => void;
   lang?: Lang;
 }
 
-export function FileUploadZone({ selectedFile, onFileSelect, lang = 'zh' }: FileUploadZoneProps) {
+export function FileUploadZone({ selectedFile, onFileSelect, onRemove, lang = 'zh' }: FileUploadZoneProps) {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const t = {
@@ -20,6 +22,8 @@ export function FileUploadZone({ selectedFile, onFileSelect, lang = 'zh' }: File
       choose: '選擇檔案',
       chooseAria: '選擇圖片檔案',
       zoneAria: '上傳圖片區域，點擊或拖放檔案到此處',
+      remove: '移除這張圖片',
+      localNote: '圖片只存在你的瀏覽器記憶體中，沒有上傳。按 ✕、重新整理或關閉頁面就會消失。',
     },
     en: {
       title: 'Upload Image',
@@ -28,6 +32,8 @@ export function FileUploadZone({ selectedFile, onFileSelect, lang = 'zh' }: File
       choose: 'Choose File',
       chooseAria: 'Choose image file',
       zoneAria: 'Upload area, click or drag a file here',
+      remove: 'Remove this image',
+      localNote: 'This image stays in your browser’s memory and is never uploaded. Press ✕, reload, or close the page and it’s gone.',
     },
     ja: {
       title: '画像を選ぶ',
@@ -36,6 +42,8 @@ export function FileUploadZone({ selectedFile, onFileSelect, lang = 'zh' }: File
       choose: 'ファイルを選択',
       chooseAria: '画像ファイルを選択',
       zoneAria: '画像アップロード領域。クリックするか、ファイルをドラッグしてください',
+      remove: 'この画像を削除',
+      localNote: '画像はブラウザのメモリ内だけにあり、アップロードされません。✕・再読み込み・ページを閉じると消えます。',
     },
   }[lang];
 
@@ -44,6 +52,8 @@ export function FileUploadZone({ selectedFile, onFileSelect, lang = 'zh' }: File
     if (file) {
       onFileSelect(file);
     }
+    // 重設 value，否則清除後再選同一張圖不會觸發 change
+    event.target.value = '';
   };
 
   const handleDrop = (event: React.DragEvent) => {
@@ -105,16 +115,30 @@ export function FileUploadZone({ selectedFile, onFileSelect, lang = 'zh' }: File
         aria-label={t.chooseAria}
       />
 
-      {/* File Info */}
+      {/* File Info：中性視覺＋移除鈕，避免看起來像「已上傳到伺服器」 */}
       {selectedFile && (
         <div className="mt-4 p-3 bg-gray-50 rounded-lg">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-2">
-              <CheckCircle className="text-green-600 w-5 h-5" aria-hidden="true" />
-              <span className="text-sm font-medium">{selectedFile.name}</span>
+          <div className="flex items-center justify-between gap-2">
+            <div className="flex items-center space-x-2 min-w-0">
+              <ImageIcon className="text-gray-500 w-5 h-5 shrink-0" aria-hidden="true" />
+              <span className="text-sm font-medium truncate">{selectedFile.name}</span>
             </div>
-            <span className="text-xs text-gray-600">{formatFileSize(selectedFile.size)}</span>
+            <div className="flex items-center gap-1 shrink-0">
+              <span className="text-xs text-gray-600">{formatFileSize(selectedFile.size)}</span>
+              {onRemove && (
+                <button
+                  type="button"
+                  onClick={onRemove}
+                  aria-label={t.remove}
+                  title={t.remove}
+                  className="ml-1 inline-flex items-center justify-center w-9 h-9 rounded-full text-gray-500 hover:text-red-600 hover:bg-red-50 transition-colors"
+                >
+                  <X className="w-5 h-5" aria-hidden="true" />
+                </button>
+              )}
+            </div>
           </div>
+          <p className="mt-2 text-xs text-gray-600">{t.localNote}</p>
         </div>
       )}
     </Card>
