@@ -76,6 +76,7 @@ export default function WatermarkEnPage() {
     handleFileSelect,
     updateWatermarkSettings,
     applyWatermark,
+    renderFullPreview,
     downloadImage,
     resetCanvas
   } = useWatermark();
@@ -201,6 +202,7 @@ export default function WatermarkEnPage() {
               canvasRef={canvasRef}
               selectedFile={selectedFile}
               processedImage={processedImage}
+              renderFullPreview={renderFullPreview}
               lang="en"
             />
           </div>

@@ -106,6 +106,14 @@ export function useWatermark() {
     }
   }, [selectedFile, watermarkSettings]);
 
+  // 全螢幕檢視用：以原圖解析度、目前設定渲染一張（與下載成品同一條管線），
+  // 不改動 processedImage 狀態。預覽 canvas 上限 600×400，放大看會糊。
+  const renderFullPreview = useCallback(async (): Promise<string | null> => {
+    if (!imageRef.current) return null;
+    const canvas = document.createElement('canvas');
+    return processor.current.applyWatermark(imageRef.current, canvas, watermarkSettings);
+  }, [watermarkSettings]);
+
   const downloadImage = useCallback(() => {
     if (!processedImage || !selectedFile) return;
 
@@ -147,6 +155,7 @@ export function useWatermark() {
     handleFileSelect,
     updateWatermarkSettings,
     applyWatermark,
+    renderFullPreview,
     downloadImage,
     resetCanvas
   };
