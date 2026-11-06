@@ -592,6 +592,32 @@ export function trackNextStepClick(fromTool: string, toTool: string): void {
 }
 
 /**
+ * 下載按鈕下方那行灰字（PostDownloadHint）改成「直接連到站上工具」時的埋點
+ * （2026-10-23 上線；第一個是單張浮水印頁 → 批次頁，zh／en）。
+ *   post_download_nudge_view   灰字淡入且進到視野（分母）
+ *   post_download_nudge_click  點了連結
+ * 與 next_step_click 分開：兩者同時出現在下載後，但位置與樣式不同，要能各自比。
+ *
+ * 注意：同一天起，單張浮水印頁 zh／en 不再送 location=post_download 的
+ * waitlist_cta_view / waitlist_cta_click（ja 與批次頁照舊）。那兩個事件在
+ * post_download 的量下滑是改版造成的，不是流量掉了。
+ */
+export function trackPostDownloadNudge(
+  stage: "view" | "click",
+  fromTool: string,
+  toTool: string,
+  lang: string,
+): void {
+  if (typeof gtag !== "undefined") {
+    gtag("event", `post_download_nudge_${stage}`, {
+      from_tool: fromTool,
+      to_tool: toTool,
+      lang,
+    });
+  }
+}
+
+/**
  * 「帶圖跳到另一個工具」按鈕（假門測試，2026-09-30 上線；第一個是浮水印頁 → 馬賽克）。
  * 用來驗證「做 A 的途中想順手做 B」是否夠常見，值不值得把 B 整合進 A 的編輯器。
  *   tool_handoff_view     按鈕進入畫面（分母，每張圖只送一次）
