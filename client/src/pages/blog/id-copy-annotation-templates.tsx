@@ -6,6 +6,7 @@ import { PopularTools } from "@/components/PopularTools";
 import { SiteFooter } from "@/components/SiteFooter";
 import { trackToolEvent } from "@/lib/analytics";
 import { copyText } from "@/lib/copyText";
+import { prefillTextHref } from "@/lib/prefillText";
 import {
   setPageSeo,
   articleSchema,
@@ -282,10 +283,11 @@ function TemplateCard({ item, today }: { item: Template; today: string }) {
           )}
         </button>
         <Link
-          href="/"
+          href={prefillTextHref("/", text)}
+          onClick={() => trackToolEvent("annotation_template_use", item.scene)}
           className="text-sm font-medium text-blue-600 hover:text-blue-700 no-underline"
         >
-          立即加上浮水印 →
+          用這句加浮水印 →
         </Link>
       </div>
     </div>

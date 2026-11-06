@@ -80,8 +80,10 @@
 ## 五、建議的下一步
 
 1. **合併 #25**。合併後單張頁中英文版不再送 `location=post_download` 的 `waitlist_cta_*`，數字下滑是改版造成
-2. **把 id-copy-annotation-templates 的流量接到工具**：它已是第 2 大入口，但範本只能複製文字。
-   每個範本加「用這句加浮水印」按鈕，帶文字直接開浮水印頁（需要浮水印頁支援網址帶入文字），並加事件量測
+2. ✅ **把 id-copy-annotation-templates 的流量接到工具**（#26）：它已是第 2 大入口，但範本原本只能複製文字。
+   現在每張範本的「用這句加浮水印 →」會帶文字開浮水印頁（`/?text=...`，套用後從網址移除）。
+   量測：`annotation_template_use`（tool_name＝場景）→ `watermark_text_prefill` → 既有的 `tool_download_complete`；
+   與 `annotation_template_copy` 比較，看讀者偏好複製還是直接帶入
 3. **讀第四節的數據**，依結論決定：馬賽克整合、批次上限、下一個日文工具
 4. 數據出來前不開新工具，避免在沒有依據的方向投入
 
