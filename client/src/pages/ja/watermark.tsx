@@ -33,6 +33,7 @@ export default function WatermarkJaPage() {
     handleFileSelect,
     updateWatermarkSettings,
     applyWatermark,
+    renderFullPreview,
     downloadImage,
     resetCanvas
   } = useWatermark();
@@ -132,6 +133,7 @@ export default function WatermarkJaPage() {
               canvasRef={canvasRef}
               selectedFile={selectedFile}
               processedImage={processedImage}
+              renderFullPreview={renderFullPreview}
               lang="ja"
             />
           </div>
