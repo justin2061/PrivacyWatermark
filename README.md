@@ -14,10 +14,11 @@ ImageMarker 是一套完全免費、**100% 在瀏覽器本地處理**的圖片�
 | 🛡️ 隱私保護 | 浮水印（九宮格定位、重複模式、斜放排列） | `/` ・ `/en/` |
 | | 批次浮水印 | `/batch` ・ `/en/batch` |
 | | PDF 浮水印 | `/pdf-watermark` ・ `/en/pdf-watermark` |
+| | PDF 加密碼（AES-256，可限制列印／複製／編輯） | `/pdf-encrypt` ・ `/en/pdf-encrypt` |
 | | EXIF 清除 | `/exif-clean` ・ `/en/exif-clean` ・ `/ja/exif-clean` |
 | | 馬賽克／臉部模糊 | `/mosaic` ・ `/en/mosaic` ・ `/ja/mosaic`、`/en/blur-face` |
 | 🖼️ 圖片處理 | 去背（`@imgly/background-removal`，WASM） | `/remove-bg` ・ `/en/remove-bg` |
-| | 壓縮 | `/compress` ・ `/en/compress`（另有 100KB／200KB 落地頁） |
+| | 壓縮 | `/compress` ・ `/en/compress`（另有中英文 `/compress-to-100kb`、`/compress-to-200kb` 落地頁） |
 | | 格式轉換（HEIC／WebP／PNG／SVG／BMP／GIF） | `/convert`、`/convert/<from>-to-<to>` |
 | | 調整尺寸 | `/resize` ・ `/en/resize` |
 | ✂️ 社群創作 | 社群尺寸裁切 | `/social-crop` ・ `/en/social-crop` |
@@ -29,16 +30,19 @@ ImageMarker 是一套完全免費、**100% 在瀏覽器本地處理**的圖片�
 
 - **部落格**：中文 35 篇、英文 30 篇、日文 5 篇（`client/src/pages/**/blog/`）。
 - **PWA**：可安裝到桌面或手機主畫面，行動版有安裝提示列。
-- **功能許願／Pro 候補名單**：使用 Netlify Forms（零後端），送出邏輯在 `client/src/lib/waitlist.ts`。
+- **功能許願**：表單送到 Cloudflare Worker（`workers/feedback/`），資料存 D1 並寄通知信到站長信箱；
+  前端送出邏輯在 `client/src/lib/waitlist.ts`，端點由 build 時的 `VITE_FEEDBACK_ENDPOINT` 提供（沒設時表單無法送出）。
+  部署與查資料的方式見 `workers/feedback/README.md`。Pro 候補名單已移除。
 - **分析**：GA4，事件定義在 `client/src/lib/analytics.ts`；趨勢判讀規則見 `docs/analytics/ga4-trend-reading.md`。
 
 ## 🛠️ 技術棧
 
 - React 18 + TypeScript，路由使用 [wouter](https://github.com/molefrog/wouter)
 - Vite、Tailwind CSS、shadcn/ui（Radix UI）
-- 圖片處理：HTML5 Canvas；PDF 使用 `pdf-lib`；HEIC 使用 `heic2any`
+- 圖片處理：HTML5 Canvas；PDF 浮水印使用 `pdf-lib`，PDF 加密使用 `@cantoo/pdf-lib`（只有該頁動態載入）；HEIC 使用 `heic2any`
 - **預渲染（SSG）**：`scripts/prerender.mjs` 會在 build 後用 Puppeteer 逐一渲染 sitemap 上的所有路由，
-  輸出靜態 HTML，並檢查 canonical 與 hreflang
+  輸出靜態 HTML，並檢查 sitemap 涵蓋、canonical、hreflang，以及 FAQPage schema 的每一題都出現在頁面上
+  （CI 以 `STRICT_SEO_CHECKS=1` 執行，FAQ 不一致會讓 CI 失敗）
 - **路由層級 code splitting**：每個頁面各自一個 chunk；`pdf-lib` 不進首次載入，而是 PDF 浮水印頁載入完成、瀏覽器空閒時才預先下載。
   新增頁面時在 `client/src/routes.tsx` 加一行即可
 - 部署：Netlify（設定見 `netlify.toml`，包含轉址與標頭）
@@ -72,11 +76,14 @@ pnpm build:spa
 PUPPETEER_EXECUTABLE_PATH=/path/to/chrome pnpm prerender
 ```
 
+注意：不要對已經預渲染過的 `dist/` 再跑一次 `pnpm prerender`，首頁的 JSON-LD 會混進其他頁、產生大量假警告。
+每次都先 `pnpm build:spa` 再預渲染。
+
 ## 📁 目錄結構
 
 ```
 client/
-  index.html            # 殼層 HTML（GA4、Netlify Forms 偵測表單）
+  index.html            # 殼層 HTML（GA4）
   public/               # 靜態資源、sitemap、manifest
   src/
     main.tsx            # 進入點：先 preload 目前網址的頁面 chunk 再掛載 React
@@ -89,7 +96,9 @@ client/
 scripts/
   prerender.mjs         # build 後 SSG
   gen-blog-og.mjs       # 產生文章 og:image
-docs/                   # 分析判讀規則、市場研究
+workers/
+  feedback/             # 功能許願表單的 Cloudflare Worker（D1 + 通知信）
+docs/                   # 分析判讀規則、市場研究、規劃
 ```
 
 ## 📄 授權
