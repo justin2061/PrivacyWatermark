@@ -7,6 +7,7 @@ type CtaTool =
   | "watermark"
   | "batch"
   | "pdf-watermark"
+  | "pdf-encrypt"
   | "mosaic"
   | "exif-clean"
   | "compress"
@@ -73,6 +74,23 @@ const PRESETS: Record<CtaTool, CtaPreset> = {
       zh: "免費使用 PDF 浮水印",
       en: "Use PDF watermark free",
       ja: "PDF 透かしを無料で使う",
+    },
+  },
+  "pdf-encrypt": {
+    title: {
+      zh: "PDF 要寄出去？順手設定開啟密碼",
+      en: "Sending a PDF? Add an open password first",
+      ja: "PDF を送る前に、開くためのパスワードを設定",
+    },
+    desc: {
+      zh: "AES-256 加密，檔案與密碼都不上傳，100% 本機處理。",
+      en: "AES-256 encryption — the file and password never leave your browser.",
+      ja: "AES-256 で暗号化。ファイルもパスワードも端末内で処理されます。",
+    },
+    button: {
+      zh: "免費使用 PDF 加密碼",
+      en: "Use PDF password tool free",
+      ja: "PDF パスワードを無料で使う",
     },
   },
   mosaic: {

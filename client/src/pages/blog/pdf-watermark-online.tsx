@@ -572,6 +572,13 @@ export default function PdfWatermarkOnline() {
 
             <InlineCTA tool="exif-clean" position="mid_article" location={SLUG} />
 
+            <p>
+              PDF 要用 Email 或通訊軟體寄出去時，浮水印只能標示用途，擋不住別人打開檔案。如果內容是合約、帳單或含個資的附件，可以在加完浮水印之後，再用
+              <Link href="/pdf-encrypt">PDF 加密碼工具</Link>設定開啟密碼，密碼另外用不同管道告訴對方。
+            </p>
+
+            <InlineCTA tool="pdf-encrypt" position="mid_article" location={SLUG} />
+
             <h2>七、常見問題 FAQ</h2>
 
             <p>

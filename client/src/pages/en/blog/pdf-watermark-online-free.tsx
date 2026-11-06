@@ -712,6 +712,20 @@ export default function PdfWatermarkOnlineFreeEn() {
               lang="en"
             />
 
+            <p>
+              A watermark labels the purpose of a PDF but doesn't stop anyone from
+              opening it. If the file goes out by email or chat, you can also{" "}
+              <Link href="/en/pdf-encrypt">password-protect the PDF</Link> after
+              watermarking, and send the password through a different channel.
+            </p>
+
+            <InlineCTA
+              tool="pdf-encrypt"
+              position="mid_article"
+              location={SLUG}
+              lang="en"
+            />
+
             <h2>8. Frequently asked questions</h2>
 
             <p>

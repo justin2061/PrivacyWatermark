@@ -141,6 +141,7 @@ export default function WatermarkEnPage() {
             <FileUploadZone
               selectedFile={selectedFile}
               onFileSelect={(file) => { if (typeof gtag !== 'undefined') gtag('event', 'upload_image'); trackToolUseStart('watermark'); handleFileSelect(file); }}
+              onRemove={() => { if (typeof gtag !== 'undefined') gtag('event', 'remove_image'); resetCanvas(); }}
               lang="en"
             />
 

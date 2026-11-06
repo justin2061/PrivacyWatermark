@@ -15,6 +15,7 @@ const RECOMMENDATIONS: Record<ToolKey, ToolKey[]> = {
   watermark: ["mosaic", "exif-clean", "compress"],
   batch: ["watermark", "compress", "exif-clean"],
   "pdf-watermark": ["watermark", "compress", "mosaic"],
+  "pdf-encrypt": ["pdf-watermark", "watermark", "exif-clean"],
   mosaic: ["watermark", "exif-clean", "compress"],
   "exif-clean": ["watermark", "compress", "mosaic"],
   compress: ["convert", "resize", "watermark"],
