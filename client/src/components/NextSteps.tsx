@@ -102,9 +102,11 @@ const MOSAIC_FIELDS: NextStep = {
  *
  * 沿革：原本是 Canva／Adobe／Shutterstock 的外部連結（AffiliateNextSteps，
  * 事件 affiliate_click），2026-09 改為全部站內，把完成當下的高意圖流量留在站上。
+ * 2026-10-23 單張浮水印頁改把批次放第一（擠掉壓縮）：剛做完一張、手上還有一堆的人
+ * 找不到已經上線的批次功能，反而跑去候補表單許願要批次。
  */
 const NEXT_STEPS: Record<ToolKey, NextStep[]> = {
-  watermark: [CLEAN_EXIF_BEFORE_SHARING, COMPRESS_FOR_UPLOAD],
+  watermark: [BATCH_THE_REST, CLEAN_EXIF_BEFORE_SHARING],
   batch: [PDF_TOO, MOSAIC_FIELDS],
   "pdf-watermark": [LOCK_THE_PDF, BATCH_THE_REST],
   "pdf-encrypt": [], // 加密是 PDF 流程的最後一步；相關工具已在 ToolRecommendations

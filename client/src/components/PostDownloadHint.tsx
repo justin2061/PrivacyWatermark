@@ -1,12 +1,14 @@
 import { useEffect, useId, useRef, useState } from "react";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { WaitlistForm, WAITLIST_FORM_COPY } from "@/components/WaitlistForm";
+import { Link } from "wouter";
 import {
   DOWNLOAD_COMPLETE_EVENT,
   trackWaitlistCtaView,
   trackWaitlistCtaClick,
+  trackPostDownloadNudge,
 } from "@/lib/analytics";
-import type { Lang } from "@/lib/tools";
+import { TOOLS, toolHref, type Lang, type NavKey } from "@/lib/tools";
 
 /**
  * 這個觸發點的埋點 location，用來與其他位置的 CTA 分開比較轉換率。
@@ -22,10 +24,14 @@ const LOCATION = "post_download";
 /** 下載完成到淡入之間的間隔：讓「檔案存好了」先落地，再出現這行字。 */
 const APPEAR_DELAY_MS = 1000;
 
-interface HintCopy {
-  question: string;
-  link: string;
-}
+/**
+ * 兩種提示：
+ *   waitlist —— 問一句，點了就地展開候補表單（問下一個還沒做的天花板）
+ *   tool     —— 直接連到站上已經有的工具（使用者要的東西其實已經做好了）
+ */
+type HintCopy =
+  | { kind: "waitlist"; question: string; link: string }
+  | { kind: "tool"; question: string; link: string; to: NavKey };
 
 /**
  * 掛這個 CTA 的工具。刻意只開放浮水印與批次浮水印兩種：
@@ -40,14 +46,18 @@ type HintTool = "watermark" | "batch";
  * ja 只有單張浮水印頁，沒有批次頁，因此 batch.ja 留空——查不到就不顯示。
  */
 const COPY: Record<HintTool, Partial<Record<Lang, HintCopy>>> = {
+  // 單張頁原本問「需要批次處理嗎？告訴我們」，等於把已經上線的免費批次功能講成「還沒做」，
+  // 收到的候補許願裡有一批就是在要我們已經有的東西（2026-10 運動攝影師那則）。
+  // 2026-10-23 起 zh/en 改成直接連到批次頁；ja 沒有批次頁，維持候補問句。
+  // 「20」對應 useBatchWatermark 的 MAX_FILES——不直接 import，那支 hook 會把 JSZip 帶進單張頁。
   watermark: {
-    zh: { question: "需要批次處理或 API？", link: "告訴我們" },
-    en: { question: "Need batch processing or API?", link: "Let us know" },
-    ja: { question: "一括処理やAPIが必要ですか？", link: "お知らせください" },
+    zh: { kind: "tool", question: "還有其他照片？", link: "一次批次處理 20 張 →", to: "batch" },
+    en: { kind: "tool", question: "More photos to do?", link: "Batch watermark up to 20 at once →", to: "batch" },
+    ja: { kind: "waitlist", question: "一括処理やAPIが必要ですか？", link: "お知らせください" },
   },
   batch: {
-    zh: { question: "需要 API 串接或更高的張數上限？", link: "告訴我們" },
-    en: { question: "Need API access or higher batch limits?", link: "Let us know" },
+    zh: { kind: "waitlist", question: "需要 API 串接或更高的張數上限？", link: "告訴我們" },
+    en: { kind: "waitlist", question: "Need API access or higher batch limits?", link: "Let us know" },
   },
 };
 
@@ -69,7 +79,8 @@ interface PostDownloadHintProps {
  * 只在桌面版掛載：手機螢幕小，任何多出來的一行都更接近干擾，先不動（沿用全站 768px 斷點）。
  * 也只掛在浮水印與批次浮水印兩種頁面（見 HintTool），文案分工具問下一個天花板。
  *
- * 埋點：waitlist_cta_view / waitlist_cta_click，location 皆為 post_download。
+ * 埋點：waitlist 型送 waitlist_cta_view / waitlist_cta_click（location 皆為 post_download）；
+ * tool 型送 post_download_nudge_view / post_download_nudge_click（見 trackPostDownloadNudge）。
  * 曝光同樣走 IntersectionObserver，與其他位置的曝光定義一致，數字才能直接比。
  */
 export function PostDownloadHint({ tool, lang = "zh", className = "" }: PostDownloadHintProps) {
@@ -115,10 +126,12 @@ export function PostDownloadHint({ tool, lang = "zh", className = "" }: PostDown
     const node = rootRef.current;
     if (!node) return;
 
+    // 連到工具的提示不是候補 CTA，送自己的事件，不灌進 waitlist_cta_view 的分母。
     const fire = () => {
-      if (viewFiredRef.current) return;
+      if (viewFiredRef.current || !c) return;
       viewFiredRef.current = true;
-      trackWaitlistCtaView(tool, LOCATION, lang);
+      if (c.kind === "tool") trackPostDownloadNudge("view", tool, c.to, lang);
+      else trackWaitlistCtaView(tool, LOCATION, lang);
     };
 
     if (typeof IntersectionObserver === "undefined") {
@@ -137,17 +150,32 @@ export function PostDownloadHint({ tool, lang = "zh", className = "" }: PostDown
     );
     observer.observe(node);
     return () => observer.disconnect();
-  }, [mounted, tool, lang]);
+  }, [mounted, tool, lang, c]);
 
   // 手機版暫時不加這個觸發點——連事件監聽都不掛，不會產生 post_download 的曝光數。
   if (isMobile || !c || !mounted) return null;
+
+  const target = c.kind === "tool" ? TOOLS.find((t) => t.key === c.to) : undefined;
 
   return (
     <div
       ref={rootRef}
       className={`animate-fade-in motion-reduce:animate-none ${className}`}
     >
-      {done ? (
+      {c.kind === "tool" ? (
+        target && (
+          <p className="text-xs leading-relaxed text-gray-500">
+            {c.question}{" "}
+            <Link
+              href={toolHref(target, lang)}
+              onClick={() => trackPostDownloadNudge("click", tool, c.to, lang)}
+              className="underline underline-offset-2 transition-colors hover:text-gray-700"
+            >
+              {c.link}
+            </Link>
+          </p>
+        )
+      ) : done ? (
         <p className="text-xs leading-relaxed text-gray-500">
           {t.doneTitle} {t.doneBody}
         </p>
