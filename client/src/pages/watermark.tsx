@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "wouter";
 import { ReadMoreArrow } from "@/components/read-more-arrow";
 import { Card } from "@/components/ui/card";
@@ -18,7 +18,8 @@ import { PostDownloadHint } from "@/components/PostDownloadHint";
 import { BotBlockNotice } from "@/components/ProtectionNotice";
 import { detectProtection } from "@/lib/protection";
 import { useWatermark } from "@/hooks/useWatermark";
-import { trackToolUseStart, trackDownloadComplete, trackWatermarkLayoutMode } from "@/lib/analytics";
+import { trackToolUseStart, trackDownloadComplete, trackWatermarkLayoutMode, trackToolEvent } from "@/lib/analytics";
+import { readPrefillText } from "@/lib/prefillText";
 import { setPageSeo, webAppSchema, faqSchema, localeAlternates } from "@/lib/seo";
 import { Lock, Zap, Eraser, Loader2 } from "lucide-react";
 
@@ -61,6 +62,20 @@ export default function WatermarkPage() {
 
   // 機器人／無頭瀏覽器：不載入互動工具元件，改顯示封鎖提示（prerender 不受影響）
   const { isBot: blocked } = detectProtection();
+
+  // 從簽註範本文章帶入文字（/?text=...）。只套用文字、不碰其他設定；套用後把參數
+  // 從網址拿掉，重新整理或分享網址時不會一直帶著範本，也避免產生帶參數的重複網址。
+  const [prefilledText, setPrefilledText] = useState<string | null>(null);
+  useEffect(() => {
+    const text = readPrefillText(window.location.search);
+    if (!text) return;
+    updateWatermarkSettings({ text, textEnabled: true, mode: 'text' });
+    setPrefilledText(text);
+    trackToolEvent('watermark_text_prefill', 'watermark');
+    const url = new URL(window.location.href);
+    url.searchParams.delete('text');
+    window.history.replaceState(window.history.state, '', url.pathname + url.search + url.hash);
+  }, [updateWatermarkSettings]);
 
   useEffect(() => {
     return setPageSeo({
@@ -165,6 +180,12 @@ export default function WatermarkPage() {
               onFileSelect={(file) => { if (typeof gtag !== 'undefined') gtag('event', 'upload_image'); trackToolUseStart('watermark'); handleFileSelect(file); }}
               onRemove={() => { if (typeof gtag !== 'undefined') gtag('event', 'remove_image'); resetCanvas(); }}
             />
+
+            {prefilledText && (
+              <p className="text-sm text-blue-900 bg-blue-50 border border-blue-200 rounded-md px-3 py-2">
+                已帶入範本文字「{prefilledText}」，上傳證件後就會套用。記得把「○○」改成實際的對象。
+              </p>
+            )}
 
             {/* 證件類型自動識別（身分證 vs 護照）：依比例建議，使用者確認後套用對應範本 */}
             <DocTypeSuggestion
