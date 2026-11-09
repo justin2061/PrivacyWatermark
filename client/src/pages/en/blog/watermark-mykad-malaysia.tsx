@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { Link } from "wouter";
 import { ReadMoreArrow } from "@/components/read-more-arrow";
 import { InlineCTA } from "@/components/InlineCTA";
+import { trackInlineCta } from "@/lib/analytics";
 import { SiteFooter } from "@/components/SiteFooter";
 import {
   setPageSeo,
@@ -295,12 +296,15 @@ export default function WatermarkMyKadMalaysiaEn() {
             <ol>
               <li>
                 <strong>
-                  Open{" "}
-                  <Link href="/en/" className="text-primary hover:underline">
-                    imagemarker.app/en/
+                  <Link
+                    href="/en/"
+                    onClick={() => trackInlineCta("watermark", "mid_article", SLUG)}
+                    className="text-primary hover:underline"
+                  >
+                    Add a watermark to your MyKad copy
                   </Link>
-                </strong>{" "}
-                on your phone or laptop. No install, no account.
+                </strong>
+                . The tool opens in your browser. No install, no account.
               </li>
               <li>
                 <strong>Add the photo or scan of your MyKad.</strong> It stays on
@@ -322,7 +326,9 @@ export default function WatermarkMyKadMalaysiaEn() {
                 underneath stay readable.
               </li>
               <li>
-                <strong>Check before you send.</strong> Zoom in. If the officer
+                <strong>Apply the watermark and check the preview.</strong> Confirm
+                the placement and make sure the required details are readable before
+                choosing Download Image. If the officer
                 cannot read a field they need, you will be asked to redo it and
                 the whole exercise costs you time instead of saving it.
               </li>

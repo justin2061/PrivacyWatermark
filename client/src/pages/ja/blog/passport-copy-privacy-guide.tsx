@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { Link } from "wouter";
 import { ReadMoreArrow } from "@/components/read-more-arrow";
 import { InlineCTA } from "@/components/InlineCTA";
+import { trackInlineCta } from "@/lib/analytics";
 import { PopularTools } from "@/components/PopularTools";
 import { SiteFooter } from "@/components/SiteFooter";
 import {
@@ -217,9 +218,11 @@ export default function JaPassportCopyPrivacyGuide() {
 
             <h3>ステップ1：ツールを開く</h3>
             <p>
-              スマホでもパソコンでも構いません。ブラウザで{" "}
-              <Link href="/ja/">imagemarker.app/ja/</Link>{" "}
-              を開きます。インストールも会員登録も不要です。
+              スマホやパソコンのブラウザで、{" "}
+              <Link href="/ja/" onClick={() => trackInlineCta("watermark", "mid_article", SLUG)}>
+                パスポートのコピーに透かしを入れる
+              </Link>
+              。インストールも会員登録も不要です。
             </p>
 
             <h3>ステップ2：画像を選んで文字を入力する</h3>
@@ -233,7 +236,7 @@ export default function JaPassportCopyPrivacyGuide() {
 
             <h3>ステップ3：ダウンロードして送る</h3>
             <p>
-              保存して、原本ではなく透かし入りのほうを送ります。ここで一つ注意点があります。パスポートのような書類を、
+              「透かしを適用」を選び、プレビューで透かしの位置と券面の読みやすさを確認します。「画像をダウンロード」で透かし入りのコピーを保存し、提出にはそのコピーを使います。ここで一つ注意点があります。パスポートのような書類を、
               <strong>画像をサーバーへ送信するタイプのオンライン加工ツールで処理するのは避けてください</strong>
               。守るための作業が、それ自体で新しい流出経路になってしまいます。見分け方は簡単で、機内モードにしてから加工してみることです。オフラインのまま最後まで完了するなら、端末内で処理されている証拠です。
             </p>

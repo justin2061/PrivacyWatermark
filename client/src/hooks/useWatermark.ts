@@ -88,7 +88,8 @@ export function useWatermark() {
           const dataUrl = await processor.current.applyWatermark(
             img, 
             canvasRef.current!, 
-            watermarkSettings
+            watermarkSettings,
+            selectedFile.type
           );
           
           setProgress(75);
@@ -109,19 +110,22 @@ export function useWatermark() {
   // 全螢幕檢視用：以原圖解析度、目前設定渲染一張（與下載成品同一條管線），
   // 不改動 processedImage 狀態。預覽 canvas 上限 600×400，放大看會糊。
   const renderFullPreview = useCallback(async (): Promise<string | null> => {
-    if (!imageRef.current) return null;
+    if (!imageRef.current || !selectedFile) return null;
     const canvas = document.createElement('canvas');
-    return processor.current.applyWatermark(imageRef.current, canvas, watermarkSettings);
-  }, [watermarkSettings]);
+    return processor.current.applyWatermark(imageRef.current, canvas, watermarkSettings, selectedFile.type);
+  }, [selectedFile, watermarkSettings]);
 
   const downloadImage = useCallback(() => {
-    if (!processedImage || !selectedFile) return;
+    if (!processedImage?.startsWith('data:image/') || !selectedFile) return;
 
     // Create download link with proper filename
     const link = document.createElement('a');
     const originalName = selectedFile.name;
-    const nameWithoutExt = originalName.substring(0, originalName.lastIndexOf('.'));
-    const ext = originalName.substring(originalName.lastIndexOf('.'));
+    const nameWithoutExt = originalName.replace(/\.[^.]+$/, '') || originalName;
+    const originalExt = originalName.slice(nameWithoutExt.length);
+    const ext = processedImage.startsWith('data:image/png;')
+      ? (/^\.png$/i.test(originalExt) ? originalExt : '.png')
+      : (/^\.jpe?g$/i.test(originalExt) ? originalExt : '.jpg');
     
     link.download = `${nameWithoutExt}_浮水印${ext}`;
     link.href = processedImage;

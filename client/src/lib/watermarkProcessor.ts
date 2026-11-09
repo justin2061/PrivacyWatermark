@@ -46,7 +46,8 @@ export class WatermarkProcessor {
   async applyWatermark(
     img: HTMLImageElement,
     canvas: HTMLCanvasElement,
-    settings: WatermarkSettings
+    settings: WatermarkSettings,
+    sourceType: string
   ): Promise<string> {
     // Create a new canvas with original image dimensions for final processing
     const processingCanvas = document.createElement('canvas');
@@ -71,7 +72,7 @@ export class WatermarkProcessor {
     }
 
     // Return high-quality data URL - preserve original format when possible
-    const originalFormat = img.src.toLowerCase().includes('.png') ? 'image/png' : 'image/jpeg';
+    const originalFormat = sourceType === 'image/png' ? 'image/png' : 'image/jpeg';
     const quality = originalFormat === 'image/jpeg' ? 0.95 : undefined; // PNG doesn't use quality parameter
     return processingCanvas.toDataURL(originalFormat, quality);
   }

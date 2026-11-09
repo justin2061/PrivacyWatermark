@@ -193,7 +193,8 @@ export function useBatchWatermark(lang: Lang = "zh") {
       const dataUrl = await processor.current.applyWatermark(
         images[i].img,
         scratch,
-        watermarkSettings
+        watermarkSettings,
+        images[i].file.type
       );
       results[images[i].id] = dataUrl;
       setProcessedCount(i + 1);

@@ -94,7 +94,7 @@ export default function MosaicEnPage() {
         {!m.selectedFile ? (
           <Card className="p-6 max-w-2xl mx-auto">
             <h1 className="text-xl font-semibold text-gray-900 mb-4 text-center">
-              Image Mosaic / Blur Tool
+              Blur or pixelate part of a photo
             </h1>
             <UploadZone
               accept={ACCEPTED}
@@ -108,7 +108,7 @@ export default function MosaicEnPage() {
               padding="p-10"
             />
             <p className="text-sm text-gray-500 mt-4 text-center">
-              After uploading, drag on the image to mosaic or blur faces, license plates and IDs. Everything runs in your browser.
+              Select an image, then drag over the area you want to cover. Choose pixelation, blur, or a solid box. Check the preview before downloading your edited image. Everything runs in your browser.
             </p>
           </Card>
         ) : (
